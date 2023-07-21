@@ -12,9 +12,10 @@ import * as gongtable from 'gongtable'
 export class AppComponent implements OnInit {
 
   default = 'Gongtable Data/Model'
-  view = this.default
+  specific = 'Gongtable'
+  view = this.specific
 
-  views: string[] = [this.default];
+  views: string[] = [this.specific, this.default];
 
   DataStack = "gongtable"
   ModelStacks = "github.com/fullstack-lang/gongtable/go/models"
