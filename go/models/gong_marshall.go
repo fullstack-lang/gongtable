@@ -110,6 +110,102 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 	_ = setValueField 
 
 	// insertion initialization of objects to stage
+	map_Cell_Identifiers := make(map[*Cell]string)
+	_ = map_Cell_Identifiers
+
+	cellOrdered := []*Cell{}
+	for cell := range stage.Cells {
+		cellOrdered = append(cellOrdered, cell)
+	}
+	sort.Slice(cellOrdered[:], func(i, j int) bool {
+		return cellOrdered[i].Name < cellOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of Cell"
+	for idx, cell := range cellOrdered {
+
+		id = generatesIdentifier("Cell", idx, cell.Name)
+		map_Cell_Identifiers[cell] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "Cell")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", cell.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// Cell values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(cell.Name))
+		initializerStatements += setValueField
+
+	}
+
+	map_CellString_Identifiers := make(map[*CellString]string)
+	_ = map_CellString_Identifiers
+
+	cellstringOrdered := []*CellString{}
+	for cellstring := range stage.CellStrings {
+		cellstringOrdered = append(cellstringOrdered, cellstring)
+	}
+	sort.Slice(cellstringOrdered[:], func(i, j int) bool {
+		return cellstringOrdered[i].Name < cellstringOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of CellString"
+	for idx, cellstring := range cellstringOrdered {
+
+		id = generatesIdentifier("CellString", idx, cellstring.Name)
+		map_CellString_Identifiers[cellstring] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "CellString")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", cellstring.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// CellString values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(cellstring.Name))
+		initializerStatements += setValueField
+
+	}
+
+	map_Row_Identifiers := make(map[*Row]string)
+	_ = map_Row_Identifiers
+
+	rowOrdered := []*Row{}
+	for row := range stage.Rows {
+		rowOrdered = append(rowOrdered, row)
+	}
+	sort.Slice(rowOrdered[:], func(i, j int) bool {
+		return rowOrdered[i].Name < rowOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of Row"
+	for idx, row := range rowOrdered {
+
+		id = generatesIdentifier("Row", idx, row.Name)
+		map_Row_Identifiers[row] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "Row")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", row.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// Row values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(row.Name))
+		initializerStatements += setValueField
+
+	}
+
 	map_Table_Identifiers := make(map[*Table]string)
 	_ = map_Table_Identifiers
 
@@ -143,6 +239,52 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 	}
 
 	// insertion initialization of objects to stage
+	for idx, cell := range cellOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("Cell", idx, cell.Name)
+		map_Cell_Identifiers[cell] = id
+
+		// Initialisation of values
+		if cell.CellString != nil {
+			setPointerField = PointerFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "CellString")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_CellString_Identifiers[cell.CellString])
+			pointersInitializesStatements += setPointerField
+		}
+
+	}
+
+	for idx, cellstring := range cellstringOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("CellString", idx, cellstring.Name)
+		map_CellString_Identifiers[cellstring] = id
+
+		// Initialisation of values
+	}
+
+	for idx, row := range rowOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("Row", idx, row.Name)
+		map_Row_Identifiers[row] = id
+
+		// Initialisation of values
+		for _, _cell := range row.Cells {
+			setPointerField = SliceOfPointersFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "Cells")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_Cell_Identifiers[_cell])
+			pointersInitializesStatements += setPointerField
+		}
+
+	}
+
 	for idx, table := range tableOrdered {
 		var setPointerField string
 		_ = setPointerField
@@ -151,6 +293,14 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 		map_Table_Identifiers[table] = id
 
 		// Initialisation of values
+		for _, _row := range table.Rows {
+			setPointerField = SliceOfPointersFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "Rows")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_Row_Identifiers[_row])
+			pointersInitializesStatements += setPointerField
+		}
+
 	}
 
 	res = strings.ReplaceAll(res, "{{Identifiers}}", identifiersDecl)

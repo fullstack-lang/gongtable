@@ -303,6 +303,9 @@ func ParseAstFileFromAst(stage *StageStruct, inFile *ast.File, fset *token.FileS
 var __gong__map_Indentifiers_gongstructName = make(map[string]string)
 
 // insertion point for identifiers maps
+var __gong__map_Cell = make(map[string]*Cell)
+var __gong__map_CellString = make(map[string]*CellString)
+var __gong__map_Row = make(map[string]*Row)
 var __gong__map_Table = make(map[string]*Table)
 
 // Parser needs to be configured for having the [Name1.Name2] or [pkg.Name1] ...
@@ -476,6 +479,18 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 									// this is the place where an instance is created
 									switch gongstructName {
 									// insertion point for identifiers
+									case "Cell":
+										instanceCell := (&Cell{Name: instanceName}).Stage(stage)
+										instance = any(instanceCell)
+										__gong__map_Cell[identifier] = instanceCell
+									case "CellString":
+										instanceCellString := (&CellString{Name: instanceName}).Stage(stage)
+										instance = any(instanceCellString)
+										__gong__map_CellString[identifier] = instanceCellString
+									case "Row":
+										instanceRow := (&Row{Name: instanceName}).Stage(stage)
+										instance = any(instanceRow)
+										__gong__map_Row[identifier] = instanceRow
 									case "Table":
 										instanceTable := (&Table{Name: instanceName}).Stage(stage)
 										instance = any(instanceTable)
@@ -516,6 +531,18 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 						}
 						switch gongstructName {
 						// insertion point for basic lit assignments
+						case "Cell":
+							switch fieldName {
+							// insertion point for date assign code
+							}
+						case "CellString":
+							switch fieldName {
+							// insertion point for date assign code
+							}
+						case "Row":
+							switch fieldName {
+							// insertion point for date assign code
+							}
 						case "Table":
 							switch fieldName {
 							// insertion point for date assign code
@@ -545,9 +572,33 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					}
 					switch gongstructName {
 					// insertion point for slice of pointers assignments
+					case "Cell":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						}
+					case "CellString":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						}
+					case "Row":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						case "Cells":
+							// remove first and last char
+							targetIdentifier := ident.Name
+							target := __gong__map_Cell[targetIdentifier]
+							__gong__map_Row[identifier].Cells =
+								append(__gong__map_Row[identifier].Cells, target)
+						}
 					case "Table":
 						switch fieldName {
 						// insertion point for slice of pointers assign code
+						case "Rows":
+							// remove first and last char
+							targetIdentifier := ident.Name
+							target := __gong__map_Row[targetIdentifier]
+							__gong__map_Table[identifier].Rows =
+								append(__gong__map_Table[identifier].Rows, target)
 						}
 					}
 				case *ast.SelectorExpr:
@@ -598,6 +649,30 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 
 			switch gongstructName {
 			// insertion point for basic lit assignments
+			case "Cell":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_Cell[identifier].Name = fielValue
+				}
+			case "CellString":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_CellString[identifier].Name = fielValue
+				}
+			case "Row":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_Row[identifier].Name = fielValue
+				}
 			case "Table":
 				switch fieldName {
 				// insertion point for field dependant code
@@ -620,6 +695,21 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 			}
 			switch gongstructName {
 			// insertion point for bool & pointers assignments
+			case "Cell":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "CellString":
+					targetIdentifier := ident.Name
+					__gong__map_Cell[identifier].CellString = __gong__map_CellString[targetIdentifier]
+				}
+			case "CellString":
+				switch fieldName {
+				// insertion point for field dependant code
+				}
+			case "Row":
+				switch fieldName {
+				// insertion point for field dependant code
+				}
 			case "Table":
 				switch fieldName {
 				// insertion point for field dependant code
@@ -652,6 +742,18 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				_ = enumValue
 				switch gongstructName {
 				// insertion point for enums assignments
+				case "Cell":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "CellString":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "Row":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
 				case "Table":
 					switch fieldName {
 					// insertion point for enum assign code

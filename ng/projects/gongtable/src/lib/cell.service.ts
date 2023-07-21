@@ -11,20 +11,22 @@ import { BehaviorSubject } from 'rxjs';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { TableDB } from './table-db';
+import { CellDB } from './cell-db';
 
 // insertion point for imports
+import { CellStringDB } from './cellstring-db'
+import { RowDB } from './row-db'
 
 @Injectable({
   providedIn: 'root'
 })
-export class TableService {
+export class CellService {
 
   // Kamar Raïmo: Adding a way to communicate between components that share information
   // so that they are notified of a change.
-  TableServiceChanged: BehaviorSubject<string> = new BehaviorSubject("");
+  CellServiceChanged: BehaviorSubject<string> = new BehaviorSubject("");
 
-  private tablesUrl: string
+  private cellsUrl: string
 
   constructor(
     private http: HttpClient,
@@ -38,39 +40,41 @@ export class TableService {
     origin = origin.replace("4200", "8080")
 
     // compute path to the service
-    this.tablesUrl = origin + '/api/github.com/fullstack-lang/gongtable/go/v1/tables';
+    this.cellsUrl = origin + '/api/github.com/fullstack-lang/gongtable/go/v1/cells';
   }
 
-  /** GET tables from the server */
-  getTables(GONG__StackPath: string): Observable<TableDB[]> {
+  /** GET cells from the server */
+  getCells(GONG__StackPath: string): Observable<CellDB[]> {
 
     let params = new HttpParams().set("GONG__StackPath", GONG__StackPath)
 
-    return this.http.get<TableDB[]>(this.tablesUrl, { params: params })
+    return this.http.get<CellDB[]>(this.cellsUrl, { params: params })
       .pipe(
         tap(),
-		// tap(_ => this.log('fetched tables')),
-        catchError(this.handleError<TableDB[]>('getTables', []))
+		// tap(_ => this.log('fetched cells')),
+        catchError(this.handleError<CellDB[]>('getCells', []))
       );
   }
 
-  /** GET table by id. Will 404 if id not found */
-  getTable(id: number, GONG__StackPath: string): Observable<TableDB> {
+  /** GET cell by id. Will 404 if id not found */
+  getCell(id: number, GONG__StackPath: string): Observable<CellDB> {
 
     let params = new HttpParams().set("GONG__StackPath", GONG__StackPath)
 
-    const url = `${this.tablesUrl}/${id}`;
-    return this.http.get<TableDB>(url, { params: params }).pipe(
-      // tap(_ => this.log(`fetched table id=${id}`)),
-      catchError(this.handleError<TableDB>(`getTable id=${id}`))
+    const url = `${this.cellsUrl}/${id}`;
+    return this.http.get<CellDB>(url, { params: params }).pipe(
+      // tap(_ => this.log(`fetched cell id=${id}`)),
+      catchError(this.handleError<CellDB>(`getCell id=${id}`))
     );
   }
 
-  /** POST: add a new table to the server */
-  postTable(tabledb: TableDB, GONG__StackPath: string): Observable<TableDB> {
+  /** POST: add a new cell to the server */
+  postCell(celldb: CellDB, GONG__StackPath: string): Observable<CellDB> {
 
     // insertion point for reset of pointers and reverse pointers (to avoid circular JSON)
-    tabledb.Rows = []
+    celldb.CellString = new CellStringDB
+    let _Row_Cells_reverse = celldb.Row_Cells_reverse
+    celldb.Row_Cells_reverse = new RowDB
 
     let params = new HttpParams().set("GONG__StackPath", GONG__StackPath)
     let httpOptions = {
@@ -78,19 +82,20 @@ export class TableService {
       params: params
     }
 
-    return this.http.post<TableDB>(this.tablesUrl, tabledb, httpOptions).pipe(
+    return this.http.post<CellDB>(this.cellsUrl, celldb, httpOptions).pipe(
       tap(_ => {
         // insertion point for restoration of reverse pointers
-        // this.log(`posted tabledb id=${tabledb.ID}`)
+        celldb.Row_Cells_reverse = _Row_Cells_reverse
+        // this.log(`posted celldb id=${celldb.ID}`)
       }),
-      catchError(this.handleError<TableDB>('postTable'))
+      catchError(this.handleError<CellDB>('postCell'))
     );
   }
 
-  /** DELETE: delete the tabledb from the server */
-  deleteTable(tabledb: TableDB | number, GONG__StackPath: string): Observable<TableDB> {
-    const id = typeof tabledb === 'number' ? tabledb : tabledb.ID;
-    const url = `${this.tablesUrl}/${id}`;
+  /** DELETE: delete the celldb from the server */
+  deleteCell(celldb: CellDB | number, GONG__StackPath: string): Observable<CellDB> {
+    const id = typeof celldb === 'number' ? celldb : celldb.ID;
+    const url = `${this.cellsUrl}/${id}`;
 
     let params = new HttpParams().set("GONG__StackPath", GONG__StackPath)
     let httpOptions = {
@@ -98,19 +103,21 @@ export class TableService {
       params: params
     };
 
-    return this.http.delete<TableDB>(url, httpOptions).pipe(
-      tap(_ => this.log(`deleted tabledb id=${id}`)),
-      catchError(this.handleError<TableDB>('deleteTable'))
+    return this.http.delete<CellDB>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted celldb id=${id}`)),
+      catchError(this.handleError<CellDB>('deleteCell'))
     );
   }
 
-  /** PUT: update the tabledb on the server */
-  updateTable(tabledb: TableDB, GONG__StackPath: string): Observable<TableDB> {
-    const id = typeof tabledb === 'number' ? tabledb : tabledb.ID;
-    const url = `${this.tablesUrl}/${id}`;
+  /** PUT: update the celldb on the server */
+  updateCell(celldb: CellDB, GONG__StackPath: string): Observable<CellDB> {
+    const id = typeof celldb === 'number' ? celldb : celldb.ID;
+    const url = `${this.cellsUrl}/${id}`;
 
     // insertion point for reset of pointers and reverse pointers (to avoid circular JSON)
-    tabledb.Rows = []
+    celldb.CellString = new CellStringDB
+    let _Row_Cells_reverse = celldb.Row_Cells_reverse
+    celldb.Row_Cells_reverse = new RowDB
 
     let params = new HttpParams().set("GONG__StackPath", GONG__StackPath)
     let httpOptions = {
@@ -118,12 +125,13 @@ export class TableService {
       params: params
     };
 
-    return this.http.put<TableDB>(url, tabledb, httpOptions).pipe(
+    return this.http.put<CellDB>(url, celldb, httpOptions).pipe(
       tap(_ => {
         // insertion point for restoration of reverse pointers
-        // this.log(`updated tabledb id=${tabledb.ID}`)
+        celldb.Row_Cells_reverse = _Row_Cells_reverse
+        // this.log(`updated celldb id=${celldb.ID}`)
       }),
-      catchError(this.handleError<TableDB>('updateTable'))
+      catchError(this.handleError<CellDB>('updateCell'))
     );
   }
 
@@ -133,11 +141,11 @@ export class TableService {
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-  private handleError<T>(operation = 'operation in TableService', result?: T) {
+  private handleError<T>(operation = 'operation in CellService', result?: T) {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure
-      console.error("TableService" + error); // log to console instead
+      console.error("CellService" + error); // log to console instead
 
       // TODO: better job of transforming error for user consumption
       this.log(`${operation} failed: ${error.message}`);

@@ -39,6 +39,18 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { GongstructSelectionService } from './gongstruct-selection.service'
 
 // insertion point for imports 
+import { CellsTableComponent } from './cells-table/cells-table.component'
+import { CellSortingComponent } from './cell-sorting/cell-sorting.component'
+import { CellDetailComponent } from './cell-detail/cell-detail.component'
+
+import { CellStringsTableComponent } from './cellstrings-table/cellstrings-table.component'
+import { CellStringSortingComponent } from './cellstring-sorting/cellstring-sorting.component'
+import { CellStringDetailComponent } from './cellstring-detail/cellstring-detail.component'
+
+import { RowsTableComponent } from './rows-table/rows-table.component'
+import { RowSortingComponent } from './row-sorting/row-sorting.component'
+import { RowDetailComponent } from './row-detail/row-detail.component'
+
 import { TablesTableComponent } from './tables-table/tables-table.component'
 import { TableSortingComponent } from './table-sorting/table-sorting.component'
 import { TableDetailComponent } from './table-detail/table-detail.component'
@@ -47,6 +59,18 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 @NgModule({
 	declarations: [
 		// insertion point for declarations 
+		CellsTableComponent,
+		CellSortingComponent,
+		CellDetailComponent,
+
+		CellStringsTableComponent,
+		CellStringSortingComponent,
+		CellStringDetailComponent,
+
+		RowsTableComponent,
+		RowSortingComponent,
+		RowDetailComponent,
+
 		TablesTableComponent,
 		TableSortingComponent,
 		TableDetailComponent,
@@ -90,6 +114,18 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 	],
 	exports: [
 		// insertion point for declarations 
+		CellsTableComponent,
+		CellSortingComponent,
+		CellDetailComponent,
+
+		CellStringsTableComponent,
+		CellStringSortingComponent,
+		CellStringDetailComponent,
+
+		RowsTableComponent,
+		RowSortingComponent,
+		RowDetailComponent,
+
 		TablesTableComponent,
 		TableSortingComponent,
 		TableDetailComponent,

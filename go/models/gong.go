@@ -30,6 +30,30 @@ type GongStructInterface interface {
 // StageStruct enables storage of staged instances
 // swagger:ignore
 type StageStruct struct { // insertion point for definition of arrays registering instances
+	Cells           map[*Cell]any
+	Cells_mapString map[string]*Cell
+
+	OnAfterCellCreateCallback OnAfterCreateInterface[Cell]
+	OnAfterCellUpdateCallback OnAfterUpdateInterface[Cell]
+	OnAfterCellDeleteCallback OnAfterDeleteInterface[Cell]
+	OnAfterCellReadCallback   OnAfterReadInterface[Cell]
+
+	CellStrings           map[*CellString]any
+	CellStrings_mapString map[string]*CellString
+
+	OnAfterCellStringCreateCallback OnAfterCreateInterface[CellString]
+	OnAfterCellStringUpdateCallback OnAfterUpdateInterface[CellString]
+	OnAfterCellStringDeleteCallback OnAfterDeleteInterface[CellString]
+	OnAfterCellStringReadCallback   OnAfterReadInterface[CellString]
+
+	Rows           map[*Row]any
+	Rows_mapString map[string]*Row
+
+	OnAfterRowCreateCallback OnAfterCreateInterface[Row]
+	OnAfterRowUpdateCallback OnAfterUpdateInterface[Row]
+	OnAfterRowDeleteCallback OnAfterDeleteInterface[Row]
+	OnAfterRowReadCallback   OnAfterReadInterface[Row]
+
 	Tables           map[*Table]any
 	Tables_mapString map[string]*Table
 
@@ -102,6 +126,12 @@ type BackRepoInterface interface {
 	BackupXL(stage *StageStruct, dirPath string)
 	RestoreXL(stage *StageStruct, dirPath string)
 	// insertion point for Commit and Checkout signatures
+	CommitCell(cell *Cell)
+	CheckoutCell(cell *Cell)
+	CommitCellString(cellstring *CellString)
+	CheckoutCellString(cellstring *CellString)
+	CommitRow(row *Row)
+	CheckoutRow(row *Row)
 	CommitTable(table *Table)
 	CheckoutTable(table *Table)
 	GetLastCommitFromBackNb() uint
@@ -122,6 +152,15 @@ func GetDefaultStage() *StageStruct {
 func NewStage() (stage *StageStruct) {
 
 	stage = &StageStruct{ // insertion point for array initiatialisation
+		Cells:           make(map[*Cell]any),
+		Cells_mapString: make(map[string]*Cell),
+
+		CellStrings:           make(map[*CellString]any),
+		CellStrings_mapString: make(map[string]*CellString),
+
+		Rows:           make(map[*Row]any),
+		Rows_mapString: make(map[string]*Row),
+
 		Tables:           make(map[*Table]any),
 		Tables_mapString: make(map[string]*Table),
 
@@ -150,6 +189,9 @@ func (stage *StageStruct) Commit() {
 	}
 
 	// insertion point for computing the map of number of instances per gongstruct
+	stage.Map_GongStructName_InstancesNb["Cell"] = len(stage.Cells)
+	stage.Map_GongStructName_InstancesNb["CellString"] = len(stage.CellStrings)
+	stage.Map_GongStructName_InstancesNb["Row"] = len(stage.Rows)
 	stage.Map_GongStructName_InstancesNb["Table"] = len(stage.Tables)
 
 }
@@ -160,6 +202,9 @@ func (stage *StageStruct) Checkout() {
 	}
 
 	// insertion point for computing the map of number of instances per gongstruct
+	stage.Map_GongStructName_InstancesNb["Cell"] = len(stage.Cells)
+	stage.Map_GongStructName_InstancesNb["CellString"] = len(stage.CellStrings)
+	stage.Map_GongStructName_InstancesNb["Row"] = len(stage.Rows)
 	stage.Map_GongStructName_InstancesNb["Table"] = len(stage.Tables)
 
 }
@@ -193,6 +238,126 @@ func (stage *StageStruct) RestoreXL(dirPath string) {
 }
 
 // insertion point for cumulative sub template with model space calls
+// Stage puts cell to the model stage
+func (cell *Cell) Stage(stage *StageStruct) *Cell {
+	stage.Cells[cell] = __member
+	stage.Cells_mapString[cell.Name] = cell
+
+	return cell
+}
+
+// Unstage removes cell off the model stage
+func (cell *Cell) Unstage(stage *StageStruct) *Cell {
+	delete(stage.Cells, cell)
+	delete(stage.Cells_mapString, cell.Name)
+	return cell
+}
+
+// commit cell to the back repo (if it is already staged)
+func (cell *Cell) Commit(stage *StageStruct) *Cell {
+	if _, ok := stage.Cells[cell]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitCell(cell)
+		}
+	}
+	return cell
+}
+
+// Checkout cell to the back repo (if it is already staged)
+func (cell *Cell) Checkout(stage *StageStruct) *Cell {
+	if _, ok := stage.Cells[cell]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutCell(cell)
+		}
+	}
+	return cell
+}
+
+// for satisfaction of GongStruct interface
+func (cell *Cell) GetName() (res string) {
+	return cell.Name
+}
+
+// Stage puts cellstring to the model stage
+func (cellstring *CellString) Stage(stage *StageStruct) *CellString {
+	stage.CellStrings[cellstring] = __member
+	stage.CellStrings_mapString[cellstring.Name] = cellstring
+
+	return cellstring
+}
+
+// Unstage removes cellstring off the model stage
+func (cellstring *CellString) Unstage(stage *StageStruct) *CellString {
+	delete(stage.CellStrings, cellstring)
+	delete(stage.CellStrings_mapString, cellstring.Name)
+	return cellstring
+}
+
+// commit cellstring to the back repo (if it is already staged)
+func (cellstring *CellString) Commit(stage *StageStruct) *CellString {
+	if _, ok := stage.CellStrings[cellstring]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitCellString(cellstring)
+		}
+	}
+	return cellstring
+}
+
+// Checkout cellstring to the back repo (if it is already staged)
+func (cellstring *CellString) Checkout(stage *StageStruct) *CellString {
+	if _, ok := stage.CellStrings[cellstring]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutCellString(cellstring)
+		}
+	}
+	return cellstring
+}
+
+// for satisfaction of GongStruct interface
+func (cellstring *CellString) GetName() (res string) {
+	return cellstring.Name
+}
+
+// Stage puts row to the model stage
+func (row *Row) Stage(stage *StageStruct) *Row {
+	stage.Rows[row] = __member
+	stage.Rows_mapString[row.Name] = row
+
+	return row
+}
+
+// Unstage removes row off the model stage
+func (row *Row) Unstage(stage *StageStruct) *Row {
+	delete(stage.Rows, row)
+	delete(stage.Rows_mapString, row.Name)
+	return row
+}
+
+// commit row to the back repo (if it is already staged)
+func (row *Row) Commit(stage *StageStruct) *Row {
+	if _, ok := stage.Rows[row]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitRow(row)
+		}
+	}
+	return row
+}
+
+// Checkout row to the back repo (if it is already staged)
+func (row *Row) Checkout(stage *StageStruct) *Row {
+	if _, ok := stage.Rows[row]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutRow(row)
+		}
+	}
+	return row
+}
+
+// for satisfaction of GongStruct interface
+func (row *Row) GetName() (res string) {
+	return row.Name
+}
+
 // Stage puts table to the model stage
 func (table *Table) Stage(stage *StageStruct) *Table {
 	stage.Tables[table] = __member
@@ -235,26 +400,62 @@ func (table *Table) GetName() (res string) {
 
 // swagger:ignore
 type AllModelsStructCreateInterface interface { // insertion point for Callbacks on creation
+	CreateORMCell(Cell *Cell)
+	CreateORMCellString(CellString *CellString)
+	CreateORMRow(Row *Row)
 	CreateORMTable(Table *Table)
 }
 
 type AllModelsStructDeleteInterface interface { // insertion point for Callbacks on deletion
+	DeleteORMCell(Cell *Cell)
+	DeleteORMCellString(CellString *CellString)
+	DeleteORMRow(Row *Row)
 	DeleteORMTable(Table *Table)
 }
 
 func (stage *StageStruct) Reset() { // insertion point for array reset
+	stage.Cells = make(map[*Cell]any)
+	stage.Cells_mapString = make(map[string]*Cell)
+
+	stage.CellStrings = make(map[*CellString]any)
+	stage.CellStrings_mapString = make(map[string]*CellString)
+
+	stage.Rows = make(map[*Row]any)
+	stage.Rows_mapString = make(map[string]*Row)
+
 	stage.Tables = make(map[*Table]any)
 	stage.Tables_mapString = make(map[string]*Table)
 
 }
 
 func (stage *StageStruct) Nil() { // insertion point for array nil
+	stage.Cells = nil
+	stage.Cells_mapString = nil
+
+	stage.CellStrings = nil
+	stage.CellStrings_mapString = nil
+
+	stage.Rows = nil
+	stage.Rows_mapString = nil
+
 	stage.Tables = nil
 	stage.Tables_mapString = nil
 
 }
 
 func (stage *StageStruct) Unstage() { // insertion point for array nil
+	for cell := range stage.Cells {
+		cell.Unstage(stage)
+	}
+
+	for cellstring := range stage.CellStrings {
+		cellstring.Unstage(stage)
+	}
+
+	for row := range stage.Rows {
+		row.Unstage(stage)
+	}
+
 	for table := range stage.Tables {
 		table.Unstage(stage)
 	}
@@ -267,7 +468,7 @@ func (stage *StageStruct) Unstage() { // insertion point for array nil
 // - full refactoring of Gongstruct identifiers / fields
 type Gongstruct interface {
 	// insertion point for generic types
-	Table
+	Cell | CellString | Row | Table
 }
 
 // Gongstruct is the type parameter for generated generic function that allows
@@ -276,13 +477,16 @@ type Gongstruct interface {
 // - full refactoring of Gongstruct identifiers / fields
 type PointerToGongstruct interface {
 	// insertion point for generic types
-	*Table
+	*Cell | *CellString | *Row | *Table
 	GetName() string
 }
 
 type GongstructSet interface {
 	map[any]any |
 		// insertion point for generic types
+		map[*Cell]any |
+		map[*CellString]any |
+		map[*Row]any |
 		map[*Table]any |
 		map[*any]any // because go does not support an extra "|" at the end of type specifications
 }
@@ -290,6 +494,9 @@ type GongstructSet interface {
 type GongstructMapString interface {
 	map[any]any |
 		// insertion point for generic types
+		map[string]*Cell |
+		map[string]*CellString |
+		map[string]*Row |
 		map[string]*Table |
 		map[*any]any // because go does not support an extra "|" at the end of type specifications
 }
@@ -301,6 +508,12 @@ func GongGetSet[Type GongstructSet](stage *StageStruct) *Type {
 
 	switch any(ret).(type) {
 	// insertion point for generic get functions
+	case map[*Cell]any:
+		return any(&stage.Cells).(*Type)
+	case map[*CellString]any:
+		return any(&stage.CellStrings).(*Type)
+	case map[*Row]any:
+		return any(&stage.Rows).(*Type)
 	case map[*Table]any:
 		return any(&stage.Tables).(*Type)
 	default:
@@ -315,6 +528,12 @@ func GongGetMap[Type GongstructMapString](stage *StageStruct) *Type {
 
 	switch any(ret).(type) {
 	// insertion point for generic get functions
+	case map[string]*Cell:
+		return any(&stage.Cells_mapString).(*Type)
+	case map[string]*CellString:
+		return any(&stage.CellStrings_mapString).(*Type)
+	case map[string]*Row:
+		return any(&stage.Rows_mapString).(*Type)
 	case map[string]*Table:
 		return any(&stage.Tables_mapString).(*Type)
 	default:
@@ -329,6 +548,12 @@ func GetGongstructInstancesSet[Type Gongstruct](stage *StageStruct) *map[*Type]a
 
 	switch any(ret).(type) {
 	// insertion point for generic get functions
+	case Cell:
+		return any(&stage.Cells).(*map[*Type]any)
+	case CellString:
+		return any(&stage.CellStrings).(*map[*Type]any)
+	case Row:
+		return any(&stage.Rows).(*map[*Type]any)
 	case Table:
 		return any(&stage.Tables).(*map[*Type]any)
 	default:
@@ -343,6 +568,12 @@ func GetGongstructInstancesMap[Type Gongstruct](stage *StageStruct) *map[string]
 
 	switch any(ret).(type) {
 	// insertion point for generic get functions
+	case Cell:
+		return any(&stage.Cells_mapString).(*map[string]*Type)
+	case CellString:
+		return any(&stage.CellStrings_mapString).(*map[string]*Type)
+	case Row:
+		return any(&stage.Rows_mapString).(*map[string]*Type)
 	case Table:
 		return any(&stage.Tables_mapString).(*map[string]*Type)
 	default:
@@ -359,9 +590,27 @@ func GetAssociationName[Type Gongstruct]() *Type {
 
 	switch any(ret).(type) {
 	// insertion point for instance with special fields
+	case Cell:
+		return any(&Cell{
+			// Initialisation of associations
+			// field is initialized with an instance of CellString with the name of the field
+			CellString: &CellString{Name: "CellString"},
+		}).(*Type)
+	case CellString:
+		return any(&CellString{
+			// Initialisation of associations
+		}).(*Type)
+	case Row:
+		return any(&Row{
+			// Initialisation of associations
+			// field is initialized with an instance of Cell with the name of the field
+			Cells: []*Cell{{Name: "Cells"}},
+		}).(*Type)
 	case Table:
 		return any(&Table{
 			// Initialisation of associations
+			// field is initialized with an instance of Row with the name of the field
+			Rows: []*Row{{Name: "Rows"}},
 		}).(*Type)
 	default:
 		return nil
@@ -381,6 +630,38 @@ func GetPointerReverseMap[Start, End Gongstruct](fieldname string, stage *StageS
 
 	switch any(ret).(type) {
 	// insertion point of functions that provide maps for reverse associations
+	// reverse maps of direct associations of Cell
+	case Cell:
+		switch fieldname {
+		// insertion point for per direct association field
+		case "CellString":
+			res := make(map[*CellString][]*Cell)
+			for cell := range stage.Cells {
+				if cell.CellString != nil {
+					cellstring_ := cell.CellString
+					var cells []*Cell
+					_, ok := res[cellstring_]
+					if ok {
+						cells = res[cellstring_]
+					} else {
+						cells = make([]*Cell, 0)
+					}
+					cells = append(cells, cell)
+					res[cellstring_] = cells
+				}
+			}
+			return any(res).(map[*End][]*Start)
+		}
+	// reverse maps of direct associations of CellString
+	case CellString:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of Row
+	case Row:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
 	// reverse maps of direct associations of Table
 	case Table:
 		switch fieldname {
@@ -402,10 +683,41 @@ func GetSliceOfPointersReverseMap[Start, End Gongstruct](fieldname string, stage
 
 	switch any(ret).(type) {
 	// insertion point of functions that provide maps for reverse associations
+	// reverse maps of direct associations of Cell
+	case Cell:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of CellString
+	case CellString:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of Row
+	case Row:
+		switch fieldname {
+		// insertion point for per direct association field
+		case "Cells":
+			res := make(map[*Cell]*Row)
+			for row := range stage.Rows {
+				for _, cell_ := range row.Cells {
+					res[cell_] = row
+				}
+			}
+			return any(res).(map[*End]*Start)
+		}
 	// reverse maps of direct associations of Table
 	case Table:
 		switch fieldname {
 		// insertion point for per direct association field
+		case "Rows":
+			res := make(map[*Row]*Table)
+			for table := range stage.Tables {
+				for _, row_ := range table.Rows {
+					res[row_] = table
+				}
+			}
+			return any(res).(map[*End]*Start)
 		}
 	}
 	return nil
@@ -419,6 +731,12 @@ func GetGongstructName[Type Gongstruct]() (res string) {
 
 	switch any(ret).(type) {
 	// insertion point for generic get gongstruct name
+	case Cell:
+		res = "Cell"
+	case CellString:
+		res = "CellString"
+	case Row:
+		res = "Row"
 	case Table:
 		res = "Table"
 	}
@@ -432,8 +750,14 @@ func GetFields[Type Gongstruct]() (res []string) {
 
 	switch any(ret).(type) {
 	// insertion point for generic get gongstruct name
-	case Table:
+	case Cell:
+		res = []string{"Name", "CellString"}
+	case CellString:
 		res = []string{"Name"}
+	case Row:
+		res = []string{"Name", "Cells"}
+	case Table:
+		res = []string{"Name", "Rows"}
 	}
 	return
 }
@@ -443,11 +767,47 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 
 	switch any(ret).(type) {
 	// insertion point for generic get gongstruct field value
+	case Cell:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(Cell).Name
+		case "CellString":
+			if any(instance).(Cell).CellString != nil {
+				res = any(instance).(Cell).CellString.Name
+			}
+		}
+	case CellString:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(CellString).Name
+		}
+	case Row:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(Row).Name
+		case "Cells":
+			for idx, __instance__ := range any(instance).(Row).Cells {
+				if idx > 0 {
+					res += "\n"
+				}
+				res += __instance__.Name
+			}
+		}
 	case Table:
 		switch fieldName {
 		// string value of fields
 		case "Name":
 			res = any(instance).(Table).Name
+		case "Rows":
+			for idx, __instance__ := range any(instance).(Table).Rows {
+				if idx > 0 {
+					res += "\n"
+				}
+				res += __instance__.Name
+			}
 		}
 	}
 	return

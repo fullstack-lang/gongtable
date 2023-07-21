@@ -1,12 +1,11 @@
 // insertion point for imports
-import { RowDB } from './row-db'
 
 // usefull for managing pointer ID values that can be nullable
 import { NullInt64 } from './null-int64'
 
-export class TableDB {
+export class CellStringDB {
 
-	static GONGSTRUCT_NAME = "Table"
+	static GONGSTRUCT_NAME = "CellString"
 
 	CreatedAt?: string
 	DeletedAt?: string
@@ -16,5 +15,4 @@ export class TableDB {
 	Name: string = ""
 
 	// insertion point for other declarations
-	Rows?: Array<RowDB>
 }

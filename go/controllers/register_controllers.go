@@ -41,6 +41,27 @@ type ValidationError struct {
 func registerControllers(r *gin.Engine) {
 	v1 := r.Group("/api/github.com/fullstack-lang/gongtable/go")
 	{ // insertion point for registrations
+		v1.GET("/v1/cells", GetController().GetCells)
+		v1.GET("/v1/cells/:id", GetController().GetCell)
+		v1.POST("/v1/cells", GetController().PostCell)
+		v1.PATCH("/v1/cells/:id", GetController().UpdateCell)
+		v1.PUT("/v1/cells/:id", GetController().UpdateCell)
+		v1.DELETE("/v1/cells/:id", GetController().DeleteCell)
+
+		v1.GET("/v1/cellstrings", GetController().GetCellStrings)
+		v1.GET("/v1/cellstrings/:id", GetController().GetCellString)
+		v1.POST("/v1/cellstrings", GetController().PostCellString)
+		v1.PATCH("/v1/cellstrings/:id", GetController().UpdateCellString)
+		v1.PUT("/v1/cellstrings/:id", GetController().UpdateCellString)
+		v1.DELETE("/v1/cellstrings/:id", GetController().DeleteCellString)
+
+		v1.GET("/v1/rows", GetController().GetRows)
+		v1.GET("/v1/rows/:id", GetController().GetRow)
+		v1.POST("/v1/rows", GetController().PostRow)
+		v1.PATCH("/v1/rows/:id", GetController().UpdateRow)
+		v1.PUT("/v1/rows/:id", GetController().UpdateRow)
+		v1.DELETE("/v1/rows/:id", GetController().DeleteRow)
+
 		v1.GET("/v1/tables", GetController().GetTables)
 		v1.GET("/v1/tables/:id", GetController().GetTable)
 		v1.POST("/v1/tables", GetController().PostTable)
