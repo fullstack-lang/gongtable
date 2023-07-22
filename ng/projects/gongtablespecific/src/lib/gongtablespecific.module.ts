@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
-import { GongtablespecificComponent } from './gongtablespecific.component';
 import { GithubComFullstackLangGongtableGoDataModelSpecificComponent } from './github-com-fullstack-lang-gongtable-go-data-model-specific/github-com-fullstack-lang-gongtable-go-data-model-specific.component';
 
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
   declarations: [
-    GongtablespecificComponent,
     GithubComFullstackLangGongtableGoDataModelSpecificComponent
   ],
   imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatTableModule,
   ],
   exports: [
-    GongtablespecificComponent,
     GithubComFullstackLangGongtableGoDataModelSpecificComponent
   ]
 })
