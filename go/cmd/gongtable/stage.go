@@ -50,6 +50,10 @@ func stageInjection(stage *models.StageStruct) {
 	__CellString__000002_Row_2_Cell_1_ := (&models.CellString{Name: `Row 2 - Cell 1 `}).Stage(stage)
 	__CellString__000003_Row_2_Cell_2 := (&models.CellString{Name: `Row 2 - Cell 2`}).Stage(stage)
 
+	// Declarations of staged instances of DisplayedColumn
+	__DisplayedColumn__000000_Column_1 := (&models.DisplayedColumn{Name: `Column 1`}).Stage(stage)
+	__DisplayedColumn__000001_Column_2 := (&models.DisplayedColumn{Name: `Column 2`}).Stage(stage)
+
 	// Declarations of staged instances of Row
 	__Row__000000_Row_1 := (&models.Row{Name: `Row 1`}).Stage(stage)
 	__Row__000001_Row_2 := (&models.Row{Name: `Row 2`}).Stage(stage)
@@ -83,6 +87,12 @@ func stageInjection(stage *models.StageStruct) {
 	// CellString values setup
 	__CellString__000003_Row_2_Cell_2.Name = `Row 2 - Cell 2`
 
+	// DisplayedColumn values setup
+	__DisplayedColumn__000000_Column_1.Name = `Column 1`
+
+	// DisplayedColumn values setup
+	__DisplayedColumn__000001_Column_2.Name = `Column 2`
+
 	// Row values setup
 	__Row__000000_Row_1.Name = `Row 1`
 
@@ -101,6 +111,8 @@ func stageInjection(stage *models.StageStruct) {
 	__Row__000000_Row_1.Cells = append(__Row__000000_Row_1.Cells, __Cell__000001_Row_1_Cell_2)
 	__Row__000001_Row_2.Cells = append(__Row__000001_Row_2.Cells, __Cell__000002_Row_2_Cell_1)
 	__Row__000001_Row_2.Cells = append(__Row__000001_Row_2.Cells, __Cell__000003_Row_2_Cell_2)
+	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000001_Column_2)
+	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000000_Column_1)
 	__Table__000000_Table.Rows = append(__Table__000000_Table.Rows, __Row__000000_Row_1)
 	__Table__000000_Table.Rows = append(__Table__000000_Table.Rows, __Row__000001_Row_2)
 }

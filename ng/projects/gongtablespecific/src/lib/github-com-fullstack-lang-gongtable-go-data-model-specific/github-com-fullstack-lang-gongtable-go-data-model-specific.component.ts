@@ -3,21 +3,8 @@ import { Subscription } from 'rxjs';
 
 import * as gongtable from 'gongtable'
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.94, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.81, symbol: 'B' },
-  // ... more data ...
-];
+
 
 @Component({
   selector: 'lib-github-com-fullstack-lang-gongtable-go-data-model-specific',
@@ -26,7 +13,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class GithubComFullstackLangGongtableGoDataModelSpecificComponent implements OnInit {
   displayedColumns: string[] = [];
-  dataSource: PeriodicElement[] = [];
+  dataSource: string[][] = [[]];
 
   @Input() DataStack: string = ""
 
@@ -53,10 +40,6 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
   ngOnInit(): void {
     this.startAutoRefresh(500); // Refresh every 500 ms (half second)
 
-    // Initialize your data source here
-    this.dataSource = ELEMENT_DATA;
-    // Make sure the column IDs match the keys in your data object
-    this.displayedColumns = ['position', 'name', 'weight', 'symbol'];
   }
 
   ngOnDestroy(): void {
@@ -92,6 +75,26 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
     this.gongtableFrontRepoService.pull(this.DataStack).subscribe(
       gongtablesFrontRepo => {
         this.gongtableFrontRepo = gongtablesFrontRepo
+
+        this.dataSource = []
+
+        for (let column of this.gongtableFrontRepo.DisplayedColumns_array) {
+          this.displayedColumns.push(column.Name)
+        }
+
+        for (let row of this.gongtableFrontRepo.Rows_array) {
+          let rowOfStrings: string[] = []
+
+          if (row.Cells == undefined) {
+            return
+          }
+          for (let cell of row.Cells) {
+            rowOfStrings.push(cell.Name)
+          }
+
+          this.dataSource.push(rowOfStrings)
+        }
+
       }
     )
   }

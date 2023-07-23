@@ -8,6 +8,9 @@ import { CellDetailComponent } from './cell-detail/cell-detail.component'
 import { CellStringsTableComponent } from './cellstrings-table/cellstrings-table.component'
 import { CellStringDetailComponent } from './cellstring-detail/cellstring-detail.component'
 
+import { DisplayedColumnsTableComponent } from './displayedcolumns-table/displayedcolumns-table.component'
+import { DisplayedColumnDetailComponent } from './displayedcolumn-detail/displayedcolumn-detail.component'
+
 import { RowsTableComponent } from './rows-table/rows-table.component'
 import { RowDetailComponent } from './row-detail/row-detail.component'
 
@@ -111,6 +114,39 @@ export class RouteService {
         return route
     }
 
+    getDisplayedColumnTablePath(): string {
+        return this.getPathRoot() + '-displayedcolumns/:GONG__StackPath'
+    }
+    getDisplayedColumnTableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getDisplayedColumnTablePath(), component: DisplayedColumnsTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getDisplayedColumnAdderPath(): string {
+        return this.getPathRoot() + '-displayedcolumn-adder/:GONG__StackPath'
+    }
+    getDisplayedColumnAdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getDisplayedColumnAdderPath(), component: DisplayedColumnDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getDisplayedColumnAdderForUsePath(): string {
+        return this.getPathRoot() + '-displayedcolumn-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getDisplayedColumnAdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getDisplayedColumnAdderForUsePath(), component: DisplayedColumnDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getDisplayedColumnDetailPath(): string {
+        return this.getPathRoot() + '-displayedcolumn-detail/:id/:GONG__StackPath'
+    }
+    getDisplayedColumnDetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getDisplayedColumnDetailPath(), component: DisplayedColumnDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
     getRowTablePath(): string {
         return this.getPathRoot() + '-rows/:GONG__StackPath'
     }
@@ -192,6 +228,11 @@ export class RouteService {
             this.getCellStringAdderRoute(stackPath),
             this.getCellStringAdderForUseRoute(stackPath),
             this.getCellStringDetailRoute(stackPath),
+
+            this.getDisplayedColumnTableRoute(stackPath),
+            this.getDisplayedColumnAdderRoute(stackPath),
+            this.getDisplayedColumnAdderForUseRoute(stackPath),
+            this.getDisplayedColumnDetailRoute(stackPath),
 
             this.getRowTableRoute(stackPath),
             this.getRowAdderRoute(stackPath),

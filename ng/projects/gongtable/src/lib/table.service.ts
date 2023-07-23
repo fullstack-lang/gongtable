@@ -70,6 +70,7 @@ export class TableService {
   postTable(tabledb: TableDB, GONG__StackPath: string): Observable<TableDB> {
 
     // insertion point for reset of pointers and reverse pointers (to avoid circular JSON)
+    tabledb.DisplayedColumns = []
     tabledb.Rows = []
 
     let params = new HttpParams().set("GONG__StackPath", GONG__StackPath)
@@ -110,6 +111,7 @@ export class TableService {
     const url = `${this.tablesUrl}/${id}`;
 
     // insertion point for reset of pointers and reverse pointers (to avoid circular JSON)
+    tabledb.DisplayedColumns = []
     tabledb.Rows = []
 
     let params = new HttpParams().set("GONG__StackPath", GONG__StackPath)

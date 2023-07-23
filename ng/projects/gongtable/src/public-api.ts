@@ -28,6 +28,12 @@ export * from './lib/cellstrings-table/cellstrings-table.component'
 export * from './lib/cellstring-db'
 export * from './lib/cellstring.service'
 
+export * from './lib/displayedcolumn-detail/displayedcolumn-detail.component'
+export * from './lib/displayedcolumn-sorting/displayedcolumn-sorting.component'
+export * from './lib/displayedcolumns-table/displayedcolumns-table.component'
+export * from './lib/displayedcolumn-db'
+export * from './lib/displayedcolumn.service'
+
 export * from './lib/row-detail/row-detail.component'
 export * from './lib/row-sorting/row-sorting.component'
 export * from './lib/rows-table/rows-table.component'

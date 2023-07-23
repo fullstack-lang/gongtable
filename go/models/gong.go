@@ -46,6 +46,14 @@ type StageStruct struct { // insertion point for definition of arrays registerin
 	OnAfterCellStringDeleteCallback OnAfterDeleteInterface[CellString]
 	OnAfterCellStringReadCallback   OnAfterReadInterface[CellString]
 
+	DisplayedColumns           map[*DisplayedColumn]any
+	DisplayedColumns_mapString map[string]*DisplayedColumn
+
+	OnAfterDisplayedColumnCreateCallback OnAfterCreateInterface[DisplayedColumn]
+	OnAfterDisplayedColumnUpdateCallback OnAfterUpdateInterface[DisplayedColumn]
+	OnAfterDisplayedColumnDeleteCallback OnAfterDeleteInterface[DisplayedColumn]
+	OnAfterDisplayedColumnReadCallback   OnAfterReadInterface[DisplayedColumn]
+
 	Rows           map[*Row]any
 	Rows_mapString map[string]*Row
 
@@ -130,6 +138,8 @@ type BackRepoInterface interface {
 	CheckoutCell(cell *Cell)
 	CommitCellString(cellstring *CellString)
 	CheckoutCellString(cellstring *CellString)
+	CommitDisplayedColumn(displayedcolumn *DisplayedColumn)
+	CheckoutDisplayedColumn(displayedcolumn *DisplayedColumn)
 	CommitRow(row *Row)
 	CheckoutRow(row *Row)
 	CommitTable(table *Table)
@@ -157,6 +167,9 @@ func NewStage() (stage *StageStruct) {
 
 		CellStrings:           make(map[*CellString]any),
 		CellStrings_mapString: make(map[string]*CellString),
+
+		DisplayedColumns:           make(map[*DisplayedColumn]any),
+		DisplayedColumns_mapString: make(map[string]*DisplayedColumn),
 
 		Rows:           make(map[*Row]any),
 		Rows_mapString: make(map[string]*Row),
@@ -191,6 +204,7 @@ func (stage *StageStruct) Commit() {
 	// insertion point for computing the map of number of instances per gongstruct
 	stage.Map_GongStructName_InstancesNb["Cell"] = len(stage.Cells)
 	stage.Map_GongStructName_InstancesNb["CellString"] = len(stage.CellStrings)
+	stage.Map_GongStructName_InstancesNb["DisplayedColumn"] = len(stage.DisplayedColumns)
 	stage.Map_GongStructName_InstancesNb["Row"] = len(stage.Rows)
 	stage.Map_GongStructName_InstancesNb["Table"] = len(stage.Tables)
 
@@ -204,6 +218,7 @@ func (stage *StageStruct) Checkout() {
 	// insertion point for computing the map of number of instances per gongstruct
 	stage.Map_GongStructName_InstancesNb["Cell"] = len(stage.Cells)
 	stage.Map_GongStructName_InstancesNb["CellString"] = len(stage.CellStrings)
+	stage.Map_GongStructName_InstancesNb["DisplayedColumn"] = len(stage.DisplayedColumns)
 	stage.Map_GongStructName_InstancesNb["Row"] = len(stage.Rows)
 	stage.Map_GongStructName_InstancesNb["Table"] = len(stage.Tables)
 
@@ -318,6 +333,46 @@ func (cellstring *CellString) GetName() (res string) {
 	return cellstring.Name
 }
 
+// Stage puts displayedcolumn to the model stage
+func (displayedcolumn *DisplayedColumn) Stage(stage *StageStruct) *DisplayedColumn {
+	stage.DisplayedColumns[displayedcolumn] = __member
+	stage.DisplayedColumns_mapString[displayedcolumn.Name] = displayedcolumn
+
+	return displayedcolumn
+}
+
+// Unstage removes displayedcolumn off the model stage
+func (displayedcolumn *DisplayedColumn) Unstage(stage *StageStruct) *DisplayedColumn {
+	delete(stage.DisplayedColumns, displayedcolumn)
+	delete(stage.DisplayedColumns_mapString, displayedcolumn.Name)
+	return displayedcolumn
+}
+
+// commit displayedcolumn to the back repo (if it is already staged)
+func (displayedcolumn *DisplayedColumn) Commit(stage *StageStruct) *DisplayedColumn {
+	if _, ok := stage.DisplayedColumns[displayedcolumn]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitDisplayedColumn(displayedcolumn)
+		}
+	}
+	return displayedcolumn
+}
+
+// Checkout displayedcolumn to the back repo (if it is already staged)
+func (displayedcolumn *DisplayedColumn) Checkout(stage *StageStruct) *DisplayedColumn {
+	if _, ok := stage.DisplayedColumns[displayedcolumn]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutDisplayedColumn(displayedcolumn)
+		}
+	}
+	return displayedcolumn
+}
+
+// for satisfaction of GongStruct interface
+func (displayedcolumn *DisplayedColumn) GetName() (res string) {
+	return displayedcolumn.Name
+}
+
 // Stage puts row to the model stage
 func (row *Row) Stage(stage *StageStruct) *Row {
 	stage.Rows[row] = __member
@@ -402,6 +457,7 @@ func (table *Table) GetName() (res string) {
 type AllModelsStructCreateInterface interface { // insertion point for Callbacks on creation
 	CreateORMCell(Cell *Cell)
 	CreateORMCellString(CellString *CellString)
+	CreateORMDisplayedColumn(DisplayedColumn *DisplayedColumn)
 	CreateORMRow(Row *Row)
 	CreateORMTable(Table *Table)
 }
@@ -409,6 +465,7 @@ type AllModelsStructCreateInterface interface { // insertion point for Callbacks
 type AllModelsStructDeleteInterface interface { // insertion point for Callbacks on deletion
 	DeleteORMCell(Cell *Cell)
 	DeleteORMCellString(CellString *CellString)
+	DeleteORMDisplayedColumn(DisplayedColumn *DisplayedColumn)
 	DeleteORMRow(Row *Row)
 	DeleteORMTable(Table *Table)
 }
@@ -419,6 +476,9 @@ func (stage *StageStruct) Reset() { // insertion point for array reset
 
 	stage.CellStrings = make(map[*CellString]any)
 	stage.CellStrings_mapString = make(map[string]*CellString)
+
+	stage.DisplayedColumns = make(map[*DisplayedColumn]any)
+	stage.DisplayedColumns_mapString = make(map[string]*DisplayedColumn)
 
 	stage.Rows = make(map[*Row]any)
 	stage.Rows_mapString = make(map[string]*Row)
@@ -434,6 +494,9 @@ func (stage *StageStruct) Nil() { // insertion point for array nil
 
 	stage.CellStrings = nil
 	stage.CellStrings_mapString = nil
+
+	stage.DisplayedColumns = nil
+	stage.DisplayedColumns_mapString = nil
 
 	stage.Rows = nil
 	stage.Rows_mapString = nil
@@ -452,6 +515,10 @@ func (stage *StageStruct) Unstage() { // insertion point for array nil
 		cellstring.Unstage(stage)
 	}
 
+	for displayedcolumn := range stage.DisplayedColumns {
+		displayedcolumn.Unstage(stage)
+	}
+
 	for row := range stage.Rows {
 		row.Unstage(stage)
 	}
@@ -468,7 +535,7 @@ func (stage *StageStruct) Unstage() { // insertion point for array nil
 // - full refactoring of Gongstruct identifiers / fields
 type Gongstruct interface {
 	// insertion point for generic types
-	Cell | CellString | Row | Table
+	Cell | CellString | DisplayedColumn | Row | Table
 }
 
 // Gongstruct is the type parameter for generated generic function that allows
@@ -477,7 +544,7 @@ type Gongstruct interface {
 // - full refactoring of Gongstruct identifiers / fields
 type PointerToGongstruct interface {
 	// insertion point for generic types
-	*Cell | *CellString | *Row | *Table
+	*Cell | *CellString | *DisplayedColumn | *Row | *Table
 	GetName() string
 }
 
@@ -486,6 +553,7 @@ type GongstructSet interface {
 		// insertion point for generic types
 		map[*Cell]any |
 		map[*CellString]any |
+		map[*DisplayedColumn]any |
 		map[*Row]any |
 		map[*Table]any |
 		map[*any]any // because go does not support an extra "|" at the end of type specifications
@@ -496,6 +564,7 @@ type GongstructMapString interface {
 		// insertion point for generic types
 		map[string]*Cell |
 		map[string]*CellString |
+		map[string]*DisplayedColumn |
 		map[string]*Row |
 		map[string]*Table |
 		map[*any]any // because go does not support an extra "|" at the end of type specifications
@@ -512,6 +581,8 @@ func GongGetSet[Type GongstructSet](stage *StageStruct) *Type {
 		return any(&stage.Cells).(*Type)
 	case map[*CellString]any:
 		return any(&stage.CellStrings).(*Type)
+	case map[*DisplayedColumn]any:
+		return any(&stage.DisplayedColumns).(*Type)
 	case map[*Row]any:
 		return any(&stage.Rows).(*Type)
 	case map[*Table]any:
@@ -532,6 +603,8 @@ func GongGetMap[Type GongstructMapString](stage *StageStruct) *Type {
 		return any(&stage.Cells_mapString).(*Type)
 	case map[string]*CellString:
 		return any(&stage.CellStrings_mapString).(*Type)
+	case map[string]*DisplayedColumn:
+		return any(&stage.DisplayedColumns_mapString).(*Type)
 	case map[string]*Row:
 		return any(&stage.Rows_mapString).(*Type)
 	case map[string]*Table:
@@ -552,6 +625,8 @@ func GetGongstructInstancesSet[Type Gongstruct](stage *StageStruct) *map[*Type]a
 		return any(&stage.Cells).(*map[*Type]any)
 	case CellString:
 		return any(&stage.CellStrings).(*map[*Type]any)
+	case DisplayedColumn:
+		return any(&stage.DisplayedColumns).(*map[*Type]any)
 	case Row:
 		return any(&stage.Rows).(*map[*Type]any)
 	case Table:
@@ -572,6 +647,8 @@ func GetGongstructInstancesMap[Type Gongstruct](stage *StageStruct) *map[string]
 		return any(&stage.Cells_mapString).(*map[string]*Type)
 	case CellString:
 		return any(&stage.CellStrings_mapString).(*map[string]*Type)
+	case DisplayedColumn:
+		return any(&stage.DisplayedColumns_mapString).(*map[string]*Type)
 	case Row:
 		return any(&stage.Rows_mapString).(*map[string]*Type)
 	case Table:
@@ -600,6 +677,10 @@ func GetAssociationName[Type Gongstruct]() *Type {
 		return any(&CellString{
 			// Initialisation of associations
 		}).(*Type)
+	case DisplayedColumn:
+		return any(&DisplayedColumn{
+			// Initialisation of associations
+		}).(*Type)
 	case Row:
 		return any(&Row{
 			// Initialisation of associations
@@ -609,6 +690,8 @@ func GetAssociationName[Type Gongstruct]() *Type {
 	case Table:
 		return any(&Table{
 			// Initialisation of associations
+			// field is initialized with an instance of DisplayedColumn with the name of the field
+			DisplayedColumns: []*DisplayedColumn{{Name: "DisplayedColumns"}},
 			// field is initialized with an instance of Row with the name of the field
 			Rows: []*Row{{Name: "Rows"}},
 		}).(*Type)
@@ -657,6 +740,11 @@ func GetPointerReverseMap[Start, End Gongstruct](fieldname string, stage *StageS
 		switch fieldname {
 		// insertion point for per direct association field
 		}
+	// reverse maps of direct associations of DisplayedColumn
+	case DisplayedColumn:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
 	// reverse maps of direct associations of Row
 	case Row:
 		switch fieldname {
@@ -693,6 +781,11 @@ func GetSliceOfPointersReverseMap[Start, End Gongstruct](fieldname string, stage
 		switch fieldname {
 		// insertion point for per direct association field
 		}
+	// reverse maps of direct associations of DisplayedColumn
+	case DisplayedColumn:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
 	// reverse maps of direct associations of Row
 	case Row:
 		switch fieldname {
@@ -710,6 +803,14 @@ func GetSliceOfPointersReverseMap[Start, End Gongstruct](fieldname string, stage
 	case Table:
 		switch fieldname {
 		// insertion point for per direct association field
+		case "DisplayedColumns":
+			res := make(map[*DisplayedColumn]*Table)
+			for table := range stage.Tables {
+				for _, displayedcolumn_ := range table.DisplayedColumns {
+					res[displayedcolumn_] = table
+				}
+			}
+			return any(res).(map[*End]*Start)
 		case "Rows":
 			res := make(map[*Row]*Table)
 			for table := range stage.Tables {
@@ -735,6 +836,8 @@ func GetGongstructName[Type Gongstruct]() (res string) {
 		res = "Cell"
 	case CellString:
 		res = "CellString"
+	case DisplayedColumn:
+		res = "DisplayedColumn"
 	case Row:
 		res = "Row"
 	case Table:
@@ -754,10 +857,12 @@ func GetFields[Type Gongstruct]() (res []string) {
 		res = []string{"Name", "CellString"}
 	case CellString:
 		res = []string{"Name"}
+	case DisplayedColumn:
+		res = []string{"Name"}
 	case Row:
 		res = []string{"Name", "Cells"}
 	case Table:
-		res = []string{"Name", "Rows"}
+		res = []string{"Name", "DisplayedColumns", "Rows"}
 	}
 	return
 }
@@ -783,6 +888,12 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 		case "Name":
 			res = any(instance).(CellString).Name
 		}
+	case DisplayedColumn:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(DisplayedColumn).Name
+		}
 	case Row:
 		switch fieldName {
 		// string value of fields
@@ -801,6 +912,13 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 		// string value of fields
 		case "Name":
 			res = any(instance).(Table).Name
+		case "DisplayedColumns":
+			for idx, __instance__ := range any(instance).(Table).DisplayedColumns {
+				if idx > 0 {
+					res += "\n"
+				}
+				res += __instance__.Name
+			}
 		case "Rows":
 			for idx, __instance__ := range any(instance).(Table).Rows {
 				if idx > 0 {

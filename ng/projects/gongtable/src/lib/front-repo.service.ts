@@ -10,6 +10,9 @@ import { CellService } from './cell.service'
 import { CellStringDB } from './cellstring-db'
 import { CellStringService } from './cellstring.service'
 
+import { DisplayedColumnDB } from './displayedcolumn-db'
+import { DisplayedColumnService } from './displayedcolumn.service'
+
 import { RowDB } from './row-db'
 import { RowService } from './row.service'
 
@@ -25,6 +28,9 @@ export class FrontRepo { // insertion point sub template
   CellStrings_array = new Array<CellStringDB>(); // array of repo instances
   CellStrings = new Map<number, CellStringDB>(); // map of repo instances
   CellStrings_batch = new Map<number, CellStringDB>(); // same but only in last GET (for finding repo instances to delete)
+  DisplayedColumns_array = new Array<DisplayedColumnDB>(); // array of repo instances
+  DisplayedColumns = new Map<number, DisplayedColumnDB>(); // map of repo instances
+  DisplayedColumns_batch = new Map<number, DisplayedColumnDB>(); // same but only in last GET (for finding repo instances to delete)
   Rows_array = new Array<RowDB>(); // array of repo instances
   Rows = new Map<number, RowDB>(); // map of repo instances
   Rows_batch = new Map<number, RowDB>(); // same but only in last GET (for finding repo instances to delete)
@@ -95,6 +101,7 @@ export class FrontRepoService {
     private http: HttpClient, // insertion point sub template 
     private cellService: CellService,
     private cellstringService: CellStringService,
+    private displayedcolumnService: DisplayedColumnService,
     private rowService: RowService,
     private tableService: TableService,
   ) { }
@@ -129,11 +136,13 @@ export class FrontRepoService {
   observableFrontRepo: [ // insertion point sub template 
     Observable<CellDB[]>,
     Observable<CellStringDB[]>,
+    Observable<DisplayedColumnDB[]>,
     Observable<RowDB[]>,
     Observable<TableDB[]>,
   ] = [ // insertion point sub template
       this.cellService.getCells(this.GONG__StackPath),
       this.cellstringService.getCellStrings(this.GONG__StackPath),
+      this.displayedcolumnService.getDisplayedColumns(this.GONG__StackPath),
       this.rowService.getRows(this.GONG__StackPath),
       this.tableService.getTables(this.GONG__StackPath),
     ];
@@ -151,6 +160,7 @@ export class FrontRepoService {
     this.observableFrontRepo = [ // insertion point sub template
       this.cellService.getCells(this.GONG__StackPath),
       this.cellstringService.getCellStrings(this.GONG__StackPath),
+      this.displayedcolumnService.getDisplayedColumns(this.GONG__StackPath),
       this.rowService.getRows(this.GONG__StackPath),
       this.tableService.getTables(this.GONG__StackPath),
     ]
@@ -163,6 +173,7 @@ export class FrontRepoService {
           ([ // insertion point sub template for declarations 
             cells_,
             cellstrings_,
+            displayedcolumns_,
             rows_,
             tables_,
           ]) => {
@@ -172,6 +183,8 @@ export class FrontRepoService {
             cells = cells_ as CellDB[]
             var cellstrings: CellStringDB[]
             cellstrings = cellstrings_ as CellStringDB[]
+            var displayedcolumns: DisplayedColumnDB[]
+            displayedcolumns = displayedcolumns_ as DisplayedColumnDB[]
             var rows: RowDB[]
             rows = rows_ as RowDB[]
             var tables: TableDB[]
@@ -237,6 +250,39 @@ export class FrontRepoService {
 
             // sort CellStrings_array array
             this.frontRepo.CellStrings_array.sort((t1, t2) => {
+              if (t1.Name > t2.Name) {
+                return 1;
+              }
+              if (t1.Name < t2.Name) {
+                return -1;
+              }
+              return 0;
+            });
+
+            // init the array
+            this.frontRepo.DisplayedColumns_array = displayedcolumns
+
+            // clear the map that counts DisplayedColumn in the GET
+            this.frontRepo.DisplayedColumns_batch.clear()
+
+            displayedcolumns.forEach(
+              displayedcolumn => {
+                this.frontRepo.DisplayedColumns.set(displayedcolumn.ID, displayedcolumn)
+                this.frontRepo.DisplayedColumns_batch.set(displayedcolumn.ID, displayedcolumn)
+              }
+            )
+
+            // clear displayedcolumns that are absent from the batch
+            this.frontRepo.DisplayedColumns.forEach(
+              displayedcolumn => {
+                if (this.frontRepo.DisplayedColumns_batch.get(displayedcolumn.ID) == undefined) {
+                  this.frontRepo.DisplayedColumns.delete(displayedcolumn.ID)
+                }
+              }
+            )
+
+            // sort DisplayedColumns_array array
+            this.frontRepo.DisplayedColumns_array.sort((t1, t2) => {
               if (t1.Name > t2.Name) {
                 return 1;
               }
@@ -348,6 +394,26 @@ export class FrontRepoService {
                 // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
 
                 // insertion point for redeeming ONE-MANY associations
+              }
+            )
+            displayedcolumns.forEach(
+              displayedcolumn => {
+                // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
+
+                // insertion point for redeeming ONE-MANY associations
+                // insertion point for slice of pointer field Table.DisplayedColumns redeeming
+                {
+                  let _table = this.frontRepo.Tables.get(displayedcolumn.Table_DisplayedColumnsDBID.Int64)
+                  if (_table) {
+                    if (_table.DisplayedColumns == undefined) {
+                      _table.DisplayedColumns = new Array<DisplayedColumnDB>()
+                    }
+                    _table.DisplayedColumns.push(displayedcolumn)
+                    if (displayedcolumn.Table_DisplayedColumns_reverse == undefined) {
+                      displayedcolumn.Table_DisplayedColumns_reverse = _table
+                    }
+                  }
+                }
               }
             )
             rows.forEach(
@@ -510,6 +576,70 @@ export class FrontRepoService {
     )
   }
 
+  // DisplayedColumnPull performs a GET on DisplayedColumn of the stack and redeem association pointers 
+  DisplayedColumnPull(): Observable<FrontRepo> {
+    return new Observable<FrontRepo>(
+      (observer) => {
+        combineLatest([
+          this.displayedcolumnService.getDisplayedColumns(this.GONG__StackPath)
+        ]).subscribe(
+          ([ // insertion point sub template 
+            displayedcolumns,
+          ]) => {
+            // init the array
+            this.frontRepo.DisplayedColumns_array = displayedcolumns
+
+            // clear the map that counts DisplayedColumn in the GET
+            this.frontRepo.DisplayedColumns_batch.clear()
+
+            // 
+            // First Step: init map of instances
+            // insertion point sub template 
+            displayedcolumns.forEach(
+              displayedcolumn => {
+                this.frontRepo.DisplayedColumns.set(displayedcolumn.ID, displayedcolumn)
+                this.frontRepo.DisplayedColumns_batch.set(displayedcolumn.ID, displayedcolumn)
+
+                // insertion point for redeeming ONE/ZERO-ONE associations
+
+                // insertion point for redeeming ONE-MANY associations
+                // insertion point for slice of pointer field Table.DisplayedColumns redeeming
+                {
+                  let _table = this.frontRepo.Tables.get(displayedcolumn.Table_DisplayedColumnsDBID.Int64)
+                  if (_table) {
+                    if (_table.DisplayedColumns == undefined) {
+                      _table.DisplayedColumns = new Array<DisplayedColumnDB>()
+                    }
+                    _table.DisplayedColumns.push(displayedcolumn)
+                    if (displayedcolumn.Table_DisplayedColumns_reverse == undefined) {
+                      displayedcolumn.Table_DisplayedColumns_reverse = _table
+                    }
+                  }
+                }
+              }
+            )
+
+            // clear displayedcolumns that are absent from the GET
+            this.frontRepo.DisplayedColumns.forEach(
+              displayedcolumn => {
+                if (this.frontRepo.DisplayedColumns_batch.get(displayedcolumn.ID) == undefined) {
+                  this.frontRepo.DisplayedColumns.delete(displayedcolumn.ID)
+                }
+              }
+            )
+
+            // 
+            // Second Step: redeem pointers between instances (thanks to maps in the First Step)
+            // insertion point sub template 
+
+            // hand over control flow to observer
+            observer.next(this.frontRepo)
+          }
+        )
+      }
+    )
+  }
+
   // RowPull performs a GET on Row of the stack and redeem association pointers 
   RowPull(): Observable<FrontRepo> {
     return new Observable<FrontRepo>(
@@ -633,9 +763,12 @@ export function getCellUniqueID(id: number): number {
 export function getCellStringUniqueID(id: number): number {
   return 37 * id
 }
-export function getRowUniqueID(id: number): number {
+export function getDisplayedColumnUniqueID(id: number): number {
   return 41 * id
 }
-export function getTableUniqueID(id: number): number {
+export function getRowUniqueID(id: number): number {
   return 43 * id
+}
+export function getTableUniqueID(id: number): number {
+  return 47 * id
 }

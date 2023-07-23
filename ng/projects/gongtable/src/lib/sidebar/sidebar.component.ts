@@ -15,6 +15,8 @@ import { CellService } from '../cell.service'
 import { getCellUniqueID } from '../front-repo.service'
 import { CellStringService } from '../cellstring.service'
 import { getCellStringUniqueID } from '../front-repo.service'
+import { DisplayedColumnService } from '../displayedcolumn.service'
+import { getDisplayedColumnUniqueID } from '../front-repo.service'
 import { RowService } from '../row.service'
 import { getRowUniqueID } from '../front-repo.service'
 import { TableService } from '../table.service'
@@ -166,6 +168,7 @@ export class SidebarComponent implements OnInit {
     // insertion point for per struct service declaration
     private cellService: CellService,
     private cellstringService: CellStringService,
+    private displayedcolumnService: DisplayedColumnService,
     private rowService: RowService,
     private tableService: TableService,
 
@@ -213,6 +216,14 @@ export class SidebarComponent implements OnInit {
     )
     // observable for changes in structs
     this.cellstringService.CellStringServiceChanged.subscribe(
+      message => {
+        if (message == "post" || message == "update" || message == "delete") {
+          this.refresh()
+        }
+      }
+    )
+    // observable for changes in structs
+    this.displayedcolumnService.DisplayedColumnServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
           this.refresh()
@@ -383,6 +394,50 @@ export class SidebarComponent implements OnInit {
       )
 
       /**
+      * fill up the DisplayedColumn part of the mat tree
+      */
+      let displayedcolumnGongNodeStruct: GongNode = {
+        name: "DisplayedColumn",
+        type: GongNodeType.STRUCT,
+        id: 0,
+        uniqueIdPerStack: 13 * nonInstanceNodeId,
+        structName: "DisplayedColumn",
+        associationField: "",
+        associatedStructName: "",
+        children: new Array<GongNode>()
+      }
+      nonInstanceNodeId = nonInstanceNodeId + 1
+      this.gongNodeTree.push(displayedcolumnGongNodeStruct)
+
+      this.frontRepo.DisplayedColumns_array.sort((t1, t2) => {
+        if (t1.Name > t2.Name) {
+          return 1;
+        }
+        if (t1.Name < t2.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      this.frontRepo.DisplayedColumns_array.forEach(
+        displayedcolumnDB => {
+          let displayedcolumnGongNodeInstance: GongNode = {
+            name: displayedcolumnDB.Name,
+            type: GongNodeType.INSTANCE,
+            id: displayedcolumnDB.ID,
+            uniqueIdPerStack: getDisplayedColumnUniqueID(displayedcolumnDB.ID),
+            structName: "DisplayedColumn",
+            associationField: "",
+            associatedStructName: "",
+            children: new Array<GongNode>()
+          }
+          displayedcolumnGongNodeStruct.children!.push(displayedcolumnGongNodeInstance)
+
+          // insertion point for per field code
+        }
+      )
+
+      /**
       * fill up the Row part of the mat tree
       */
       let rowGongNodeStruct: GongNode = {
@@ -499,6 +554,38 @@ export class SidebarComponent implements OnInit {
           tableGongNodeStruct.children!.push(tableGongNodeInstance)
 
           // insertion point for per field code
+          /**
+          * let append a node for the slide of pointer DisplayedColumns
+          */
+          let DisplayedColumnsGongNodeAssociation: GongNode = {
+            name: "(DisplayedColumn) DisplayedColumns",
+            type: GongNodeType.ONE__ZERO_MANY_ASSOCIATION,
+            id: tableDB.ID,
+            uniqueIdPerStack: 19 * nonInstanceNodeId,
+            structName: "Table",
+            associationField: "DisplayedColumns",
+            associatedStructName: "DisplayedColumn",
+            children: new Array<GongNode>()
+          }
+          nonInstanceNodeId = nonInstanceNodeId + 1
+          tableGongNodeInstance.children.push(DisplayedColumnsGongNodeAssociation)
+
+          tableDB.DisplayedColumns?.forEach(displayedcolumnDB => {
+            let displayedcolumnNode: GongNode = {
+              name: displayedcolumnDB.Name,
+              type: GongNodeType.INSTANCE,
+              id: displayedcolumnDB.ID,
+              uniqueIdPerStack: // godel numbering (thank you kurt)
+                7 * getTableUniqueID(tableDB.ID)
+                + 11 * getDisplayedColumnUniqueID(displayedcolumnDB.ID),
+              structName: "DisplayedColumn",
+              associationField: "",
+              associatedStructName: "",
+              children: new Array<GongNode>()
+            }
+            DisplayedColumnsGongNodeAssociation.children.push(displayedcolumnNode)
+          })
+
           /**
           * let append a node for the slide of pointer Rows
           */

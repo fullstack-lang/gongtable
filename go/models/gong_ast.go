@@ -305,6 +305,7 @@ var __gong__map_Indentifiers_gongstructName = make(map[string]string)
 // insertion point for identifiers maps
 var __gong__map_Cell = make(map[string]*Cell)
 var __gong__map_CellString = make(map[string]*CellString)
+var __gong__map_DisplayedColumn = make(map[string]*DisplayedColumn)
 var __gong__map_Row = make(map[string]*Row)
 var __gong__map_Table = make(map[string]*Table)
 
@@ -487,6 +488,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 										instanceCellString := (&CellString{Name: instanceName}).Stage(stage)
 										instance = any(instanceCellString)
 										__gong__map_CellString[identifier] = instanceCellString
+									case "DisplayedColumn":
+										instanceDisplayedColumn := (&DisplayedColumn{Name: instanceName}).Stage(stage)
+										instance = any(instanceDisplayedColumn)
+										__gong__map_DisplayedColumn[identifier] = instanceDisplayedColumn
 									case "Row":
 										instanceRow := (&Row{Name: instanceName}).Stage(stage)
 										instance = any(instanceRow)
@@ -539,6 +544,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 							switch fieldName {
 							// insertion point for date assign code
 							}
+						case "DisplayedColumn":
+							switch fieldName {
+							// insertion point for date assign code
+							}
 						case "Row":
 							switch fieldName {
 							// insertion point for date assign code
@@ -580,6 +589,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 						switch fieldName {
 						// insertion point for slice of pointers assign code
 						}
+					case "DisplayedColumn":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						}
 					case "Row":
 						switch fieldName {
 						// insertion point for slice of pointers assign code
@@ -593,6 +606,12 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					case "Table":
 						switch fieldName {
 						// insertion point for slice of pointers assign code
+						case "DisplayedColumns":
+							// remove first and last char
+							targetIdentifier := ident.Name
+							target := __gong__map_DisplayedColumn[targetIdentifier]
+							__gong__map_Table[identifier].DisplayedColumns =
+								append(__gong__map_Table[identifier].DisplayedColumns, target)
 						case "Rows":
 							// remove first and last char
 							targetIdentifier := ident.Name
@@ -665,6 +684,14 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_CellString[identifier].Name = fielValue
 				}
+			case "DisplayedColumn":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_DisplayedColumn[identifier].Name = fielValue
+				}
 			case "Row":
 				switch fieldName {
 				// insertion point for field dependant code
@@ -703,6 +730,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					__gong__map_Cell[identifier].CellString = __gong__map_CellString[targetIdentifier]
 				}
 			case "CellString":
+				switch fieldName {
+				// insertion point for field dependant code
+				}
+			case "DisplayedColumn":
 				switch fieldName {
 				// insertion point for field dependant code
 				}
@@ -747,6 +778,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// insertion point for enum assign code
 					}
 				case "CellString":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "DisplayedColumn":
 					switch fieldName {
 					// insertion point for enum assign code
 					}

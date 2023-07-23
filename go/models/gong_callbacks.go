@@ -13,6 +13,10 @@ func AfterCreateFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterCellStringCreateCallback != nil {
 			stage.OnAfterCellStringCreateCallback.OnAfterCreate(stage, target)
 		}
+	case *DisplayedColumn:
+		if stage.OnAfterDisplayedColumnCreateCallback != nil {
+			stage.OnAfterDisplayedColumnCreateCallback.OnAfterCreate(stage, target)
+		}
 	case *Row:
 		if stage.OnAfterRowCreateCallback != nil {
 			stage.OnAfterRowCreateCallback.OnAfterCreate(stage, target)
@@ -40,6 +44,11 @@ func AfterUpdateFromFront[Type Gongstruct](stage *StageStruct, old, new *Type) {
 		newTarget := any(new).(*CellString)
 		if stage.OnAfterCellStringUpdateCallback != nil {
 			stage.OnAfterCellStringUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
+		}
+	case *DisplayedColumn:
+		newTarget := any(new).(*DisplayedColumn)
+		if stage.OnAfterDisplayedColumnUpdateCallback != nil {
+			stage.OnAfterDisplayedColumnUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
 	case *Row:
 		newTarget := any(new).(*Row)
@@ -71,6 +80,11 @@ func AfterDeleteFromFront[Type Gongstruct](stage *StageStruct, staged, front *Ty
 			staged := any(staged).(*CellString)
 			stage.OnAfterCellStringDeleteCallback.OnAfterDelete(stage, staged, front)
 		}
+	case *DisplayedColumn:
+		if stage.OnAfterDisplayedColumnDeleteCallback != nil {
+			staged := any(staged).(*DisplayedColumn)
+			stage.OnAfterDisplayedColumnDeleteCallback.OnAfterDelete(stage, staged, front)
+		}
 	case *Row:
 		if stage.OnAfterRowDeleteCallback != nil {
 			staged := any(staged).(*Row)
@@ -99,6 +113,10 @@ func AfterReadFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterCellStringReadCallback != nil {
 			stage.OnAfterCellStringReadCallback.OnAfterRead(stage, target)
 		}
+	case *DisplayedColumn:
+		if stage.OnAfterDisplayedColumnReadCallback != nil {
+			stage.OnAfterDisplayedColumnReadCallback.OnAfterRead(stage, target)
+		}
 	case *Row:
 		if stage.OnAfterRowReadCallback != nil {
 			stage.OnAfterRowReadCallback.OnAfterRead(stage, target)
@@ -124,6 +142,9 @@ func SetCallbackAfterUpdateFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *CellString:
 		stage.OnAfterCellStringUpdateCallback = any(callback).(OnAfterUpdateInterface[CellString])
 	
+	case *DisplayedColumn:
+		stage.OnAfterDisplayedColumnUpdateCallback = any(callback).(OnAfterUpdateInterface[DisplayedColumn])
+	
 	case *Row:
 		stage.OnAfterRowUpdateCallback = any(callback).(OnAfterUpdateInterface[Row])
 	
@@ -142,6 +163,9 @@ func SetCallbackAfterCreateFromFront[Type Gongstruct](stage *StageStruct, callba
 	
 	case *CellString:
 		stage.OnAfterCellStringCreateCallback = any(callback).(OnAfterCreateInterface[CellString])
+	
+	case *DisplayedColumn:
+		stage.OnAfterDisplayedColumnCreateCallback = any(callback).(OnAfterCreateInterface[DisplayedColumn])
 	
 	case *Row:
 		stage.OnAfterRowCreateCallback = any(callback).(OnAfterCreateInterface[Row])
@@ -162,6 +186,9 @@ func SetCallbackAfterDeleteFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *CellString:
 		stage.OnAfterCellStringDeleteCallback = any(callback).(OnAfterDeleteInterface[CellString])
 	
+	case *DisplayedColumn:
+		stage.OnAfterDisplayedColumnDeleteCallback = any(callback).(OnAfterDeleteInterface[DisplayedColumn])
+	
 	case *Row:
 		stage.OnAfterRowDeleteCallback = any(callback).(OnAfterDeleteInterface[Row])
 	
@@ -180,6 +207,9 @@ func SetCallbackAfterReadFromFront[Type Gongstruct](stage *StageStruct, callback
 	
 	case *CellString:
 		stage.OnAfterCellStringReadCallback = any(callback).(OnAfterReadInterface[CellString])
+	
+	case *DisplayedColumn:
+		stage.OnAfterDisplayedColumnReadCallback = any(callback).(OnAfterReadInterface[DisplayedColumn])
 	
 	case *Row:
 		stage.OnAfterRowReadCallback = any(callback).(OnAfterReadInterface[Row])

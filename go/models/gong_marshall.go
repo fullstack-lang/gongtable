@@ -174,6 +174,38 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 
 	}
 
+	map_DisplayedColumn_Identifiers := make(map[*DisplayedColumn]string)
+	_ = map_DisplayedColumn_Identifiers
+
+	displayedcolumnOrdered := []*DisplayedColumn{}
+	for displayedcolumn := range stage.DisplayedColumns {
+		displayedcolumnOrdered = append(displayedcolumnOrdered, displayedcolumn)
+	}
+	sort.Slice(displayedcolumnOrdered[:], func(i, j int) bool {
+		return displayedcolumnOrdered[i].Name < displayedcolumnOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of DisplayedColumn"
+	for idx, displayedcolumn := range displayedcolumnOrdered {
+
+		id = generatesIdentifier("DisplayedColumn", idx, displayedcolumn.Name)
+		map_DisplayedColumn_Identifiers[displayedcolumn] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "DisplayedColumn")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", displayedcolumn.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// DisplayedColumn values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(displayedcolumn.Name))
+		initializerStatements += setValueField
+
+	}
+
 	map_Row_Identifiers := make(map[*Row]string)
 	_ = map_Row_Identifiers
 
@@ -267,6 +299,16 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 		// Initialisation of values
 	}
 
+	for idx, displayedcolumn := range displayedcolumnOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("DisplayedColumn", idx, displayedcolumn.Name)
+		map_DisplayedColumn_Identifiers[displayedcolumn] = id
+
+		// Initialisation of values
+	}
+
 	for idx, row := range rowOrdered {
 		var setPointerField string
 		_ = setPointerField
@@ -293,6 +335,14 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 		map_Table_Identifiers[table] = id
 
 		// Initialisation of values
+		for _, _displayedcolumn := range table.DisplayedColumns {
+			setPointerField = SliceOfPointersFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "DisplayedColumns")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_DisplayedColumn_Identifiers[_displayedcolumn])
+			pointersInitializesStatements += setPointerField
+		}
+
 		for _, _row := range table.Rows {
 			setPointerField = SliceOfPointersFieldInitStatement
 			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)

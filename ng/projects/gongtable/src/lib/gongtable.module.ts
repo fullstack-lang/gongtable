@@ -47,6 +47,10 @@ import { CellStringsTableComponent } from './cellstrings-table/cellstrings-table
 import { CellStringSortingComponent } from './cellstring-sorting/cellstring-sorting.component'
 import { CellStringDetailComponent } from './cellstring-detail/cellstring-detail.component'
 
+import { DisplayedColumnsTableComponent } from './displayedcolumns-table/displayedcolumns-table.component'
+import { DisplayedColumnSortingComponent } from './displayedcolumn-sorting/displayedcolumn-sorting.component'
+import { DisplayedColumnDetailComponent } from './displayedcolumn-detail/displayedcolumn-detail.component'
+
 import { RowsTableComponent } from './rows-table/rows-table.component'
 import { RowSortingComponent } from './row-sorting/row-sorting.component'
 import { RowDetailComponent } from './row-detail/row-detail.component'
@@ -66,6 +70,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		CellStringsTableComponent,
 		CellStringSortingComponent,
 		CellStringDetailComponent,
+
+		DisplayedColumnsTableComponent,
+		DisplayedColumnSortingComponent,
+		DisplayedColumnDetailComponent,
 
 		RowsTableComponent,
 		RowSortingComponent,
@@ -121,6 +129,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		CellStringsTableComponent,
 		CellStringSortingComponent,
 		CellStringDetailComponent,
+
+		DisplayedColumnsTableComponent,
+		DisplayedColumnSortingComponent,
+		DisplayedColumnDetailComponent,
 
 		RowsTableComponent,
 		RowSortingComponent,

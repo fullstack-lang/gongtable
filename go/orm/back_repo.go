@@ -25,6 +25,8 @@ type BackRepoStruct struct {
 
 	BackRepoCellString BackRepoCellStringStruct
 
+	BackRepoDisplayedColumn BackRepoDisplayedColumnStruct
+
 	BackRepoRow BackRepoRowStruct
 
 	BackRepoTable BackRepoTableStruct
@@ -67,6 +69,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 	err = db.AutoMigrate( // insertion point for reference to structs
 		&CellDB{},
 		&CellStringDB{},
+		&DisplayedColumnDB{},
 		&RowDB{},
 		&TableDB{},
 	)
@@ -91,6 +94,14 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_CellStringDBID_CellStringPtr: make(map[uint]*models.CellString, 0),
 		Map_CellStringDBID_CellStringDB:  make(map[uint]*CellStringDB, 0),
 		Map_CellStringPtr_CellStringDBID: make(map[*models.CellString]uint, 0),
+
+		db:    db,
+		stage: stage,
+	}
+	backRepo.BackRepoDisplayedColumn = BackRepoDisplayedColumnStruct{
+		Map_DisplayedColumnDBID_DisplayedColumnPtr: make(map[uint]*models.DisplayedColumn, 0),
+		Map_DisplayedColumnDBID_DisplayedColumnDB:  make(map[uint]*DisplayedColumnDB, 0),
+		Map_DisplayedColumnPtr_DisplayedColumnDBID: make(map[*models.DisplayedColumn]uint, 0),
 
 		db:    db,
 		stage: stage,
@@ -158,12 +169,14 @@ func (backRepo *BackRepoStruct) Commit(stage *models.StageStruct) {
 	// insertion point for per struct back repo phase one commit
 	backRepo.BackRepoCell.CommitPhaseOne(stage)
 	backRepo.BackRepoCellString.CommitPhaseOne(stage)
+	backRepo.BackRepoDisplayedColumn.CommitPhaseOne(stage)
 	backRepo.BackRepoRow.CommitPhaseOne(stage)
 	backRepo.BackRepoTable.CommitPhaseOne(stage)
 
 	// insertion point for per struct back repo phase two commit
 	backRepo.BackRepoCell.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoCellString.CommitPhaseTwo(backRepo)
+	backRepo.BackRepoDisplayedColumn.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoRow.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoTable.CommitPhaseTwo(backRepo)
 
@@ -175,12 +188,14 @@ func (backRepo *BackRepoStruct) Checkout(stage *models.StageStruct) {
 	// insertion point for per struct back repo phase one commit
 	backRepo.BackRepoCell.CheckoutPhaseOne()
 	backRepo.BackRepoCellString.CheckoutPhaseOne()
+	backRepo.BackRepoDisplayedColumn.CheckoutPhaseOne()
 	backRepo.BackRepoRow.CheckoutPhaseOne()
 	backRepo.BackRepoTable.CheckoutPhaseOne()
 
 	// insertion point for per struct back repo phase two commit
 	backRepo.BackRepoCell.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoCellString.CheckoutPhaseTwo(backRepo)
+	backRepo.BackRepoDisplayedColumn.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoRow.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoTable.CheckoutPhaseTwo(backRepo)
 }
@@ -211,6 +226,7 @@ func (backRepo *BackRepoStruct) Backup(stage *models.StageStruct, dirPath string
 	// insertion point for per struct backup
 	backRepo.BackRepoCell.Backup(dirPath)
 	backRepo.BackRepoCellString.Backup(dirPath)
+	backRepo.BackRepoDisplayedColumn.Backup(dirPath)
 	backRepo.BackRepoRow.Backup(dirPath)
 	backRepo.BackRepoTable.Backup(dirPath)
 }
@@ -225,6 +241,7 @@ func (backRepo *BackRepoStruct) BackupXL(stage *models.StageStruct, dirPath stri
 	// insertion point for per struct backup
 	backRepo.BackRepoCell.BackupXL(file)
 	backRepo.BackRepoCellString.BackupXL(file)
+	backRepo.BackRepoDisplayedColumn.BackupXL(file)
 	backRepo.BackRepoRow.BackupXL(file)
 	backRepo.BackRepoTable.BackupXL(file)
 
@@ -253,6 +270,7 @@ func (backRepo *BackRepoStruct) Restore(stage *models.StageStruct, dirPath strin
 	// insertion point for per struct backup
 	backRepo.BackRepoCell.RestorePhaseOne(dirPath)
 	backRepo.BackRepoCellString.RestorePhaseOne(dirPath)
+	backRepo.BackRepoDisplayedColumn.RestorePhaseOne(dirPath)
 	backRepo.BackRepoRow.RestorePhaseOne(dirPath)
 	backRepo.BackRepoTable.RestorePhaseOne(dirPath)
 
@@ -263,6 +281,7 @@ func (backRepo *BackRepoStruct) Restore(stage *models.StageStruct, dirPath strin
 	// insertion point for per struct backup
 	backRepo.BackRepoCell.RestorePhaseTwo()
 	backRepo.BackRepoCellString.RestorePhaseTwo()
+	backRepo.BackRepoDisplayedColumn.RestorePhaseTwo()
 	backRepo.BackRepoRow.RestorePhaseTwo()
 	backRepo.BackRepoTable.RestorePhaseTwo()
 
@@ -294,6 +313,7 @@ func (backRepo *BackRepoStruct) RestoreXL(stage *models.StageStruct, dirPath str
 	// insertion point for per struct backup
 	backRepo.BackRepoCell.RestoreXLPhaseOne(file)
 	backRepo.BackRepoCellString.RestoreXLPhaseOne(file)
+	backRepo.BackRepoDisplayedColumn.RestoreXLPhaseOne(file)
 	backRepo.BackRepoRow.RestoreXLPhaseOne(file)
 	backRepo.BackRepoTable.RestoreXLPhaseOne(file)
 

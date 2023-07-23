@@ -1,4 +1,5 @@
 // insertion point for imports
+import { DisplayedColumnDB } from './displayedcolumn-db'
 import { RowDB } from './row-db'
 
 // usefull for managing pointer ID values that can be nullable
@@ -16,5 +17,6 @@ export class TableDB {
 	Name: string = ""
 
 	// insertion point for other declarations
+	DisplayedColumns?: Array<DisplayedColumnDB>
 	Rows?: Array<RowDB>
 }

@@ -11,6 +11,9 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 	case *CellString:
 		ok = stage.IsStagedCellString(target)
 
+	case *DisplayedColumn:
+		ok = stage.IsStagedDisplayedColumn(target)
+
 	case *Row:
 		ok = stage.IsStagedRow(target)
 
@@ -34,6 +37,13 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 	func (stage *StageStruct) IsStagedCellString(cellstring *CellString) (ok bool) {
 
 		_, ok = stage.CellStrings[cellstring]
+	
+		return
+	}
+
+	func (stage *StageStruct) IsStagedDisplayedColumn(displayedcolumn *DisplayedColumn) (ok bool) {
+
+		_, ok = stage.DisplayedColumns[displayedcolumn]
 	
 		return
 	}
@@ -66,6 +76,9 @@ func StageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 
 	case *CellString:
 		stage.StageBranchCellString(target)
+
+	case *DisplayedColumn:
+		stage.StageBranchDisplayedColumn(target)
 
 	case *Row:
 		stage.StageBranchRow(target)
@@ -112,6 +125,21 @@ func (stage *StageStruct) StageBranchCellString(cellstring *CellString) {
 
 }
 
+func (stage *StageStruct) StageBranchDisplayedColumn(displayedcolumn *DisplayedColumn) {
+
+	// check if instance is already staged
+	if IsStaged(stage, displayedcolumn) {
+		return
+	}
+
+	displayedcolumn.Stage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
+
+}
+
 func (stage *StageStruct) StageBranchRow(row *Row) {
 
 	// check if instance is already staged
@@ -142,6 +170,9 @@ func (stage *StageStruct) StageBranchTable(table *Table) {
 	//insertion point for the staging of instances referenced by pointers
 
 	//insertion point for the staging of instances referenced by slice of pointers
+	for _, _displayedcolumn := range table.DisplayedColumns {
+		StageBranch(stage, _displayedcolumn)
+	}
 	for _, _row := range table.Rows {
 		StageBranch(stage, _row)
 	}
@@ -162,6 +193,9 @@ func UnstageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 
 	case *CellString:
 		stage.UnstageBranchCellString(target)
+
+	case *DisplayedColumn:
+		stage.UnstageBranchDisplayedColumn(target)
 
 	case *Row:
 		stage.UnstageBranchRow(target)
@@ -208,6 +242,21 @@ func (stage *StageStruct) UnstageBranchCellString(cellstring *CellString) {
 
 }
 
+func (stage *StageStruct) UnstageBranchDisplayedColumn(displayedcolumn *DisplayedColumn) {
+
+	// check if instance is already staged
+	if ! IsStaged(stage, displayedcolumn) {
+		return
+	}
+
+	displayedcolumn.Unstage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
+
+}
+
 func (stage *StageStruct) UnstageBranchRow(row *Row) {
 
 	// check if instance is already staged
@@ -238,6 +287,9 @@ func (stage *StageStruct) UnstageBranchTable(table *Table) {
 	//insertion point for the staging of instances referenced by pointers
 
 	//insertion point for the staging of instances referenced by slice of pointers
+	for _, _displayedcolumn := range table.DisplayedColumns {
+		UnstageBranch(stage, _displayedcolumn)
+	}
 	for _, _row := range table.Rows {
 		UnstageBranch(stage, _row)
 	}

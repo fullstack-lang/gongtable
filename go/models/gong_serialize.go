@@ -15,6 +15,7 @@ func SerializeStage(stage *StageStruct, filename string) {
 		// insertion point
 		SerializeExcelize[Cell](stage, f)
 		SerializeExcelize[CellString](stage, f)
+		SerializeExcelize[DisplayedColumn](stage, f)
 		SerializeExcelize[Row](stage, f)
 		SerializeExcelize[Table](stage, f)
 	}
