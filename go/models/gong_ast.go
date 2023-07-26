@@ -304,6 +304,9 @@ var __gong__map_Indentifiers_gongstructName = make(map[string]string)
 
 // insertion point for identifiers maps
 var __gong__map_Cell = make(map[string]*Cell)
+var __gong__map_CellFloat64 = make(map[string]*CellFloat64)
+var __gong__map_CellIcon = make(map[string]*CellIcon)
+var __gong__map_CellInt = make(map[string]*CellInt)
 var __gong__map_CellString = make(map[string]*CellString)
 var __gong__map_DisplayedColumn = make(map[string]*DisplayedColumn)
 var __gong__map_Row = make(map[string]*Row)
@@ -484,6 +487,18 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 										instanceCell := (&Cell{Name: instanceName}).Stage(stage)
 										instance = any(instanceCell)
 										__gong__map_Cell[identifier] = instanceCell
+									case "CellFloat64":
+										instanceCellFloat64 := (&CellFloat64{Name: instanceName}).Stage(stage)
+										instance = any(instanceCellFloat64)
+										__gong__map_CellFloat64[identifier] = instanceCellFloat64
+									case "CellIcon":
+										instanceCellIcon := (&CellIcon{Name: instanceName}).Stage(stage)
+										instance = any(instanceCellIcon)
+										__gong__map_CellIcon[identifier] = instanceCellIcon
+									case "CellInt":
+										instanceCellInt := (&CellInt{Name: instanceName}).Stage(stage)
+										instance = any(instanceCellInt)
+										__gong__map_CellInt[identifier] = instanceCellInt
 									case "CellString":
 										instanceCellString := (&CellString{Name: instanceName}).Stage(stage)
 										instance = any(instanceCellString)
@@ -540,6 +555,18 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 							switch fieldName {
 							// insertion point for date assign code
 							}
+						case "CellFloat64":
+							switch fieldName {
+							// insertion point for date assign code
+							}
+						case "CellIcon":
+							switch fieldName {
+							// insertion point for date assign code
+							}
+						case "CellInt":
+							switch fieldName {
+							// insertion point for date assign code
+							}
 						case "CellString":
 							switch fieldName {
 							// insertion point for date assign code
@@ -582,6 +609,18 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					switch gongstructName {
 					// insertion point for slice of pointers assignments
 					case "Cell":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						}
+					case "CellFloat64":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						}
+					case "CellIcon":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						}
+					case "CellInt":
 						switch fieldName {
 						// insertion point for slice of pointers assign code
 						}
@@ -676,6 +715,51 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_Cell[identifier].Name = fielValue
 				}
+			case "CellFloat64":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_CellFloat64[identifier].Name = fielValue
+				case "Value":
+					// convert string to int
+					fielValue, err := strconv.ParseInt(basicLit.Value, 10, 64)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_CellFloat64[identifier].Value = int(exprSign) * int(fielValue)
+				}
+			case "CellIcon":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_CellIcon[identifier].Name = fielValue
+				case "Value":
+					// convert string to int
+					fielValue, err := strconv.ParseInt(basicLit.Value, 10, 64)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_CellIcon[identifier].Value = int(exprSign) * int(fielValue)
+				}
+			case "CellInt":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_CellInt[identifier].Name = fielValue
+				case "Value":
+					// convert string to int
+					fielValue, err := strconv.ParseInt(basicLit.Value, 10, 64)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_CellInt[identifier].Value = int(exprSign) * int(fielValue)
+				}
 			case "CellString":
 				switch fieldName {
 				// insertion point for field dependant code
@@ -728,6 +812,27 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				case "CellString":
 					targetIdentifier := ident.Name
 					__gong__map_Cell[identifier].CellString = __gong__map_CellString[targetIdentifier]
+				case "CellFloat64":
+					targetIdentifier := ident.Name
+					__gong__map_Cell[identifier].CellFloat64 = __gong__map_CellFloat64[targetIdentifier]
+				case "CellInt":
+					targetIdentifier := ident.Name
+					__gong__map_Cell[identifier].CellInt = __gong__map_CellInt[targetIdentifier]
+				case "CellIcon":
+					targetIdentifier := ident.Name
+					__gong__map_Cell[identifier].CellIcon = __gong__map_CellIcon[targetIdentifier]
+				}
+			case "CellFloat64":
+				switch fieldName {
+				// insertion point for field dependant code
+				}
+			case "CellIcon":
+				switch fieldName {
+				// insertion point for field dependant code
+				}
+			case "CellInt":
+				switch fieldName {
+				// insertion point for field dependant code
 				}
 			case "CellString":
 				switch fieldName {
@@ -774,6 +879,18 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				switch gongstructName {
 				// insertion point for enums assignments
 				case "Cell":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "CellFloat64":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "CellIcon":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "CellInt":
 					switch fieldName {
 					// insertion point for enum assign code
 					}

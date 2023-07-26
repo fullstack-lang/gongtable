@@ -1,2 +1,3 @@
 go/cmd/gongtable/gongtable
+*.exe
 __debug_bin

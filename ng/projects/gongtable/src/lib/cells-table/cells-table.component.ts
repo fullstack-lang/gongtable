@@ -78,6 +78,15 @@ export class CellsTableComponent implements OnInit {
         case 'CellString':
           return (cellDB.CellString ? cellDB.CellString.Name : '');
 
+        case 'CellFloat64':
+          return (cellDB.CellFloat64 ? cellDB.CellFloat64.Name : '');
+
+        case 'CellInt':
+          return (cellDB.CellInt ? cellDB.CellInt.Name : '');
+
+        case 'CellIcon':
+          return (cellDB.CellIcon ? cellDB.CellIcon.Name : '');
+
         case 'Row_Cells':
           if (this.frontRepo.Rows.get(cellDB.Row_CellsDBID.Int64) != undefined) {
             return this.frontRepo.Rows.get(cellDB.Row_CellsDBID.Int64)!.Name
@@ -102,6 +111,15 @@ export class CellsTableComponent implements OnInit {
       mergedContent += cellDB.Name.toLowerCase()
       if (cellDB.CellString) {
         mergedContent += cellDB.CellString.Name.toLowerCase()
+      }
+      if (cellDB.CellFloat64) {
+        mergedContent += cellDB.CellFloat64.Name.toLowerCase()
+      }
+      if (cellDB.CellInt) {
+        mergedContent += cellDB.CellInt.Name.toLowerCase()
+      }
+      if (cellDB.CellIcon) {
+        mergedContent += cellDB.CellIcon.Name.toLowerCase()
       }
       if (cellDB.Row_CellsDBID.Int64 != 0) {
         mergedContent += this.frontRepo.Rows.get(cellDB.Row_CellsDBID.Int64)!.Name.toLowerCase()
@@ -163,12 +181,18 @@ export class CellsTableComponent implements OnInit {
       this.displayedColumns = ['ID', 'Delete', // insertion point for columns to display
         "Name",
         "CellString",
+        "CellFloat64",
+        "CellInt",
+        "CellIcon",
         "Row_Cells",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
         "CellString",
+        "CellFloat64",
+        "CellInt",
+        "CellIcon",
         "Row_Cells",
       ]
       this.selection = new SelectionModel<CellDB>(allowMultiSelect, this.initialSelection);

@@ -50,6 +50,18 @@ type CellPointersEnconding struct {
 	// This field is generated into another field to enable AS ONE association
 	CellStringID sql.NullInt64
 
+	// field CellFloat64 is a pointer to another Struct (optional or 0..1)
+	// This field is generated into another field to enable AS ONE association
+	CellFloat64ID sql.NullInt64
+
+	// field CellInt is a pointer to another Struct (optional or 0..1)
+	// This field is generated into another field to enable AS ONE association
+	CellIntID sql.NullInt64
+
+	// field CellIcon is a pointer to another Struct (optional or 0..1)
+	// This field is generated into another field to enable AS ONE association
+	CellIconID sql.NullInt64
+
 	// Implementation of a reverse ID for field Row{}.Cells []*Cell
 	Row_CellsDBID sql.NullInt64
 
@@ -227,6 +239,33 @@ func (backRepoCell *BackRepoCellStruct) CommitPhaseTwoInstance(backRepo *BackRep
 			}
 		}
 
+		// commit pointer value cell.CellFloat64 translates to updating the cell.CellFloat64ID
+		cellDB.CellFloat64ID.Valid = true // allow for a 0 value (nil association)
+		if cell.CellFloat64 != nil {
+			if CellFloat64Id, ok := backRepo.BackRepoCellFloat64.Map_CellFloat64Ptr_CellFloat64DBID[cell.CellFloat64]; ok {
+				cellDB.CellFloat64ID.Int64 = int64(CellFloat64Id)
+				cellDB.CellFloat64ID.Valid = true
+			}
+		}
+
+		// commit pointer value cell.CellInt translates to updating the cell.CellIntID
+		cellDB.CellIntID.Valid = true // allow for a 0 value (nil association)
+		if cell.CellInt != nil {
+			if CellIntId, ok := backRepo.BackRepoCellInt.Map_CellIntPtr_CellIntDBID[cell.CellInt]; ok {
+				cellDB.CellIntID.Int64 = int64(CellIntId)
+				cellDB.CellIntID.Valid = true
+			}
+		}
+
+		// commit pointer value cell.CellIcon translates to updating the cell.CellIconID
+		cellDB.CellIconID.Valid = true // allow for a 0 value (nil association)
+		if cell.CellIcon != nil {
+			if CellIconId, ok := backRepo.BackRepoCellIcon.Map_CellIconPtr_CellIconDBID[cell.CellIcon]; ok {
+				cellDB.CellIconID.Int64 = int64(CellIconId)
+				cellDB.CellIconID.Valid = true
+			}
+		}
+
 		query := backRepoCell.db.Save(&cellDB)
 		if query.Error != nil {
 			return query.Error
@@ -337,6 +376,18 @@ func (backRepoCell *BackRepoCellStruct) CheckoutPhaseTwoInstance(backRepo *BackR
 	// CellString field
 	if cellDB.CellStringID.Int64 != 0 {
 		cell.CellString = backRepo.BackRepoCellString.Map_CellStringDBID_CellStringPtr[uint(cellDB.CellStringID.Int64)]
+	}
+	// CellFloat64 field
+	if cellDB.CellFloat64ID.Int64 != 0 {
+		cell.CellFloat64 = backRepo.BackRepoCellFloat64.Map_CellFloat64DBID_CellFloat64Ptr[uint(cellDB.CellFloat64ID.Int64)]
+	}
+	// CellInt field
+	if cellDB.CellIntID.Int64 != 0 {
+		cell.CellInt = backRepo.BackRepoCellInt.Map_CellIntDBID_CellIntPtr[uint(cellDB.CellIntID.Int64)]
+	}
+	// CellIcon field
+	if cellDB.CellIconID.Int64 != 0 {
+		cell.CellIcon = backRepo.BackRepoCellIcon.Map_CellIconDBID_CellIconPtr[uint(cellDB.CellIconID.Int64)]
 	}
 	return
 }
@@ -556,6 +607,24 @@ func (backRepoCell *BackRepoCellStruct) RestorePhaseTwo() {
 		if cellDB.CellStringID.Int64 != 0 {
 			cellDB.CellStringID.Int64 = int64(BackRepoCellStringid_atBckpTime_newID[uint(cellDB.CellStringID.Int64)])
 			cellDB.CellStringID.Valid = true
+		}
+
+		// reindexing CellFloat64 field
+		if cellDB.CellFloat64ID.Int64 != 0 {
+			cellDB.CellFloat64ID.Int64 = int64(BackRepoCellFloat64id_atBckpTime_newID[uint(cellDB.CellFloat64ID.Int64)])
+			cellDB.CellFloat64ID.Valid = true
+		}
+
+		// reindexing CellInt field
+		if cellDB.CellIntID.Int64 != 0 {
+			cellDB.CellIntID.Int64 = int64(BackRepoCellIntid_atBckpTime_newID[uint(cellDB.CellIntID.Int64)])
+			cellDB.CellIntID.Valid = true
+		}
+
+		// reindexing CellIcon field
+		if cellDB.CellIconID.Int64 != 0 {
+			cellDB.CellIconID.Int64 = int64(BackRepoCellIconid_atBckpTime_newID[uint(cellDB.CellIconID.Int64)])
+			cellDB.CellIconID.Valid = true
 		}
 
 		// This reindex cell.Cells

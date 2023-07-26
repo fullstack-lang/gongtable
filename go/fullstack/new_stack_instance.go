@@ -49,6 +49,9 @@ func NewStackInstance(
 	// add orchestration
 	// insertion point
 	models.SetOrchestratorOnAfterUpdate[models.Cell](stage)
+	models.SetOrchestratorOnAfterUpdate[models.CellFloat64](stage)
+	models.SetOrchestratorOnAfterUpdate[models.CellIcon](stage)
+	models.SetOrchestratorOnAfterUpdate[models.CellInt](stage)
 	models.SetOrchestratorOnAfterUpdate[models.CellString](stage)
 	models.SetOrchestratorOnAfterUpdate[models.DisplayedColumn](stage)
 	models.SetOrchestratorOnAfterUpdate[models.Row](stage)

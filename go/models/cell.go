@@ -4,5 +4,8 @@ package models
 type Cell struct {
 	Name string
 
-	CellString *CellString
+	CellString  *CellString
+	CellFloat64 *CellFloat64
+	CellInt     *CellInt
+	CellIcon    *CellIcon
 }

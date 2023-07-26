@@ -24,6 +24,7 @@
             The *matCellDef directive defines a cell for each row, with the row stored in the element variable.
             {{ element[column] }} will display the data in this cell for the current row. -->
         <td mat-cell *matCellDef="let element">{{ element.Cells[i]?.CellString?.Name }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.Cells[i]?.CellInt?.Value }}</td>
     </ng-container>
 
     <!-- Header row. 

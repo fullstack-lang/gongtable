@@ -32,6 +32,36 @@
     </mat-form-field>
 
     <mat-form-field class="detail-full-width">
+        <mat-label>CellFloat64</mat-label>
+        <mat-select [compareWith]="compareObjects" [(value)]="cell.CellFloat64" (selectionChange)="fillUpNameIfEmpty($event)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let cellfloat64 of frontRepo.CellFloat64s_array" [value]="cellfloat64">
+                {{cellfloat64.Name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="detail-full-width">
+        <mat-label>CellInt</mat-label>
+        <mat-select [compareWith]="compareObjects" [(value)]="cell.CellInt" (selectionChange)="fillUpNameIfEmpty($event)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let cellint of frontRepo.CellInts_array" [value]="cellint">
+                {{cellint.Name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="detail-full-width">
+        <mat-label>CellIcon</mat-label>
+        <mat-select [compareWith]="compareObjects" [(value)]="cell.CellIcon" (selectionChange)="fillUpNameIfEmpty($event)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let cellicon of frontRepo.CellIcons_array" [value]="cellicon">
+                {{cellicon.Name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="detail-full-width">
         <mat-label>(Row) Cells</mat-label>
         <mat-select [compareWith]="compareObjects" [(ngModel)]="cell.Row_Cells_reverse" [ngModelOptions]="{standalone: true}">
             <mat-option>None</mat-option>

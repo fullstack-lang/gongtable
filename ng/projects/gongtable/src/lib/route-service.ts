@@ -5,6 +5,15 @@ import { Route, Router, Routes } from '@angular/router';
 import { CellsTableComponent } from './cells-table/cells-table.component'
 import { CellDetailComponent } from './cell-detail/cell-detail.component'
 
+import { CellFloat64sTableComponent } from './cellfloat64s-table/cellfloat64s-table.component'
+import { CellFloat64DetailComponent } from './cellfloat64-detail/cellfloat64-detail.component'
+
+import { CellIconsTableComponent } from './cellicons-table/cellicons-table.component'
+import { CellIconDetailComponent } from './cellicon-detail/cellicon-detail.component'
+
+import { CellIntsTableComponent } from './cellints-table/cellints-table.component'
+import { CellIntDetailComponent } from './cellint-detail/cellint-detail.component'
+
 import { CellStringsTableComponent } from './cellstrings-table/cellstrings-table.component'
 import { CellStringDetailComponent } from './cellstring-detail/cellstring-detail.component'
 
@@ -78,6 +87,105 @@ export class RouteService {
     getCellDetailRoute(stackPath: string): Route {
         let route: Route =
             { path: this.getCellDetailPath(), component: CellDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
+    getCellFloat64TablePath(): string {
+        return this.getPathRoot() + '-cellfloat64s/:GONG__StackPath'
+    }
+    getCellFloat64TableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellFloat64TablePath(), component: CellFloat64sTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getCellFloat64AdderPath(): string {
+        return this.getPathRoot() + '-cellfloat64-adder/:GONG__StackPath'
+    }
+    getCellFloat64AdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellFloat64AdderPath(), component: CellFloat64DetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getCellFloat64AdderForUsePath(): string {
+        return this.getPathRoot() + '-cellfloat64-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getCellFloat64AdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellFloat64AdderForUsePath(), component: CellFloat64DetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getCellFloat64DetailPath(): string {
+        return this.getPathRoot() + '-cellfloat64-detail/:id/:GONG__StackPath'
+    }
+    getCellFloat64DetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellFloat64DetailPath(), component: CellFloat64DetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
+    getCellIconTablePath(): string {
+        return this.getPathRoot() + '-cellicons/:GONG__StackPath'
+    }
+    getCellIconTableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellIconTablePath(), component: CellIconsTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getCellIconAdderPath(): string {
+        return this.getPathRoot() + '-cellicon-adder/:GONG__StackPath'
+    }
+    getCellIconAdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellIconAdderPath(), component: CellIconDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getCellIconAdderForUsePath(): string {
+        return this.getPathRoot() + '-cellicon-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getCellIconAdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellIconAdderForUsePath(), component: CellIconDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getCellIconDetailPath(): string {
+        return this.getPathRoot() + '-cellicon-detail/:id/:GONG__StackPath'
+    }
+    getCellIconDetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellIconDetailPath(), component: CellIconDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
+    getCellIntTablePath(): string {
+        return this.getPathRoot() + '-cellints/:GONG__StackPath'
+    }
+    getCellIntTableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellIntTablePath(), component: CellIntsTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getCellIntAdderPath(): string {
+        return this.getPathRoot() + '-cellint-adder/:GONG__StackPath'
+    }
+    getCellIntAdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellIntAdderPath(), component: CellIntDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getCellIntAdderForUsePath(): string {
+        return this.getPathRoot() + '-cellint-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getCellIntAdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellIntAdderForUsePath(), component: CellIntDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getCellIntDetailPath(): string {
+        return this.getPathRoot() + '-cellint-detail/:id/:GONG__StackPath'
+    }
+    getCellIntDetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellIntDetailPath(), component: CellIntDetailComponent, outlet: this.getEditorOutlet(stackPath) }
         return route
     }
 
@@ -223,6 +331,21 @@ export class RouteService {
             this.getCellAdderRoute(stackPath),
             this.getCellAdderForUseRoute(stackPath),
             this.getCellDetailRoute(stackPath),
+
+            this.getCellFloat64TableRoute(stackPath),
+            this.getCellFloat64AdderRoute(stackPath),
+            this.getCellFloat64AdderForUseRoute(stackPath),
+            this.getCellFloat64DetailRoute(stackPath),
+
+            this.getCellIconTableRoute(stackPath),
+            this.getCellIconAdderRoute(stackPath),
+            this.getCellIconAdderForUseRoute(stackPath),
+            this.getCellIconDetailRoute(stackPath),
+
+            this.getCellIntTableRoute(stackPath),
+            this.getCellIntAdderRoute(stackPath),
+            this.getCellIntAdderForUseRoute(stackPath),
+            this.getCellIntDetailRoute(stackPath),
 
             this.getCellStringTableRoute(stackPath),
             this.getCellStringAdderRoute(stackPath),

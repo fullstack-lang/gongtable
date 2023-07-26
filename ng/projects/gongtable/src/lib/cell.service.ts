@@ -15,6 +15,9 @@ import { CellDB } from './cell-db';
 
 // insertion point for imports
 import { CellStringDB } from './cellstring-db'
+import { CellFloat64DB } from './cellfloat64-db'
+import { CellIntDB } from './cellint-db'
+import { CellIconDB } from './cellicon-db'
 import { RowDB } from './row-db'
 
 @Injectable({
@@ -73,6 +76,9 @@ export class CellService {
 
     // insertion point for reset of pointers and reverse pointers (to avoid circular JSON)
     celldb.CellString = new CellStringDB
+    celldb.CellFloat64 = new CellFloat64DB
+    celldb.CellInt = new CellIntDB
+    celldb.CellIcon = new CellIconDB
     let _Row_Cells_reverse = celldb.Row_Cells_reverse
     celldb.Row_Cells_reverse = new RowDB
 
@@ -116,6 +122,9 @@ export class CellService {
 
     // insertion point for reset of pointers and reverse pointers (to avoid circular JSON)
     celldb.CellString = new CellStringDB
+    celldb.CellFloat64 = new CellFloat64DB
+    celldb.CellInt = new CellIntDB
+    celldb.CellIcon = new CellIconDB
     let _Row_Cells_reverse = celldb.Row_Cells_reverse
     celldb.Row_Cells_reverse = new RowDB
 

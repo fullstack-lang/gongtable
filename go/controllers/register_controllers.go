@@ -48,6 +48,27 @@ func registerControllers(r *gin.Engine) {
 		v1.PUT("/v1/cells/:id", GetController().UpdateCell)
 		v1.DELETE("/v1/cells/:id", GetController().DeleteCell)
 
+		v1.GET("/v1/cellfloat64s", GetController().GetCellFloat64s)
+		v1.GET("/v1/cellfloat64s/:id", GetController().GetCellFloat64)
+		v1.POST("/v1/cellfloat64s", GetController().PostCellFloat64)
+		v1.PATCH("/v1/cellfloat64s/:id", GetController().UpdateCellFloat64)
+		v1.PUT("/v1/cellfloat64s/:id", GetController().UpdateCellFloat64)
+		v1.DELETE("/v1/cellfloat64s/:id", GetController().DeleteCellFloat64)
+
+		v1.GET("/v1/cellicons", GetController().GetCellIcons)
+		v1.GET("/v1/cellicons/:id", GetController().GetCellIcon)
+		v1.POST("/v1/cellicons", GetController().PostCellIcon)
+		v1.PATCH("/v1/cellicons/:id", GetController().UpdateCellIcon)
+		v1.PUT("/v1/cellicons/:id", GetController().UpdateCellIcon)
+		v1.DELETE("/v1/cellicons/:id", GetController().DeleteCellIcon)
+
+		v1.GET("/v1/cellints", GetController().GetCellInts)
+		v1.GET("/v1/cellints/:id", GetController().GetCellInt)
+		v1.POST("/v1/cellints", GetController().PostCellInt)
+		v1.PATCH("/v1/cellints/:id", GetController().UpdateCellInt)
+		v1.PUT("/v1/cellints/:id", GetController().UpdateCellInt)
+		v1.DELETE("/v1/cellints/:id", GetController().DeleteCellInt)
+
 		v1.GET("/v1/cellstrings", GetController().GetCellStrings)
 		v1.GET("/v1/cellstrings/:id", GetController().GetCellString)
 		v1.POST("/v1/cellstrings", GetController().PostCellString)

@@ -38,6 +38,30 @@ type StageStruct struct { // insertion point for definition of arrays registerin
 	OnAfterCellDeleteCallback OnAfterDeleteInterface[Cell]
 	OnAfterCellReadCallback   OnAfterReadInterface[Cell]
 
+	CellFloat64s           map[*CellFloat64]any
+	CellFloat64s_mapString map[string]*CellFloat64
+
+	OnAfterCellFloat64CreateCallback OnAfterCreateInterface[CellFloat64]
+	OnAfterCellFloat64UpdateCallback OnAfterUpdateInterface[CellFloat64]
+	OnAfterCellFloat64DeleteCallback OnAfterDeleteInterface[CellFloat64]
+	OnAfterCellFloat64ReadCallback   OnAfterReadInterface[CellFloat64]
+
+	CellIcons           map[*CellIcon]any
+	CellIcons_mapString map[string]*CellIcon
+
+	OnAfterCellIconCreateCallback OnAfterCreateInterface[CellIcon]
+	OnAfterCellIconUpdateCallback OnAfterUpdateInterface[CellIcon]
+	OnAfterCellIconDeleteCallback OnAfterDeleteInterface[CellIcon]
+	OnAfterCellIconReadCallback   OnAfterReadInterface[CellIcon]
+
+	CellInts           map[*CellInt]any
+	CellInts_mapString map[string]*CellInt
+
+	OnAfterCellIntCreateCallback OnAfterCreateInterface[CellInt]
+	OnAfterCellIntUpdateCallback OnAfterUpdateInterface[CellInt]
+	OnAfterCellIntDeleteCallback OnAfterDeleteInterface[CellInt]
+	OnAfterCellIntReadCallback   OnAfterReadInterface[CellInt]
+
 	CellStrings           map[*CellString]any
 	CellStrings_mapString map[string]*CellString
 
@@ -136,6 +160,12 @@ type BackRepoInterface interface {
 	// insertion point for Commit and Checkout signatures
 	CommitCell(cell *Cell)
 	CheckoutCell(cell *Cell)
+	CommitCellFloat64(cellfloat64 *CellFloat64)
+	CheckoutCellFloat64(cellfloat64 *CellFloat64)
+	CommitCellIcon(cellicon *CellIcon)
+	CheckoutCellIcon(cellicon *CellIcon)
+	CommitCellInt(cellint *CellInt)
+	CheckoutCellInt(cellint *CellInt)
 	CommitCellString(cellstring *CellString)
 	CheckoutCellString(cellstring *CellString)
 	CommitDisplayedColumn(displayedcolumn *DisplayedColumn)
@@ -164,6 +194,15 @@ func NewStage() (stage *StageStruct) {
 	stage = &StageStruct{ // insertion point for array initiatialisation
 		Cells:           make(map[*Cell]any),
 		Cells_mapString: make(map[string]*Cell),
+
+		CellFloat64s:           make(map[*CellFloat64]any),
+		CellFloat64s_mapString: make(map[string]*CellFloat64),
+
+		CellIcons:           make(map[*CellIcon]any),
+		CellIcons_mapString: make(map[string]*CellIcon),
+
+		CellInts:           make(map[*CellInt]any),
+		CellInts_mapString: make(map[string]*CellInt),
 
 		CellStrings:           make(map[*CellString]any),
 		CellStrings_mapString: make(map[string]*CellString),
@@ -203,6 +242,9 @@ func (stage *StageStruct) Commit() {
 
 	// insertion point for computing the map of number of instances per gongstruct
 	stage.Map_GongStructName_InstancesNb["Cell"] = len(stage.Cells)
+	stage.Map_GongStructName_InstancesNb["CellFloat64"] = len(stage.CellFloat64s)
+	stage.Map_GongStructName_InstancesNb["CellIcon"] = len(stage.CellIcons)
+	stage.Map_GongStructName_InstancesNb["CellInt"] = len(stage.CellInts)
 	stage.Map_GongStructName_InstancesNb["CellString"] = len(stage.CellStrings)
 	stage.Map_GongStructName_InstancesNb["DisplayedColumn"] = len(stage.DisplayedColumns)
 	stage.Map_GongStructName_InstancesNb["Row"] = len(stage.Rows)
@@ -217,6 +259,9 @@ func (stage *StageStruct) Checkout() {
 
 	// insertion point for computing the map of number of instances per gongstruct
 	stage.Map_GongStructName_InstancesNb["Cell"] = len(stage.Cells)
+	stage.Map_GongStructName_InstancesNb["CellFloat64"] = len(stage.CellFloat64s)
+	stage.Map_GongStructName_InstancesNb["CellIcon"] = len(stage.CellIcons)
+	stage.Map_GongStructName_InstancesNb["CellInt"] = len(stage.CellInts)
 	stage.Map_GongStructName_InstancesNb["CellString"] = len(stage.CellStrings)
 	stage.Map_GongStructName_InstancesNb["DisplayedColumn"] = len(stage.DisplayedColumns)
 	stage.Map_GongStructName_InstancesNb["Row"] = len(stage.Rows)
@@ -291,6 +336,126 @@ func (cell *Cell) Checkout(stage *StageStruct) *Cell {
 // for satisfaction of GongStruct interface
 func (cell *Cell) GetName() (res string) {
 	return cell.Name
+}
+
+// Stage puts cellfloat64 to the model stage
+func (cellfloat64 *CellFloat64) Stage(stage *StageStruct) *CellFloat64 {
+	stage.CellFloat64s[cellfloat64] = __member
+	stage.CellFloat64s_mapString[cellfloat64.Name] = cellfloat64
+
+	return cellfloat64
+}
+
+// Unstage removes cellfloat64 off the model stage
+func (cellfloat64 *CellFloat64) Unstage(stage *StageStruct) *CellFloat64 {
+	delete(stage.CellFloat64s, cellfloat64)
+	delete(stage.CellFloat64s_mapString, cellfloat64.Name)
+	return cellfloat64
+}
+
+// commit cellfloat64 to the back repo (if it is already staged)
+func (cellfloat64 *CellFloat64) Commit(stage *StageStruct) *CellFloat64 {
+	if _, ok := stage.CellFloat64s[cellfloat64]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitCellFloat64(cellfloat64)
+		}
+	}
+	return cellfloat64
+}
+
+// Checkout cellfloat64 to the back repo (if it is already staged)
+func (cellfloat64 *CellFloat64) Checkout(stage *StageStruct) *CellFloat64 {
+	if _, ok := stage.CellFloat64s[cellfloat64]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutCellFloat64(cellfloat64)
+		}
+	}
+	return cellfloat64
+}
+
+// for satisfaction of GongStruct interface
+func (cellfloat64 *CellFloat64) GetName() (res string) {
+	return cellfloat64.Name
+}
+
+// Stage puts cellicon to the model stage
+func (cellicon *CellIcon) Stage(stage *StageStruct) *CellIcon {
+	stage.CellIcons[cellicon] = __member
+	stage.CellIcons_mapString[cellicon.Name] = cellicon
+
+	return cellicon
+}
+
+// Unstage removes cellicon off the model stage
+func (cellicon *CellIcon) Unstage(stage *StageStruct) *CellIcon {
+	delete(stage.CellIcons, cellicon)
+	delete(stage.CellIcons_mapString, cellicon.Name)
+	return cellicon
+}
+
+// commit cellicon to the back repo (if it is already staged)
+func (cellicon *CellIcon) Commit(stage *StageStruct) *CellIcon {
+	if _, ok := stage.CellIcons[cellicon]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitCellIcon(cellicon)
+		}
+	}
+	return cellicon
+}
+
+// Checkout cellicon to the back repo (if it is already staged)
+func (cellicon *CellIcon) Checkout(stage *StageStruct) *CellIcon {
+	if _, ok := stage.CellIcons[cellicon]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutCellIcon(cellicon)
+		}
+	}
+	return cellicon
+}
+
+// for satisfaction of GongStruct interface
+func (cellicon *CellIcon) GetName() (res string) {
+	return cellicon.Name
+}
+
+// Stage puts cellint to the model stage
+func (cellint *CellInt) Stage(stage *StageStruct) *CellInt {
+	stage.CellInts[cellint] = __member
+	stage.CellInts_mapString[cellint.Name] = cellint
+
+	return cellint
+}
+
+// Unstage removes cellint off the model stage
+func (cellint *CellInt) Unstage(stage *StageStruct) *CellInt {
+	delete(stage.CellInts, cellint)
+	delete(stage.CellInts_mapString, cellint.Name)
+	return cellint
+}
+
+// commit cellint to the back repo (if it is already staged)
+func (cellint *CellInt) Commit(stage *StageStruct) *CellInt {
+	if _, ok := stage.CellInts[cellint]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitCellInt(cellint)
+		}
+	}
+	return cellint
+}
+
+// Checkout cellint to the back repo (if it is already staged)
+func (cellint *CellInt) Checkout(stage *StageStruct) *CellInt {
+	if _, ok := stage.CellInts[cellint]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutCellInt(cellint)
+		}
+	}
+	return cellint
+}
+
+// for satisfaction of GongStruct interface
+func (cellint *CellInt) GetName() (res string) {
+	return cellint.Name
 }
 
 // Stage puts cellstring to the model stage
@@ -456,6 +621,9 @@ func (table *Table) GetName() (res string) {
 // swagger:ignore
 type AllModelsStructCreateInterface interface { // insertion point for Callbacks on creation
 	CreateORMCell(Cell *Cell)
+	CreateORMCellFloat64(CellFloat64 *CellFloat64)
+	CreateORMCellIcon(CellIcon *CellIcon)
+	CreateORMCellInt(CellInt *CellInt)
 	CreateORMCellString(CellString *CellString)
 	CreateORMDisplayedColumn(DisplayedColumn *DisplayedColumn)
 	CreateORMRow(Row *Row)
@@ -464,6 +632,9 @@ type AllModelsStructCreateInterface interface { // insertion point for Callbacks
 
 type AllModelsStructDeleteInterface interface { // insertion point for Callbacks on deletion
 	DeleteORMCell(Cell *Cell)
+	DeleteORMCellFloat64(CellFloat64 *CellFloat64)
+	DeleteORMCellIcon(CellIcon *CellIcon)
+	DeleteORMCellInt(CellInt *CellInt)
 	DeleteORMCellString(CellString *CellString)
 	DeleteORMDisplayedColumn(DisplayedColumn *DisplayedColumn)
 	DeleteORMRow(Row *Row)
@@ -473,6 +644,15 @@ type AllModelsStructDeleteInterface interface { // insertion point for Callbacks
 func (stage *StageStruct) Reset() { // insertion point for array reset
 	stage.Cells = make(map[*Cell]any)
 	stage.Cells_mapString = make(map[string]*Cell)
+
+	stage.CellFloat64s = make(map[*CellFloat64]any)
+	stage.CellFloat64s_mapString = make(map[string]*CellFloat64)
+
+	stage.CellIcons = make(map[*CellIcon]any)
+	stage.CellIcons_mapString = make(map[string]*CellIcon)
+
+	stage.CellInts = make(map[*CellInt]any)
+	stage.CellInts_mapString = make(map[string]*CellInt)
 
 	stage.CellStrings = make(map[*CellString]any)
 	stage.CellStrings_mapString = make(map[string]*CellString)
@@ -492,6 +672,15 @@ func (stage *StageStruct) Nil() { // insertion point for array nil
 	stage.Cells = nil
 	stage.Cells_mapString = nil
 
+	stage.CellFloat64s = nil
+	stage.CellFloat64s_mapString = nil
+
+	stage.CellIcons = nil
+	stage.CellIcons_mapString = nil
+
+	stage.CellInts = nil
+	stage.CellInts_mapString = nil
+
 	stage.CellStrings = nil
 	stage.CellStrings_mapString = nil
 
@@ -509,6 +698,18 @@ func (stage *StageStruct) Nil() { // insertion point for array nil
 func (stage *StageStruct) Unstage() { // insertion point for array nil
 	for cell := range stage.Cells {
 		cell.Unstage(stage)
+	}
+
+	for cellfloat64 := range stage.CellFloat64s {
+		cellfloat64.Unstage(stage)
+	}
+
+	for cellicon := range stage.CellIcons {
+		cellicon.Unstage(stage)
+	}
+
+	for cellint := range stage.CellInts {
+		cellint.Unstage(stage)
 	}
 
 	for cellstring := range stage.CellStrings {
@@ -535,7 +736,7 @@ func (stage *StageStruct) Unstage() { // insertion point for array nil
 // - full refactoring of Gongstruct identifiers / fields
 type Gongstruct interface {
 	// insertion point for generic types
-	Cell | CellString | DisplayedColumn | Row | Table
+	Cell | CellFloat64 | CellIcon | CellInt | CellString | DisplayedColumn | Row | Table
 }
 
 // Gongstruct is the type parameter for generated generic function that allows
@@ -544,7 +745,7 @@ type Gongstruct interface {
 // - full refactoring of Gongstruct identifiers / fields
 type PointerToGongstruct interface {
 	// insertion point for generic types
-	*Cell | *CellString | *DisplayedColumn | *Row | *Table
+	*Cell | *CellFloat64 | *CellIcon | *CellInt | *CellString | *DisplayedColumn | *Row | *Table
 	GetName() string
 }
 
@@ -552,6 +753,9 @@ type GongstructSet interface {
 	map[any]any |
 		// insertion point for generic types
 		map[*Cell]any |
+		map[*CellFloat64]any |
+		map[*CellIcon]any |
+		map[*CellInt]any |
 		map[*CellString]any |
 		map[*DisplayedColumn]any |
 		map[*Row]any |
@@ -563,6 +767,9 @@ type GongstructMapString interface {
 	map[any]any |
 		// insertion point for generic types
 		map[string]*Cell |
+		map[string]*CellFloat64 |
+		map[string]*CellIcon |
+		map[string]*CellInt |
 		map[string]*CellString |
 		map[string]*DisplayedColumn |
 		map[string]*Row |
@@ -579,6 +786,12 @@ func GongGetSet[Type GongstructSet](stage *StageStruct) *Type {
 	// insertion point for generic get functions
 	case map[*Cell]any:
 		return any(&stage.Cells).(*Type)
+	case map[*CellFloat64]any:
+		return any(&stage.CellFloat64s).(*Type)
+	case map[*CellIcon]any:
+		return any(&stage.CellIcons).(*Type)
+	case map[*CellInt]any:
+		return any(&stage.CellInts).(*Type)
 	case map[*CellString]any:
 		return any(&stage.CellStrings).(*Type)
 	case map[*DisplayedColumn]any:
@@ -601,6 +814,12 @@ func GongGetMap[Type GongstructMapString](stage *StageStruct) *Type {
 	// insertion point for generic get functions
 	case map[string]*Cell:
 		return any(&stage.Cells_mapString).(*Type)
+	case map[string]*CellFloat64:
+		return any(&stage.CellFloat64s_mapString).(*Type)
+	case map[string]*CellIcon:
+		return any(&stage.CellIcons_mapString).(*Type)
+	case map[string]*CellInt:
+		return any(&stage.CellInts_mapString).(*Type)
 	case map[string]*CellString:
 		return any(&stage.CellStrings_mapString).(*Type)
 	case map[string]*DisplayedColumn:
@@ -623,6 +842,12 @@ func GetGongstructInstancesSet[Type Gongstruct](stage *StageStruct) *map[*Type]a
 	// insertion point for generic get functions
 	case Cell:
 		return any(&stage.Cells).(*map[*Type]any)
+	case CellFloat64:
+		return any(&stage.CellFloat64s).(*map[*Type]any)
+	case CellIcon:
+		return any(&stage.CellIcons).(*map[*Type]any)
+	case CellInt:
+		return any(&stage.CellInts).(*map[*Type]any)
 	case CellString:
 		return any(&stage.CellStrings).(*map[*Type]any)
 	case DisplayedColumn:
@@ -645,6 +870,12 @@ func GetGongstructInstancesMap[Type Gongstruct](stage *StageStruct) *map[string]
 	// insertion point for generic get functions
 	case Cell:
 		return any(&stage.Cells_mapString).(*map[string]*Type)
+	case CellFloat64:
+		return any(&stage.CellFloat64s_mapString).(*map[string]*Type)
+	case CellIcon:
+		return any(&stage.CellIcons_mapString).(*map[string]*Type)
+	case CellInt:
+		return any(&stage.CellInts_mapString).(*map[string]*Type)
 	case CellString:
 		return any(&stage.CellStrings_mapString).(*map[string]*Type)
 	case DisplayedColumn:
@@ -672,6 +903,24 @@ func GetAssociationName[Type Gongstruct]() *Type {
 			// Initialisation of associations
 			// field is initialized with an instance of CellString with the name of the field
 			CellString: &CellString{Name: "CellString"},
+			// field is initialized with an instance of CellFloat64 with the name of the field
+			CellFloat64: &CellFloat64{Name: "CellFloat64"},
+			// field is initialized with an instance of CellInt with the name of the field
+			CellInt: &CellInt{Name: "CellInt"},
+			// field is initialized with an instance of CellIcon with the name of the field
+			CellIcon: &CellIcon{Name: "CellIcon"},
+		}).(*Type)
+	case CellFloat64:
+		return any(&CellFloat64{
+			// Initialisation of associations
+		}).(*Type)
+	case CellIcon:
+		return any(&CellIcon{
+			// Initialisation of associations
+		}).(*Type)
+	case CellInt:
+		return any(&CellInt{
+			// Initialisation of associations
 		}).(*Type)
 	case CellString:
 		return any(&CellString{
@@ -734,6 +983,72 @@ func GetPointerReverseMap[Start, End Gongstruct](fieldname string, stage *StageS
 				}
 			}
 			return any(res).(map[*End][]*Start)
+		case "CellFloat64":
+			res := make(map[*CellFloat64][]*Cell)
+			for cell := range stage.Cells {
+				if cell.CellFloat64 != nil {
+					cellfloat64_ := cell.CellFloat64
+					var cells []*Cell
+					_, ok := res[cellfloat64_]
+					if ok {
+						cells = res[cellfloat64_]
+					} else {
+						cells = make([]*Cell, 0)
+					}
+					cells = append(cells, cell)
+					res[cellfloat64_] = cells
+				}
+			}
+			return any(res).(map[*End][]*Start)
+		case "CellInt":
+			res := make(map[*CellInt][]*Cell)
+			for cell := range stage.Cells {
+				if cell.CellInt != nil {
+					cellint_ := cell.CellInt
+					var cells []*Cell
+					_, ok := res[cellint_]
+					if ok {
+						cells = res[cellint_]
+					} else {
+						cells = make([]*Cell, 0)
+					}
+					cells = append(cells, cell)
+					res[cellint_] = cells
+				}
+			}
+			return any(res).(map[*End][]*Start)
+		case "CellIcon":
+			res := make(map[*CellIcon][]*Cell)
+			for cell := range stage.Cells {
+				if cell.CellIcon != nil {
+					cellicon_ := cell.CellIcon
+					var cells []*Cell
+					_, ok := res[cellicon_]
+					if ok {
+						cells = res[cellicon_]
+					} else {
+						cells = make([]*Cell, 0)
+					}
+					cells = append(cells, cell)
+					res[cellicon_] = cells
+				}
+			}
+			return any(res).(map[*End][]*Start)
+		}
+	// reverse maps of direct associations of CellFloat64
+	case CellFloat64:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of CellIcon
+	case CellIcon:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of CellInt
+	case CellInt:
+		switch fieldname {
+		// insertion point for per direct association field
 		}
 	// reverse maps of direct associations of CellString
 	case CellString:
@@ -773,6 +1088,21 @@ func GetSliceOfPointersReverseMap[Start, End Gongstruct](fieldname string, stage
 	// insertion point of functions that provide maps for reverse associations
 	// reverse maps of direct associations of Cell
 	case Cell:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of CellFloat64
+	case CellFloat64:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of CellIcon
+	case CellIcon:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of CellInt
+	case CellInt:
 		switch fieldname {
 		// insertion point for per direct association field
 		}
@@ -834,6 +1164,12 @@ func GetGongstructName[Type Gongstruct]() (res string) {
 	// insertion point for generic get gongstruct name
 	case Cell:
 		res = "Cell"
+	case CellFloat64:
+		res = "CellFloat64"
+	case CellIcon:
+		res = "CellIcon"
+	case CellInt:
+		res = "CellInt"
 	case CellString:
 		res = "CellString"
 	case DisplayedColumn:
@@ -854,7 +1190,13 @@ func GetFields[Type Gongstruct]() (res []string) {
 	switch any(ret).(type) {
 	// insertion point for generic get gongstruct name
 	case Cell:
-		res = []string{"Name", "CellString"}
+		res = []string{"Name", "CellString", "CellFloat64", "CellInt", "CellIcon"}
+	case CellFloat64:
+		res = []string{"Name", "Value"}
+	case CellIcon:
+		res = []string{"Name", "Value"}
+	case CellInt:
+		res = []string{"Name", "Value"}
 	case CellString:
 		res = []string{"Name"}
 	case DisplayedColumn:
@@ -881,6 +1223,42 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 			if any(instance).(Cell).CellString != nil {
 				res = any(instance).(Cell).CellString.Name
 			}
+		case "CellFloat64":
+			if any(instance).(Cell).CellFloat64 != nil {
+				res = any(instance).(Cell).CellFloat64.Name
+			}
+		case "CellInt":
+			if any(instance).(Cell).CellInt != nil {
+				res = any(instance).(Cell).CellInt.Name
+			}
+		case "CellIcon":
+			if any(instance).(Cell).CellIcon != nil {
+				res = any(instance).(Cell).CellIcon.Name
+			}
+		}
+	case CellFloat64:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(CellFloat64).Name
+		case "Value":
+			res = fmt.Sprintf("%d", any(instance).(CellFloat64).Value)
+		}
+	case CellIcon:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(CellIcon).Name
+		case "Value":
+			res = fmt.Sprintf("%d", any(instance).(CellIcon).Value)
+		}
+	case CellInt:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(CellInt).Name
+		case "Value":
+			res = fmt.Sprintf("%d", any(instance).(CellInt).Value)
 		}
 	case CellString:
 		switch fieldName {

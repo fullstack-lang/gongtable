@@ -165,6 +165,36 @@ export class CellDetailComponent implements OnInit {
 			this.cell.CellStringID.Int64 = 0
 			this.cell.CellStringID.Valid = true
 		}
+		if (this.cell.CellFloat64ID == undefined) {
+			this.cell.CellFloat64ID = new NullInt64
+		}
+		if (this.cell.CellFloat64 != undefined) {
+			this.cell.CellFloat64ID.Int64 = this.cell.CellFloat64.ID
+			this.cell.CellFloat64ID.Valid = true
+		} else {
+			this.cell.CellFloat64ID.Int64 = 0
+			this.cell.CellFloat64ID.Valid = true
+		}
+		if (this.cell.CellIntID == undefined) {
+			this.cell.CellIntID = new NullInt64
+		}
+		if (this.cell.CellInt != undefined) {
+			this.cell.CellIntID.Int64 = this.cell.CellInt.ID
+			this.cell.CellIntID.Valid = true
+		} else {
+			this.cell.CellIntID.Int64 = 0
+			this.cell.CellIntID.Valid = true
+		}
+		if (this.cell.CellIconID == undefined) {
+			this.cell.CellIconID = new NullInt64
+		}
+		if (this.cell.CellIcon != undefined) {
+			this.cell.CellIconID.Int64 = this.cell.CellIcon.ID
+			this.cell.CellIconID.Valid = true
+		} else {
+			this.cell.CellIconID.Int64 = 0
+			this.cell.CellIconID.Valid = true
+		}
 
 		// save from the front pointer space to the non pointer space for serialization
 

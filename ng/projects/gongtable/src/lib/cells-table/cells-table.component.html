@@ -33,6 +33,27 @@
             </td>
         </ng-container>
         <!-- -->
+        <ng-container matColumnDef="CellFloat64">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> CellFloat64 </th>
+            <td mat-cell *matCellDef="let Cell">
+                {{ Cell.CellFloat64 ? Cell.CellFloat64.Name : ''}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="CellInt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> CellInt </th>
+            <td mat-cell *matCellDef="let Cell">
+                {{ Cell.CellInt ? Cell.CellInt.Name : ''}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="CellIcon">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> CellIcon </th>
+            <td mat-cell *matCellDef="let Cell">
+                {{ Cell.CellIcon ? Cell.CellIcon.Name : ''}}
+            </td>
+        </ng-container>
+        <!-- -->
         <ng-container matColumnDef="Row_Cells">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> <-- (Row) Cells </th>
             <td mat-cell *matCellDef="let cell">

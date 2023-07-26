@@ -1,6 +1,12 @@
 // insertion point sub template for components imports 
   import { CellsTableComponent } from './cells-table/cells-table.component'
   import { CellSortingComponent } from './cell-sorting/cell-sorting.component'
+  import { CellFloat64sTableComponent } from './cellfloat64s-table/cellfloat64s-table.component'
+  import { CellFloat64SortingComponent } from './cellfloat64-sorting/cellfloat64-sorting.component'
+  import { CellIconsTableComponent } from './cellicons-table/cellicons-table.component'
+  import { CellIconSortingComponent } from './cellicon-sorting/cellicon-sorting.component'
+  import { CellIntsTableComponent } from './cellints-table/cellints-table.component'
+  import { CellIntSortingComponent } from './cellint-sorting/cellint-sorting.component'
   import { CellStringsTableComponent } from './cellstrings-table/cellstrings-table.component'
   import { CellStringSortingComponent } from './cellstring-sorting/cellstring-sorting.component'
   import { DisplayedColumnsTableComponent } from './displayedcolumns-table/displayedcolumns-table.component'
@@ -13,6 +19,12 @@
 // insertion point sub template for map of components per struct 
   export const MapOfCellsComponents: Map<string, any> = new Map([["CellsTableComponent", CellsTableComponent],])
   export const MapOfCellSortingComponents: Map<string, any> = new Map([["CellSortingComponent", CellSortingComponent],])
+  export const MapOfCellFloat64sComponents: Map<string, any> = new Map([["CellFloat64sTableComponent", CellFloat64sTableComponent],])
+  export const MapOfCellFloat64SortingComponents: Map<string, any> = new Map([["CellFloat64SortingComponent", CellFloat64SortingComponent],])
+  export const MapOfCellIconsComponents: Map<string, any> = new Map([["CellIconsTableComponent", CellIconsTableComponent],])
+  export const MapOfCellIconSortingComponents: Map<string, any> = new Map([["CellIconSortingComponent", CellIconSortingComponent],])
+  export const MapOfCellIntsComponents: Map<string, any> = new Map([["CellIntsTableComponent", CellIntsTableComponent],])
+  export const MapOfCellIntSortingComponents: Map<string, any> = new Map([["CellIntSortingComponent", CellIntSortingComponent],])
   export const MapOfCellStringsComponents: Map<string, any> = new Map([["CellStringsTableComponent", CellStringsTableComponent],])
   export const MapOfCellStringSortingComponents: Map<string, any> = new Map([["CellStringSortingComponent", CellStringSortingComponent],])
   export const MapOfDisplayedColumnsComponents: Map<string, any> = new Map([["DisplayedColumnsTableComponent", DisplayedColumnsTableComponent],])
@@ -28,6 +40,9 @@ export const MapOfComponents: Map<string, any> =
     [
       // insertion point sub template for map of components 
       ["Cell", MapOfCellsComponents],
+      ["CellFloat64", MapOfCellFloat64sComponents],
+      ["CellIcon", MapOfCellIconsComponents],
+      ["CellInt", MapOfCellIntsComponents],
       ["CellString", MapOfCellStringsComponents],
       ["DisplayedColumn", MapOfDisplayedColumnsComponents],
       ["Row", MapOfRowsComponents],
@@ -41,6 +56,9 @@ export const MapOfSortingComponents: Map<string, any> =
     [
     // insertion point sub template for map of sorting components 
       ["Cell", MapOfCellSortingComponents],
+      ["CellFloat64", MapOfCellFloat64SortingComponents],
+      ["CellIcon", MapOfCellIconSortingComponents],
+      ["CellInt", MapOfCellIntSortingComponents],
       ["CellString", MapOfCellStringSortingComponents],
       ["DisplayedColumn", MapOfDisplayedColumnSortingComponents],
       ["Row", MapOfRowSortingComponents],

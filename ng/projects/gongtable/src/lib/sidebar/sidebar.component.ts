@@ -13,6 +13,12 @@ import { GongstructSelectionService } from '../gongstruct-selection.service'
 // insertion point for per struct import code
 import { CellService } from '../cell.service'
 import { getCellUniqueID } from '../front-repo.service'
+import { CellFloat64Service } from '../cellfloat64.service'
+import { getCellFloat64UniqueID } from '../front-repo.service'
+import { CellIconService } from '../cellicon.service'
+import { getCellIconUniqueID } from '../front-repo.service'
+import { CellIntService } from '../cellint.service'
+import { getCellIntUniqueID } from '../front-repo.service'
 import { CellStringService } from '../cellstring.service'
 import { getCellStringUniqueID } from '../front-repo.service'
 import { DisplayedColumnService } from '../displayedcolumn.service'
@@ -167,6 +173,9 @@ export class SidebarComponent implements OnInit {
 
     // insertion point for per struct service declaration
     private cellService: CellService,
+    private cellfloat64Service: CellFloat64Service,
+    private celliconService: CellIconService,
+    private cellintService: CellIntService,
     private cellstringService: CellStringService,
     private displayedcolumnService: DisplayedColumnService,
     private rowService: RowService,
@@ -208,6 +217,30 @@ export class SidebarComponent implements OnInit {
     // insertion point for per struct observable for refresh trigger
     // observable for changes in structs
     this.cellService.CellServiceChanged.subscribe(
+      message => {
+        if (message == "post" || message == "update" || message == "delete") {
+          this.refresh()
+        }
+      }
+    )
+    // observable for changes in structs
+    this.cellfloat64Service.CellFloat64ServiceChanged.subscribe(
+      message => {
+        if (message == "post" || message == "update" || message == "delete") {
+          this.refresh()
+        }
+      }
+    )
+    // observable for changes in structs
+    this.celliconService.CellIconServiceChanged.subscribe(
+      message => {
+        if (message == "post" || message == "update" || message == "delete") {
+          this.refresh()
+        }
+      }
+    )
+    // observable for changes in structs
+    this.cellintService.CellIntServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
           this.refresh()
@@ -346,6 +379,243 @@ export class SidebarComponent implements OnInit {
             CellStringGongNodeAssociation.children.push(cellGongNodeInstance_CellString)
           }
 
+          /**
+          * let append a node for the association CellFloat64
+          */
+          let CellFloat64GongNodeAssociation: GongNode = {
+            name: "(CellFloat64) CellFloat64",
+            type: GongNodeType.ONE__ZERO_ONE_ASSOCIATION,
+            id: cellDB.ID,
+            uniqueIdPerStack: 17 * nonInstanceNodeId,
+            structName: "Cell",
+            associationField: "CellFloat64",
+            associatedStructName: "CellFloat64",
+            children: new Array<GongNode>()
+          }
+          nonInstanceNodeId = nonInstanceNodeId + 1
+          cellGongNodeInstance.children!.push(CellFloat64GongNodeAssociation)
+
+          /**
+            * let append a node for the instance behind the asssociation CellFloat64
+            */
+          if (cellDB.CellFloat64 != undefined) {
+            let cellGongNodeInstance_CellFloat64: GongNode = {
+              name: cellDB.CellFloat64.Name,
+              type: GongNodeType.INSTANCE,
+              id: cellDB.CellFloat64.ID,
+              uniqueIdPerStack: // godel numbering (thank you kurt)
+                3 * getCellUniqueID(cellDB.ID)
+                + 5 * getCellFloat64UniqueID(cellDB.CellFloat64.ID),
+              structName: "CellFloat64",
+              associationField: "",
+              associatedStructName: "",
+              children: new Array<GongNode>()
+            }
+            CellFloat64GongNodeAssociation.children.push(cellGongNodeInstance_CellFloat64)
+          }
+
+          /**
+          * let append a node for the association CellInt
+          */
+          let CellIntGongNodeAssociation: GongNode = {
+            name: "(CellInt) CellInt",
+            type: GongNodeType.ONE__ZERO_ONE_ASSOCIATION,
+            id: cellDB.ID,
+            uniqueIdPerStack: 17 * nonInstanceNodeId,
+            structName: "Cell",
+            associationField: "CellInt",
+            associatedStructName: "CellInt",
+            children: new Array<GongNode>()
+          }
+          nonInstanceNodeId = nonInstanceNodeId + 1
+          cellGongNodeInstance.children!.push(CellIntGongNodeAssociation)
+
+          /**
+            * let append a node for the instance behind the asssociation CellInt
+            */
+          if (cellDB.CellInt != undefined) {
+            let cellGongNodeInstance_CellInt: GongNode = {
+              name: cellDB.CellInt.Name,
+              type: GongNodeType.INSTANCE,
+              id: cellDB.CellInt.ID,
+              uniqueIdPerStack: // godel numbering (thank you kurt)
+                3 * getCellUniqueID(cellDB.ID)
+                + 5 * getCellIntUniqueID(cellDB.CellInt.ID),
+              structName: "CellInt",
+              associationField: "",
+              associatedStructName: "",
+              children: new Array<GongNode>()
+            }
+            CellIntGongNodeAssociation.children.push(cellGongNodeInstance_CellInt)
+          }
+
+          /**
+          * let append a node for the association CellIcon
+          */
+          let CellIconGongNodeAssociation: GongNode = {
+            name: "(CellIcon) CellIcon",
+            type: GongNodeType.ONE__ZERO_ONE_ASSOCIATION,
+            id: cellDB.ID,
+            uniqueIdPerStack: 17 * nonInstanceNodeId,
+            structName: "Cell",
+            associationField: "CellIcon",
+            associatedStructName: "CellIcon",
+            children: new Array<GongNode>()
+          }
+          nonInstanceNodeId = nonInstanceNodeId + 1
+          cellGongNodeInstance.children!.push(CellIconGongNodeAssociation)
+
+          /**
+            * let append a node for the instance behind the asssociation CellIcon
+            */
+          if (cellDB.CellIcon != undefined) {
+            let cellGongNodeInstance_CellIcon: GongNode = {
+              name: cellDB.CellIcon.Name,
+              type: GongNodeType.INSTANCE,
+              id: cellDB.CellIcon.ID,
+              uniqueIdPerStack: // godel numbering (thank you kurt)
+                3 * getCellUniqueID(cellDB.ID)
+                + 5 * getCellIconUniqueID(cellDB.CellIcon.ID),
+              structName: "CellIcon",
+              associationField: "",
+              associatedStructName: "",
+              children: new Array<GongNode>()
+            }
+            CellIconGongNodeAssociation.children.push(cellGongNodeInstance_CellIcon)
+          }
+
+        }
+      )
+
+      /**
+      * fill up the CellFloat64 part of the mat tree
+      */
+      let cellfloat64GongNodeStruct: GongNode = {
+        name: "CellFloat64",
+        type: GongNodeType.STRUCT,
+        id: 0,
+        uniqueIdPerStack: 13 * nonInstanceNodeId,
+        structName: "CellFloat64",
+        associationField: "",
+        associatedStructName: "",
+        children: new Array<GongNode>()
+      }
+      nonInstanceNodeId = nonInstanceNodeId + 1
+      this.gongNodeTree.push(cellfloat64GongNodeStruct)
+
+      this.frontRepo.CellFloat64s_array.sort((t1, t2) => {
+        if (t1.Name > t2.Name) {
+          return 1;
+        }
+        if (t1.Name < t2.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      this.frontRepo.CellFloat64s_array.forEach(
+        cellfloat64DB => {
+          let cellfloat64GongNodeInstance: GongNode = {
+            name: cellfloat64DB.Name,
+            type: GongNodeType.INSTANCE,
+            id: cellfloat64DB.ID,
+            uniqueIdPerStack: getCellFloat64UniqueID(cellfloat64DB.ID),
+            structName: "CellFloat64",
+            associationField: "",
+            associatedStructName: "",
+            children: new Array<GongNode>()
+          }
+          cellfloat64GongNodeStruct.children!.push(cellfloat64GongNodeInstance)
+
+          // insertion point for per field code
+        }
+      )
+
+      /**
+      * fill up the CellIcon part of the mat tree
+      */
+      let celliconGongNodeStruct: GongNode = {
+        name: "CellIcon",
+        type: GongNodeType.STRUCT,
+        id: 0,
+        uniqueIdPerStack: 13 * nonInstanceNodeId,
+        structName: "CellIcon",
+        associationField: "",
+        associatedStructName: "",
+        children: new Array<GongNode>()
+      }
+      nonInstanceNodeId = nonInstanceNodeId + 1
+      this.gongNodeTree.push(celliconGongNodeStruct)
+
+      this.frontRepo.CellIcons_array.sort((t1, t2) => {
+        if (t1.Name > t2.Name) {
+          return 1;
+        }
+        if (t1.Name < t2.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      this.frontRepo.CellIcons_array.forEach(
+        celliconDB => {
+          let celliconGongNodeInstance: GongNode = {
+            name: celliconDB.Name,
+            type: GongNodeType.INSTANCE,
+            id: celliconDB.ID,
+            uniqueIdPerStack: getCellIconUniqueID(celliconDB.ID),
+            structName: "CellIcon",
+            associationField: "",
+            associatedStructName: "",
+            children: new Array<GongNode>()
+          }
+          celliconGongNodeStruct.children!.push(celliconGongNodeInstance)
+
+          // insertion point for per field code
+        }
+      )
+
+      /**
+      * fill up the CellInt part of the mat tree
+      */
+      let cellintGongNodeStruct: GongNode = {
+        name: "CellInt",
+        type: GongNodeType.STRUCT,
+        id: 0,
+        uniqueIdPerStack: 13 * nonInstanceNodeId,
+        structName: "CellInt",
+        associationField: "",
+        associatedStructName: "",
+        children: new Array<GongNode>()
+      }
+      nonInstanceNodeId = nonInstanceNodeId + 1
+      this.gongNodeTree.push(cellintGongNodeStruct)
+
+      this.frontRepo.CellInts_array.sort((t1, t2) => {
+        if (t1.Name > t2.Name) {
+          return 1;
+        }
+        if (t1.Name < t2.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      this.frontRepo.CellInts_array.forEach(
+        cellintDB => {
+          let cellintGongNodeInstance: GongNode = {
+            name: cellintDB.Name,
+            type: GongNodeType.INSTANCE,
+            id: cellintDB.ID,
+            uniqueIdPerStack: getCellIntUniqueID(cellintDB.ID),
+            structName: "CellInt",
+            associationField: "",
+            associatedStructName: "",
+            children: new Array<GongNode>()
+          }
+          cellintGongNodeStruct.children!.push(cellintGongNodeInstance)
+
+          // insertion point for per field code
         }
       )
 

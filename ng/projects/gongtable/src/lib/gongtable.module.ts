@@ -43,6 +43,18 @@ import { CellsTableComponent } from './cells-table/cells-table.component'
 import { CellSortingComponent } from './cell-sorting/cell-sorting.component'
 import { CellDetailComponent } from './cell-detail/cell-detail.component'
 
+import { CellFloat64sTableComponent } from './cellfloat64s-table/cellfloat64s-table.component'
+import { CellFloat64SortingComponent } from './cellfloat64-sorting/cellfloat64-sorting.component'
+import { CellFloat64DetailComponent } from './cellfloat64-detail/cellfloat64-detail.component'
+
+import { CellIconsTableComponent } from './cellicons-table/cellicons-table.component'
+import { CellIconSortingComponent } from './cellicon-sorting/cellicon-sorting.component'
+import { CellIconDetailComponent } from './cellicon-detail/cellicon-detail.component'
+
+import { CellIntsTableComponent } from './cellints-table/cellints-table.component'
+import { CellIntSortingComponent } from './cellint-sorting/cellint-sorting.component'
+import { CellIntDetailComponent } from './cellint-detail/cellint-detail.component'
+
 import { CellStringsTableComponent } from './cellstrings-table/cellstrings-table.component'
 import { CellStringSortingComponent } from './cellstring-sorting/cellstring-sorting.component'
 import { CellStringDetailComponent } from './cellstring-detail/cellstring-detail.component'
@@ -66,6 +78,18 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		CellsTableComponent,
 		CellSortingComponent,
 		CellDetailComponent,
+
+		CellFloat64sTableComponent,
+		CellFloat64SortingComponent,
+		CellFloat64DetailComponent,
+
+		CellIconsTableComponent,
+		CellIconSortingComponent,
+		CellIconDetailComponent,
+
+		CellIntsTableComponent,
+		CellIntSortingComponent,
+		CellIntDetailComponent,
 
 		CellStringsTableComponent,
 		CellStringSortingComponent,
@@ -125,6 +149,18 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		CellsTableComponent,
 		CellSortingComponent,
 		CellDetailComponent,
+
+		CellFloat64sTableComponent,
+		CellFloat64SortingComponent,
+		CellFloat64DetailComponent,
+
+		CellIconsTableComponent,
+		CellIconSortingComponent,
+		CellIconDetailComponent,
+
+		CellIntsTableComponent,
+		CellIntSortingComponent,
+		CellIntDetailComponent,
 
 		CellStringsTableComponent,
 		CellStringSortingComponent,

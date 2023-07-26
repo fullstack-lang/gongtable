@@ -142,6 +142,120 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 
 	}
 
+	map_CellFloat64_Identifiers := make(map[*CellFloat64]string)
+	_ = map_CellFloat64_Identifiers
+
+	cellfloat64Ordered := []*CellFloat64{}
+	for cellfloat64 := range stage.CellFloat64s {
+		cellfloat64Ordered = append(cellfloat64Ordered, cellfloat64)
+	}
+	sort.Slice(cellfloat64Ordered[:], func(i, j int) bool {
+		return cellfloat64Ordered[i].Name < cellfloat64Ordered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of CellFloat64"
+	for idx, cellfloat64 := range cellfloat64Ordered {
+
+		id = generatesIdentifier("CellFloat64", idx, cellfloat64.Name)
+		map_CellFloat64_Identifiers[cellfloat64] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "CellFloat64")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", cellfloat64.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// CellFloat64 values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(cellfloat64.Name))
+		initializerStatements += setValueField
+
+		setValueField = NumberInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Value")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", fmt.Sprintf("%d", cellfloat64.Value))
+		initializerStatements += setValueField
+
+	}
+
+	map_CellIcon_Identifiers := make(map[*CellIcon]string)
+	_ = map_CellIcon_Identifiers
+
+	celliconOrdered := []*CellIcon{}
+	for cellicon := range stage.CellIcons {
+		celliconOrdered = append(celliconOrdered, cellicon)
+	}
+	sort.Slice(celliconOrdered[:], func(i, j int) bool {
+		return celliconOrdered[i].Name < celliconOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of CellIcon"
+	for idx, cellicon := range celliconOrdered {
+
+		id = generatesIdentifier("CellIcon", idx, cellicon.Name)
+		map_CellIcon_Identifiers[cellicon] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "CellIcon")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", cellicon.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// CellIcon values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(cellicon.Name))
+		initializerStatements += setValueField
+
+		setValueField = NumberInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Value")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", fmt.Sprintf("%d", cellicon.Value))
+		initializerStatements += setValueField
+
+	}
+
+	map_CellInt_Identifiers := make(map[*CellInt]string)
+	_ = map_CellInt_Identifiers
+
+	cellintOrdered := []*CellInt{}
+	for cellint := range stage.CellInts {
+		cellintOrdered = append(cellintOrdered, cellint)
+	}
+	sort.Slice(cellintOrdered[:], func(i, j int) bool {
+		return cellintOrdered[i].Name < cellintOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of CellInt"
+	for idx, cellint := range cellintOrdered {
+
+		id = generatesIdentifier("CellInt", idx, cellint.Name)
+		map_CellInt_Identifiers[cellint] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "CellInt")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", cellint.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// CellInt values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(cellint.Name))
+		initializerStatements += setValueField
+
+		setValueField = NumberInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Value")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", fmt.Sprintf("%d", cellint.Value))
+		initializerStatements += setValueField
+
+	}
+
 	map_CellString_Identifiers := make(map[*CellString]string)
 	_ = map_CellString_Identifiers
 
@@ -287,6 +401,60 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 			pointersInitializesStatements += setPointerField
 		}
 
+		if cell.CellFloat64 != nil {
+			setPointerField = PointerFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "CellFloat64")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_CellFloat64_Identifiers[cell.CellFloat64])
+			pointersInitializesStatements += setPointerField
+		}
+
+		if cell.CellInt != nil {
+			setPointerField = PointerFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "CellInt")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_CellInt_Identifiers[cell.CellInt])
+			pointersInitializesStatements += setPointerField
+		}
+
+		if cell.CellIcon != nil {
+			setPointerField = PointerFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "CellIcon")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_CellIcon_Identifiers[cell.CellIcon])
+			pointersInitializesStatements += setPointerField
+		}
+
+	}
+
+	for idx, cellfloat64 := range cellfloat64Ordered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("CellFloat64", idx, cellfloat64.Name)
+		map_CellFloat64_Identifiers[cellfloat64] = id
+
+		// Initialisation of values
+	}
+
+	for idx, cellicon := range celliconOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("CellIcon", idx, cellicon.Name)
+		map_CellIcon_Identifiers[cellicon] = id
+
+		// Initialisation of values
+	}
+
+	for idx, cellint := range cellintOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("CellInt", idx, cellint.Name)
+		map_CellInt_Identifiers[cellint] = id
+
+		// Initialisation of values
 	}
 
 	for idx, cellstring := range cellstringOrdered {

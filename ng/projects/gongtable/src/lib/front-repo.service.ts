@@ -7,6 +7,15 @@ import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { CellDB } from './cell-db'
 import { CellService } from './cell.service'
 
+import { CellFloat64DB } from './cellfloat64-db'
+import { CellFloat64Service } from './cellfloat64.service'
+
+import { CellIconDB } from './cellicon-db'
+import { CellIconService } from './cellicon.service'
+
+import { CellIntDB } from './cellint-db'
+import { CellIntService } from './cellint.service'
+
 import { CellStringDB } from './cellstring-db'
 import { CellStringService } from './cellstring.service'
 
@@ -25,6 +34,15 @@ export class FrontRepo { // insertion point sub template
   Cells_array = new Array<CellDB>(); // array of repo instances
   Cells = new Map<number, CellDB>(); // map of repo instances
   Cells_batch = new Map<number, CellDB>(); // same but only in last GET (for finding repo instances to delete)
+  CellFloat64s_array = new Array<CellFloat64DB>(); // array of repo instances
+  CellFloat64s = new Map<number, CellFloat64DB>(); // map of repo instances
+  CellFloat64s_batch = new Map<number, CellFloat64DB>(); // same but only in last GET (for finding repo instances to delete)
+  CellIcons_array = new Array<CellIconDB>(); // array of repo instances
+  CellIcons = new Map<number, CellIconDB>(); // map of repo instances
+  CellIcons_batch = new Map<number, CellIconDB>(); // same but only in last GET (for finding repo instances to delete)
+  CellInts_array = new Array<CellIntDB>(); // array of repo instances
+  CellInts = new Map<number, CellIntDB>(); // map of repo instances
+  CellInts_batch = new Map<number, CellIntDB>(); // same but only in last GET (for finding repo instances to delete)
   CellStrings_array = new Array<CellStringDB>(); // array of repo instances
   CellStrings = new Map<number, CellStringDB>(); // map of repo instances
   CellStrings_batch = new Map<number, CellStringDB>(); // same but only in last GET (for finding repo instances to delete)
@@ -100,6 +118,9 @@ export class FrontRepoService {
   constructor(
     private http: HttpClient, // insertion point sub template 
     private cellService: CellService,
+    private cellfloat64Service: CellFloat64Service,
+    private celliconService: CellIconService,
+    private cellintService: CellIntService,
     private cellstringService: CellStringService,
     private displayedcolumnService: DisplayedColumnService,
     private rowService: RowService,
@@ -135,12 +156,18 @@ export class FrontRepoService {
   // typing of observable can be messy in typescript. Therefore, one force the type
   observableFrontRepo: [ // insertion point sub template 
     Observable<CellDB[]>,
+    Observable<CellFloat64DB[]>,
+    Observable<CellIconDB[]>,
+    Observable<CellIntDB[]>,
     Observable<CellStringDB[]>,
     Observable<DisplayedColumnDB[]>,
     Observable<RowDB[]>,
     Observable<TableDB[]>,
   ] = [ // insertion point sub template
       this.cellService.getCells(this.GONG__StackPath),
+      this.cellfloat64Service.getCellFloat64s(this.GONG__StackPath),
+      this.celliconService.getCellIcons(this.GONG__StackPath),
+      this.cellintService.getCellInts(this.GONG__StackPath),
       this.cellstringService.getCellStrings(this.GONG__StackPath),
       this.displayedcolumnService.getDisplayedColumns(this.GONG__StackPath),
       this.rowService.getRows(this.GONG__StackPath),
@@ -159,6 +186,9 @@ export class FrontRepoService {
 
     this.observableFrontRepo = [ // insertion point sub template
       this.cellService.getCells(this.GONG__StackPath),
+      this.cellfloat64Service.getCellFloat64s(this.GONG__StackPath),
+      this.celliconService.getCellIcons(this.GONG__StackPath),
+      this.cellintService.getCellInts(this.GONG__StackPath),
       this.cellstringService.getCellStrings(this.GONG__StackPath),
       this.displayedcolumnService.getDisplayedColumns(this.GONG__StackPath),
       this.rowService.getRows(this.GONG__StackPath),
@@ -172,6 +202,9 @@ export class FrontRepoService {
         ).subscribe(
           ([ // insertion point sub template for declarations 
             cells_,
+            cellfloat64s_,
+            cellicons_,
+            cellints_,
             cellstrings_,
             displayedcolumns_,
             rows_,
@@ -181,6 +214,12 @@ export class FrontRepoService {
             // insertion point sub template for type casting 
             var cells: CellDB[]
             cells = cells_ as CellDB[]
+            var cellfloat64s: CellFloat64DB[]
+            cellfloat64s = cellfloat64s_ as CellFloat64DB[]
+            var cellicons: CellIconDB[]
+            cellicons = cellicons_ as CellIconDB[]
+            var cellints: CellIntDB[]
+            cellints = cellints_ as CellIntDB[]
             var cellstrings: CellStringDB[]
             cellstrings = cellstrings_ as CellStringDB[]
             var displayedcolumns: DisplayedColumnDB[]
@@ -217,6 +256,105 @@ export class FrontRepoService {
 
             // sort Cells_array array
             this.frontRepo.Cells_array.sort((t1, t2) => {
+              if (t1.Name > t2.Name) {
+                return 1;
+              }
+              if (t1.Name < t2.Name) {
+                return -1;
+              }
+              return 0;
+            });
+
+            // init the array
+            this.frontRepo.CellFloat64s_array = cellfloat64s
+
+            // clear the map that counts CellFloat64 in the GET
+            this.frontRepo.CellFloat64s_batch.clear()
+
+            cellfloat64s.forEach(
+              cellfloat64 => {
+                this.frontRepo.CellFloat64s.set(cellfloat64.ID, cellfloat64)
+                this.frontRepo.CellFloat64s_batch.set(cellfloat64.ID, cellfloat64)
+              }
+            )
+
+            // clear cellfloat64s that are absent from the batch
+            this.frontRepo.CellFloat64s.forEach(
+              cellfloat64 => {
+                if (this.frontRepo.CellFloat64s_batch.get(cellfloat64.ID) == undefined) {
+                  this.frontRepo.CellFloat64s.delete(cellfloat64.ID)
+                }
+              }
+            )
+
+            // sort CellFloat64s_array array
+            this.frontRepo.CellFloat64s_array.sort((t1, t2) => {
+              if (t1.Name > t2.Name) {
+                return 1;
+              }
+              if (t1.Name < t2.Name) {
+                return -1;
+              }
+              return 0;
+            });
+
+            // init the array
+            this.frontRepo.CellIcons_array = cellicons
+
+            // clear the map that counts CellIcon in the GET
+            this.frontRepo.CellIcons_batch.clear()
+
+            cellicons.forEach(
+              cellicon => {
+                this.frontRepo.CellIcons.set(cellicon.ID, cellicon)
+                this.frontRepo.CellIcons_batch.set(cellicon.ID, cellicon)
+              }
+            )
+
+            // clear cellicons that are absent from the batch
+            this.frontRepo.CellIcons.forEach(
+              cellicon => {
+                if (this.frontRepo.CellIcons_batch.get(cellicon.ID) == undefined) {
+                  this.frontRepo.CellIcons.delete(cellicon.ID)
+                }
+              }
+            )
+
+            // sort CellIcons_array array
+            this.frontRepo.CellIcons_array.sort((t1, t2) => {
+              if (t1.Name > t2.Name) {
+                return 1;
+              }
+              if (t1.Name < t2.Name) {
+                return -1;
+              }
+              return 0;
+            });
+
+            // init the array
+            this.frontRepo.CellInts_array = cellints
+
+            // clear the map that counts CellInt in the GET
+            this.frontRepo.CellInts_batch.clear()
+
+            cellints.forEach(
+              cellint => {
+                this.frontRepo.CellInts.set(cellint.ID, cellint)
+                this.frontRepo.CellInts_batch.set(cellint.ID, cellint)
+              }
+            )
+
+            // clear cellints that are absent from the batch
+            this.frontRepo.CellInts.forEach(
+              cellint => {
+                if (this.frontRepo.CellInts_batch.get(cellint.ID) == undefined) {
+                  this.frontRepo.CellInts.delete(cellint.ID)
+                }
+              }
+            )
+
+            // sort CellInts_array array
+            this.frontRepo.CellInts_array.sort((t1, t2) => {
               if (t1.Name > t2.Name) {
                 return 1;
               }
@@ -372,6 +510,27 @@ export class FrontRepoService {
                     cell.CellString = _cellstring
                   }
                 }
+                // insertion point for pointer field CellFloat64 redeeming
+                {
+                  let _cellfloat64 = this.frontRepo.CellFloat64s.get(cell.CellFloat64ID.Int64)
+                  if (_cellfloat64) {
+                    cell.CellFloat64 = _cellfloat64
+                  }
+                }
+                // insertion point for pointer field CellInt redeeming
+                {
+                  let _cellint = this.frontRepo.CellInts.get(cell.CellIntID.Int64)
+                  if (_cellint) {
+                    cell.CellInt = _cellint
+                  }
+                }
+                // insertion point for pointer field CellIcon redeeming
+                {
+                  let _cellicon = this.frontRepo.CellIcons.get(cell.CellIconID.Int64)
+                  if (_cellicon) {
+                    cell.CellIcon = _cellicon
+                  }
+                }
 
                 // insertion point for redeeming ONE-MANY associations
                 // insertion point for slice of pointer field Row.Cells redeeming
@@ -387,6 +546,27 @@ export class FrontRepoService {
                     }
                   }
                 }
+              }
+            )
+            cellfloat64s.forEach(
+              cellfloat64 => {
+                // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
+
+                // insertion point for redeeming ONE-MANY associations
+              }
+            )
+            cellicons.forEach(
+              cellicon => {
+                // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
+
+                // insertion point for redeeming ONE-MANY associations
+              }
+            )
+            cellints.forEach(
+              cellint => {
+                // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
+
+                // insertion point for redeeming ONE-MANY associations
               }
             )
             cellstrings.forEach(
@@ -486,6 +666,27 @@ export class FrontRepoService {
                     cell.CellString = _cellstring
                   }
                 }
+                // insertion point for pointer field CellFloat64 redeeming
+                {
+                  let _cellfloat64 = this.frontRepo.CellFloat64s.get(cell.CellFloat64ID.Int64)
+                  if (_cellfloat64) {
+                    cell.CellFloat64 = _cellfloat64
+                  }
+                }
+                // insertion point for pointer field CellInt redeeming
+                {
+                  let _cellint = this.frontRepo.CellInts.get(cell.CellIntID.Int64)
+                  if (_cellint) {
+                    cell.CellInt = _cellint
+                  }
+                }
+                // insertion point for pointer field CellIcon redeeming
+                {
+                  let _cellicon = this.frontRepo.CellIcons.get(cell.CellIconID.Int64)
+                  if (_cellicon) {
+                    cell.CellIcon = _cellicon
+                  }
+                }
 
                 // insertion point for redeeming ONE-MANY associations
                 // insertion point for slice of pointer field Row.Cells redeeming
@@ -509,6 +710,159 @@ export class FrontRepoService {
               cell => {
                 if (this.frontRepo.Cells_batch.get(cell.ID) == undefined) {
                   this.frontRepo.Cells.delete(cell.ID)
+                }
+              }
+            )
+
+            // 
+            // Second Step: redeem pointers between instances (thanks to maps in the First Step)
+            // insertion point sub template 
+
+            // hand over control flow to observer
+            observer.next(this.frontRepo)
+          }
+        )
+      }
+    )
+  }
+
+  // CellFloat64Pull performs a GET on CellFloat64 of the stack and redeem association pointers 
+  CellFloat64Pull(): Observable<FrontRepo> {
+    return new Observable<FrontRepo>(
+      (observer) => {
+        combineLatest([
+          this.cellfloat64Service.getCellFloat64s(this.GONG__StackPath)
+        ]).subscribe(
+          ([ // insertion point sub template 
+            cellfloat64s,
+          ]) => {
+            // init the array
+            this.frontRepo.CellFloat64s_array = cellfloat64s
+
+            // clear the map that counts CellFloat64 in the GET
+            this.frontRepo.CellFloat64s_batch.clear()
+
+            // 
+            // First Step: init map of instances
+            // insertion point sub template 
+            cellfloat64s.forEach(
+              cellfloat64 => {
+                this.frontRepo.CellFloat64s.set(cellfloat64.ID, cellfloat64)
+                this.frontRepo.CellFloat64s_batch.set(cellfloat64.ID, cellfloat64)
+
+                // insertion point for redeeming ONE/ZERO-ONE associations
+
+                // insertion point for redeeming ONE-MANY associations
+              }
+            )
+
+            // clear cellfloat64s that are absent from the GET
+            this.frontRepo.CellFloat64s.forEach(
+              cellfloat64 => {
+                if (this.frontRepo.CellFloat64s_batch.get(cellfloat64.ID) == undefined) {
+                  this.frontRepo.CellFloat64s.delete(cellfloat64.ID)
+                }
+              }
+            )
+
+            // 
+            // Second Step: redeem pointers between instances (thanks to maps in the First Step)
+            // insertion point sub template 
+
+            // hand over control flow to observer
+            observer.next(this.frontRepo)
+          }
+        )
+      }
+    )
+  }
+
+  // CellIconPull performs a GET on CellIcon of the stack and redeem association pointers 
+  CellIconPull(): Observable<FrontRepo> {
+    return new Observable<FrontRepo>(
+      (observer) => {
+        combineLatest([
+          this.celliconService.getCellIcons(this.GONG__StackPath)
+        ]).subscribe(
+          ([ // insertion point sub template 
+            cellicons,
+          ]) => {
+            // init the array
+            this.frontRepo.CellIcons_array = cellicons
+
+            // clear the map that counts CellIcon in the GET
+            this.frontRepo.CellIcons_batch.clear()
+
+            // 
+            // First Step: init map of instances
+            // insertion point sub template 
+            cellicons.forEach(
+              cellicon => {
+                this.frontRepo.CellIcons.set(cellicon.ID, cellicon)
+                this.frontRepo.CellIcons_batch.set(cellicon.ID, cellicon)
+
+                // insertion point for redeeming ONE/ZERO-ONE associations
+
+                // insertion point for redeeming ONE-MANY associations
+              }
+            )
+
+            // clear cellicons that are absent from the GET
+            this.frontRepo.CellIcons.forEach(
+              cellicon => {
+                if (this.frontRepo.CellIcons_batch.get(cellicon.ID) == undefined) {
+                  this.frontRepo.CellIcons.delete(cellicon.ID)
+                }
+              }
+            )
+
+            // 
+            // Second Step: redeem pointers between instances (thanks to maps in the First Step)
+            // insertion point sub template 
+
+            // hand over control flow to observer
+            observer.next(this.frontRepo)
+          }
+        )
+      }
+    )
+  }
+
+  // CellIntPull performs a GET on CellInt of the stack and redeem association pointers 
+  CellIntPull(): Observable<FrontRepo> {
+    return new Observable<FrontRepo>(
+      (observer) => {
+        combineLatest([
+          this.cellintService.getCellInts(this.GONG__StackPath)
+        ]).subscribe(
+          ([ // insertion point sub template 
+            cellints,
+          ]) => {
+            // init the array
+            this.frontRepo.CellInts_array = cellints
+
+            // clear the map that counts CellInt in the GET
+            this.frontRepo.CellInts_batch.clear()
+
+            // 
+            // First Step: init map of instances
+            // insertion point sub template 
+            cellints.forEach(
+              cellint => {
+                this.frontRepo.CellInts.set(cellint.ID, cellint)
+                this.frontRepo.CellInts_batch.set(cellint.ID, cellint)
+
+                // insertion point for redeeming ONE/ZERO-ONE associations
+
+                // insertion point for redeeming ONE-MANY associations
+              }
+            )
+
+            // clear cellints that are absent from the GET
+            this.frontRepo.CellInts.forEach(
+              cellint => {
+                if (this.frontRepo.CellInts_batch.get(cellint.ID) == undefined) {
+                  this.frontRepo.CellInts.delete(cellint.ID)
                 }
               }
             )
@@ -760,15 +1114,24 @@ export class FrontRepoService {
 export function getCellUniqueID(id: number): number {
   return 31 * id
 }
-export function getCellStringUniqueID(id: number): number {
+export function getCellFloat64UniqueID(id: number): number {
   return 37 * id
 }
-export function getDisplayedColumnUniqueID(id: number): number {
+export function getCellIconUniqueID(id: number): number {
   return 41 * id
 }
-export function getRowUniqueID(id: number): number {
+export function getCellIntUniqueID(id: number): number {
   return 43 * id
 }
-export function getTableUniqueID(id: number): number {
+export function getCellStringUniqueID(id: number): number {
   return 47 * id
+}
+export function getDisplayedColumnUniqueID(id: number): number {
+  return 53 * id
+}
+export function getRowUniqueID(id: number): number {
+  return 59 * id
+}
+export function getTableUniqueID(id: number): number {
+  return 61 * id
 }

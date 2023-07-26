@@ -23,6 +23,12 @@ type BackRepoStruct struct {
 	// insertion point for per struct back repo declarations
 	BackRepoCell BackRepoCellStruct
 
+	BackRepoCellFloat64 BackRepoCellFloat64Struct
+
+	BackRepoCellIcon BackRepoCellIconStruct
+
+	BackRepoCellInt BackRepoCellIntStruct
+
 	BackRepoCellString BackRepoCellStringStruct
 
 	BackRepoDisplayedColumn BackRepoDisplayedColumnStruct
@@ -68,6 +74,9 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 
 	err = db.AutoMigrate( // insertion point for reference to structs
 		&CellDB{},
+		&CellFloat64DB{},
+		&CellIconDB{},
+		&CellIntDB{},
 		&CellStringDB{},
 		&DisplayedColumnDB{},
 		&RowDB{},
@@ -86,6 +95,30 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_CellDBID_CellPtr: make(map[uint]*models.Cell, 0),
 		Map_CellDBID_CellDB:  make(map[uint]*CellDB, 0),
 		Map_CellPtr_CellDBID: make(map[*models.Cell]uint, 0),
+
+		db:    db,
+		stage: stage,
+	}
+	backRepo.BackRepoCellFloat64 = BackRepoCellFloat64Struct{
+		Map_CellFloat64DBID_CellFloat64Ptr: make(map[uint]*models.CellFloat64, 0),
+		Map_CellFloat64DBID_CellFloat64DB:  make(map[uint]*CellFloat64DB, 0),
+		Map_CellFloat64Ptr_CellFloat64DBID: make(map[*models.CellFloat64]uint, 0),
+
+		db:    db,
+		stage: stage,
+	}
+	backRepo.BackRepoCellIcon = BackRepoCellIconStruct{
+		Map_CellIconDBID_CellIconPtr: make(map[uint]*models.CellIcon, 0),
+		Map_CellIconDBID_CellIconDB:  make(map[uint]*CellIconDB, 0),
+		Map_CellIconPtr_CellIconDBID: make(map[*models.CellIcon]uint, 0),
+
+		db:    db,
+		stage: stage,
+	}
+	backRepo.BackRepoCellInt = BackRepoCellIntStruct{
+		Map_CellIntDBID_CellIntPtr: make(map[uint]*models.CellInt, 0),
+		Map_CellIntDBID_CellIntDB:  make(map[uint]*CellIntDB, 0),
+		Map_CellIntPtr_CellIntDBID: make(map[*models.CellInt]uint, 0),
 
 		db:    db,
 		stage: stage,
@@ -168,6 +201,9 @@ func (backRepo *BackRepoStruct) IncrementPushFromFrontNb() uint {
 func (backRepo *BackRepoStruct) Commit(stage *models.StageStruct) {
 	// insertion point for per struct back repo phase one commit
 	backRepo.BackRepoCell.CommitPhaseOne(stage)
+	backRepo.BackRepoCellFloat64.CommitPhaseOne(stage)
+	backRepo.BackRepoCellIcon.CommitPhaseOne(stage)
+	backRepo.BackRepoCellInt.CommitPhaseOne(stage)
 	backRepo.BackRepoCellString.CommitPhaseOne(stage)
 	backRepo.BackRepoDisplayedColumn.CommitPhaseOne(stage)
 	backRepo.BackRepoRow.CommitPhaseOne(stage)
@@ -175,6 +211,9 @@ func (backRepo *BackRepoStruct) Commit(stage *models.StageStruct) {
 
 	// insertion point for per struct back repo phase two commit
 	backRepo.BackRepoCell.CommitPhaseTwo(backRepo)
+	backRepo.BackRepoCellFloat64.CommitPhaseTwo(backRepo)
+	backRepo.BackRepoCellIcon.CommitPhaseTwo(backRepo)
+	backRepo.BackRepoCellInt.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoCellString.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoDisplayedColumn.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoRow.CommitPhaseTwo(backRepo)
@@ -187,6 +226,9 @@ func (backRepo *BackRepoStruct) Commit(stage *models.StageStruct) {
 func (backRepo *BackRepoStruct) Checkout(stage *models.StageStruct) {
 	// insertion point for per struct back repo phase one commit
 	backRepo.BackRepoCell.CheckoutPhaseOne()
+	backRepo.BackRepoCellFloat64.CheckoutPhaseOne()
+	backRepo.BackRepoCellIcon.CheckoutPhaseOne()
+	backRepo.BackRepoCellInt.CheckoutPhaseOne()
 	backRepo.BackRepoCellString.CheckoutPhaseOne()
 	backRepo.BackRepoDisplayedColumn.CheckoutPhaseOne()
 	backRepo.BackRepoRow.CheckoutPhaseOne()
@@ -194,6 +236,9 @@ func (backRepo *BackRepoStruct) Checkout(stage *models.StageStruct) {
 
 	// insertion point for per struct back repo phase two commit
 	backRepo.BackRepoCell.CheckoutPhaseTwo(backRepo)
+	backRepo.BackRepoCellFloat64.CheckoutPhaseTwo(backRepo)
+	backRepo.BackRepoCellIcon.CheckoutPhaseTwo(backRepo)
+	backRepo.BackRepoCellInt.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoCellString.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoDisplayedColumn.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoRow.CheckoutPhaseTwo(backRepo)
@@ -225,6 +270,9 @@ func (backRepo *BackRepoStruct) Backup(stage *models.StageStruct, dirPath string
 
 	// insertion point for per struct backup
 	backRepo.BackRepoCell.Backup(dirPath)
+	backRepo.BackRepoCellFloat64.Backup(dirPath)
+	backRepo.BackRepoCellIcon.Backup(dirPath)
+	backRepo.BackRepoCellInt.Backup(dirPath)
 	backRepo.BackRepoCellString.Backup(dirPath)
 	backRepo.BackRepoDisplayedColumn.Backup(dirPath)
 	backRepo.BackRepoRow.Backup(dirPath)
@@ -240,6 +288,9 @@ func (backRepo *BackRepoStruct) BackupXL(stage *models.StageStruct, dirPath stri
 
 	// insertion point for per struct backup
 	backRepo.BackRepoCell.BackupXL(file)
+	backRepo.BackRepoCellFloat64.BackupXL(file)
+	backRepo.BackRepoCellIcon.BackupXL(file)
+	backRepo.BackRepoCellInt.BackupXL(file)
 	backRepo.BackRepoCellString.BackupXL(file)
 	backRepo.BackRepoDisplayedColumn.BackupXL(file)
 	backRepo.BackRepoRow.BackupXL(file)
@@ -269,6 +320,9 @@ func (backRepo *BackRepoStruct) Restore(stage *models.StageStruct, dirPath strin
 
 	// insertion point for per struct backup
 	backRepo.BackRepoCell.RestorePhaseOne(dirPath)
+	backRepo.BackRepoCellFloat64.RestorePhaseOne(dirPath)
+	backRepo.BackRepoCellIcon.RestorePhaseOne(dirPath)
+	backRepo.BackRepoCellInt.RestorePhaseOne(dirPath)
 	backRepo.BackRepoCellString.RestorePhaseOne(dirPath)
 	backRepo.BackRepoDisplayedColumn.RestorePhaseOne(dirPath)
 	backRepo.BackRepoRow.RestorePhaseOne(dirPath)
@@ -280,6 +334,9 @@ func (backRepo *BackRepoStruct) Restore(stage *models.StageStruct, dirPath strin
 
 	// insertion point for per struct backup
 	backRepo.BackRepoCell.RestorePhaseTwo()
+	backRepo.BackRepoCellFloat64.RestorePhaseTwo()
+	backRepo.BackRepoCellIcon.RestorePhaseTwo()
+	backRepo.BackRepoCellInt.RestorePhaseTwo()
 	backRepo.BackRepoCellString.RestorePhaseTwo()
 	backRepo.BackRepoDisplayedColumn.RestorePhaseTwo()
 	backRepo.BackRepoRow.RestorePhaseTwo()
@@ -312,6 +369,9 @@ func (backRepo *BackRepoStruct) RestoreXL(stage *models.StageStruct, dirPath str
 
 	// insertion point for per struct backup
 	backRepo.BackRepoCell.RestoreXLPhaseOne(file)
+	backRepo.BackRepoCellFloat64.RestoreXLPhaseOne(file)
+	backRepo.BackRepoCellIcon.RestoreXLPhaseOne(file)
+	backRepo.BackRepoCellInt.RestoreXLPhaseOne(file)
 	backRepo.BackRepoCellString.RestoreXLPhaseOne(file)
 	backRepo.BackRepoDisplayedColumn.RestoreXLPhaseOne(file)
 	backRepo.BackRepoRow.RestoreXLPhaseOne(file)
