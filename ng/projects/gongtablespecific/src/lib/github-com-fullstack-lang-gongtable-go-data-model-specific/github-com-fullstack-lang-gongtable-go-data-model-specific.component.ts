@@ -12,8 +12,8 @@ import * as gongtable from 'gongtable'
   styleUrls: ['./github-com-fullstack-lang-gongtable-go-data-model-specific.component.css']
 })
 export class GithubComFullstackLangGongtableGoDataModelSpecificComponent implements OnInit {
-  displayedColumns: string[] = [];
-  dataSource: string[][] = [[]];
+  displayedColumns: string[] = []
+  dataSource: gongtable.RowDB[] = []
 
   @Input() DataStack: string = ""
 
@@ -76,25 +76,11 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
       gongtablesFrontRepo => {
         this.gongtableFrontRepo = gongtablesFrontRepo
 
-        this.dataSource = []
+        this.dataSource = this.gongtableFrontRepo.Rows_array
 
         for (let column of this.gongtableFrontRepo.DisplayedColumns_array) {
           this.displayedColumns.push(column.Name)
         }
-
-        for (let row of this.gongtableFrontRepo.Rows_array) {
-          let rowOfStrings: string[] = []
-
-          if (row.Cells == undefined) {
-            return
-          }
-          for (let cell of row.Cells) {
-            rowOfStrings.push(cell.Name)
-          }
-
-          this.dataSource.push(rowOfStrings)
-        }
-
       }
     )
   }
