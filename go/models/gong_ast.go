@@ -723,12 +723,12 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_CellFloat64[identifier].Name = fielValue
 				case "Value":
-					// convert string to int
-					fielValue, err := strconv.ParseInt(basicLit.Value, 10, 64)
+					// convert string to float64
+					fielValue, err := strconv.ParseFloat(basicLit.Value, 64)
 					if err != nil {
 						log.Fatalln(err)
 					}
-					__gong__map_CellFloat64[identifier].Value = int(exprSign) * int(fielValue)
+					__gong__map_CellFloat64[identifier].Value = exprSign * fielValue
 				}
 			case "CellIcon":
 				switch fieldName {

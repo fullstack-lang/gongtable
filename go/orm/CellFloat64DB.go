@@ -62,7 +62,7 @@ type CellFloat64DB struct {
 	Name_Data sql.NullString
 
 	// Declation for basic field cellfloat64DB.Value
-	Value_Data sql.NullInt64
+	Value_Data sql.NullFloat64
 	// encoding of pointers
 	CellFloat64PointersEnconding
 }
@@ -86,7 +86,7 @@ type CellFloat64WOP struct {
 
 	Name string `xlsx:"1"`
 
-	Value int `xlsx:"2"`
+	Value float64 `xlsx:"2"`
 	// insertion for WOP pointer fields
 }
 
@@ -358,7 +358,7 @@ func (cellfloat64DB *CellFloat64DB) CopyBasicFieldsFromCellFloat64(cellfloat64 *
 	cellfloat64DB.Name_Data.String = cellfloat64.Name
 	cellfloat64DB.Name_Data.Valid = true
 
-	cellfloat64DB.Value_Data.Int64 = int64(cellfloat64.Value)
+	cellfloat64DB.Value_Data.Float64 = cellfloat64.Value
 	cellfloat64DB.Value_Data.Valid = true
 }
 
@@ -369,7 +369,7 @@ func (cellfloat64DB *CellFloat64DB) CopyBasicFieldsFromCellFloat64WOP(cellfloat6
 	cellfloat64DB.Name_Data.String = cellfloat64.Name
 	cellfloat64DB.Name_Data.Valid = true
 
-	cellfloat64DB.Value_Data.Int64 = int64(cellfloat64.Value)
+	cellfloat64DB.Value_Data.Float64 = cellfloat64.Value
 	cellfloat64DB.Value_Data.Valid = true
 }
 
@@ -377,7 +377,7 @@ func (cellfloat64DB *CellFloat64DB) CopyBasicFieldsFromCellFloat64WOP(cellfloat6
 func (cellfloat64DB *CellFloat64DB) CopyBasicFieldsToCellFloat64(cellfloat64 *models.CellFloat64) {
 	// insertion point for checkout of basic fields (back repo to stage)
 	cellfloat64.Name = cellfloat64DB.Name_Data.String
-	cellfloat64.Value = int(cellfloat64DB.Value_Data.Int64)
+	cellfloat64.Value = cellfloat64DB.Value_Data.Float64
 }
 
 // CopyBasicFieldsToCellFloat64WOP
@@ -385,7 +385,7 @@ func (cellfloat64DB *CellFloat64DB) CopyBasicFieldsToCellFloat64WOP(cellfloat64 
 	cellfloat64.ID = int(cellfloat64DB.ID)
 	// insertion point for checkout of basic fields (back repo to stage)
 	cellfloat64.Name = cellfloat64DB.Name_Data.String
-	cellfloat64.Value = int(cellfloat64DB.Value_Data.Int64)
+	cellfloat64.Value = cellfloat64DB.Value_Data.Float64
 }
 
 // Backup generates a json file from a slice of all CellFloat64DB instances in the backrepo

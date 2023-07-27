@@ -2,5 +2,5 @@ package models
 
 type CellFloat64 struct {
 	Name  string
-	Value int
+	Value float64
 }

@@ -49,6 +49,7 @@ func stageInjection(stage *models.StageStruct) {
 	__Cell__000007_Row_2_Cell_4 := (&models.Cell{Name: `Row 2 - Cell 4`}).Stage(stage)
 
 	// Declarations of staged instances of CellFloat64
+	__CellFloat64__000000_Row_2_Cell_2 := (&models.CellFloat64{Name: `Row 2 - Cell 2`}).Stage(stage)
 
 	// Declarations of staged instances of CellIcon
 	__CellIcon__000000_Row_1_Cell_3 := (&models.CellIcon{Name: `Row 1 - Cell 3`}).Stage(stage)
@@ -56,7 +57,6 @@ func stageInjection(stage *models.StageStruct) {
 
 	// Declarations of staged instances of CellInt
 	__CellInt__000000_Row_1_Cell_2 := (&models.CellInt{Name: `Row 1 - Cell 2`}).Stage(stage)
-	__CellInt__000001_Row_2_Cell_2 := (&models.CellInt{Name: `Row 2 - Cell 2`}).Stage(stage)
 
 	// Declarations of staged instances of CellString
 	__CellString__000000_Row_1_Cell_1_ := (&models.CellString{Name: `Row 1 - Cell 1 `}).Stage(stage)
@@ -103,6 +103,10 @@ func stageInjection(stage *models.StageStruct) {
 	// Cell values setup
 	__Cell__000007_Row_2_Cell_4.Name = `Row 2 - Cell 4`
 
+	// CellFloat64 values setup
+	__CellFloat64__000000_Row_2_Cell_2.Name = `Row 2 - Cell 2`
+	__CellFloat64__000000_Row_2_Cell_2.Value = 500.433333
+
 	// CellIcon values setup
 	__CellIcon__000000_Row_1_Cell_3.Name = `Row 1 - Cell 3`
 	__CellIcon__000000_Row_1_Cell_3.Icon = `delete`
@@ -114,10 +118,6 @@ func stageInjection(stage *models.StageStruct) {
 	// CellInt values setup
 	__CellInt__000000_Row_1_Cell_2.Name = `Row 1 - Cell 2`
 	__CellInt__000000_Row_1_Cell_2.Value = 10
-
-	// CellInt values setup
-	__CellInt__000001_Row_2_Cell_2.Name = `Row 2 - Cell 2`
-	__CellInt__000001_Row_2_Cell_2.Value = 20
 
 	// CellString values setup
 	__CellString__000000_Row_1_Cell_1_.Name = `Row 1 - Cell 1 `
@@ -155,11 +155,10 @@ func stageInjection(stage *models.StageStruct) {
 	// Setup of pointers
 	__Cell__000000_Row_1_Cell_1.CellString = __CellString__000000_Row_1_Cell_1_
 	__Cell__000001_Row_1_Cell_2.CellInt = __CellInt__000000_Row_1_Cell_2
-	__Cell__000002_Row_1_Cell_3.CellInt = __CellInt__000001_Row_2_Cell_2
 	__Cell__000002_Row_1_Cell_3.CellIcon = __CellIcon__000000_Row_1_Cell_3
 	__Cell__000003_Row_1_Cell_4.CellString = __CellString__000001_Row_1_Cell_4
 	__Cell__000004_Row_2_Cell_1.CellString = __CellString__000002_Row_2_Cell_1_
-	__Cell__000005_Row_2_Cell_2.CellInt = __CellInt__000001_Row_2_Cell_2
+	__Cell__000005_Row_2_Cell_2.CellFloat64 = __CellFloat64__000000_Row_2_Cell_2
 	__Cell__000006_Row_2_Cell_3.CellIcon = __CellIcon__000001_Row_2_Cell_3
 	__Cell__000007_Row_2_Cell_4.CellString = __CellString__000003_Row_2_Cell_4
 	__Row__000000_Row_1.Cells = append(__Row__000000_Row_1.Cells, __Cell__000000_Row_1_Cell_1)

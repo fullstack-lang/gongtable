@@ -1242,7 +1242,7 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 		case "Name":
 			res = any(instance).(CellFloat64).Name
 		case "Value":
-			res = fmt.Sprintf("%d", any(instance).(CellFloat64).Value)
+			res = fmt.Sprintf("%f", any(instance).(CellFloat64).Value)
 		}
 	case CellIcon:
 		switch fieldName {
