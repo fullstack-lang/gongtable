@@ -29,9 +29,41 @@ var map_DocLink_Identifier_Default map[string]any = map[string]any{
 
 	"ref_models.Cell": &(ref_models.Cell{}),
 
+	"ref_models.Cell.CellBool": (ref_models.Cell{}).CellBool,
+
+	"ref_models.Cell.CellFloat64": (ref_models.Cell{}).CellFloat64,
+
+	"ref_models.Cell.CellIcon": (ref_models.Cell{}).CellIcon,
+
+	"ref_models.Cell.CellInt": (ref_models.Cell{}).CellInt,
+
 	"ref_models.Cell.CellString": (ref_models.Cell{}).CellString,
 
 	"ref_models.Cell.Name": (ref_models.Cell{}).Name,
+
+	"ref_models.CellBoolean": &(ref_models.CellBoolean{}),
+
+	"ref_models.CellBoolean.Name": (ref_models.CellBoolean{}).Name,
+
+	"ref_models.CellBoolean.Value": (ref_models.CellBoolean{}).Value,
+
+	"ref_models.CellFloat64": &(ref_models.CellFloat64{}),
+
+	"ref_models.CellFloat64.Name": (ref_models.CellFloat64{}).Name,
+
+	"ref_models.CellFloat64.Value": (ref_models.CellFloat64{}).Value,
+
+	"ref_models.CellIcon": &(ref_models.CellIcon{}),
+
+	"ref_models.CellIcon.Icon": (ref_models.CellIcon{}).Icon,
+
+	"ref_models.CellIcon.Name": (ref_models.CellIcon{}).Name,
+
+	"ref_models.CellInt": &(ref_models.CellInt{}),
+
+	"ref_models.CellInt.Name": (ref_models.CellInt{}).Name,
+
+	"ref_models.CellInt.Value": (ref_models.CellInt{}).Value,
 
 	"ref_models.CellString": &(ref_models.CellString{}),
 
@@ -74,6 +106,11 @@ func DefaultInjection(stage *models.StageStruct) {
 	// Declarations of staged instances of DiagramPackage
 
 	// Declarations of staged instances of Field
+	__Field__000000_Icon := (&models.Field{Name: `Icon`}).Stage(stage)
+	__Field__000001_Name := (&models.Field{Name: `Name`}).Stage(stage)
+	__Field__000002_Value := (&models.Field{Name: `Value`}).Stage(stage)
+	__Field__000003_Value := (&models.Field{Name: `Value`}).Stage(stage)
+	__Field__000004_Value := (&models.Field{Name: `Value`}).Stage(stage)
 
 	// Declarations of staged instances of GongEnumShape
 
@@ -81,16 +118,24 @@ func DefaultInjection(stage *models.StageStruct) {
 
 	// Declarations of staged instances of GongStructShape
 	__GongStructShape__000000_Default_Cell := (&models.GongStructShape{Name: `Default-Cell`}).Stage(stage)
-	__GongStructShape__000001_Default_CellString := (&models.GongStructShape{Name: `Default-CellString`}).Stage(stage)
-	__GongStructShape__000002_Default_DisplayedColumn := (&models.GongStructShape{Name: `Default-DisplayedColumn`}).Stage(stage)
-	__GongStructShape__000003_Default_Row := (&models.GongStructShape{Name: `Default-Row`}).Stage(stage)
-	__GongStructShape__000004_Default_Table := (&models.GongStructShape{Name: `Default-Table`}).Stage(stage)
+	__GongStructShape__000001_Default_CellBoolean := (&models.GongStructShape{Name: `Default-CellBoolean`}).Stage(stage)
+	__GongStructShape__000002_Default_CellFloat64 := (&models.GongStructShape{Name: `Default-CellFloat64`}).Stage(stage)
+	__GongStructShape__000003_Default_CellIcon := (&models.GongStructShape{Name: `Default-CellIcon`}).Stage(stage)
+	__GongStructShape__000004_Default_CellInt := (&models.GongStructShape{Name: `Default-CellInt`}).Stage(stage)
+	__GongStructShape__000005_Default_CellString := (&models.GongStructShape{Name: `Default-CellString`}).Stage(stage)
+	__GongStructShape__000006_Default_DisplayedColumn := (&models.GongStructShape{Name: `Default-DisplayedColumn`}).Stage(stage)
+	__GongStructShape__000007_Default_Row := (&models.GongStructShape{Name: `Default-Row`}).Stage(stage)
+	__GongStructShape__000008_Default_Table := (&models.GongStructShape{Name: `Default-Table`}).Stage(stage)
 
 	// Declarations of staged instances of Link
-	__Link__000000_CellString := (&models.Link{Name: `CellString`}).Stage(stage)
-	__Link__000001_Cells := (&models.Link{Name: `Cells`}).Stage(stage)
-	__Link__000002_DisplayedColumns := (&models.Link{Name: `DisplayedColumns`}).Stage(stage)
-	__Link__000003_Rows := (&models.Link{Name: `Rows`}).Stage(stage)
+	__Link__000000_CellBool := (&models.Link{Name: `CellBool`}).Stage(stage)
+	__Link__000001_CellFloat64 := (&models.Link{Name: `CellFloat64`}).Stage(stage)
+	__Link__000002_CellIcon := (&models.Link{Name: `CellIcon`}).Stage(stage)
+	__Link__000003_CellInt := (&models.Link{Name: `CellInt`}).Stage(stage)
+	__Link__000004_CellString := (&models.Link{Name: `CellString`}).Stage(stage)
+	__Link__000005_Cells := (&models.Link{Name: `Cells`}).Stage(stage)
+	__Link__000006_DisplayedColumns := (&models.Link{Name: `DisplayedColumns`}).Stage(stage)
+	__Link__000007_Rows := (&models.Link{Name: `Rows`}).Stage(stage)
 
 	// Declarations of staged instances of NoteShape
 
@@ -98,26 +143,89 @@ func DefaultInjection(stage *models.StageStruct) {
 
 	// Declarations of staged instances of Position
 	__Position__000000_Pos_Default_Cell := (&models.Position{Name: `Pos-Default-Cell`}).Stage(stage)
-	__Position__000001_Pos_Default_CellString := (&models.Position{Name: `Pos-Default-CellString`}).Stage(stage)
-	__Position__000002_Pos_Default_DisplayedColumn := (&models.Position{Name: `Pos-Default-DisplayedColumn`}).Stage(stage)
-	__Position__000003_Pos_Default_Row := (&models.Position{Name: `Pos-Default-Row`}).Stage(stage)
-	__Position__000004_Pos_Default_Table := (&models.Position{Name: `Pos-Default-Table`}).Stage(stage)
+	__Position__000001_Pos_Default_CellBoolean := (&models.Position{Name: `Pos-Default-CellBoolean`}).Stage(stage)
+	__Position__000002_Pos_Default_CellFloat64 := (&models.Position{Name: `Pos-Default-CellFloat64`}).Stage(stage)
+	__Position__000003_Pos_Default_CellIcon := (&models.Position{Name: `Pos-Default-CellIcon`}).Stage(stage)
+	__Position__000004_Pos_Default_CellInt := (&models.Position{Name: `Pos-Default-CellInt`}).Stage(stage)
+	__Position__000005_Pos_Default_CellString := (&models.Position{Name: `Pos-Default-CellString`}).Stage(stage)
+	__Position__000006_Pos_Default_DisplayedColumn := (&models.Position{Name: `Pos-Default-DisplayedColumn`}).Stage(stage)
+	__Position__000007_Pos_Default_Row := (&models.Position{Name: `Pos-Default-Row`}).Stage(stage)
+	__Position__000008_Pos_Default_Table := (&models.Position{Name: `Pos-Default-Table`}).Stage(stage)
 
 	// Declarations of staged instances of UmlState
 
 	// Declarations of staged instances of Umlsc
 
 	// Declarations of staged instances of Vertice
-	__Vertice__000000_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellString := (&models.Vertice{Name: `Verticle in class diagram Default in middle between Default-Cell and Default-CellString`}).Stage(stage)
-	__Vertice__000001_Verticle_in_class_diagram_Default_in_middle_between_Default_Row_and_Default_Cell := (&models.Vertice{Name: `Verticle in class diagram Default in middle between Default-Row and Default-Cell`}).Stage(stage)
-	__Vertice__000002_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_DisplayedColumn := (&models.Vertice{Name: `Verticle in class diagram Default in middle between Default-Table and Default-DisplayedColumn`}).Stage(stage)
-	__Vertice__000003_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_Row := (&models.Vertice{Name: `Verticle in class diagram Default in middle between Default-Table and Default-Row`}).Stage(stage)
+	__Vertice__000000_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellBoolean := (&models.Vertice{Name: `Verticle in class diagram Default in middle between Default-Cell and Default-CellBoolean`}).Stage(stage)
+	__Vertice__000001_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellFloat64 := (&models.Vertice{Name: `Verticle in class diagram Default in middle between Default-Cell and Default-CellFloat64`}).Stage(stage)
+	__Vertice__000002_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellIcon := (&models.Vertice{Name: `Verticle in class diagram Default in middle between Default-Cell and Default-CellIcon`}).Stage(stage)
+	__Vertice__000003_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellInt := (&models.Vertice{Name: `Verticle in class diagram Default in middle between Default-Cell and Default-CellInt`}).Stage(stage)
+	__Vertice__000004_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellString := (&models.Vertice{Name: `Verticle in class diagram Default in middle between Default-Cell and Default-CellString`}).Stage(stage)
+	__Vertice__000005_Verticle_in_class_diagram_Default_in_middle_between_Default_Row_and_Default_Cell := (&models.Vertice{Name: `Verticle in class diagram Default in middle between Default-Row and Default-Cell`}).Stage(stage)
+	__Vertice__000006_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_DisplayedColumn := (&models.Vertice{Name: `Verticle in class diagram Default in middle between Default-Table and Default-DisplayedColumn`}).Stage(stage)
+	__Vertice__000007_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_Row := (&models.Vertice{Name: `Verticle in class diagram Default in middle between Default-Table and Default-Row`}).Stage(stage)
 
 	// Setup of values
 
 	// Classdiagram values setup
 	__Classdiagram__000000_Default.Name = `Default`
 	__Classdiagram__000000_Default.IsInDrawMode = true
+
+	// Field values setup
+	__Field__000000_Icon.Name = `Icon`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.CellIcon.Icon]
+	__Field__000000_Icon.Identifier = `ref_models.CellIcon.Icon`
+	__Field__000000_Icon.FieldTypeAsString = ``
+	__Field__000000_Icon.Structname = `CellIcon`
+	__Field__000000_Icon.Fieldtypename = `string`
+
+	// Field values setup
+	__Field__000001_Name.Name = `Name`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.CellString.Name]
+	__Field__000001_Name.Identifier = `ref_models.CellString.Name`
+	__Field__000001_Name.FieldTypeAsString = ``
+	__Field__000001_Name.Structname = `CellString`
+	__Field__000001_Name.Fieldtypename = `string`
+
+	// Field values setup
+	__Field__000002_Value.Name = `Value`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.CellBoolean.Value]
+	__Field__000002_Value.Identifier = `ref_models.CellBoolean.Value`
+	__Field__000002_Value.FieldTypeAsString = ``
+	__Field__000002_Value.Structname = `CellBoolean`
+	__Field__000002_Value.Fieldtypename = `bool`
+
+	// Field values setup
+	__Field__000003_Value.Name = `Value`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.CellFloat64.Value]
+	__Field__000003_Value.Identifier = `ref_models.CellFloat64.Value`
+	__Field__000003_Value.FieldTypeAsString = ``
+	__Field__000003_Value.Structname = `CellFloat64`
+	__Field__000003_Value.Fieldtypename = `float64`
+
+	// Field values setup
+	__Field__000004_Value.Name = `Value`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.CellInt.Value]
+	__Field__000004_Value.Identifier = `ref_models.CellInt.Value`
+	__Field__000004_Value.FieldTypeAsString = ``
+	__Field__000004_Value.Structname = `CellInt`
+	__Field__000004_Value.Fieldtypename = `int`
 
 	// GongStructShape values setup
 	__GongStructShape__000000_Default_Cell.Name = `Default-Cell`
@@ -127,231 +235,448 @@ func DefaultInjection(stage *models.StageStruct) {
 	//gong:ident [ref_models.Cell]
 	__GongStructShape__000000_Default_Cell.Identifier = `ref_models.Cell`
 	__GongStructShape__000000_Default_Cell.ShowNbInstances = true
-	__GongStructShape__000000_Default_Cell.NbInstances = 4
+	__GongStructShape__000000_Default_Cell.NbInstances = 8
 	__GongStructShape__000000_Default_Cell.Width = 240.000000
 	__GongStructShape__000000_Default_Cell.Heigth = 63.000000
 	__GongStructShape__000000_Default_Cell.IsSelected = false
 
 	// GongStructShape values setup
-	__GongStructShape__000001_Default_CellString.Name = `Default-CellString`
+	__GongStructShape__000001_Default_CellBoolean.Name = `Default-CellBoolean`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.CellBoolean]
+	__GongStructShape__000001_Default_CellBoolean.Identifier = `ref_models.CellBoolean`
+	__GongStructShape__000001_Default_CellBoolean.ShowNbInstances = true
+	__GongStructShape__000001_Default_CellBoolean.NbInstances = 1
+	__GongStructShape__000001_Default_CellBoolean.Width = 240.000000
+	__GongStructShape__000001_Default_CellBoolean.Heigth = 78.000000
+	__GongStructShape__000001_Default_CellBoolean.IsSelected = false
+
+	// GongStructShape values setup
+	__GongStructShape__000002_Default_CellFloat64.Name = `Default-CellFloat64`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.CellFloat64]
+	__GongStructShape__000002_Default_CellFloat64.Identifier = `ref_models.CellFloat64`
+	__GongStructShape__000002_Default_CellFloat64.ShowNbInstances = true
+	__GongStructShape__000002_Default_CellFloat64.NbInstances = 1
+	__GongStructShape__000002_Default_CellFloat64.Width = 240.000000
+	__GongStructShape__000002_Default_CellFloat64.Heigth = 78.000000
+	__GongStructShape__000002_Default_CellFloat64.IsSelected = false
+
+	// GongStructShape values setup
+	__GongStructShape__000003_Default_CellIcon.Name = `Default-CellIcon`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.CellIcon]
+	__GongStructShape__000003_Default_CellIcon.Identifier = `ref_models.CellIcon`
+	__GongStructShape__000003_Default_CellIcon.ShowNbInstances = true
+	__GongStructShape__000003_Default_CellIcon.NbInstances = 2
+	__GongStructShape__000003_Default_CellIcon.Width = 240.000000
+	__GongStructShape__000003_Default_CellIcon.Heigth = 78.000000
+	__GongStructShape__000003_Default_CellIcon.IsSelected = false
+
+	// GongStructShape values setup
+	__GongStructShape__000004_Default_CellInt.Name = `Default-CellInt`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.CellInt]
+	__GongStructShape__000004_Default_CellInt.Identifier = `ref_models.CellInt`
+	__GongStructShape__000004_Default_CellInt.ShowNbInstances = true
+	__GongStructShape__000004_Default_CellInt.NbInstances = 1
+	__GongStructShape__000004_Default_CellInt.Width = 240.000000
+	__GongStructShape__000004_Default_CellInt.Heigth = 78.000000
+	__GongStructShape__000004_Default_CellInt.IsSelected = false
+
+	// GongStructShape values setup
+	__GongStructShape__000005_Default_CellString.Name = `Default-CellString`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.CellString]
-	__GongStructShape__000001_Default_CellString.Identifier = `ref_models.CellString`
-	__GongStructShape__000001_Default_CellString.ShowNbInstances = true
-	__GongStructShape__000001_Default_CellString.NbInstances = 4
-	__GongStructShape__000001_Default_CellString.Width = 240.000000
-	__GongStructShape__000001_Default_CellString.Heigth = 63.000000
-	__GongStructShape__000001_Default_CellString.IsSelected = false
+	__GongStructShape__000005_Default_CellString.Identifier = `ref_models.CellString`
+	__GongStructShape__000005_Default_CellString.ShowNbInstances = true
+	__GongStructShape__000005_Default_CellString.NbInstances = 3
+	__GongStructShape__000005_Default_CellString.Width = 240.000000
+	__GongStructShape__000005_Default_CellString.Heigth = 78.000000
+	__GongStructShape__000005_Default_CellString.IsSelected = false
 
 	// GongStructShape values setup
-	__GongStructShape__000002_Default_DisplayedColumn.Name = `Default-DisplayedColumn`
+	__GongStructShape__000006_Default_DisplayedColumn.Name = `Default-DisplayedColumn`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.DisplayedColumn]
-	__GongStructShape__000002_Default_DisplayedColumn.Identifier = `ref_models.DisplayedColumn`
-	__GongStructShape__000002_Default_DisplayedColumn.ShowNbInstances = false
-	__GongStructShape__000002_Default_DisplayedColumn.NbInstances = 0
-	__GongStructShape__000002_Default_DisplayedColumn.Width = 240.000000
-	__GongStructShape__000002_Default_DisplayedColumn.Heigth = 63.000000
-	__GongStructShape__000002_Default_DisplayedColumn.IsSelected = false
+	__GongStructShape__000006_Default_DisplayedColumn.Identifier = `ref_models.DisplayedColumn`
+	__GongStructShape__000006_Default_DisplayedColumn.ShowNbInstances = true
+	__GongStructShape__000006_Default_DisplayedColumn.NbInstances = 4
+	__GongStructShape__000006_Default_DisplayedColumn.Width = 240.000000
+	__GongStructShape__000006_Default_DisplayedColumn.Heigth = 63.000000
+	__GongStructShape__000006_Default_DisplayedColumn.IsSelected = false
 
 	// GongStructShape values setup
-	__GongStructShape__000003_Default_Row.Name = `Default-Row`
+	__GongStructShape__000007_Default_Row.Name = `Default-Row`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.Row]
-	__GongStructShape__000003_Default_Row.Identifier = `ref_models.Row`
-	__GongStructShape__000003_Default_Row.ShowNbInstances = true
-	__GongStructShape__000003_Default_Row.NbInstances = 2
-	__GongStructShape__000003_Default_Row.Width = 240.000000
-	__GongStructShape__000003_Default_Row.Heigth = 63.000000
-	__GongStructShape__000003_Default_Row.IsSelected = false
+	__GongStructShape__000007_Default_Row.Identifier = `ref_models.Row`
+	__GongStructShape__000007_Default_Row.ShowNbInstances = true
+	__GongStructShape__000007_Default_Row.NbInstances = 2
+	__GongStructShape__000007_Default_Row.Width = 240.000000
+	__GongStructShape__000007_Default_Row.Heigth = 63.000000
+	__GongStructShape__000007_Default_Row.IsSelected = false
 
 	// GongStructShape values setup
-	__GongStructShape__000004_Default_Table.Name = `Default-Table`
+	__GongStructShape__000008_Default_Table.Name = `Default-Table`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.Table]
-	__GongStructShape__000004_Default_Table.Identifier = `ref_models.Table`
-	__GongStructShape__000004_Default_Table.ShowNbInstances = true
-	__GongStructShape__000004_Default_Table.NbInstances = 1
-	__GongStructShape__000004_Default_Table.Width = 240.000000
-	__GongStructShape__000004_Default_Table.Heigth = 63.000000
-	__GongStructShape__000004_Default_Table.IsSelected = false
+	__GongStructShape__000008_Default_Table.Identifier = `ref_models.Table`
+	__GongStructShape__000008_Default_Table.ShowNbInstances = true
+	__GongStructShape__000008_Default_Table.NbInstances = 1
+	__GongStructShape__000008_Default_Table.Width = 240.000000
+	__GongStructShape__000008_Default_Table.Heigth = 63.000000
+	__GongStructShape__000008_Default_Table.IsSelected = false
 
 	// Link values setup
-	__Link__000000_CellString.Name = `CellString`
+	__Link__000000_CellBool.Name = `CellBool`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.Cell.CellBool]
+	__Link__000000_CellBool.Identifier = `ref_models.Cell.CellBool`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.CellBoolean]
+	__Link__000000_CellBool.Fieldtypename = `ref_models.CellBoolean`
+	__Link__000000_CellBool.FieldOffsetX = -73.000000
+	__Link__000000_CellBool.FieldOffsetY = -16.000000
+	__Link__000000_CellBool.TargetMultiplicity = models.ZERO_ONE
+	__Link__000000_CellBool.TargetMultiplicityOffsetX = -50.000000
+	__Link__000000_CellBool.TargetMultiplicityOffsetY = 16.000000
+	__Link__000000_CellBool.SourceMultiplicity = models.MANY
+	__Link__000000_CellBool.SourceMultiplicityOffsetX = 10.000000
+	__Link__000000_CellBool.SourceMultiplicityOffsetY = -50.000000
+	__Link__000000_CellBool.StartOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000000_CellBool.StartRatio = 0.500000
+	__Link__000000_CellBool.EndOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000000_CellBool.EndRatio = 0.500000
+	__Link__000000_CellBool.CornerOffsetRatio = 1.190007
+
+	// Link values setup
+	__Link__000001_CellFloat64.Name = `CellFloat64`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.Cell.CellFloat64]
+	__Link__000001_CellFloat64.Identifier = `ref_models.Cell.CellFloat64`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.CellFloat64]
+	__Link__000001_CellFloat64.Fieldtypename = `ref_models.CellFloat64`
+	__Link__000001_CellFloat64.FieldOffsetX = -97.000000
+	__Link__000001_CellFloat64.FieldOffsetY = -14.000000
+	__Link__000001_CellFloat64.TargetMultiplicity = models.ZERO_ONE
+	__Link__000001_CellFloat64.TargetMultiplicityOffsetX = -50.000000
+	__Link__000001_CellFloat64.TargetMultiplicityOffsetY = 16.000000
+	__Link__000001_CellFloat64.SourceMultiplicity = models.MANY
+	__Link__000001_CellFloat64.SourceMultiplicityOffsetX = 10.000000
+	__Link__000001_CellFloat64.SourceMultiplicityOffsetY = -50.000000
+	__Link__000001_CellFloat64.StartOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000001_CellFloat64.StartRatio = 0.500000
+	__Link__000001_CellFloat64.EndOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000001_CellFloat64.EndRatio = 0.500000
+	__Link__000001_CellFloat64.CornerOffsetRatio = 1.194173
+
+	// Link values setup
+	__Link__000002_CellIcon.Name = `CellIcon`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.Cell.CellIcon]
+	__Link__000002_CellIcon.Identifier = `ref_models.Cell.CellIcon`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.CellIcon]
+	__Link__000002_CellIcon.Fieldtypename = `ref_models.CellIcon`
+	__Link__000002_CellIcon.FieldOffsetX = -70.000000
+	__Link__000002_CellIcon.FieldOffsetY = -17.000000
+	__Link__000002_CellIcon.TargetMultiplicity = models.ZERO_ONE
+	__Link__000002_CellIcon.TargetMultiplicityOffsetX = -50.000000
+	__Link__000002_CellIcon.TargetMultiplicityOffsetY = 16.000000
+	__Link__000002_CellIcon.SourceMultiplicity = models.MANY
+	__Link__000002_CellIcon.SourceMultiplicityOffsetX = 10.000000
+	__Link__000002_CellIcon.SourceMultiplicityOffsetY = -50.000000
+	__Link__000002_CellIcon.StartOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000002_CellIcon.StartRatio = 0.500000
+	__Link__000002_CellIcon.EndOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000002_CellIcon.EndRatio = 0.500000
+	__Link__000002_CellIcon.CornerOffsetRatio = 1.177507
+
+	// Link values setup
+	__Link__000003_CellInt.Name = `CellInt`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.Cell.CellInt]
+	__Link__000003_CellInt.Identifier = `ref_models.Cell.CellInt`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.CellInt]
+	__Link__000003_CellInt.Fieldtypename = `ref_models.CellInt`
+	__Link__000003_CellInt.FieldOffsetX = -58.000000
+	__Link__000003_CellInt.FieldOffsetY = -17.000000
+	__Link__000003_CellInt.TargetMultiplicity = models.ZERO_ONE
+	__Link__000003_CellInt.TargetMultiplicityOffsetX = -50.000000
+	__Link__000003_CellInt.TargetMultiplicityOffsetY = 16.000000
+	__Link__000003_CellInt.SourceMultiplicity = models.MANY
+	__Link__000003_CellInt.SourceMultiplicityOffsetX = 10.000000
+	__Link__000003_CellInt.SourceMultiplicityOffsetY = -50.000000
+	__Link__000003_CellInt.StartOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000003_CellInt.StartRatio = 0.500000
+	__Link__000003_CellInt.EndOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000003_CellInt.EndRatio = 0.500000
+	__Link__000003_CellInt.CornerOffsetRatio = 1.194173
+
+	// Link values setup
+	__Link__000004_CellString.Name = `CellString`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.Cell.CellString]
-	__Link__000000_CellString.Identifier = `ref_models.Cell.CellString`
+	__Link__000004_CellString.Identifier = `ref_models.Cell.CellString`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.CellString]
-	__Link__000000_CellString.Fieldtypename = `ref_models.CellString`
-	__Link__000000_CellString.FieldOffsetX = -84.000000
-	__Link__000000_CellString.FieldOffsetY = -22.000000
-	__Link__000000_CellString.TargetMultiplicity = models.ZERO_ONE
-	__Link__000000_CellString.TargetMultiplicityOffsetX = -49.000000
-	__Link__000000_CellString.TargetMultiplicityOffsetY = 26.000000
-	__Link__000000_CellString.SourceMultiplicity = models.MANY
-	__Link__000000_CellString.SourceMultiplicityOffsetX = 9.000000
-	__Link__000000_CellString.SourceMultiplicityOffsetY = -13.000000
-	__Link__000000_CellString.StartOrientation = models.ORIENTATION_HORIZONTAL
-	__Link__000000_CellString.StartRatio = 0.500000
-	__Link__000000_CellString.EndOrientation = models.ORIENTATION_HORIZONTAL
-	__Link__000000_CellString.EndRatio = 0.500000
-	__Link__000000_CellString.CornerOffsetRatio = 1.205278
+	__Link__000004_CellString.Fieldtypename = `ref_models.CellString`
+	__Link__000004_CellString.FieldOffsetX = -89.000000
+	__Link__000004_CellString.FieldOffsetY = -17.000000
+	__Link__000004_CellString.TargetMultiplicity = models.ZERO_ONE
+	__Link__000004_CellString.TargetMultiplicityOffsetX = -50.000000
+	__Link__000004_CellString.TargetMultiplicityOffsetY = 16.000000
+	__Link__000004_CellString.SourceMultiplicity = models.MANY
+	__Link__000004_CellString.SourceMultiplicityOffsetX = 10.000000
+	__Link__000004_CellString.SourceMultiplicityOffsetY = -50.000000
+	__Link__000004_CellString.StartOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000004_CellString.StartRatio = 0.500000
+	__Link__000004_CellString.EndOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000004_CellString.EndRatio = 0.500000
+	__Link__000004_CellString.CornerOffsetRatio = 1.190007
 
 	// Link values setup
-	__Link__000001_Cells.Name = `Cells`
+	__Link__000005_Cells.Name = `Cells`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.Row.Cells]
-	__Link__000001_Cells.Identifier = `ref_models.Row.Cells`
+	__Link__000005_Cells.Identifier = `ref_models.Row.Cells`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.Cell]
-	__Link__000001_Cells.Fieldtypename = `ref_models.Cell`
-	__Link__000001_Cells.FieldOffsetX = -50.000000
-	__Link__000001_Cells.FieldOffsetY = -16.000000
-	__Link__000001_Cells.TargetMultiplicity = models.MANY
-	__Link__000001_Cells.TargetMultiplicityOffsetX = -33.000000
-	__Link__000001_Cells.TargetMultiplicityOffsetY = 23.000000
-	__Link__000001_Cells.SourceMultiplicity = models.ZERO_ONE
-	__Link__000001_Cells.SourceMultiplicityOffsetX = 15.000000
-	__Link__000001_Cells.SourceMultiplicityOffsetY = -11.000000
-	__Link__000001_Cells.StartOrientation = models.ORIENTATION_HORIZONTAL
-	__Link__000001_Cells.StartRatio = 0.500000
-	__Link__000001_Cells.EndOrientation = models.ORIENTATION_HORIZONTAL
-	__Link__000001_Cells.EndRatio = 0.500000
-	__Link__000001_Cells.CornerOffsetRatio = 1.121944
+	__Link__000005_Cells.Fieldtypename = `ref_models.Cell`
+	__Link__000005_Cells.FieldOffsetX = -50.000000
+	__Link__000005_Cells.FieldOffsetY = -16.000000
+	__Link__000005_Cells.TargetMultiplicity = models.MANY
+	__Link__000005_Cells.TargetMultiplicityOffsetX = -33.000000
+	__Link__000005_Cells.TargetMultiplicityOffsetY = 23.000000
+	__Link__000005_Cells.SourceMultiplicity = models.ZERO_ONE
+	__Link__000005_Cells.SourceMultiplicityOffsetX = 15.000000
+	__Link__000005_Cells.SourceMultiplicityOffsetY = -11.000000
+	__Link__000005_Cells.StartOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000005_Cells.StartRatio = 0.500000
+	__Link__000005_Cells.EndOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000005_Cells.EndRatio = 0.500000
+	__Link__000005_Cells.CornerOffsetRatio = 1.121944
 
 	// Link values setup
-	__Link__000002_DisplayedColumns.Name = `DisplayedColumns`
+	__Link__000006_DisplayedColumns.Name = `DisplayedColumns`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.Table.DisplayedColumns]
-	__Link__000002_DisplayedColumns.Identifier = `ref_models.Table.DisplayedColumns`
+	__Link__000006_DisplayedColumns.Identifier = `ref_models.Table.DisplayedColumns`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.DisplayedColumn]
-	__Link__000002_DisplayedColumns.Fieldtypename = `ref_models.DisplayedColumn`
-	__Link__000002_DisplayedColumns.FieldOffsetX = -153.000000
-	__Link__000002_DisplayedColumns.FieldOffsetY = -15.000000
-	__Link__000002_DisplayedColumns.TargetMultiplicity = models.MANY
-	__Link__000002_DisplayedColumns.TargetMultiplicityOffsetX = -29.000000
-	__Link__000002_DisplayedColumns.TargetMultiplicityOffsetY = 21.000000
-	__Link__000002_DisplayedColumns.SourceMultiplicity = models.ZERO_ONE
-	__Link__000002_DisplayedColumns.SourceMultiplicityOffsetX = 8.000000
-	__Link__000002_DisplayedColumns.SourceMultiplicityOffsetY = 24.000000
-	__Link__000002_DisplayedColumns.StartOrientation = models.ORIENTATION_HORIZONTAL
-	__Link__000002_DisplayedColumns.StartRatio = 0.412698
-	__Link__000002_DisplayedColumns.EndOrientation = models.ORIENTATION_HORIZONTAL
-	__Link__000002_DisplayedColumns.EndRatio = 0.492063
-	__Link__000002_DisplayedColumns.CornerOffsetRatio = 1.195833
+	__Link__000006_DisplayedColumns.Fieldtypename = `ref_models.DisplayedColumn`
+	__Link__000006_DisplayedColumns.FieldOffsetX = -153.000000
+	__Link__000006_DisplayedColumns.FieldOffsetY = -15.000000
+	__Link__000006_DisplayedColumns.TargetMultiplicity = models.MANY
+	__Link__000006_DisplayedColumns.TargetMultiplicityOffsetX = -29.000000
+	__Link__000006_DisplayedColumns.TargetMultiplicityOffsetY = 21.000000
+	__Link__000006_DisplayedColumns.SourceMultiplicity = models.ZERO_ONE
+	__Link__000006_DisplayedColumns.SourceMultiplicityOffsetX = 8.000000
+	__Link__000006_DisplayedColumns.SourceMultiplicityOffsetY = 24.000000
+	__Link__000006_DisplayedColumns.StartOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000006_DisplayedColumns.StartRatio = 0.412698
+	__Link__000006_DisplayedColumns.EndOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000006_DisplayedColumns.EndRatio = 0.492063
+	__Link__000006_DisplayedColumns.CornerOffsetRatio = 1.195833
 
 	// Link values setup
-	__Link__000003_Rows.Name = `Rows`
+	__Link__000007_Rows.Name = `Rows`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.Table.Rows]
-	__Link__000003_Rows.Identifier = `ref_models.Table.Rows`
+	__Link__000007_Rows.Identifier = `ref_models.Table.Rows`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.Row]
-	__Link__000003_Rows.Fieldtypename = `ref_models.Row`
-	__Link__000003_Rows.FieldOffsetX = 19.000000
-	__Link__000003_Rows.FieldOffsetY = -17.000000
-	__Link__000003_Rows.TargetMultiplicity = models.MANY
-	__Link__000003_Rows.TargetMultiplicityOffsetX = -24.000000
-	__Link__000003_Rows.TargetMultiplicityOffsetY = -9.000000
-	__Link__000003_Rows.SourceMultiplicity = models.ZERO_ONE
-	__Link__000003_Rows.SourceMultiplicityOffsetX = -43.000000
-	__Link__000003_Rows.SourceMultiplicityOffsetY = 16.000000
-	__Link__000003_Rows.StartOrientation = models.ORIENTATION_VERTICAL
-	__Link__000003_Rows.StartRatio = 0.377507
-	__Link__000003_Rows.EndOrientation = models.ORIENTATION_VERTICAL
-	__Link__000003_Rows.EndRatio = 0.356673
-	__Link__000003_Rows.CornerOffsetRatio = 1.746032
+	__Link__000007_Rows.Fieldtypename = `ref_models.Row`
+	__Link__000007_Rows.FieldOffsetX = 19.000000
+	__Link__000007_Rows.FieldOffsetY = -17.000000
+	__Link__000007_Rows.TargetMultiplicity = models.MANY
+	__Link__000007_Rows.TargetMultiplicityOffsetX = -24.000000
+	__Link__000007_Rows.TargetMultiplicityOffsetY = -9.000000
+	__Link__000007_Rows.SourceMultiplicity = models.ZERO_ONE
+	__Link__000007_Rows.SourceMultiplicityOffsetX = -43.000000
+	__Link__000007_Rows.SourceMultiplicityOffsetY = 16.000000
+	__Link__000007_Rows.StartOrientation = models.ORIENTATION_VERTICAL
+	__Link__000007_Rows.StartRatio = 0.377507
+	__Link__000007_Rows.EndOrientation = models.ORIENTATION_VERTICAL
+	__Link__000007_Rows.EndRatio = 0.356673
+	__Link__000007_Rows.CornerOffsetRatio = 1.746032
 
 	// Position values setup
-	__Position__000000_Pos_Default_Cell.X = 538.000000
-	__Position__000000_Pos_Default_Cell.Y = 269.000000
+	__Position__000000_Pos_Default_Cell.X = 536.000000
+	__Position__000000_Pos_Default_Cell.Y = 272.000000
 	__Position__000000_Pos_Default_Cell.Name = `Pos-Default-Cell`
 
 	// Position values setup
-	__Position__000001_Pos_Default_CellString.X = 953.999939
-	__Position__000001_Pos_Default_CellString.Y = 317.000000
-	__Position__000001_Pos_Default_CellString.Name = `Pos-Default-CellString`
+	__Position__000001_Pos_Default_CellBoolean.X = 959.000000
+	__Position__000001_Pos_Default_CellBoolean.Y = 481.000000
+	__Position__000001_Pos_Default_CellBoolean.Name = `Pos-Default-CellBoolean`
 
 	// Position values setup
-	__Position__000002_Pos_Default_DisplayedColumn.X = 536.000000
-	__Position__000002_Pos_Default_DisplayedColumn.Y = 90.000000
-	__Position__000002_Pos_Default_DisplayedColumn.Name = `Pos-Default-DisplayedColumn`
+	__Position__000002_Pos_Default_CellFloat64.X = 959.000000
+	__Position__000002_Pos_Default_CellFloat64.Y = 189.000000
+	__Position__000002_Pos_Default_CellFloat64.Name = `Pos-Default-CellFloat64`
 
 	// Position values setup
-	__Position__000003_Pos_Default_Row.X = 21.000000
-	__Position__000003_Pos_Default_Row.Y = 271.000000
-	__Position__000003_Pos_Default_Row.Name = `Pos-Default-Row`
+	__Position__000003_Pos_Default_CellIcon.X = 960.000000
+	__Position__000003_Pos_Default_CellIcon.Y = 281.000000
+	__Position__000003_Pos_Default_CellIcon.Name = `Pos-Default-CellIcon`
 
 	// Position values setup
-	__Position__000004_Pos_Default_Table.X = 17.000000
-	__Position__000004_Pos_Default_Table.Y = 95.000000
-	__Position__000004_Pos_Default_Table.Name = `Pos-Default-Table`
+	__Position__000004_Pos_Default_CellInt.X = 961.000000
+	__Position__000004_Pos_Default_CellInt.Y = 374.000000
+	__Position__000004_Pos_Default_CellInt.Name = `Pos-Default-CellInt`
+
+	// Position values setup
+	__Position__000005_Pos_Default_CellString.X = 953.999939
+	__Position__000005_Pos_Default_CellString.Y = 99.000000
+	__Position__000005_Pos_Default_CellString.Name = `Pos-Default-CellString`
+
+	// Position values setup
+	__Position__000006_Pos_Default_DisplayedColumn.X = 536.000000
+	__Position__000006_Pos_Default_DisplayedColumn.Y = 90.000000
+	__Position__000006_Pos_Default_DisplayedColumn.Name = `Pos-Default-DisplayedColumn`
+
+	// Position values setup
+	__Position__000007_Pos_Default_Row.X = 21.000000
+	__Position__000007_Pos_Default_Row.Y = 271.000000
+	__Position__000007_Pos_Default_Row.Name = `Pos-Default-Row`
+
+	// Position values setup
+	__Position__000008_Pos_Default_Table.X = 17.000000
+	__Position__000008_Pos_Default_Table.Y = 95.000000
+	__Position__000008_Pos_Default_Table.Name = `Pos-Default-Table`
 
 	// Vertice values setup
-	__Vertice__000000_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellString.X = 1144.499969
-	__Vertice__000000_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellString.Y = 287.500000
-	__Vertice__000000_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellString.Name = `Verticle in class diagram Default in middle between Default-Cell and Default-CellString`
+	__Vertice__000000_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellBoolean.X = 1108.500000
+	__Vertice__000000_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellBoolean.Y = 406.500000
+	__Vertice__000000_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellBoolean.Name = `Verticle in class diagram Default in middle between Default-Cell and Default-CellBoolean`
 
 	// Vertice values setup
-	__Vertice__000001_Verticle_in_class_diagram_Default_in_middle_between_Default_Row_and_Default_Cell.X = 831.000000
-	__Vertice__000001_Verticle_in_class_diagram_Default_in_middle_between_Default_Row_and_Default_Cell.Y = 232.500000
-	__Vertice__000001_Verticle_in_class_diagram_Default_in_middle_between_Default_Row_and_Default_Cell.Name = `Verticle in class diagram Default in middle between Default-Row and Default-Cell`
+	__Vertice__000001_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellFloat64.X = 1108.500000
+	__Vertice__000001_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellFloat64.Y = 260.500000
+	__Vertice__000001_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellFloat64.Name = `Verticle in class diagram Default in middle between Default-Cell and Default-CellFloat64`
 
 	// Vertice values setup
-	__Vertice__000002_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_DisplayedColumn.X = 373.500000
-	__Vertice__000002_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_DisplayedColumn.Y = 237.000000
-	__Vertice__000002_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_DisplayedColumn.Name = `Verticle in class diagram Default in middle between Default-Table and Default-DisplayedColumn`
+	__Vertice__000002_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellIcon.X = 1109.000000
+	__Vertice__000002_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellIcon.Y = 306.500000
+	__Vertice__000002_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellIcon.Name = `Verticle in class diagram Default in middle between Default-Cell and Default-CellIcon`
 
 	// Vertice values setup
-	__Vertice__000003_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_Row.X = 568.000000
-	__Vertice__000003_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_Row.Y = 182.000000
-	__Vertice__000003_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_Row.Name = `Verticle in class diagram Default in middle between Default-Table and Default-Row`
+	__Vertice__000003_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellInt.X = 1109.500000
+	__Vertice__000003_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellInt.Y = 353.000000
+	__Vertice__000003_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellInt.Name = `Verticle in class diagram Default in middle between Default-Cell and Default-CellInt`
+
+	// Vertice values setup
+	__Vertice__000004_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellString.X = 1105.999970
+	__Vertice__000004_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellString.Y = 215.500000
+	__Vertice__000004_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellString.Name = `Verticle in class diagram Default in middle between Default-Cell and Default-CellString`
+
+	// Vertice values setup
+	__Vertice__000005_Verticle_in_class_diagram_Default_in_middle_between_Default_Row_and_Default_Cell.X = 831.000000
+	__Vertice__000005_Verticle_in_class_diagram_Default_in_middle_between_Default_Row_and_Default_Cell.Y = 232.500000
+	__Vertice__000005_Verticle_in_class_diagram_Default_in_middle_between_Default_Row_and_Default_Cell.Name = `Verticle in class diagram Default in middle between Default-Row and Default-Cell`
+
+	// Vertice values setup
+	__Vertice__000006_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_DisplayedColumn.X = 373.500000
+	__Vertice__000006_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_DisplayedColumn.Y = 237.000000
+	__Vertice__000006_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_DisplayedColumn.Name = `Verticle in class diagram Default in middle between Default-Table and Default-DisplayedColumn`
+
+	// Vertice values setup
+	__Vertice__000007_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_Row.X = 568.000000
+	__Vertice__000007_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_Row.Y = 182.000000
+	__Vertice__000007_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_Row.Name = `Verticle in class diagram Default in middle between Default-Table and Default-Row`
 
 	// Setup of pointers
-	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000004_Default_Table)
-	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000003_Default_Row)
-	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000001_Default_CellString)
+	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000008_Default_Table)
+	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000007_Default_Row)
+	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000005_Default_CellString)
 	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000000_Default_Cell)
-	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000002_Default_DisplayedColumn)
+	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000006_Default_DisplayedColumn)
+	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000001_Default_CellBoolean)
+	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000002_Default_CellFloat64)
+	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000003_Default_CellIcon)
+	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000004_Default_CellInt)
 	__GongStructShape__000000_Default_Cell.Position = __Position__000000_Pos_Default_Cell
-	__GongStructShape__000000_Default_Cell.Links = append(__GongStructShape__000000_Default_Cell.Links, __Link__000000_CellString)
-	__GongStructShape__000001_Default_CellString.Position = __Position__000001_Pos_Default_CellString
-	__GongStructShape__000002_Default_DisplayedColumn.Position = __Position__000002_Pos_Default_DisplayedColumn
-	__GongStructShape__000003_Default_Row.Position = __Position__000003_Pos_Default_Row
-	__GongStructShape__000003_Default_Row.Links = append(__GongStructShape__000003_Default_Row.Links, __Link__000001_Cells)
-	__GongStructShape__000004_Default_Table.Position = __Position__000004_Pos_Default_Table
-	__GongStructShape__000004_Default_Table.Links = append(__GongStructShape__000004_Default_Table.Links, __Link__000003_Rows)
-	__GongStructShape__000004_Default_Table.Links = append(__GongStructShape__000004_Default_Table.Links, __Link__000002_DisplayedColumns)
-	__Link__000000_CellString.Middlevertice = __Vertice__000000_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellString
-	__Link__000001_Cells.Middlevertice = __Vertice__000001_Verticle_in_class_diagram_Default_in_middle_between_Default_Row_and_Default_Cell
-	__Link__000002_DisplayedColumns.Middlevertice = __Vertice__000002_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_DisplayedColumn
-	__Link__000003_Rows.Middlevertice = __Vertice__000003_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_Row
+	__GongStructShape__000000_Default_Cell.Links = append(__GongStructShape__000000_Default_Cell.Links, __Link__000000_CellBool)
+	__GongStructShape__000000_Default_Cell.Links = append(__GongStructShape__000000_Default_Cell.Links, __Link__000001_CellFloat64)
+	__GongStructShape__000000_Default_Cell.Links = append(__GongStructShape__000000_Default_Cell.Links, __Link__000002_CellIcon)
+	__GongStructShape__000000_Default_Cell.Links = append(__GongStructShape__000000_Default_Cell.Links, __Link__000003_CellInt)
+	__GongStructShape__000000_Default_Cell.Links = append(__GongStructShape__000000_Default_Cell.Links, __Link__000004_CellString)
+	__GongStructShape__000001_Default_CellBoolean.Position = __Position__000001_Pos_Default_CellBoolean
+	__GongStructShape__000001_Default_CellBoolean.Fields = append(__GongStructShape__000001_Default_CellBoolean.Fields, __Field__000002_Value)
+	__GongStructShape__000002_Default_CellFloat64.Position = __Position__000002_Pos_Default_CellFloat64
+	__GongStructShape__000002_Default_CellFloat64.Fields = append(__GongStructShape__000002_Default_CellFloat64.Fields, __Field__000003_Value)
+	__GongStructShape__000003_Default_CellIcon.Position = __Position__000003_Pos_Default_CellIcon
+	__GongStructShape__000003_Default_CellIcon.Fields = append(__GongStructShape__000003_Default_CellIcon.Fields, __Field__000000_Icon)
+	__GongStructShape__000004_Default_CellInt.Position = __Position__000004_Pos_Default_CellInt
+	__GongStructShape__000004_Default_CellInt.Fields = append(__GongStructShape__000004_Default_CellInt.Fields, __Field__000004_Value)
+	__GongStructShape__000005_Default_CellString.Position = __Position__000005_Pos_Default_CellString
+	__GongStructShape__000005_Default_CellString.Fields = append(__GongStructShape__000005_Default_CellString.Fields, __Field__000001_Name)
+	__GongStructShape__000006_Default_DisplayedColumn.Position = __Position__000006_Pos_Default_DisplayedColumn
+	__GongStructShape__000007_Default_Row.Position = __Position__000007_Pos_Default_Row
+	__GongStructShape__000007_Default_Row.Links = append(__GongStructShape__000007_Default_Row.Links, __Link__000005_Cells)
+	__GongStructShape__000008_Default_Table.Position = __Position__000008_Pos_Default_Table
+	__GongStructShape__000008_Default_Table.Links = append(__GongStructShape__000008_Default_Table.Links, __Link__000007_Rows)
+	__GongStructShape__000008_Default_Table.Links = append(__GongStructShape__000008_Default_Table.Links, __Link__000006_DisplayedColumns)
+	__Link__000000_CellBool.Middlevertice = __Vertice__000000_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellBoolean
+	__Link__000001_CellFloat64.Middlevertice = __Vertice__000001_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellFloat64
+	__Link__000002_CellIcon.Middlevertice = __Vertice__000002_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellIcon
+	__Link__000003_CellInt.Middlevertice = __Vertice__000003_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellInt
+	__Link__000004_CellString.Middlevertice = __Vertice__000004_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellString
+	__Link__000005_Cells.Middlevertice = __Vertice__000005_Verticle_in_class_diagram_Default_in_middle_between_Default_Row_and_Default_Cell
+	__Link__000006_DisplayedColumns.Middlevertice = __Vertice__000006_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_DisplayedColumn
+	__Link__000007_Rows.Middlevertice = __Vertice__000007_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_Row
 }
 
 
