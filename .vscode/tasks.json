@@ -7,13 +7,13 @@
 		"options": {
 		  "cwd": "${workspaceFolder}/go/cmd/gongtable"
 		},
-		"command": "go",
+		"command": "./gongtable.exe",
 		"args": [
-		  "run",
-		  "main.go",
 		  "-diagrams",
-		  "-unmarshallFromCode=stage.go",
-		  "-marshallOnCommit=stage"
+		  "-unmarshallFromCode",
+		  "stage.go",
+		  "-marshallOnCommit", 
+		  "stage"
 		],
 		"group": "build"
 	  },

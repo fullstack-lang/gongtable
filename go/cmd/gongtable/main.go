@@ -61,12 +61,16 @@ func main() {
 
 	// setup stack
 	var stage *gongtable_models.StageStruct
+	log.Println("marshallOnCommit: ", *marshallOnCommit)
+	log.Println("unmarshallFromCode: ", *unmarshallFromCode)
+
 	if *marshallOnCommit != "" {
 		// persistence in a SQLite file on disk in memory
 		stage = gongtable_fullstack.NewStackInstance(r, "gongtable")
 	} else {
 		// persistence in a SQLite file on disk
 		stage = gongtable_fullstack.NewStackInstance(r, "gongtable", "./test.db")
+		log.Println("toto")
 	}
 
 	gongtable_data.Load(r, gongtable_go.GoModelsDir, "gongtable")
