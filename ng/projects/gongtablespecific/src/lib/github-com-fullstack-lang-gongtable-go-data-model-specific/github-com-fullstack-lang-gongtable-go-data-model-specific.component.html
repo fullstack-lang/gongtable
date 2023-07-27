@@ -30,6 +30,9 @@
             <ng-container *ngIf="element.Cells[i]?.CellInt">
                 {{ element.Cells[i]?.CellInt?.Value }}
             </ng-container>
+            <ng-container *ngIf="element.Cells[i]?.CellIcon">
+                <i class="material-icons my-button" [ngStyle]="{'color':'rgba(0,0,0,.50)'}">{{ element.Cells[i]?.CellIcon?.Icon }}</i>
+            </ng-container>
         </td>
     </ng-container>
 

@@ -737,13 +737,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// remove first and last char
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_CellIcon[identifier].Name = fielValue
-				case "Value":
-					// convert string to int
-					fielValue, err := strconv.ParseInt(basicLit.Value, 10, 64)
-					if err != nil {
-						log.Fatalln(err)
-					}
-					__gong__map_CellIcon[identifier].Value = int(exprSign) * int(fielValue)
+				case "Icon":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_CellIcon[identifier].Icon = fielValue
 				}
 			case "CellInt":
 				switch fieldName {

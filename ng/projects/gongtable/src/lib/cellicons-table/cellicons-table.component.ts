@@ -75,8 +75,8 @@ export class CellIconsTableComponent implements OnInit {
         case 'Name':
           return celliconDB.Name;
 
-        case 'Value':
-          return celliconDB.Value;
+        case 'Icon':
+          return celliconDB.Icon;
 
         default:
           console.assert(false, "Unknown field")
@@ -93,7 +93,7 @@ export class CellIconsTableComponent implements OnInit {
 
       // insertion point for merging of fields
       mergedContent += celliconDB.Name.toLowerCase()
-      mergedContent += celliconDB.Value.toString()
+      mergedContent += celliconDB.Icon.toLowerCase()
 
       let isSelected = mergedContent.includes(filter.toLowerCase())
       return isSelected
@@ -149,12 +149,12 @@ export class CellIconsTableComponent implements OnInit {
     if (this.mode == TableComponentMode.DISPLAY_MODE) {
       this.displayedColumns = ['ID', 'Delete', // insertion point for columns to display
         "Name",
-        "Value",
+        "Icon",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
-        "Value",
+        "Icon",
       ]
       this.selection = new SelectionModel<CellIconDB>(allowMultiSelect, this.initialSelection);
     }

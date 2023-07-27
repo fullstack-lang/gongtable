@@ -21,10 +21,24 @@
         <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="cellicon.Name"></textarea>
     </mat-form-field>
 
-    <!-- -->
-    <mat-form-field class="detail-full-width">
-        <mat-label>Value</mat-label>
-        <input type="number" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="cellicon.Value" [ngModelOptions]="{standalone: true}">
+    <mat-grid-list *ngIf='!isATextArea("Icon")' cols="5" rowHeight="1:1">
+        <mat-grid-tile [colspan]="3">
+            <mat-form-field mat-form-field class="detail-full-width">
+                <mat-label>Icon</mat-label>
+                <input name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="cellicon.Icon">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button (click)="toggleTextArea('Icon')">
+                <mat-icon>
+                    expand_more
+                </mat-icon>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-form-field *ngIf='isATextArea("Icon")' mat-form-field class="detail-full-width">
+        <mat-label>Icon</mat-label>
+        <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="cellicon.Icon"></textarea>
     </mat-form-field>
 
     <div class="details__save">

@@ -61,8 +61,8 @@ type CellIconDB struct {
 	// Declation for basic field celliconDB.Name
 	Name_Data sql.NullString
 
-	// Declation for basic field celliconDB.Value
-	Value_Data sql.NullInt64
+	// Declation for basic field celliconDB.Icon
+	Icon_Data sql.NullString
 	// encoding of pointers
 	CellIconPointersEnconding
 }
@@ -86,7 +86,7 @@ type CellIconWOP struct {
 
 	Name string `xlsx:"1"`
 
-	Value int `xlsx:"2"`
+	Icon string `xlsx:"2"`
 	// insertion for WOP pointer fields
 }
 
@@ -94,7 +94,7 @@ var CellIcon_Fields = []string{
 	// insertion for WOP basic fields
 	"ID",
 	"Name",
-	"Value",
+	"Icon",
 }
 
 type BackRepoCellIconStruct struct {
@@ -358,8 +358,8 @@ func (celliconDB *CellIconDB) CopyBasicFieldsFromCellIcon(cellicon *models.CellI
 	celliconDB.Name_Data.String = cellicon.Name
 	celliconDB.Name_Data.Valid = true
 
-	celliconDB.Value_Data.Int64 = int64(cellicon.Value)
-	celliconDB.Value_Data.Valid = true
+	celliconDB.Icon_Data.String = cellicon.Icon
+	celliconDB.Icon_Data.Valid = true
 }
 
 // CopyBasicFieldsFromCellIconWOP
@@ -369,15 +369,15 @@ func (celliconDB *CellIconDB) CopyBasicFieldsFromCellIconWOP(cellicon *CellIconW
 	celliconDB.Name_Data.String = cellicon.Name
 	celliconDB.Name_Data.Valid = true
 
-	celliconDB.Value_Data.Int64 = int64(cellicon.Value)
-	celliconDB.Value_Data.Valid = true
+	celliconDB.Icon_Data.String = cellicon.Icon
+	celliconDB.Icon_Data.Valid = true
 }
 
 // CopyBasicFieldsToCellIcon
 func (celliconDB *CellIconDB) CopyBasicFieldsToCellIcon(cellicon *models.CellIcon) {
 	// insertion point for checkout of basic fields (back repo to stage)
 	cellicon.Name = celliconDB.Name_Data.String
-	cellicon.Value = int(celliconDB.Value_Data.Int64)
+	cellicon.Icon = celliconDB.Icon_Data.String
 }
 
 // CopyBasicFieldsToCellIconWOP
@@ -385,7 +385,7 @@ func (celliconDB *CellIconDB) CopyBasicFieldsToCellIconWOP(cellicon *CellIconWOP
 	cellicon.ID = int(celliconDB.ID)
 	// insertion point for checkout of basic fields (back repo to stage)
 	cellicon.Name = celliconDB.Name_Data.String
-	cellicon.Value = int(celliconDB.Value_Data.Int64)
+	cellicon.Icon = celliconDB.Icon_Data.String
 }
 
 // Backup generates a json file from a slice of all CellIconDB instances in the backrepo

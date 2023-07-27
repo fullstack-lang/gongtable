@@ -13,7 +13,7 @@ export class CellIconDB {
 
 	// insertion point for basic fields declarations
 	Name: string = ""
-	Value: number = 0
+	Icon: string = ""
 
 	// insertion point for other declarations
 }
