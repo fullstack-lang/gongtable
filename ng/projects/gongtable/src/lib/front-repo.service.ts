@@ -7,6 +7,9 @@ import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { CellDB } from './cell-db'
 import { CellService } from './cell.service'
 
+import { CellBooleanDB } from './cellboolean-db'
+import { CellBooleanService } from './cellboolean.service'
+
 import { CellFloat64DB } from './cellfloat64-db'
 import { CellFloat64Service } from './cellfloat64.service'
 
@@ -34,6 +37,9 @@ export class FrontRepo { // insertion point sub template
   Cells_array = new Array<CellDB>(); // array of repo instances
   Cells = new Map<number, CellDB>(); // map of repo instances
   Cells_batch = new Map<number, CellDB>(); // same but only in last GET (for finding repo instances to delete)
+  CellBooleans_array = new Array<CellBooleanDB>(); // array of repo instances
+  CellBooleans = new Map<number, CellBooleanDB>(); // map of repo instances
+  CellBooleans_batch = new Map<number, CellBooleanDB>(); // same but only in last GET (for finding repo instances to delete)
   CellFloat64s_array = new Array<CellFloat64DB>(); // array of repo instances
   CellFloat64s = new Map<number, CellFloat64DB>(); // map of repo instances
   CellFloat64s_batch = new Map<number, CellFloat64DB>(); // same but only in last GET (for finding repo instances to delete)
@@ -118,6 +124,7 @@ export class FrontRepoService {
   constructor(
     private http: HttpClient, // insertion point sub template 
     private cellService: CellService,
+    private cellbooleanService: CellBooleanService,
     private cellfloat64Service: CellFloat64Service,
     private celliconService: CellIconService,
     private cellintService: CellIntService,
@@ -156,6 +163,7 @@ export class FrontRepoService {
   // typing of observable can be messy in typescript. Therefore, one force the type
   observableFrontRepo: [ // insertion point sub template 
     Observable<CellDB[]>,
+    Observable<CellBooleanDB[]>,
     Observable<CellFloat64DB[]>,
     Observable<CellIconDB[]>,
     Observable<CellIntDB[]>,
@@ -165,6 +173,7 @@ export class FrontRepoService {
     Observable<TableDB[]>,
   ] = [ // insertion point sub template
       this.cellService.getCells(this.GONG__StackPath),
+      this.cellbooleanService.getCellBooleans(this.GONG__StackPath),
       this.cellfloat64Service.getCellFloat64s(this.GONG__StackPath),
       this.celliconService.getCellIcons(this.GONG__StackPath),
       this.cellintService.getCellInts(this.GONG__StackPath),
@@ -186,6 +195,7 @@ export class FrontRepoService {
 
     this.observableFrontRepo = [ // insertion point sub template
       this.cellService.getCells(this.GONG__StackPath),
+      this.cellbooleanService.getCellBooleans(this.GONG__StackPath),
       this.cellfloat64Service.getCellFloat64s(this.GONG__StackPath),
       this.celliconService.getCellIcons(this.GONG__StackPath),
       this.cellintService.getCellInts(this.GONG__StackPath),
@@ -202,6 +212,7 @@ export class FrontRepoService {
         ).subscribe(
           ([ // insertion point sub template for declarations 
             cells_,
+            cellbooleans_,
             cellfloat64s_,
             cellicons_,
             cellints_,
@@ -214,6 +225,8 @@ export class FrontRepoService {
             // insertion point sub template for type casting 
             var cells: CellDB[]
             cells = cells_ as CellDB[]
+            var cellbooleans: CellBooleanDB[]
+            cellbooleans = cellbooleans_ as CellBooleanDB[]
             var cellfloat64s: CellFloat64DB[]
             cellfloat64s = cellfloat64s_ as CellFloat64DB[]
             var cellicons: CellIconDB[]
@@ -256,6 +269,39 @@ export class FrontRepoService {
 
             // sort Cells_array array
             this.frontRepo.Cells_array.sort((t1, t2) => {
+              if (t1.Name > t2.Name) {
+                return 1;
+              }
+              if (t1.Name < t2.Name) {
+                return -1;
+              }
+              return 0;
+            });
+
+            // init the array
+            this.frontRepo.CellBooleans_array = cellbooleans
+
+            // clear the map that counts CellBoolean in the GET
+            this.frontRepo.CellBooleans_batch.clear()
+
+            cellbooleans.forEach(
+              cellboolean => {
+                this.frontRepo.CellBooleans.set(cellboolean.ID, cellboolean)
+                this.frontRepo.CellBooleans_batch.set(cellboolean.ID, cellboolean)
+              }
+            )
+
+            // clear cellbooleans that are absent from the batch
+            this.frontRepo.CellBooleans.forEach(
+              cellboolean => {
+                if (this.frontRepo.CellBooleans_batch.get(cellboolean.ID) == undefined) {
+                  this.frontRepo.CellBooleans.delete(cellboolean.ID)
+                }
+              }
+            )
+
+            // sort CellBooleans_array array
+            this.frontRepo.CellBooleans_array.sort((t1, t2) => {
               if (t1.Name > t2.Name) {
                 return 1;
               }
@@ -524,6 +570,13 @@ export class FrontRepoService {
                     cell.CellInt = _cellint
                   }
                 }
+                // insertion point for pointer field CellBool redeeming
+                {
+                  let _cellboolean = this.frontRepo.CellBooleans.get(cell.CellBoolID.Int64)
+                  if (_cellboolean) {
+                    cell.CellBool = _cellboolean
+                  }
+                }
                 // insertion point for pointer field CellIcon redeeming
                 {
                   let _cellicon = this.frontRepo.CellIcons.get(cell.CellIconID.Int64)
@@ -546,6 +599,13 @@ export class FrontRepoService {
                     }
                   }
                 }
+              }
+            )
+            cellbooleans.forEach(
+              cellboolean => {
+                // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
+
+                // insertion point for redeeming ONE-MANY associations
               }
             )
             cellfloat64s.forEach(
@@ -680,6 +740,13 @@ export class FrontRepoService {
                     cell.CellInt = _cellint
                   }
                 }
+                // insertion point for pointer field CellBool redeeming
+                {
+                  let _cellboolean = this.frontRepo.CellBooleans.get(cell.CellBoolID.Int64)
+                  if (_cellboolean) {
+                    cell.CellBool = _cellboolean
+                  }
+                }
                 // insertion point for pointer field CellIcon redeeming
                 {
                   let _cellicon = this.frontRepo.CellIcons.get(cell.CellIconID.Int64)
@@ -710,6 +777,57 @@ export class FrontRepoService {
               cell => {
                 if (this.frontRepo.Cells_batch.get(cell.ID) == undefined) {
                   this.frontRepo.Cells.delete(cell.ID)
+                }
+              }
+            )
+
+            // 
+            // Second Step: redeem pointers between instances (thanks to maps in the First Step)
+            // insertion point sub template 
+
+            // hand over control flow to observer
+            observer.next(this.frontRepo)
+          }
+        )
+      }
+    )
+  }
+
+  // CellBooleanPull performs a GET on CellBoolean of the stack and redeem association pointers 
+  CellBooleanPull(): Observable<FrontRepo> {
+    return new Observable<FrontRepo>(
+      (observer) => {
+        combineLatest([
+          this.cellbooleanService.getCellBooleans(this.GONG__StackPath)
+        ]).subscribe(
+          ([ // insertion point sub template 
+            cellbooleans,
+          ]) => {
+            // init the array
+            this.frontRepo.CellBooleans_array = cellbooleans
+
+            // clear the map that counts CellBoolean in the GET
+            this.frontRepo.CellBooleans_batch.clear()
+
+            // 
+            // First Step: init map of instances
+            // insertion point sub template 
+            cellbooleans.forEach(
+              cellboolean => {
+                this.frontRepo.CellBooleans.set(cellboolean.ID, cellboolean)
+                this.frontRepo.CellBooleans_batch.set(cellboolean.ID, cellboolean)
+
+                // insertion point for redeeming ONE/ZERO-ONE associations
+
+                // insertion point for redeeming ONE-MANY associations
+              }
+            )
+
+            // clear cellbooleans that are absent from the GET
+            this.frontRepo.CellBooleans.forEach(
+              cellboolean => {
+                if (this.frontRepo.CellBooleans_batch.get(cellboolean.ID) == undefined) {
+                  this.frontRepo.CellBooleans.delete(cellboolean.ID)
                 }
               }
             )
@@ -1114,24 +1232,27 @@ export class FrontRepoService {
 export function getCellUniqueID(id: number): number {
   return 31 * id
 }
-export function getCellFloat64UniqueID(id: number): number {
+export function getCellBooleanUniqueID(id: number): number {
   return 37 * id
 }
-export function getCellIconUniqueID(id: number): number {
+export function getCellFloat64UniqueID(id: number): number {
   return 41 * id
 }
-export function getCellIntUniqueID(id: number): number {
+export function getCellIconUniqueID(id: number): number {
   return 43 * id
 }
-export function getCellStringUniqueID(id: number): number {
+export function getCellIntUniqueID(id: number): number {
   return 47 * id
 }
-export function getDisplayedColumnUniqueID(id: number): number {
+export function getCellStringUniqueID(id: number): number {
   return 53 * id
 }
-export function getRowUniqueID(id: number): number {
+export function getDisplayedColumnUniqueID(id: number): number {
   return 59 * id
 }
-export function getTableUniqueID(id: number): number {
+export function getRowUniqueID(id: number): number {
   return 61 * id
+}
+export function getTableUniqueID(id: number): number {
+  return 67 * id
 }

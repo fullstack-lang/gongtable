@@ -14,6 +14,7 @@ func SerializeStage(stage *StageStruct, filename string) {
 	{
 		// insertion point
 		SerializeExcelize[Cell](stage, f)
+		SerializeExcelize[CellBoolean](stage, f)
 		SerializeExcelize[CellFloat64](stage, f)
 		SerializeExcelize[CellIcon](stage, f)
 		SerializeExcelize[CellInt](stage, f)

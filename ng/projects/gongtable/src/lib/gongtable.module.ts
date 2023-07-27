@@ -43,6 +43,10 @@ import { CellsTableComponent } from './cells-table/cells-table.component'
 import { CellSortingComponent } from './cell-sorting/cell-sorting.component'
 import { CellDetailComponent } from './cell-detail/cell-detail.component'
 
+import { CellBooleansTableComponent } from './cellbooleans-table/cellbooleans-table.component'
+import { CellBooleanSortingComponent } from './cellboolean-sorting/cellboolean-sorting.component'
+import { CellBooleanDetailComponent } from './cellboolean-detail/cellboolean-detail.component'
+
 import { CellFloat64sTableComponent } from './cellfloat64s-table/cellfloat64s-table.component'
 import { CellFloat64SortingComponent } from './cellfloat64-sorting/cellfloat64-sorting.component'
 import { CellFloat64DetailComponent } from './cellfloat64-detail/cellfloat64-detail.component'
@@ -78,6 +82,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		CellsTableComponent,
 		CellSortingComponent,
 		CellDetailComponent,
+
+		CellBooleansTableComponent,
+		CellBooleanSortingComponent,
+		CellBooleanDetailComponent,
 
 		CellFloat64sTableComponent,
 		CellFloat64SortingComponent,
@@ -149,6 +157,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		CellsTableComponent,
 		CellSortingComponent,
 		CellDetailComponent,
+
+		CellBooleansTableComponent,
+		CellBooleanSortingComponent,
+		CellBooleanDetailComponent,
 
 		CellFloat64sTableComponent,
 		CellFloat64SortingComponent,

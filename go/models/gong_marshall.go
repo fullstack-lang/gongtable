@@ -142,6 +142,44 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 
 	}
 
+	map_CellBoolean_Identifiers := make(map[*CellBoolean]string)
+	_ = map_CellBoolean_Identifiers
+
+	cellbooleanOrdered := []*CellBoolean{}
+	for cellboolean := range stage.CellBooleans {
+		cellbooleanOrdered = append(cellbooleanOrdered, cellboolean)
+	}
+	sort.Slice(cellbooleanOrdered[:], func(i, j int) bool {
+		return cellbooleanOrdered[i].Name < cellbooleanOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of CellBoolean"
+	for idx, cellboolean := range cellbooleanOrdered {
+
+		id = generatesIdentifier("CellBoolean", idx, cellboolean.Name)
+		map_CellBoolean_Identifiers[cellboolean] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "CellBoolean")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", cellboolean.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// CellBoolean values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(cellboolean.Name))
+		initializerStatements += setValueField
+
+		setValueField = NumberInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Value")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", fmt.Sprintf("%t", cellboolean.Value))
+		initializerStatements += setValueField
+
+	}
+
 	map_CellFloat64_Identifiers := make(map[*CellFloat64]string)
 	_ = map_CellFloat64_Identifiers
 
@@ -417,6 +455,14 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 			pointersInitializesStatements += setPointerField
 		}
 
+		if cell.CellBool != nil {
+			setPointerField = PointerFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "CellBool")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_CellBoolean_Identifiers[cell.CellBool])
+			pointersInitializesStatements += setPointerField
+		}
+
 		if cell.CellIcon != nil {
 			setPointerField = PointerFieldInitStatement
 			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
@@ -425,6 +471,16 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 			pointersInitializesStatements += setPointerField
 		}
 
+	}
+
+	for idx, cellboolean := range cellbooleanOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("CellBoolean", idx, cellboolean.Name)
+		map_CellBoolean_Identifiers[cellboolean] = id
+
+		// Initialisation of values
 	}
 
 	for idx, cellfloat64 := range cellfloat64Ordered {

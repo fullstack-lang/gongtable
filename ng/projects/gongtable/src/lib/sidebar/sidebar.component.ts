@@ -13,6 +13,8 @@ import { GongstructSelectionService } from '../gongstruct-selection.service'
 // insertion point for per struct import code
 import { CellService } from '../cell.service'
 import { getCellUniqueID } from '../front-repo.service'
+import { CellBooleanService } from '../cellboolean.service'
+import { getCellBooleanUniqueID } from '../front-repo.service'
 import { CellFloat64Service } from '../cellfloat64.service'
 import { getCellFloat64UniqueID } from '../front-repo.service'
 import { CellIconService } from '../cellicon.service'
@@ -173,6 +175,7 @@ export class SidebarComponent implements OnInit {
 
     // insertion point for per struct service declaration
     private cellService: CellService,
+    private cellbooleanService: CellBooleanService,
     private cellfloat64Service: CellFloat64Service,
     private celliconService: CellIconService,
     private cellintService: CellIntService,
@@ -217,6 +220,14 @@ export class SidebarComponent implements OnInit {
     // insertion point for per struct observable for refresh trigger
     // observable for changes in structs
     this.cellService.CellServiceChanged.subscribe(
+      message => {
+        if (message == "post" || message == "update" || message == "delete") {
+          this.refresh()
+        }
+      }
+    )
+    // observable for changes in structs
+    this.cellbooleanService.CellBooleanServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
           this.refresh()
@@ -450,6 +461,41 @@ export class SidebarComponent implements OnInit {
           }
 
           /**
+          * let append a node for the association CellBool
+          */
+          let CellBoolGongNodeAssociation: GongNode = {
+            name: "(CellBoolean) CellBool",
+            type: GongNodeType.ONE__ZERO_ONE_ASSOCIATION,
+            id: cellDB.ID,
+            uniqueIdPerStack: 17 * nonInstanceNodeId,
+            structName: "Cell",
+            associationField: "CellBool",
+            associatedStructName: "CellBoolean",
+            children: new Array<GongNode>()
+          }
+          nonInstanceNodeId = nonInstanceNodeId + 1
+          cellGongNodeInstance.children!.push(CellBoolGongNodeAssociation)
+
+          /**
+            * let append a node for the instance behind the asssociation CellBool
+            */
+          if (cellDB.CellBool != undefined) {
+            let cellGongNodeInstance_CellBool: GongNode = {
+              name: cellDB.CellBool.Name,
+              type: GongNodeType.INSTANCE,
+              id: cellDB.CellBool.ID,
+              uniqueIdPerStack: // godel numbering (thank you kurt)
+                3 * getCellUniqueID(cellDB.ID)
+                + 5 * getCellBooleanUniqueID(cellDB.CellBool.ID),
+              structName: "CellBoolean",
+              associationField: "",
+              associatedStructName: "",
+              children: new Array<GongNode>()
+            }
+            CellBoolGongNodeAssociation.children.push(cellGongNodeInstance_CellBool)
+          }
+
+          /**
           * let append a node for the association CellIcon
           */
           let CellIconGongNodeAssociation: GongNode = {
@@ -484,6 +530,50 @@ export class SidebarComponent implements OnInit {
             CellIconGongNodeAssociation.children.push(cellGongNodeInstance_CellIcon)
           }
 
+        }
+      )
+
+      /**
+      * fill up the CellBoolean part of the mat tree
+      */
+      let cellbooleanGongNodeStruct: GongNode = {
+        name: "CellBoolean",
+        type: GongNodeType.STRUCT,
+        id: 0,
+        uniqueIdPerStack: 13 * nonInstanceNodeId,
+        structName: "CellBoolean",
+        associationField: "",
+        associatedStructName: "",
+        children: new Array<GongNode>()
+      }
+      nonInstanceNodeId = nonInstanceNodeId + 1
+      this.gongNodeTree.push(cellbooleanGongNodeStruct)
+
+      this.frontRepo.CellBooleans_array.sort((t1, t2) => {
+        if (t1.Name > t2.Name) {
+          return 1;
+        }
+        if (t1.Name < t2.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      this.frontRepo.CellBooleans_array.forEach(
+        cellbooleanDB => {
+          let cellbooleanGongNodeInstance: GongNode = {
+            name: cellbooleanDB.Name,
+            type: GongNodeType.INSTANCE,
+            id: cellbooleanDB.ID,
+            uniqueIdPerStack: getCellBooleanUniqueID(cellbooleanDB.ID),
+            structName: "CellBoolean",
+            associationField: "",
+            associatedStructName: "",
+            children: new Array<GongNode>()
+          }
+          cellbooleanGongNodeStruct.children!.push(cellbooleanGongNodeInstance)
+
+          // insertion point for per field code
         }
       )
 

@@ -2,6 +2,7 @@
 import { CellStringDB } from './cellstring-db'
 import { CellFloat64DB } from './cellfloat64-db'
 import { CellIntDB } from './cellint-db'
+import { CellBooleanDB } from './cellboolean-db'
 import { CellIconDB } from './cellicon-db'
 import { RowDB } from './row-db'
 
@@ -28,6 +29,9 @@ export class CellDB {
 
 	CellInt?: CellIntDB
 	CellIntID: NullInt64 = new NullInt64 // if pointer is null, CellInt.ID = 0
+
+	CellBool?: CellBooleanDB
+	CellBoolID: NullInt64 = new NullInt64 // if pointer is null, CellBool.ID = 0
 
 	CellIcon?: CellIconDB
 	CellIconID: NullInt64 = new NullInt64 // if pointer is null, CellIcon.ID = 0

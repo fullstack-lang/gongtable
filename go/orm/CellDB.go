@@ -58,6 +58,10 @@ type CellPointersEnconding struct {
 	// This field is generated into another field to enable AS ONE association
 	CellIntID sql.NullInt64
 
+	// field CellBool is a pointer to another Struct (optional or 0..1)
+	// This field is generated into another field to enable AS ONE association
+	CellBoolID sql.NullInt64
+
 	// field CellIcon is a pointer to another Struct (optional or 0..1)
 	// This field is generated into another field to enable AS ONE association
 	CellIconID sql.NullInt64
@@ -257,6 +261,15 @@ func (backRepoCell *BackRepoCellStruct) CommitPhaseTwoInstance(backRepo *BackRep
 			}
 		}
 
+		// commit pointer value cell.CellBool translates to updating the cell.CellBoolID
+		cellDB.CellBoolID.Valid = true // allow for a 0 value (nil association)
+		if cell.CellBool != nil {
+			if CellBoolId, ok := backRepo.BackRepoCellBoolean.Map_CellBooleanPtr_CellBooleanDBID[cell.CellBool]; ok {
+				cellDB.CellBoolID.Int64 = int64(CellBoolId)
+				cellDB.CellBoolID.Valid = true
+			}
+		}
+
 		// commit pointer value cell.CellIcon translates to updating the cell.CellIconID
 		cellDB.CellIconID.Valid = true // allow for a 0 value (nil association)
 		if cell.CellIcon != nil {
@@ -384,6 +397,10 @@ func (backRepoCell *BackRepoCellStruct) CheckoutPhaseTwoInstance(backRepo *BackR
 	// CellInt field
 	if cellDB.CellIntID.Int64 != 0 {
 		cell.CellInt = backRepo.BackRepoCellInt.Map_CellIntDBID_CellIntPtr[uint(cellDB.CellIntID.Int64)]
+	}
+	// CellBool field
+	if cellDB.CellBoolID.Int64 != 0 {
+		cell.CellBool = backRepo.BackRepoCellBoolean.Map_CellBooleanDBID_CellBooleanPtr[uint(cellDB.CellBoolID.Int64)]
 	}
 	// CellIcon field
 	if cellDB.CellIconID.Int64 != 0 {
@@ -619,6 +636,12 @@ func (backRepoCell *BackRepoCellStruct) RestorePhaseTwo() {
 		if cellDB.CellIntID.Int64 != 0 {
 			cellDB.CellIntID.Int64 = int64(BackRepoCellIntid_atBckpTime_newID[uint(cellDB.CellIntID.Int64)])
 			cellDB.CellIntID.Valid = true
+		}
+
+		// reindexing CellBool field
+		if cellDB.CellBoolID.Int64 != 0 {
+			cellDB.CellBoolID.Int64 = int64(BackRepoCellBooleanid_atBckpTime_newID[uint(cellDB.CellBoolID.Int64)])
+			cellDB.CellBoolID.Valid = true
 		}
 
 		// reindexing CellIcon field

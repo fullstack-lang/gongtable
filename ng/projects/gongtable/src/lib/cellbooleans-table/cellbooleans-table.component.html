@@ -3,7 +3,7 @@
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
     </mat-form-field>
-    <h1 *ngIf="dialogData">cell</h1>
+    <h1 *ngIf="dialogData">cellboolean</h1>
     <table class="table" mat-table [dataSource]="matTableDataSource" matSort>
         <!-- Checkbox Column, only used when the component is used to select items for a field that is a slice of pointers -->
         <ng-container matColumnDef="select">
@@ -21,62 +21,27 @@
         <!-- -->
         <ng-container matColumnDef="Name" sticky>
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-            <td mat-cell *matCellDef="let Cell">
-                {{Cell.Name}}
+            <td mat-cell *matCellDef="let CellBoolean">
+                {{CellBoolean.Name}}
             </td>
         </ng-container>
         <!-- -->
-        <ng-container matColumnDef="CellString">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> CellString </th>
-            <td mat-cell *matCellDef="let Cell">
-                {{ Cell.CellString ? Cell.CellString.Name : ''}}
-            </td>
-        </ng-container>
-        <!-- -->
-        <ng-container matColumnDef="CellFloat64">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> CellFloat64 </th>
-            <td mat-cell *matCellDef="let Cell">
-                {{ Cell.CellFloat64 ? Cell.CellFloat64.Name : ''}}
-            </td>
-        </ng-container>
-        <!-- -->
-        <ng-container matColumnDef="CellInt">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> CellInt </th>
-            <td mat-cell *matCellDef="let Cell">
-                {{ Cell.CellInt ? Cell.CellInt.Name : ''}}
-            </td>
-        </ng-container>
-        <!-- -->
-        <ng-container matColumnDef="CellBool">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> CellBool </th>
-            <td mat-cell *matCellDef="let Cell">
-                {{ Cell.CellBool ? Cell.CellBool.Name : ''}}
-            </td>
-        </ng-container>
-        <!-- -->
-        <ng-container matColumnDef="CellIcon">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> CellIcon </th>
-            <td mat-cell *matCellDef="let Cell">
-                {{ Cell.CellIcon ? Cell.CellIcon.Name : ''}}
-            </td>
-        </ng-container>
-        <!-- -->
-        <ng-container matColumnDef="Row_Cells">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> <-- (Row) Cells </th>
-            <td mat-cell *matCellDef="let cell">
-                {{frontRepo.Rows.get(cell.Row_CellsDBID.Int64)?.Name}}
+        <ng-container matColumnDef="Value">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>
+            <td mat-cell *matCellDef="let CellBoolean">
+                <mat-checkbox [checked]="CellBoolean.Value" disabled=true></mat-checkbox>
             </td>
         </ng-container>
 
         <ng-container matColumnDef="ID" sticky>
             <th mat-header-cell *matHeaderCellDef mat-sort-header> ID. </th>
-            <td mat-cell *matCellDef="let Cell"> {{Cell.ID}} </td>
+            <td mat-cell *matCellDef="let CellBoolean"> {{CellBoolean.ID}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Delete" sticky>
             <th mat-header-cell *matHeaderCellDef> Delete </th>
-            <td mat-cell *matCellDef="let cell;  let j = index;">
-                <i class="material-icons my-delete-button" [ngStyle]="{'color':'rgba(0,0,0,.50)'}" (click)="deleteCell(cell.ID, cell); $event.stopPropagation()">delete</i>
+            <td mat-cell *matCellDef="let cellboolean;  let j = index;">
+                <i class="material-icons my-delete-button" [ngStyle]="{'color':'rgba(0,0,0,.50)'}" (click)="deleteCellBoolean(cellboolean.ID, cellboolean); $event.stopPropagation()">delete</i>
             </td>
         </ng-container>
 

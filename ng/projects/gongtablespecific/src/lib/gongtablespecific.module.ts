@@ -5,7 +5,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatTableModule } from '@angular/material/table';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,9 @@ import { MatTableModule } from '@angular/material/table';
     BrowserModule,
     BrowserAnimationsModule,
     MatTableModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   exports: [
     GithubComFullstackLangGongtableGoDataModelSpecificComponent

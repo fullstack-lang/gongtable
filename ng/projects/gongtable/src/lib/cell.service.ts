@@ -17,6 +17,7 @@ import { CellDB } from './cell-db';
 import { CellStringDB } from './cellstring-db'
 import { CellFloat64DB } from './cellfloat64-db'
 import { CellIntDB } from './cellint-db'
+import { CellBooleanDB } from './cellboolean-db'
 import { CellIconDB } from './cellicon-db'
 import { RowDB } from './row-db'
 
@@ -78,6 +79,7 @@ export class CellService {
     celldb.CellString = new CellStringDB
     celldb.CellFloat64 = new CellFloat64DB
     celldb.CellInt = new CellIntDB
+    celldb.CellBool = new CellBooleanDB
     celldb.CellIcon = new CellIconDB
     let _Row_Cells_reverse = celldb.Row_Cells_reverse
     celldb.Row_Cells_reverse = new RowDB
@@ -124,6 +126,7 @@ export class CellService {
     celldb.CellString = new CellStringDB
     celldb.CellFloat64 = new CellFloat64DB
     celldb.CellInt = new CellIntDB
+    celldb.CellBool = new CellBooleanDB
     celldb.CellIcon = new CellIconDB
     let _Row_Cells_reverse = celldb.Row_Cells_reverse
     celldb.Row_Cells_reverse = new RowDB

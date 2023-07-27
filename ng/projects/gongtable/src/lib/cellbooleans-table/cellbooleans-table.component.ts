@@ -14,8 +14,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 const allowMultiSelect = true;
 
 import { ActivatedRoute, Router, RouterState } from '@angular/router';
-import { CellDB } from '../cell-db'
-import { CellService } from '../cell.service'
+import { CellBooleanDB } from '../cellboolean-db'
+import { CellBooleanService } from '../cellboolean.service'
 
 // insertion point for additional imports
 
@@ -31,26 +31,26 @@ enum TableComponentMode {
 
 // generated table component
 @Component({
-  selector: 'app-cellstable',
-  templateUrl: './cells-table.component.html',
-  styleUrls: ['./cells-table.component.css'],
+  selector: 'app-cellbooleanstable',
+  templateUrl: './cellbooleans-table.component.html',
+  styleUrls: ['./cellbooleans-table.component.css'],
 })
-export class CellsTableComponent implements OnInit {
+export class CellBooleansTableComponent implements OnInit {
 
   @Input() GONG__StackPath: string = ""
 
   // mode at invocation
   mode: TableComponentMode = TableComponentMode.DISPLAY_MODE
 
-  // used if the component is called as a selection component of Cell instances
-  selection: SelectionModel<CellDB> = new (SelectionModel)
-  initialSelection = new Array<CellDB>()
+  // used if the component is called as a selection component of CellBoolean instances
+  selection: SelectionModel<CellBooleanDB> = new (SelectionModel)
+  initialSelection = new Array<CellBooleanDB>()
 
   // the data source for the table
-  cells: CellDB[] = []
-  matTableDataSource: MatTableDataSource<CellDB> = new (MatTableDataSource)
+  cellbooleans: CellBooleanDB[] = []
+  matTableDataSource: MatTableDataSource<CellBooleanDB> = new (MatTableDataSource)
 
-  // front repo, that will be referenced by this.cells
+  // front repo, that will be referenced by this.cellbooleans
   frontRepo: FrontRepo = new (FrontRepo)
 
   // displayedColumns is referenced by the MatTable component for specify what columns
@@ -66,36 +66,17 @@ export class CellsTableComponent implements OnInit {
   ngAfterViewInit() {
 
     // enable sorting on all fields (including pointers and reverse pointer)
-    this.matTableDataSource.sortingDataAccessor = (cellDB: CellDB, property: string) => {
+    this.matTableDataSource.sortingDataAccessor = (cellbooleanDB: CellBooleanDB, property: string) => {
       switch (property) {
         case 'ID':
-          return cellDB.ID
+          return cellbooleanDB.ID
 
         // insertion point for specific sorting accessor
         case 'Name':
-          return cellDB.Name;
+          return cellbooleanDB.Name;
 
-        case 'CellString':
-          return (cellDB.CellString ? cellDB.CellString.Name : '');
-
-        case 'CellFloat64':
-          return (cellDB.CellFloat64 ? cellDB.CellFloat64.Name : '');
-
-        case 'CellInt':
-          return (cellDB.CellInt ? cellDB.CellInt.Name : '');
-
-        case 'CellBool':
-          return (cellDB.CellBool ? cellDB.CellBool.Name : '');
-
-        case 'CellIcon':
-          return (cellDB.CellIcon ? cellDB.CellIcon.Name : '');
-
-        case 'Row_Cells':
-          if (this.frontRepo.Rows.get(cellDB.Row_CellsDBID.Int64) != undefined) {
-            return this.frontRepo.Rows.get(cellDB.Row_CellsDBID.Int64)!.Name
-          } else {
-            return ""
-          }
+        case 'Value':
+          return cellbooleanDB.Value ? "true" : "false";
 
         default:
           console.assert(false, "Unknown field")
@@ -104,33 +85,14 @@ export class CellsTableComponent implements OnInit {
     };
 
     // enable filtering on all fields (including pointers and reverse pointer, which is not done by default)
-    this.matTableDataSource.filterPredicate = (cellDB: CellDB, filter: string) => {
+    this.matTableDataSource.filterPredicate = (cellbooleanDB: CellBooleanDB, filter: string) => {
 
       // filtering is based on finding a lower case filter into a concatenated string
-      // the cellDB properties
+      // the cellbooleanDB properties
       let mergedContent = ""
 
       // insertion point for merging of fields
-      mergedContent += cellDB.Name.toLowerCase()
-      if (cellDB.CellString) {
-        mergedContent += cellDB.CellString.Name.toLowerCase()
-      }
-      if (cellDB.CellFloat64) {
-        mergedContent += cellDB.CellFloat64.Name.toLowerCase()
-      }
-      if (cellDB.CellInt) {
-        mergedContent += cellDB.CellInt.Name.toLowerCase()
-      }
-      if (cellDB.CellBool) {
-        mergedContent += cellDB.CellBool.Name.toLowerCase()
-      }
-      if (cellDB.CellIcon) {
-        mergedContent += cellDB.CellIcon.Name.toLowerCase()
-      }
-      if (cellDB.Row_CellsDBID.Int64 != 0) {
-        mergedContent += this.frontRepo.Rows.get(cellDB.Row_CellsDBID.Int64)!.Name.toLowerCase()
-      }
-
+      mergedContent += cellbooleanDB.Name.toLowerCase()
 
       let isSelected = mergedContent.includes(filter.toLowerCase())
       return isSelected
@@ -146,11 +108,11 @@ export class CellsTableComponent implements OnInit {
   }
 
   constructor(
-    private cellService: CellService,
+    private cellbooleanService: CellBooleanService,
     private frontRepoService: FrontRepoService,
 
-    // not null if the component is called as a selection component of cell instances
-    public dialogRef: MatDialogRef<CellsTableComponent>,
+    // not null if the component is called as a selection component of cellboolean instances
+    public dialogRef: MatDialogRef<CellBooleansTableComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: DialogData,
 
     private router: Router,
@@ -176,34 +138,24 @@ export class CellsTableComponent implements OnInit {
     }
 
     // observable for changes in structs
-    this.cellService.CellServiceChanged.subscribe(
+    this.cellbooleanService.CellBooleanServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
-          this.getCells()
+          this.getCellBooleans()
         }
       }
     )
     if (this.mode == TableComponentMode.DISPLAY_MODE) {
       this.displayedColumns = ['ID', 'Delete', // insertion point for columns to display
         "Name",
-        "CellString",
-        "CellFloat64",
-        "CellInt",
-        "CellBool",
-        "CellIcon",
-        "Row_Cells",
+        "Value",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
-        "CellString",
-        "CellFloat64",
-        "CellInt",
-        "CellBool",
-        "CellIcon",
-        "Row_Cells",
+        "Value",
       ]
-      this.selection = new SelectionModel<CellDB>(allowMultiSelect, this.initialSelection);
+      this.selection = new SelectionModel<CellBooleanDB>(allowMultiSelect, this.initialSelection);
     }
 
   }
@@ -214,84 +166,84 @@ export class CellsTableComponent implements OnInit {
       this.GONG__StackPath = stackPath
     }
 
-    this.getCells()
+    this.getCellBooleans()
 
-    this.matTableDataSource = new MatTableDataSource(this.cells)
+    this.matTableDataSource = new MatTableDataSource(this.cellbooleans)
   }
 
-  getCells(): void {
+  getCellBooleans(): void {
     this.frontRepoService.pull(this.GONG__StackPath).subscribe(
       frontRepo => {
         this.frontRepo = frontRepo
 
-        this.cells = this.frontRepo.Cells_array;
+        this.cellbooleans = this.frontRepo.CellBooleans_array;
 
         // insertion point for time duration Recoveries
         // insertion point for enum int Recoveries
 
         // in case the component is called as a selection component
         if (this.mode == TableComponentMode.ONE_MANY_ASSOCIATION_MODE) {
-          for (let cell of this.cells) {
+          for (let cellboolean of this.cellbooleans) {
             let ID = this.dialogData.ID
-            let revPointer = cell[this.dialogData.ReversePointer as keyof CellDB] as unknown as NullInt64
+            let revPointer = cellboolean[this.dialogData.ReversePointer as keyof CellBooleanDB] as unknown as NullInt64
             if (revPointer.Int64 == ID) {
-              this.initialSelection.push(cell)
+              this.initialSelection.push(cellboolean)
             }
-            this.selection = new SelectionModel<CellDB>(allowMultiSelect, this.initialSelection);
+            this.selection = new SelectionModel<CellBooleanDB>(allowMultiSelect, this.initialSelection);
           }
         }
 
         if (this.mode == TableComponentMode.MANY_MANY_ASSOCIATION_MODE) {
 
-          let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, CellDB>
+          let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, CellBooleanDB>
           let sourceInstance = mapOfSourceInstances.get(this.dialogData.ID)!
 
-          // we associates on sourceInstance of type SourceStruct with a MANY MANY associations to CellDB
+          // we associates on sourceInstance of type SourceStruct with a MANY MANY associations to CellBooleanDB
           // the field name is sourceField
-          let sourceFieldArray = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]! as unknown as CellDB[]
+          let sourceFieldArray = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]! as unknown as CellBooleanDB[]
           if (sourceFieldArray != null) {
             for (let associationInstance of sourceFieldArray) {
-              let cell = associationInstance[this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as CellDB
-              this.initialSelection.push(cell)
+              let cellboolean = associationInstance[this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as CellBooleanDB
+              this.initialSelection.push(cellboolean)
             }
           }
 
-          this.selection = new SelectionModel<CellDB>(allowMultiSelect, this.initialSelection);
+          this.selection = new SelectionModel<CellBooleanDB>(allowMultiSelect, this.initialSelection);
         }
 
         // update the mat table data source
-        this.matTableDataSource.data = this.cells
+        this.matTableDataSource.data = this.cellbooleans
       }
     )
   }
 
-  // newCell initiate a new cell
-  // create a new Cell objet
-  newCell() {
+  // newCellBoolean initiate a new cellboolean
+  // create a new CellBoolean objet
+  newCellBoolean() {
   }
 
-  deleteCell(cellID: number, cell: CellDB) {
-    // list of cells is truncated of cell before the delete
-    this.cells = this.cells.filter(h => h !== cell);
+  deleteCellBoolean(cellbooleanID: number, cellboolean: CellBooleanDB) {
+    // list of cellbooleans is truncated of cellboolean before the delete
+    this.cellbooleans = this.cellbooleans.filter(h => h !== cellboolean);
 
-    this.cellService.deleteCell(cellID, this.GONG__StackPath).subscribe(
-      cell => {
-        this.cellService.CellServiceChanged.next("delete")
+    this.cellbooleanService.deleteCellBoolean(cellbooleanID, this.GONG__StackPath).subscribe(
+      cellboolean => {
+        this.cellbooleanService.CellBooleanServiceChanged.next("delete")
       }
     );
   }
 
-  editCell(cellID: number, cell: CellDB) {
+  editCellBoolean(cellbooleanID: number, cellboolean: CellBooleanDB) {
 
   }
 
   // set editor outlet
-  setEditorRouterOutlet(cellID: number) {
+  setEditorRouterOutlet(cellbooleanID: number) {
     let outletName = this.routeService.getEditorOutlet(this.GONG__StackPath)
-    let fullPath = this.routeService.getPathRoot() + "-" + "cell" + "-detail"
+    let fullPath = this.routeService.getPathRoot() + "-" + "cellboolean" + "-detail"
 
     let outletConf: any = {}
-    outletConf[outletName] = [fullPath, cellID, this.GONG__StackPath]
+    outletConf[outletName] = [fullPath, cellbooleanID, this.GONG__StackPath]
 
     this.router.navigate([{ outlets: outletConf }])
   }
@@ -299,7 +251,7 @@ export class CellsTableComponent implements OnInit {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.cells.length;
+    const numRows = this.cellbooleans.length;
     return numSelected === numRows;
   }
 
@@ -307,39 +259,39 @@ export class CellsTableComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.cells.forEach(row => this.selection.select(row));
+      this.cellbooleans.forEach(row => this.selection.select(row));
   }
 
   save() {
 
     if (this.mode == TableComponentMode.ONE_MANY_ASSOCIATION_MODE) {
 
-      let toUpdate = new Set<CellDB>()
+      let toUpdate = new Set<CellBooleanDB>()
 
-      // reset all initial selection of cell that belong to cell
-      for (let cell of this.initialSelection) {
-        let index = cell[this.dialogData.ReversePointer as keyof CellDB] as unknown as NullInt64
+      // reset all initial selection of cellboolean that belong to cellboolean
+      for (let cellboolean of this.initialSelection) {
+        let index = cellboolean[this.dialogData.ReversePointer as keyof CellBooleanDB] as unknown as NullInt64
         index.Int64 = 0
         index.Valid = true
-        toUpdate.add(cell)
+        toUpdate.add(cellboolean)
 
       }
 
-      // from selection, set cell that belong to cell
-      for (let cell of this.selection.selected) {
+      // from selection, set cellboolean that belong to cellboolean
+      for (let cellboolean of this.selection.selected) {
         let ID = this.dialogData.ID as number
-        let reversePointer = cell[this.dialogData.ReversePointer as keyof CellDB] as unknown as NullInt64
+        let reversePointer = cellboolean[this.dialogData.ReversePointer as keyof CellBooleanDB] as unknown as NullInt64
         reversePointer.Int64 = ID
         reversePointer.Valid = true
-        toUpdate.add(cell)
+        toUpdate.add(cellboolean)
       }
 
 
-      // update all cell (only update selection & initial selection)
-      for (let cell of toUpdate) {
-        this.cellService.updateCell(cell, this.GONG__StackPath)
-          .subscribe(cell => {
-            this.cellService.CellServiceChanged.next("update")
+      // update all cellboolean (only update selection & initial selection)
+      for (let cellboolean of toUpdate) {
+        this.cellbooleanService.updateCellBoolean(cellboolean, this.GONG__StackPath)
+          .subscribe(cellboolean => {
+            this.cellbooleanService.CellBooleanServiceChanged.next("update")
           });
       }
     }
@@ -347,26 +299,26 @@ export class CellsTableComponent implements OnInit {
     if (this.mode == TableComponentMode.MANY_MANY_ASSOCIATION_MODE) {
 
       // get the source instance via the map of instances in the front repo
-      let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, CellDB>
+      let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, CellBooleanDB>
       let sourceInstance = mapOfSourceInstances.get(this.dialogData.ID)!
 
       // First, parse all instance of the association struct and remove the instance
       // that have unselect
-      let unselectedCell = new Set<number>()
-      for (let cell of this.initialSelection) {
-        if (this.selection.selected.includes(cell)) {
-          // console.log("cell " + cell.Name + " is still selected")
+      let unselectedCellBoolean = new Set<number>()
+      for (let cellboolean of this.initialSelection) {
+        if (this.selection.selected.includes(cellboolean)) {
+          // console.log("cellboolean " + cellboolean.Name + " is still selected")
         } else {
-          console.log("cell " + cell.Name + " has been unselected")
-          unselectedCell.add(cell.ID)
-          console.log("is unselected " + unselectedCell.has(cell.ID))
+          console.log("cellboolean " + cellboolean.Name + " has been unselected")
+          unselectedCellBoolean.add(cellboolean.ID)
+          console.log("is unselected " + unselectedCellBoolean.has(cellboolean.ID))
         }
       }
 
       // delete the association instance
       let associationInstance = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]
-      let cell = associationInstance![this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as CellDB
-      if (unselectedCell.has(cell.ID)) {
+      let cellboolean = associationInstance![this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as CellBooleanDB
+      if (unselectedCellBoolean.has(cellboolean.ID)) {
         this.frontRepoService.deleteService(this.dialogData.IntermediateStruct, associationInstance)
 
 
@@ -374,38 +326,38 @@ export class CellsTableComponent implements OnInit {
 
       // is the source array is empty create it
       if (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] == undefined) {
-        (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] as unknown as Array<CellDB>) = new Array<CellDB>()
+        (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] as unknown as Array<CellBooleanDB>) = new Array<CellBooleanDB>()
       }
 
       // second, parse all instance of the selected
       if (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]) {
         this.selection.selected.forEach(
-          cell => {
-            if (!this.initialSelection.includes(cell)) {
-              // console.log("cell " + cell.Name + " has been added to the selection")
+          cellboolean => {
+            if (!this.initialSelection.includes(cellboolean)) {
+              // console.log("cellboolean " + cellboolean.Name + " has been added to the selection")
 
               let associationInstance = {
-                Name: sourceInstance["Name"] + "-" + cell.Name,
+                Name: sourceInstance["Name"] + "-" + cellboolean.Name,
               }
 
               let index = associationInstance[this.dialogData.IntermediateStructField + "ID" as keyof typeof associationInstance] as unknown as NullInt64
-              index.Int64 = cell.ID
+              index.Int64 = cellboolean.ID
               index.Valid = true
 
               let indexDB = associationInstance[this.dialogData.IntermediateStructField + "DBID" as keyof typeof associationInstance] as unknown as NullInt64
-              indexDB.Int64 = cell.ID
+              indexDB.Int64 = cellboolean.ID
               index.Valid = true
 
               this.frontRepoService.postService(this.dialogData.IntermediateStruct, associationInstance)
 
             } else {
-              // console.log("cell " + cell.Name + " is still selected")
+              // console.log("cellboolean " + cellboolean.Name + " is still selected")
             }
           }
         )
       }
 
-      // this.selection = new SelectionModel<CellDB>(allowMultiSelect, this.initialSelection);
+      // this.selection = new SelectionModel<CellBooleanDB>(allowMultiSelect, this.initialSelection);
     }
 
     // why pizza ?

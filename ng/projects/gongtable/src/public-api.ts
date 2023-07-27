@@ -22,6 +22,12 @@ export * from './lib/cells-table/cells-table.component'
 export * from './lib/cell-db'
 export * from './lib/cell.service'
 
+export * from './lib/cellboolean-detail/cellboolean-detail.component'
+export * from './lib/cellboolean-sorting/cellboolean-sorting.component'
+export * from './lib/cellbooleans-table/cellbooleans-table.component'
+export * from './lib/cellboolean-db'
+export * from './lib/cellboolean.service'
+
 export * from './lib/cellfloat64-detail/cellfloat64-detail.component'
 export * from './lib/cellfloat64-sorting/cellfloat64-sorting.component'
 export * from './lib/cellfloat64s-table/cellfloat64s-table.component'

@@ -48,6 +48,13 @@ func registerControllers(r *gin.Engine) {
 		v1.PUT("/v1/cells/:id", GetController().UpdateCell)
 		v1.DELETE("/v1/cells/:id", GetController().DeleteCell)
 
+		v1.GET("/v1/cellbooleans", GetController().GetCellBooleans)
+		v1.GET("/v1/cellbooleans/:id", GetController().GetCellBoolean)
+		v1.POST("/v1/cellbooleans", GetController().PostCellBoolean)
+		v1.PATCH("/v1/cellbooleans/:id", GetController().UpdateCellBoolean)
+		v1.PUT("/v1/cellbooleans/:id", GetController().UpdateCellBoolean)
+		v1.DELETE("/v1/cellbooleans/:id", GetController().DeleteCellBoolean)
+
 		v1.GET("/v1/cellfloat64s", GetController().GetCellFloat64s)
 		v1.GET("/v1/cellfloat64s/:id", GetController().GetCellFloat64)
 		v1.POST("/v1/cellfloat64s", GetController().PostCellFloat64)

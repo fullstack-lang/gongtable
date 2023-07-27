@@ -7,5 +7,6 @@ type Cell struct {
 	CellString  *CellString
 	CellFloat64 *CellFloat64
 	CellInt     *CellInt
+	CellBool    *CellBoolean
 	CellIcon    *CellIcon
 }

@@ -5,6 +5,9 @@ import { Route, Router, Routes } from '@angular/router';
 import { CellsTableComponent } from './cells-table/cells-table.component'
 import { CellDetailComponent } from './cell-detail/cell-detail.component'
 
+import { CellBooleansTableComponent } from './cellbooleans-table/cellbooleans-table.component'
+import { CellBooleanDetailComponent } from './cellboolean-detail/cellboolean-detail.component'
+
 import { CellFloat64sTableComponent } from './cellfloat64s-table/cellfloat64s-table.component'
 import { CellFloat64DetailComponent } from './cellfloat64-detail/cellfloat64-detail.component'
 
@@ -87,6 +90,39 @@ export class RouteService {
     getCellDetailRoute(stackPath: string): Route {
         let route: Route =
             { path: this.getCellDetailPath(), component: CellDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
+    getCellBooleanTablePath(): string {
+        return this.getPathRoot() + '-cellbooleans/:GONG__StackPath'
+    }
+    getCellBooleanTableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellBooleanTablePath(), component: CellBooleansTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getCellBooleanAdderPath(): string {
+        return this.getPathRoot() + '-cellboolean-adder/:GONG__StackPath'
+    }
+    getCellBooleanAdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellBooleanAdderPath(), component: CellBooleanDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getCellBooleanAdderForUsePath(): string {
+        return this.getPathRoot() + '-cellboolean-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getCellBooleanAdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellBooleanAdderForUsePath(), component: CellBooleanDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getCellBooleanDetailPath(): string {
+        return this.getPathRoot() + '-cellboolean-detail/:id/:GONG__StackPath'
+    }
+    getCellBooleanDetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCellBooleanDetailPath(), component: CellBooleanDetailComponent, outlet: this.getEditorOutlet(stackPath) }
         return route
     }
 
@@ -331,6 +367,11 @@ export class RouteService {
             this.getCellAdderRoute(stackPath),
             this.getCellAdderForUseRoute(stackPath),
             this.getCellDetailRoute(stackPath),
+
+            this.getCellBooleanTableRoute(stackPath),
+            this.getCellBooleanAdderRoute(stackPath),
+            this.getCellBooleanAdderForUseRoute(stackPath),
+            this.getCellBooleanDetailRoute(stackPath),
 
             this.getCellFloat64TableRoute(stackPath),
             this.getCellFloat64AdderRoute(stackPath),

@@ -38,6 +38,14 @@ type StageStruct struct { // insertion point for definition of arrays registerin
 	OnAfterCellDeleteCallback OnAfterDeleteInterface[Cell]
 	OnAfterCellReadCallback   OnAfterReadInterface[Cell]
 
+	CellBooleans           map[*CellBoolean]any
+	CellBooleans_mapString map[string]*CellBoolean
+
+	OnAfterCellBooleanCreateCallback OnAfterCreateInterface[CellBoolean]
+	OnAfterCellBooleanUpdateCallback OnAfterUpdateInterface[CellBoolean]
+	OnAfterCellBooleanDeleteCallback OnAfterDeleteInterface[CellBoolean]
+	OnAfterCellBooleanReadCallback   OnAfterReadInterface[CellBoolean]
+
 	CellFloat64s           map[*CellFloat64]any
 	CellFloat64s_mapString map[string]*CellFloat64
 
@@ -160,6 +168,8 @@ type BackRepoInterface interface {
 	// insertion point for Commit and Checkout signatures
 	CommitCell(cell *Cell)
 	CheckoutCell(cell *Cell)
+	CommitCellBoolean(cellboolean *CellBoolean)
+	CheckoutCellBoolean(cellboolean *CellBoolean)
 	CommitCellFloat64(cellfloat64 *CellFloat64)
 	CheckoutCellFloat64(cellfloat64 *CellFloat64)
 	CommitCellIcon(cellicon *CellIcon)
@@ -194,6 +204,9 @@ func NewStage() (stage *StageStruct) {
 	stage = &StageStruct{ // insertion point for array initiatialisation
 		Cells:           make(map[*Cell]any),
 		Cells_mapString: make(map[string]*Cell),
+
+		CellBooleans:           make(map[*CellBoolean]any),
+		CellBooleans_mapString: make(map[string]*CellBoolean),
 
 		CellFloat64s:           make(map[*CellFloat64]any),
 		CellFloat64s_mapString: make(map[string]*CellFloat64),
@@ -242,6 +255,7 @@ func (stage *StageStruct) Commit() {
 
 	// insertion point for computing the map of number of instances per gongstruct
 	stage.Map_GongStructName_InstancesNb["Cell"] = len(stage.Cells)
+	stage.Map_GongStructName_InstancesNb["CellBoolean"] = len(stage.CellBooleans)
 	stage.Map_GongStructName_InstancesNb["CellFloat64"] = len(stage.CellFloat64s)
 	stage.Map_GongStructName_InstancesNb["CellIcon"] = len(stage.CellIcons)
 	stage.Map_GongStructName_InstancesNb["CellInt"] = len(stage.CellInts)
@@ -259,6 +273,7 @@ func (stage *StageStruct) Checkout() {
 
 	// insertion point for computing the map of number of instances per gongstruct
 	stage.Map_GongStructName_InstancesNb["Cell"] = len(stage.Cells)
+	stage.Map_GongStructName_InstancesNb["CellBoolean"] = len(stage.CellBooleans)
 	stage.Map_GongStructName_InstancesNb["CellFloat64"] = len(stage.CellFloat64s)
 	stage.Map_GongStructName_InstancesNb["CellIcon"] = len(stage.CellIcons)
 	stage.Map_GongStructName_InstancesNb["CellInt"] = len(stage.CellInts)
@@ -336,6 +351,46 @@ func (cell *Cell) Checkout(stage *StageStruct) *Cell {
 // for satisfaction of GongStruct interface
 func (cell *Cell) GetName() (res string) {
 	return cell.Name
+}
+
+// Stage puts cellboolean to the model stage
+func (cellboolean *CellBoolean) Stage(stage *StageStruct) *CellBoolean {
+	stage.CellBooleans[cellboolean] = __member
+	stage.CellBooleans_mapString[cellboolean.Name] = cellboolean
+
+	return cellboolean
+}
+
+// Unstage removes cellboolean off the model stage
+func (cellboolean *CellBoolean) Unstage(stage *StageStruct) *CellBoolean {
+	delete(stage.CellBooleans, cellboolean)
+	delete(stage.CellBooleans_mapString, cellboolean.Name)
+	return cellboolean
+}
+
+// commit cellboolean to the back repo (if it is already staged)
+func (cellboolean *CellBoolean) Commit(stage *StageStruct) *CellBoolean {
+	if _, ok := stage.CellBooleans[cellboolean]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitCellBoolean(cellboolean)
+		}
+	}
+	return cellboolean
+}
+
+// Checkout cellboolean to the back repo (if it is already staged)
+func (cellboolean *CellBoolean) Checkout(stage *StageStruct) *CellBoolean {
+	if _, ok := stage.CellBooleans[cellboolean]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutCellBoolean(cellboolean)
+		}
+	}
+	return cellboolean
+}
+
+// for satisfaction of GongStruct interface
+func (cellboolean *CellBoolean) GetName() (res string) {
+	return cellboolean.Name
 }
 
 // Stage puts cellfloat64 to the model stage
@@ -621,6 +676,7 @@ func (table *Table) GetName() (res string) {
 // swagger:ignore
 type AllModelsStructCreateInterface interface { // insertion point for Callbacks on creation
 	CreateORMCell(Cell *Cell)
+	CreateORMCellBoolean(CellBoolean *CellBoolean)
 	CreateORMCellFloat64(CellFloat64 *CellFloat64)
 	CreateORMCellIcon(CellIcon *CellIcon)
 	CreateORMCellInt(CellInt *CellInt)
@@ -632,6 +688,7 @@ type AllModelsStructCreateInterface interface { // insertion point for Callbacks
 
 type AllModelsStructDeleteInterface interface { // insertion point for Callbacks on deletion
 	DeleteORMCell(Cell *Cell)
+	DeleteORMCellBoolean(CellBoolean *CellBoolean)
 	DeleteORMCellFloat64(CellFloat64 *CellFloat64)
 	DeleteORMCellIcon(CellIcon *CellIcon)
 	DeleteORMCellInt(CellInt *CellInt)
@@ -644,6 +701,9 @@ type AllModelsStructDeleteInterface interface { // insertion point for Callbacks
 func (stage *StageStruct) Reset() { // insertion point for array reset
 	stage.Cells = make(map[*Cell]any)
 	stage.Cells_mapString = make(map[string]*Cell)
+
+	stage.CellBooleans = make(map[*CellBoolean]any)
+	stage.CellBooleans_mapString = make(map[string]*CellBoolean)
 
 	stage.CellFloat64s = make(map[*CellFloat64]any)
 	stage.CellFloat64s_mapString = make(map[string]*CellFloat64)
@@ -672,6 +732,9 @@ func (stage *StageStruct) Nil() { // insertion point for array nil
 	stage.Cells = nil
 	stage.Cells_mapString = nil
 
+	stage.CellBooleans = nil
+	stage.CellBooleans_mapString = nil
+
 	stage.CellFloat64s = nil
 	stage.CellFloat64s_mapString = nil
 
@@ -698,6 +761,10 @@ func (stage *StageStruct) Nil() { // insertion point for array nil
 func (stage *StageStruct) Unstage() { // insertion point for array nil
 	for cell := range stage.Cells {
 		cell.Unstage(stage)
+	}
+
+	for cellboolean := range stage.CellBooleans {
+		cellboolean.Unstage(stage)
 	}
 
 	for cellfloat64 := range stage.CellFloat64s {
@@ -736,7 +803,7 @@ func (stage *StageStruct) Unstage() { // insertion point for array nil
 // - full refactoring of Gongstruct identifiers / fields
 type Gongstruct interface {
 	// insertion point for generic types
-	Cell | CellFloat64 | CellIcon | CellInt | CellString | DisplayedColumn | Row | Table
+	Cell | CellBoolean | CellFloat64 | CellIcon | CellInt | CellString | DisplayedColumn | Row | Table
 }
 
 // Gongstruct is the type parameter for generated generic function that allows
@@ -745,7 +812,7 @@ type Gongstruct interface {
 // - full refactoring of Gongstruct identifiers / fields
 type PointerToGongstruct interface {
 	// insertion point for generic types
-	*Cell | *CellFloat64 | *CellIcon | *CellInt | *CellString | *DisplayedColumn | *Row | *Table
+	*Cell | *CellBoolean | *CellFloat64 | *CellIcon | *CellInt | *CellString | *DisplayedColumn | *Row | *Table
 	GetName() string
 }
 
@@ -753,6 +820,7 @@ type GongstructSet interface {
 	map[any]any |
 		// insertion point for generic types
 		map[*Cell]any |
+		map[*CellBoolean]any |
 		map[*CellFloat64]any |
 		map[*CellIcon]any |
 		map[*CellInt]any |
@@ -767,6 +835,7 @@ type GongstructMapString interface {
 	map[any]any |
 		// insertion point for generic types
 		map[string]*Cell |
+		map[string]*CellBoolean |
 		map[string]*CellFloat64 |
 		map[string]*CellIcon |
 		map[string]*CellInt |
@@ -786,6 +855,8 @@ func GongGetSet[Type GongstructSet](stage *StageStruct) *Type {
 	// insertion point for generic get functions
 	case map[*Cell]any:
 		return any(&stage.Cells).(*Type)
+	case map[*CellBoolean]any:
+		return any(&stage.CellBooleans).(*Type)
 	case map[*CellFloat64]any:
 		return any(&stage.CellFloat64s).(*Type)
 	case map[*CellIcon]any:
@@ -814,6 +885,8 @@ func GongGetMap[Type GongstructMapString](stage *StageStruct) *Type {
 	// insertion point for generic get functions
 	case map[string]*Cell:
 		return any(&stage.Cells_mapString).(*Type)
+	case map[string]*CellBoolean:
+		return any(&stage.CellBooleans_mapString).(*Type)
 	case map[string]*CellFloat64:
 		return any(&stage.CellFloat64s_mapString).(*Type)
 	case map[string]*CellIcon:
@@ -842,6 +915,8 @@ func GetGongstructInstancesSet[Type Gongstruct](stage *StageStruct) *map[*Type]a
 	// insertion point for generic get functions
 	case Cell:
 		return any(&stage.Cells).(*map[*Type]any)
+	case CellBoolean:
+		return any(&stage.CellBooleans).(*map[*Type]any)
 	case CellFloat64:
 		return any(&stage.CellFloat64s).(*map[*Type]any)
 	case CellIcon:
@@ -870,6 +945,8 @@ func GetGongstructInstancesMap[Type Gongstruct](stage *StageStruct) *map[string]
 	// insertion point for generic get functions
 	case Cell:
 		return any(&stage.Cells_mapString).(*map[string]*Type)
+	case CellBoolean:
+		return any(&stage.CellBooleans_mapString).(*map[string]*Type)
 	case CellFloat64:
 		return any(&stage.CellFloat64s_mapString).(*map[string]*Type)
 	case CellIcon:
@@ -907,8 +984,14 @@ func GetAssociationName[Type Gongstruct]() *Type {
 			CellFloat64: &CellFloat64{Name: "CellFloat64"},
 			// field is initialized with an instance of CellInt with the name of the field
 			CellInt: &CellInt{Name: "CellInt"},
+			// field is initialized with an instance of CellBoolean with the name of the field
+			CellBool: &CellBoolean{Name: "CellBool"},
 			// field is initialized with an instance of CellIcon with the name of the field
 			CellIcon: &CellIcon{Name: "CellIcon"},
+		}).(*Type)
+	case CellBoolean:
+		return any(&CellBoolean{
+			// Initialisation of associations
 		}).(*Type)
 	case CellFloat64:
 		return any(&CellFloat64{
@@ -1017,6 +1100,23 @@ func GetPointerReverseMap[Start, End Gongstruct](fieldname string, stage *StageS
 				}
 			}
 			return any(res).(map[*End][]*Start)
+		case "CellBool":
+			res := make(map[*CellBoolean][]*Cell)
+			for cell := range stage.Cells {
+				if cell.CellBool != nil {
+					cellboolean_ := cell.CellBool
+					var cells []*Cell
+					_, ok := res[cellboolean_]
+					if ok {
+						cells = res[cellboolean_]
+					} else {
+						cells = make([]*Cell, 0)
+					}
+					cells = append(cells, cell)
+					res[cellboolean_] = cells
+				}
+			}
+			return any(res).(map[*End][]*Start)
 		case "CellIcon":
 			res := make(map[*CellIcon][]*Cell)
 			for cell := range stage.Cells {
@@ -1034,6 +1134,11 @@ func GetPointerReverseMap[Start, End Gongstruct](fieldname string, stage *StageS
 				}
 			}
 			return any(res).(map[*End][]*Start)
+		}
+	// reverse maps of direct associations of CellBoolean
+	case CellBoolean:
+		switch fieldname {
+		// insertion point for per direct association field
 		}
 	// reverse maps of direct associations of CellFloat64
 	case CellFloat64:
@@ -1088,6 +1193,11 @@ func GetSliceOfPointersReverseMap[Start, End Gongstruct](fieldname string, stage
 	// insertion point of functions that provide maps for reverse associations
 	// reverse maps of direct associations of Cell
 	case Cell:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of CellBoolean
+	case CellBoolean:
 		switch fieldname {
 		// insertion point for per direct association field
 		}
@@ -1164,6 +1274,8 @@ func GetGongstructName[Type Gongstruct]() (res string) {
 	// insertion point for generic get gongstruct name
 	case Cell:
 		res = "Cell"
+	case CellBoolean:
+		res = "CellBoolean"
 	case CellFloat64:
 		res = "CellFloat64"
 	case CellIcon:
@@ -1190,7 +1302,9 @@ func GetFields[Type Gongstruct]() (res []string) {
 	switch any(ret).(type) {
 	// insertion point for generic get gongstruct name
 	case Cell:
-		res = []string{"Name", "CellString", "CellFloat64", "CellInt", "CellIcon"}
+		res = []string{"Name", "CellString", "CellFloat64", "CellInt", "CellBool", "CellIcon"}
+	case CellBoolean:
+		res = []string{"Name", "Value"}
 	case CellFloat64:
 		res = []string{"Name", "Value"}
 	case CellIcon:
@@ -1231,10 +1345,22 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 			if any(instance).(Cell).CellInt != nil {
 				res = any(instance).(Cell).CellInt.Name
 			}
+		case "CellBool":
+			if any(instance).(Cell).CellBool != nil {
+				res = any(instance).(Cell).CellBool.Name
+			}
 		case "CellIcon":
 			if any(instance).(Cell).CellIcon != nil {
 				res = any(instance).(Cell).CellIcon.Name
 			}
+		}
+	case CellBoolean:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(CellBoolean).Name
+		case "Value":
+			res = fmt.Sprintf("%t", any(instance).(CellBoolean).Value)
 		}
 	case CellFloat64:
 		switch fieldName {

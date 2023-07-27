@@ -8,6 +8,9 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 	case *Cell:
 		ok = stage.IsStagedCell(target)
 
+	case *CellBoolean:
+		ok = stage.IsStagedCellBoolean(target)
+
 	case *CellFloat64:
 		ok = stage.IsStagedCellFloat64(target)
 
@@ -39,6 +42,13 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 	func (stage *StageStruct) IsStagedCell(cell *Cell) (ok bool) {
 
 		_, ok = stage.Cells[cell]
+	
+		return
+	}
+
+	func (stage *StageStruct) IsStagedCellBoolean(cellboolean *CellBoolean) (ok bool) {
+
+		_, ok = stage.CellBooleans[cellboolean]
 	
 		return
 	}
@@ -104,6 +114,9 @@ func StageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *Cell:
 		stage.StageBranchCell(target)
 
+	case *CellBoolean:
+		stage.StageBranchCellBoolean(target)
+
 	case *CellFloat64:
 		stage.StageBranchCellFloat64(target)
 
@@ -150,9 +163,27 @@ func (stage *StageStruct) StageBranchCell(cell *Cell) {
 	if cell.CellInt != nil {
 		StageBranch(stage, cell.CellInt)
 	}
+	if cell.CellBool != nil {
+		StageBranch(stage, cell.CellBool)
+	}
 	if cell.CellIcon != nil {
 		StageBranch(stage, cell.CellIcon)
 	}
+
+	//insertion point for the staging of instances referenced by slice of pointers
+
+}
+
+func (stage *StageStruct) StageBranchCellBoolean(cellboolean *CellBoolean) {
+
+	// check if instance is already staged
+	if IsStaged(stage, cellboolean) {
+		return
+	}
+
+	cellboolean.Stage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
 
 	//insertion point for the staging of instances referenced by slice of pointers
 
@@ -284,6 +315,9 @@ func UnstageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *Cell:
 		stage.UnstageBranchCell(target)
 
+	case *CellBoolean:
+		stage.UnstageBranchCellBoolean(target)
+
 	case *CellFloat64:
 		stage.UnstageBranchCellFloat64(target)
 
@@ -330,9 +364,27 @@ func (stage *StageStruct) UnstageBranchCell(cell *Cell) {
 	if cell.CellInt != nil {
 		UnstageBranch(stage, cell.CellInt)
 	}
+	if cell.CellBool != nil {
+		UnstageBranch(stage, cell.CellBool)
+	}
 	if cell.CellIcon != nil {
 		UnstageBranch(stage, cell.CellIcon)
 	}
+
+	//insertion point for the staging of instances referenced by slice of pointers
+
+}
+
+func (stage *StageStruct) UnstageBranchCellBoolean(cellboolean *CellBoolean) {
+
+	// check if instance is already staged
+	if ! IsStaged(stage, cellboolean) {
+		return
+	}
+
+	cellboolean.Unstage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
 
 	//insertion point for the staging of instances referenced by slice of pointers
 

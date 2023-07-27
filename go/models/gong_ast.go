@@ -304,6 +304,7 @@ var __gong__map_Indentifiers_gongstructName = make(map[string]string)
 
 // insertion point for identifiers maps
 var __gong__map_Cell = make(map[string]*Cell)
+var __gong__map_CellBoolean = make(map[string]*CellBoolean)
 var __gong__map_CellFloat64 = make(map[string]*CellFloat64)
 var __gong__map_CellIcon = make(map[string]*CellIcon)
 var __gong__map_CellInt = make(map[string]*CellInt)
@@ -487,6 +488,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 										instanceCell := (&Cell{Name: instanceName}).Stage(stage)
 										instance = any(instanceCell)
 										__gong__map_Cell[identifier] = instanceCell
+									case "CellBoolean":
+										instanceCellBoolean := (&CellBoolean{Name: instanceName}).Stage(stage)
+										instance = any(instanceCellBoolean)
+										__gong__map_CellBoolean[identifier] = instanceCellBoolean
 									case "CellFloat64":
 										instanceCellFloat64 := (&CellFloat64{Name: instanceName}).Stage(stage)
 										instance = any(instanceCellFloat64)
@@ -555,6 +560,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 							switch fieldName {
 							// insertion point for date assign code
 							}
+						case "CellBoolean":
+							switch fieldName {
+							// insertion point for date assign code
+							}
 						case "CellFloat64":
 							switch fieldName {
 							// insertion point for date assign code
@@ -609,6 +618,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					switch gongstructName {
 					// insertion point for slice of pointers assignments
 					case "Cell":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						}
+					case "CellBoolean":
 						switch fieldName {
 						// insertion point for slice of pointers assign code
 						}
@@ -715,6 +728,14 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_Cell[identifier].Name = fielValue
 				}
+			case "CellBoolean":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_CellBoolean[identifier].Name = fielValue
+				}
 			case "CellFloat64":
 				switch fieldName {
 				// insertion point for field dependant code
@@ -815,9 +836,23 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				case "CellInt":
 					targetIdentifier := ident.Name
 					__gong__map_Cell[identifier].CellInt = __gong__map_CellInt[targetIdentifier]
+				case "CellBool":
+					targetIdentifier := ident.Name
+					__gong__map_Cell[identifier].CellBool = __gong__map_CellBoolean[targetIdentifier]
 				case "CellIcon":
 					targetIdentifier := ident.Name
 					__gong__map_Cell[identifier].CellIcon = __gong__map_CellIcon[targetIdentifier]
+				}
+			case "CellBoolean":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Value":
+					// convert string to boolean
+					fielValue, err := strconv.ParseBool(ident.Name)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_CellBoolean[identifier].Value = fielValue
 				}
 			case "CellFloat64":
 				switch fieldName {
@@ -876,6 +911,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				switch gongstructName {
 				// insertion point for enums assignments
 				case "Cell":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "CellBoolean":
 					switch fieldName {
 					// insertion point for enum assign code
 					}

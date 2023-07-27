@@ -9,6 +9,10 @@ func AfterCreateFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterCellCreateCallback != nil {
 			stage.OnAfterCellCreateCallback.OnAfterCreate(stage, target)
 		}
+	case *CellBoolean:
+		if stage.OnAfterCellBooleanCreateCallback != nil {
+			stage.OnAfterCellBooleanCreateCallback.OnAfterCreate(stage, target)
+		}
 	case *CellFloat64:
 		if stage.OnAfterCellFloat64CreateCallback != nil {
 			stage.OnAfterCellFloat64CreateCallback.OnAfterCreate(stage, target)
@@ -51,6 +55,11 @@ func AfterUpdateFromFront[Type Gongstruct](stage *StageStruct, old, new *Type) {
 		newTarget := any(new).(*Cell)
 		if stage.OnAfterCellUpdateCallback != nil {
 			stage.OnAfterCellUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
+		}
+	case *CellBoolean:
+		newTarget := any(new).(*CellBoolean)
+		if stage.OnAfterCellBooleanUpdateCallback != nil {
+			stage.OnAfterCellBooleanUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
 	case *CellFloat64:
 		newTarget := any(new).(*CellFloat64)
@@ -102,6 +111,11 @@ func AfterDeleteFromFront[Type Gongstruct](stage *StageStruct, staged, front *Ty
 			staged := any(staged).(*Cell)
 			stage.OnAfterCellDeleteCallback.OnAfterDelete(stage, staged, front)
 		}
+	case *CellBoolean:
+		if stage.OnAfterCellBooleanDeleteCallback != nil {
+			staged := any(staged).(*CellBoolean)
+			stage.OnAfterCellBooleanDeleteCallback.OnAfterDelete(stage, staged, front)
+		}
 	case *CellFloat64:
 		if stage.OnAfterCellFloat64DeleteCallback != nil {
 			staged := any(staged).(*CellFloat64)
@@ -151,6 +165,10 @@ func AfterReadFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterCellReadCallback != nil {
 			stage.OnAfterCellReadCallback.OnAfterRead(stage, target)
 		}
+	case *CellBoolean:
+		if stage.OnAfterCellBooleanReadCallback != nil {
+			stage.OnAfterCellBooleanReadCallback.OnAfterRead(stage, target)
+		}
 	case *CellFloat64:
 		if stage.OnAfterCellFloat64ReadCallback != nil {
 			stage.OnAfterCellFloat64ReadCallback.OnAfterRead(stage, target)
@@ -193,6 +211,9 @@ func SetCallbackAfterUpdateFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *Cell:
 		stage.OnAfterCellUpdateCallback = any(callback).(OnAfterUpdateInterface[Cell])
 	
+	case *CellBoolean:
+		stage.OnAfterCellBooleanUpdateCallback = any(callback).(OnAfterUpdateInterface[CellBoolean])
+	
 	case *CellFloat64:
 		stage.OnAfterCellFloat64UpdateCallback = any(callback).(OnAfterUpdateInterface[CellFloat64])
 	
@@ -223,6 +244,9 @@ func SetCallbackAfterCreateFromFront[Type Gongstruct](stage *StageStruct, callba
 		// insertion point
 	case *Cell:
 		stage.OnAfterCellCreateCallback = any(callback).(OnAfterCreateInterface[Cell])
+	
+	case *CellBoolean:
+		stage.OnAfterCellBooleanCreateCallback = any(callback).(OnAfterCreateInterface[CellBoolean])
 	
 	case *CellFloat64:
 		stage.OnAfterCellFloat64CreateCallback = any(callback).(OnAfterCreateInterface[CellFloat64])
@@ -255,6 +279,9 @@ func SetCallbackAfterDeleteFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *Cell:
 		stage.OnAfterCellDeleteCallback = any(callback).(OnAfterDeleteInterface[Cell])
 	
+	case *CellBoolean:
+		stage.OnAfterCellBooleanDeleteCallback = any(callback).(OnAfterDeleteInterface[CellBoolean])
+	
 	case *CellFloat64:
 		stage.OnAfterCellFloat64DeleteCallback = any(callback).(OnAfterDeleteInterface[CellFloat64])
 	
@@ -285,6 +312,9 @@ func SetCallbackAfterReadFromFront[Type Gongstruct](stage *StageStruct, callback
 		// insertion point
 	case *Cell:
 		stage.OnAfterCellReadCallback = any(callback).(OnAfterReadInterface[Cell])
+	
+	case *CellBoolean:
+		stage.OnAfterCellBooleanReadCallback = any(callback).(OnAfterReadInterface[CellBoolean])
 	
 	case *CellFloat64:
 		stage.OnAfterCellFloat64ReadCallback = any(callback).(OnAfterReadInterface[CellFloat64])

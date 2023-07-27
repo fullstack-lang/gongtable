@@ -23,6 +23,8 @@ type BackRepoStruct struct {
 	// insertion point for per struct back repo declarations
 	BackRepoCell BackRepoCellStruct
 
+	BackRepoCellBoolean BackRepoCellBooleanStruct
+
 	BackRepoCellFloat64 BackRepoCellFloat64Struct
 
 	BackRepoCellIcon BackRepoCellIconStruct
@@ -74,6 +76,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 
 	err = db.AutoMigrate( // insertion point for reference to structs
 		&CellDB{},
+		&CellBooleanDB{},
 		&CellFloat64DB{},
 		&CellIconDB{},
 		&CellIntDB{},
@@ -95,6 +98,14 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_CellDBID_CellPtr: make(map[uint]*models.Cell, 0),
 		Map_CellDBID_CellDB:  make(map[uint]*CellDB, 0),
 		Map_CellPtr_CellDBID: make(map[*models.Cell]uint, 0),
+
+		db:    db,
+		stage: stage,
+	}
+	backRepo.BackRepoCellBoolean = BackRepoCellBooleanStruct{
+		Map_CellBooleanDBID_CellBooleanPtr: make(map[uint]*models.CellBoolean, 0),
+		Map_CellBooleanDBID_CellBooleanDB:  make(map[uint]*CellBooleanDB, 0),
+		Map_CellBooleanPtr_CellBooleanDBID: make(map[*models.CellBoolean]uint, 0),
 
 		db:    db,
 		stage: stage,
@@ -201,6 +212,7 @@ func (backRepo *BackRepoStruct) IncrementPushFromFrontNb() uint {
 func (backRepo *BackRepoStruct) Commit(stage *models.StageStruct) {
 	// insertion point for per struct back repo phase one commit
 	backRepo.BackRepoCell.CommitPhaseOne(stage)
+	backRepo.BackRepoCellBoolean.CommitPhaseOne(stage)
 	backRepo.BackRepoCellFloat64.CommitPhaseOne(stage)
 	backRepo.BackRepoCellIcon.CommitPhaseOne(stage)
 	backRepo.BackRepoCellInt.CommitPhaseOne(stage)
@@ -211,6 +223,7 @@ func (backRepo *BackRepoStruct) Commit(stage *models.StageStruct) {
 
 	// insertion point for per struct back repo phase two commit
 	backRepo.BackRepoCell.CommitPhaseTwo(backRepo)
+	backRepo.BackRepoCellBoolean.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoCellFloat64.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoCellIcon.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoCellInt.CommitPhaseTwo(backRepo)
@@ -226,6 +239,7 @@ func (backRepo *BackRepoStruct) Commit(stage *models.StageStruct) {
 func (backRepo *BackRepoStruct) Checkout(stage *models.StageStruct) {
 	// insertion point for per struct back repo phase one commit
 	backRepo.BackRepoCell.CheckoutPhaseOne()
+	backRepo.BackRepoCellBoolean.CheckoutPhaseOne()
 	backRepo.BackRepoCellFloat64.CheckoutPhaseOne()
 	backRepo.BackRepoCellIcon.CheckoutPhaseOne()
 	backRepo.BackRepoCellInt.CheckoutPhaseOne()
@@ -236,6 +250,7 @@ func (backRepo *BackRepoStruct) Checkout(stage *models.StageStruct) {
 
 	// insertion point for per struct back repo phase two commit
 	backRepo.BackRepoCell.CheckoutPhaseTwo(backRepo)
+	backRepo.BackRepoCellBoolean.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoCellFloat64.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoCellIcon.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoCellInt.CheckoutPhaseTwo(backRepo)
@@ -270,6 +285,7 @@ func (backRepo *BackRepoStruct) Backup(stage *models.StageStruct, dirPath string
 
 	// insertion point for per struct backup
 	backRepo.BackRepoCell.Backup(dirPath)
+	backRepo.BackRepoCellBoolean.Backup(dirPath)
 	backRepo.BackRepoCellFloat64.Backup(dirPath)
 	backRepo.BackRepoCellIcon.Backup(dirPath)
 	backRepo.BackRepoCellInt.Backup(dirPath)
@@ -288,6 +304,7 @@ func (backRepo *BackRepoStruct) BackupXL(stage *models.StageStruct, dirPath stri
 
 	// insertion point for per struct backup
 	backRepo.BackRepoCell.BackupXL(file)
+	backRepo.BackRepoCellBoolean.BackupXL(file)
 	backRepo.BackRepoCellFloat64.BackupXL(file)
 	backRepo.BackRepoCellIcon.BackupXL(file)
 	backRepo.BackRepoCellInt.BackupXL(file)
@@ -320,6 +337,7 @@ func (backRepo *BackRepoStruct) Restore(stage *models.StageStruct, dirPath strin
 
 	// insertion point for per struct backup
 	backRepo.BackRepoCell.RestorePhaseOne(dirPath)
+	backRepo.BackRepoCellBoolean.RestorePhaseOne(dirPath)
 	backRepo.BackRepoCellFloat64.RestorePhaseOne(dirPath)
 	backRepo.BackRepoCellIcon.RestorePhaseOne(dirPath)
 	backRepo.BackRepoCellInt.RestorePhaseOne(dirPath)
@@ -334,6 +352,7 @@ func (backRepo *BackRepoStruct) Restore(stage *models.StageStruct, dirPath strin
 
 	// insertion point for per struct backup
 	backRepo.BackRepoCell.RestorePhaseTwo()
+	backRepo.BackRepoCellBoolean.RestorePhaseTwo()
 	backRepo.BackRepoCellFloat64.RestorePhaseTwo()
 	backRepo.BackRepoCellIcon.RestorePhaseTwo()
 	backRepo.BackRepoCellInt.RestorePhaseTwo()
@@ -369,6 +388,7 @@ func (backRepo *BackRepoStruct) RestoreXL(stage *models.StageStruct, dirPath str
 
 	// insertion point for per struct backup
 	backRepo.BackRepoCell.RestoreXLPhaseOne(file)
+	backRepo.BackRepoCellBoolean.RestoreXLPhaseOne(file)
 	backRepo.BackRepoCellFloat64.RestoreXLPhaseOne(file)
 	backRepo.BackRepoCellIcon.RestoreXLPhaseOne(file)
 	backRepo.BackRepoCellInt.RestoreXLPhaseOne(file)

@@ -52,6 +52,16 @@
     </mat-form-field>
 
     <mat-form-field class="detail-full-width">
+        <mat-label>CellBool</mat-label>
+        <mat-select [compareWith]="compareObjects" [(value)]="cell.CellBool" (selectionChange)="fillUpNameIfEmpty($event)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let cellboolean of frontRepo.CellBooleans_array" [value]="cellboolean">
+                {{cellboolean.Name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="detail-full-width">
         <mat-label>CellIcon</mat-label>
         <mat-select [compareWith]="compareObjects" [(value)]="cell.CellIcon" (selectionChange)="fillUpNameIfEmpty($event)">
             <mat-option>None</mat-option>

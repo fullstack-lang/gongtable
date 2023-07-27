@@ -2,15 +2,14 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 
-import { CellDB } from '../cell-db'
-import { CellService } from '../cell.service'
+import { CellBooleanDB } from '../cellboolean-db'
+import { CellBooleanService } from '../cellboolean.service'
 
 import { FrontRepoService, FrontRepo, SelectionMode, DialogData } from '../front-repo.service'
 import { MapOfComponents } from '../map-components'
 import { MapOfSortingComponents } from '../map-components'
 
 // insertion point for imports
-import { RowDB } from '../row-db'
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -18,26 +17,26 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angu
 
 import { NullInt64 } from '../null-int64'
 
-// CellDetailComponent is initilizaed from different routes
-// CellDetailComponentState detail different cases 
-enum CellDetailComponentState {
+// CellBooleanDetailComponent is initilizaed from different routes
+// CellBooleanDetailComponentState detail different cases 
+enum CellBooleanDetailComponentState {
 	CREATE_INSTANCE,
 	UPDATE_INSTANCE,
 	// insertion point for declarations of enum values of state
-	CREATE_INSTANCE_WITH_ASSOCIATION_Row_Cells_SET,
 }
 
 @Component({
-	selector: 'app-cell-detail',
-	templateUrl: './cell-detail.component.html',
-	styleUrls: ['./cell-detail.component.css'],
+	selector: 'app-cellboolean-detail',
+	templateUrl: './cellboolean-detail.component.html',
+	styleUrls: ['./cellboolean-detail.component.css'],
 })
-export class CellDetailComponent implements OnInit {
+export class CellBooleanDetailComponent implements OnInit {
 
 	// insertion point for declarations
+	ValueFormControl: UntypedFormControl = new UntypedFormControl(false);
 
-	// the CellDB of interest
-	cell: CellDB = new CellDB
+	// the CellBooleanDB of interest
+	cellboolean: CellBooleanDB = new CellBooleanDB
 
 	// front repo
 	frontRepo: FrontRepo = new FrontRepo
@@ -48,7 +47,7 @@ export class CellDetailComponent implements OnInit {
 	mapFields_displayAsTextArea = new Map<string, boolean>()
 
 	// the state at initialization (CREATION, UPDATE or CREATE with one association set)
-	state: CellDetailComponentState = CellDetailComponentState.CREATE_INSTANCE
+	state: CellBooleanDetailComponentState = CellBooleanDetailComponentState.CREATE_INSTANCE
 
 	// in UDPATE state, if is the id of the instance to update
 	// in CREATE state with one association set, this is the id of the associated instance
@@ -61,7 +60,7 @@ export class CellDetailComponent implements OnInit {
 	GONG__StackPath: string = ""
 
 	constructor(
-		private cellService: CellService,
+		private cellbooleanService: CellBooleanService,
 		private frontRepoService: FrontRepoService,
 		public dialog: MatDialog,
 		private activatedRoute: ActivatedRoute,
@@ -87,30 +86,26 @@ export class CellDetailComponent implements OnInit {
 
 		const association = this.activatedRoute.snapshot.paramMap.get('association');
 		if (this.id == 0) {
-			this.state = CellDetailComponentState.CREATE_INSTANCE
+			this.state = CellBooleanDetailComponentState.CREATE_INSTANCE
 		} else {
 			if (this.originStruct == undefined) {
-				this.state = CellDetailComponentState.UPDATE_INSTANCE
+				this.state = CellBooleanDetailComponentState.UPDATE_INSTANCE
 			} else {
 				switch (this.originStructFieldName) {
 					// insertion point for state computation
-					case "Cells":
-						// console.log("Cell" + " is instanciated with back pointer to instance " + this.id + " Row association Cells")
-						this.state = CellDetailComponentState.CREATE_INSTANCE_WITH_ASSOCIATION_Row_Cells_SET
-						break;
 					default:
 						console.log(this.originStructFieldName + " is unkown association")
 				}
 			}
 		}
 
-		this.getCell()
+		this.getCellBoolean()
 
 		// observable for changes in structs
-		this.cellService.CellServiceChanged.subscribe(
+		this.cellbooleanService.CellBooleanServiceChanged.subscribe(
 			message => {
 				if (message == "post" || message == "update" || message == "delete") {
-					this.getCell()
+					this.getCellBoolean()
 				}
 			}
 		)
@@ -118,31 +113,28 @@ export class CellDetailComponent implements OnInit {
 		// insertion point for initialisation of enums list
 	}
 
-	getCell(): void {
+	getCellBoolean(): void {
 
 		this.frontRepoService.pull(this.GONG__StackPath).subscribe(
 			frontRepo => {
 				this.frontRepo = frontRepo
 
 				switch (this.state) {
-					case CellDetailComponentState.CREATE_INSTANCE:
-						this.cell = new (CellDB)
+					case CellBooleanDetailComponentState.CREATE_INSTANCE:
+						this.cellboolean = new (CellBooleanDB)
 						break;
-					case CellDetailComponentState.UPDATE_INSTANCE:
-						let cell = frontRepo.Cells.get(this.id)
-						console.assert(cell != undefined, "missing cell with id:" + this.id)
-						this.cell = cell!
+					case CellBooleanDetailComponentState.UPDATE_INSTANCE:
+						let cellboolean = frontRepo.CellBooleans.get(this.id)
+						console.assert(cellboolean != undefined, "missing cellboolean with id:" + this.id)
+						this.cellboolean = cellboolean!
 						break;
 					// insertion point for init of association field
-					case CellDetailComponentState.CREATE_INSTANCE_WITH_ASSOCIATION_Row_Cells_SET:
-						this.cell = new (CellDB)
-						this.cell.Row_Cells_reverse = frontRepo.Rows.get(this.id)!
-						break;
 					default:
 						console.log(this.state + " is unkown state")
 				}
 
 				// insertion point for recovery of form controls value for bool fields
+				this.ValueFormControl.setValue(this.cellboolean.Value)
 			}
 		)
 
@@ -155,84 +147,23 @@ export class CellDetailComponent implements OnInit {
 		// pointers fields, after the translation, are nulled in order to perform serialization
 
 		// insertion point for translation/nullation of each field
-		if (this.cell.CellStringID == undefined) {
-			this.cell.CellStringID = new NullInt64
-		}
-		if (this.cell.CellString != undefined) {
-			this.cell.CellStringID.Int64 = this.cell.CellString.ID
-			this.cell.CellStringID.Valid = true
-		} else {
-			this.cell.CellStringID.Int64 = 0
-			this.cell.CellStringID.Valid = true
-		}
-		if (this.cell.CellFloat64ID == undefined) {
-			this.cell.CellFloat64ID = new NullInt64
-		}
-		if (this.cell.CellFloat64 != undefined) {
-			this.cell.CellFloat64ID.Int64 = this.cell.CellFloat64.ID
-			this.cell.CellFloat64ID.Valid = true
-		} else {
-			this.cell.CellFloat64ID.Int64 = 0
-			this.cell.CellFloat64ID.Valid = true
-		}
-		if (this.cell.CellIntID == undefined) {
-			this.cell.CellIntID = new NullInt64
-		}
-		if (this.cell.CellInt != undefined) {
-			this.cell.CellIntID.Int64 = this.cell.CellInt.ID
-			this.cell.CellIntID.Valid = true
-		} else {
-			this.cell.CellIntID.Int64 = 0
-			this.cell.CellIntID.Valid = true
-		}
-		if (this.cell.CellBoolID == undefined) {
-			this.cell.CellBoolID = new NullInt64
-		}
-		if (this.cell.CellBool != undefined) {
-			this.cell.CellBoolID.Int64 = this.cell.CellBool.ID
-			this.cell.CellBoolID.Valid = true
-		} else {
-			this.cell.CellBoolID.Int64 = 0
-			this.cell.CellBoolID.Valid = true
-		}
-		if (this.cell.CellIconID == undefined) {
-			this.cell.CellIconID = new NullInt64
-		}
-		if (this.cell.CellIcon != undefined) {
-			this.cell.CellIconID.Int64 = this.cell.CellIcon.ID
-			this.cell.CellIconID.Valid = true
-		} else {
-			this.cell.CellIconID.Int64 = 0
-			this.cell.CellIconID.Valid = true
-		}
+		this.cellboolean.Value = this.ValueFormControl.value
 
 		// save from the front pointer space to the non pointer space for serialization
 
 		// insertion point for translation/nullation of each pointers
-		if (this.cell.Row_Cells_reverse != undefined) {
-			if (this.cell.Row_CellsDBID == undefined) {
-				this.cell.Row_CellsDBID = new NullInt64
-			}
-			this.cell.Row_CellsDBID.Int64 = this.cell.Row_Cells_reverse.ID
-			this.cell.Row_CellsDBID.Valid = true
-			if (this.cell.Row_CellsDBID_Index == undefined) {
-				this.cell.Row_CellsDBID_Index = new NullInt64
-			}
-			this.cell.Row_CellsDBID_Index.Valid = true
-			this.cell.Row_Cells_reverse = new RowDB // very important, otherwise, circular JSON
-		}
 
 		switch (this.state) {
-			case CellDetailComponentState.UPDATE_INSTANCE:
-				this.cellService.updateCell(this.cell, this.GONG__StackPath)
-					.subscribe(cell => {
-						this.cellService.CellServiceChanged.next("update")
+			case CellBooleanDetailComponentState.UPDATE_INSTANCE:
+				this.cellbooleanService.updateCellBoolean(this.cellboolean, this.GONG__StackPath)
+					.subscribe(cellboolean => {
+						this.cellbooleanService.CellBooleanServiceChanged.next("update")
 					});
 				break;
 			default:
-				this.cellService.postCell(this.cell, this.GONG__StackPath).subscribe(cell => {
-					this.cellService.CellServiceChanged.next("post")
-					this.cell = new (CellDB) // reset fields
+				this.cellbooleanService.postCellBoolean(this.cellboolean, this.GONG__StackPath).subscribe(cellboolean => {
+					this.cellbooleanService.CellBooleanServiceChanged.next("post")
+					this.cellboolean = new (CellBooleanDB) // reset fields
 				});
 		}
 	}
@@ -255,7 +186,7 @@ export class CellDetailComponent implements OnInit {
 		dialogConfig.height = "50%"
 		if (selectionMode == SelectionMode.ONE_MANY_ASSOCIATION_MODE) {
 
-			dialogData.ID = this.cell.ID!
+			dialogData.ID = this.cellboolean.ID!
 			dialogData.ReversePointer = reverseField
 			dialogData.OrderingMode = false
 			dialogData.SelectionMode = selectionMode
@@ -272,14 +203,14 @@ export class CellDetailComponent implements OnInit {
 			});
 		}
 		if (selectionMode == SelectionMode.MANY_MANY_ASSOCIATION_MODE) {
-			dialogData.ID = this.cell.ID!
+			dialogData.ID = this.cellboolean.ID!
 			dialogData.ReversePointer = reverseField
 			dialogData.OrderingMode = false
 			dialogData.SelectionMode = selectionMode
 			dialogData.GONG__StackPath = this.GONG__StackPath
 
 			// set up the source
-			dialogData.SourceStruct = "Cell"
+			dialogData.SourceStruct = "CellBoolean"
 			dialogData.SourceField = sourceField
 
 			// set up the intermediate struct
@@ -309,7 +240,7 @@ export class CellDetailComponent implements OnInit {
 		// dialogConfig.disableClose = true;
 		dialogConfig.autoFocus = true;
 		dialogConfig.data = {
-			ID: this.cell.ID,
+			ID: this.cellboolean.ID,
 			ReversePointer: reverseField,
 			OrderingMode: true,
 			GONG__StackPath: this.GONG__StackPath,
@@ -326,8 +257,8 @@ export class CellDetailComponent implements OnInit {
 	}
 
 	fillUpNameIfEmpty(event: { value: { Name: string; }; }) {
-		if (this.cell.Name == "") {
-			this.cell.Name = event.value.Name
+		if (this.cellboolean.Name == "") {
+			this.cellboolean.Name = event.value.Name
 		}
 	}
 
