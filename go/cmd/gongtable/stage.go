@@ -183,15 +183,12 @@ func stageInjection(stage *models.StageStruct) {
 	// Setup of pointers
 	__Cell__000000_Row_1_Cell_1.CellBool = __CellBoolean__000000_Row_1_Cell_1_Cell_False
 	__Cell__000001_Row_1_Cell_2.CellFloat64 = __CellFloat64__000000_Row_1_Cell2_Float
-	__Cell__000001_Row_1_Cell_2.CellInt = __CellInt__000000_Row_1_Cell_4_Int
 	__Cell__000002_Row_1_Cell_3.CellIcon = __CellIcon__000000_Row_1_Cell_3_Delete
-	__Cell__000003_Row_1_Cell_4.CellString = __CellString__000000_Row_1_Cell_5
 	__Cell__000003_Row_1_Cell_4.CellInt = __CellInt__000000_Row_1_Cell_4_Int
 	__Cell__000004_Row_1_Cell_5.CellString = __CellString__000000_Row_1_Cell_5
 	__Cell__000005_Row_2_Cell_1.CellBool = __CellBoolean__000001_Row_2_Cell_1_Cell_true
 	__Cell__000006_Row_2_Cell_2.CellFloat64 = __CellFloat64__000001_Row_2_Cell_2_Float
 	__Cell__000007_Row_2_Cell_3.CellIcon = __CellIcon__000001_Row_2_Cell_3_home
-	__Cell__000008_Row_2_Cell_4.CellString = __CellString__000001_Row_2_Cell_5
 	__Cell__000008_Row_2_Cell_4.CellInt = __CellInt__000001_Row_2_Cell_4_Int
 	__Cell__000009_Row_2_Cell_5.CellString = __CellString__000001_Row_2_Cell_5
 	__Row__000000_Row_1.Cells = append(__Row__000000_Row_1.Cells, __Cell__000000_Row_1_Cell_1)

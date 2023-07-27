@@ -387,22 +387,27 @@ func (backRepoCell *BackRepoCellStruct) CheckoutPhaseTwoInstance(backRepo *BackR
 
 	// insertion point for checkout of pointer encoding
 	// CellString field
+	cell.CellString = nil
 	if cellDB.CellStringID.Int64 != 0 {
 		cell.CellString = backRepo.BackRepoCellString.Map_CellStringDBID_CellStringPtr[uint(cellDB.CellStringID.Int64)]
 	}
 	// CellFloat64 field
+	cell.CellFloat64 = nil
 	if cellDB.CellFloat64ID.Int64 != 0 {
 		cell.CellFloat64 = backRepo.BackRepoCellFloat64.Map_CellFloat64DBID_CellFloat64Ptr[uint(cellDB.CellFloat64ID.Int64)]
 	}
 	// CellInt field
+	cell.CellInt = nil
 	if cellDB.CellIntID.Int64 != 0 {
 		cell.CellInt = backRepo.BackRepoCellInt.Map_CellIntDBID_CellIntPtr[uint(cellDB.CellIntID.Int64)]
 	}
 	// CellBool field
+	cell.CellBool = nil
 	if cellDB.CellBoolID.Int64 != 0 {
 		cell.CellBool = backRepo.BackRepoCellBoolean.Map_CellBooleanDBID_CellBooleanPtr[uint(cellDB.CellBoolID.Int64)]
 	}
 	// CellIcon field
+	cell.CellIcon = nil
 	if cellDB.CellIconID.Int64 != 0 {
 		cell.CellIcon = backRepo.BackRepoCellIcon.Map_CellIconDBID_CellIconPtr[uint(cellDB.CellIconID.Int64)]
 	}

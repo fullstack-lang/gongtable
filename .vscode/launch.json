@@ -51,8 +51,10 @@
             "mode": "debug",
             "program": "${workspaceFolder}/go/cmd/gongtable",
             "args": [
-                "-unmarshallFromCode=stage.go",
-                "-marshallOnCommit=stage"
+                "-unmarshallFromCode",
+                "stage.go",
+                "-marshallOnCommit",
+                "stage"
             ]
         },
     ]
