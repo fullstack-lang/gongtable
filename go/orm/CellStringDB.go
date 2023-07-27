@@ -60,6 +60,9 @@ type CellStringDB struct {
 
 	// Declation for basic field cellstringDB.Name
 	Name_Data sql.NullString
+
+	// Declation for basic field cellstringDB.Value
+	Value_Data sql.NullString
 	// encoding of pointers
 	CellStringPointersEnconding
 }
@@ -82,6 +85,8 @@ type CellStringWOP struct {
 	// insertion for WOP basic fields
 
 	Name string `xlsx:"1"`
+
+	Value string `xlsx:"2"`
 	// insertion for WOP pointer fields
 }
 
@@ -89,6 +94,7 @@ var CellString_Fields = []string{
 	// insertion for WOP basic fields
 	"ID",
 	"Name",
+	"Value",
 }
 
 type BackRepoCellStringStruct struct {
@@ -351,6 +357,9 @@ func (cellstringDB *CellStringDB) CopyBasicFieldsFromCellString(cellstring *mode
 
 	cellstringDB.Name_Data.String = cellstring.Name
 	cellstringDB.Name_Data.Valid = true
+
+	cellstringDB.Value_Data.String = cellstring.Value
+	cellstringDB.Value_Data.Valid = true
 }
 
 // CopyBasicFieldsFromCellStringWOP
@@ -359,12 +368,16 @@ func (cellstringDB *CellStringDB) CopyBasicFieldsFromCellStringWOP(cellstring *C
 
 	cellstringDB.Name_Data.String = cellstring.Name
 	cellstringDB.Name_Data.Valid = true
+
+	cellstringDB.Value_Data.String = cellstring.Value
+	cellstringDB.Value_Data.Valid = true
 }
 
 // CopyBasicFieldsToCellString
 func (cellstringDB *CellStringDB) CopyBasicFieldsToCellString(cellstring *models.CellString) {
 	// insertion point for checkout of basic fields (back repo to stage)
 	cellstring.Name = cellstringDB.Name_Data.String
+	cellstring.Value = cellstringDB.Value_Data.String
 }
 
 // CopyBasicFieldsToCellStringWOP
@@ -372,6 +385,7 @@ func (cellstringDB *CellStringDB) CopyBasicFieldsToCellStringWOP(cellstring *Cel
 	cellstring.ID = int(cellstringDB.ID)
 	// insertion point for checkout of basic fields (back repo to stage)
 	cellstring.Name = cellstringDB.Name_Data.String
+	cellstring.Value = cellstringDB.Value_Data.String
 }
 
 // Backup generates a json file from a slice of all CellStringDB instances in the backrepo

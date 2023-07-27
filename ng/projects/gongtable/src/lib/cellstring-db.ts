@@ -13,6 +13,7 @@ export class CellStringDB {
 
 	// insertion point for basic fields declarations
 	Name: string = ""
+	Value: string = ""
 
 	// insertion point for other declarations
 }

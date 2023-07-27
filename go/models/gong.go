@@ -1312,7 +1312,7 @@ func GetFields[Type Gongstruct]() (res []string) {
 	case CellInt:
 		res = []string{"Name", "Value"}
 	case CellString:
-		res = []string{"Name"}
+		res = []string{"Name", "Value"}
 	case DisplayedColumn:
 		res = []string{"Name"}
 	case Row:
@@ -1391,6 +1391,8 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 		// string value of fields
 		case "Name":
 			res = any(instance).(CellString).Name
+		case "Value":
+			res = any(instance).(CellString).Value
 		}
 	case DisplayedColumn:
 		switch fieldName {

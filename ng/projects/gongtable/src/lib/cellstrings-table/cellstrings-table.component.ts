@@ -75,6 +75,9 @@ export class CellStringsTableComponent implements OnInit {
         case 'Name':
           return cellstringDB.Name;
 
+        case 'Value':
+          return cellstringDB.Value;
+
         default:
           console.assert(false, "Unknown field")
           return "";
@@ -90,6 +93,7 @@ export class CellStringsTableComponent implements OnInit {
 
       // insertion point for merging of fields
       mergedContent += cellstringDB.Name.toLowerCase()
+      mergedContent += cellstringDB.Value.toLowerCase()
 
       let isSelected = mergedContent.includes(filter.toLowerCase())
       return isSelected
@@ -145,10 +149,12 @@ export class CellStringsTableComponent implements OnInit {
     if (this.mode == TableComponentMode.DISPLAY_MODE) {
       this.displayedColumns = ['ID', 'Delete', // insertion point for columns to display
         "Name",
+        "Value",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
+        "Value",
       ]
       this.selection = new SelectionModel<CellStringDB>(allowMultiSelect, this.initialSelection);
     }

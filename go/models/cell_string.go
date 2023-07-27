@@ -1,5 +1,6 @@
 package models
 
 type CellString struct {
-	Name string
+	Name  string
+	Value string
 }

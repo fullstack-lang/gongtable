@@ -785,6 +785,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// remove first and last char
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_CellString[identifier].Name = fielValue
+				case "Value":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_CellString[identifier].Value = fielValue
 				}
 			case "DisplayedColumn":
 				switch fieldName {

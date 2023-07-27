@@ -43,34 +43,39 @@ func stageInjection(stage *models.StageStruct) {
 	__Cell__000001_Row_1_Cell_2 := (&models.Cell{Name: `Row 1 - Cell 2`}).Stage(stage)
 	__Cell__000002_Row_1_Cell_3 := (&models.Cell{Name: `Row 1 - Cell 3`}).Stage(stage)
 	__Cell__000003_Row_1_Cell_4 := (&models.Cell{Name: `Row 1 - Cell 4`}).Stage(stage)
-	__Cell__000004_Row_2_Cell_1 := (&models.Cell{Name: `Row 2 - Cell 1`}).Stage(stage)
-	__Cell__000005_Row_2_Cell_2 := (&models.Cell{Name: `Row 2 - Cell 2`}).Stage(stage)
-	__Cell__000006_Row_2_Cell_3 := (&models.Cell{Name: `Row 2 - Cell 3`}).Stage(stage)
-	__Cell__000007_Row_2_Cell_4 := (&models.Cell{Name: `Row 2 - Cell 4`}).Stage(stage)
+	__Cell__000004_Row_1_Cell_5 := (&models.Cell{Name: `Row 1 - Cell 5`}).Stage(stage)
+	__Cell__000005_Row_2_Cell_1 := (&models.Cell{Name: `Row 2 - Cell 1`}).Stage(stage)
+	__Cell__000006_Row_2_Cell_2 := (&models.Cell{Name: `Row 2 - Cell 2`}).Stage(stage)
+	__Cell__000007_Row_2_Cell_3 := (&models.Cell{Name: `Row 2 - Cell 3`}).Stage(stage)
+	__Cell__000008_Row_2_Cell_4 := (&models.Cell{Name: `Row 2 - Cell 4`}).Stage(stage)
+	__Cell__000009_Row_2_Cell_5 := (&models.Cell{Name: `Row 2 - Cell 5`}).Stage(stage)
 
 	// Declarations of staged instances of CellBoolean
-	__CellBoolean__000000_Row_2_Cell_1 := (&models.CellBoolean{Name: `Row 2 - Cell 1`}).Stage(stage)
+	__CellBoolean__000000_Row_1_Cell_1_Cell_False := (&models.CellBoolean{Name: `Row 1 -Cell 1 - Cell False`}).Stage(stage)
+	__CellBoolean__000001_Row_2_Cell_1_Cell_true := (&models.CellBoolean{Name: `Row 2 - Cell 1 - Cell true`}).Stage(stage)
 
 	// Declarations of staged instances of CellFloat64
-	__CellFloat64__000000_Row_2_Cell_2 := (&models.CellFloat64{Name: `Row 2 - Cell 2`}).Stage(stage)
+	__CellFloat64__000000_Row_1_Cell2_Float := (&models.CellFloat64{Name: `Row 1 - Cell2 - Float`}).Stage(stage)
+	__CellFloat64__000001_Row_2_Cell_2_Float := (&models.CellFloat64{Name: `Row 2 - Cell 2 - Float`}).Stage(stage)
 
 	// Declarations of staged instances of CellIcon
-	__CellIcon__000000_Row_1_Cell_3 := (&models.CellIcon{Name: `Row 1 - Cell 3`}).Stage(stage)
-	__CellIcon__000001_Row_2_Cell_3 := (&models.CellIcon{Name: `Row 2 - Cell 3`}).Stage(stage)
+	__CellIcon__000000_Row_1_Cell_3_Delete := (&models.CellIcon{Name: `Row 1 - Cell 3 - Delete`}).Stage(stage)
+	__CellIcon__000001_Row_2_Cell_3_home := (&models.CellIcon{Name: `Row 2 - Cell 3 - home`}).Stage(stage)
 
 	// Declarations of staged instances of CellInt
-	__CellInt__000000_Row_1_Cell_2 := (&models.CellInt{Name: `Row 1 - Cell 2`}).Stage(stage)
+	__CellInt__000000_Row_1_Cell_4_Int := (&models.CellInt{Name: `Row 1 - Cell 4 - Int`}).Stage(stage)
+	__CellInt__000001_Row_2_Cell_4_Int := (&models.CellInt{Name: `Row 2 - Cell 4 - Int`}).Stage(stage)
 
 	// Declarations of staged instances of CellString
-	__CellString__000000_Row_1_Cell_1_ := (&models.CellString{Name: `Row 1 - Cell 1 `}).Stage(stage)
-	__CellString__000001_Row_1_Cell_4 := (&models.CellString{Name: `Row 1 - Cell 4`}).Stage(stage)
-	__CellString__000002_Row_2_Cell_4 := (&models.CellString{Name: `Row 2 - Cell 4`}).Stage(stage)
+	__CellString__000000_Row_1_Cell_5 := (&models.CellString{Name: `Row 1 - Cell 5`}).Stage(stage)
+	__CellString__000001_Row_2_Cell_5 := (&models.CellString{Name: `Row 2 - Cell 5`}).Stage(stage)
 
 	// Declarations of staged instances of DisplayedColumn
-	__DisplayedColumn__000000_Column_1_String := (&models.DisplayedColumn{Name: `Column 1 - String`}).Stage(stage)
-	__DisplayedColumn__000001_Column_2_Int := (&models.DisplayedColumn{Name: `Column 2 - Int`}).Stage(stage)
+	__DisplayedColumn__000000_Column_1_Boolean := (&models.DisplayedColumn{Name: `Column 1 - Boolean`}).Stage(stage)
+	__DisplayedColumn__000001_Column_2_Float64 := (&models.DisplayedColumn{Name: `Column 2 - Float64`}).Stage(stage)
 	__DisplayedColumn__000002_Column_3_Icon := (&models.DisplayedColumn{Name: `Column 3 - Icon`}).Stage(stage)
-	__DisplayedColumn__000003_Column_4 := (&models.DisplayedColumn{Name: `Column 4`}).Stage(stage)
+	__DisplayedColumn__000003_Column_4_Int := (&models.DisplayedColumn{Name: `Column 4 - Int`}).Stage(stage)
+	__DisplayedColumn__000004_Column_5_String := (&models.DisplayedColumn{Name: `Column 5 - String`}).Stage(stage)
 
 	// Declarations of staged instances of Row
 	__Row__000000_Row_1 := (&models.Row{Name: `Row 1`}).Stage(stage)
@@ -94,57 +99,77 @@ func stageInjection(stage *models.StageStruct) {
 	__Cell__000003_Row_1_Cell_4.Name = `Row 1 - Cell 4`
 
 	// Cell values setup
-	__Cell__000004_Row_2_Cell_1.Name = `Row 2 - Cell 1`
+	__Cell__000004_Row_1_Cell_5.Name = `Row 1 - Cell 5`
 
 	// Cell values setup
-	__Cell__000005_Row_2_Cell_2.Name = `Row 2 - Cell 2`
+	__Cell__000005_Row_2_Cell_1.Name = `Row 2 - Cell 1`
 
 	// Cell values setup
-	__Cell__000006_Row_2_Cell_3.Name = `Row 2 - Cell 3`
+	__Cell__000006_Row_2_Cell_2.Name = `Row 2 - Cell 2`
 
 	// Cell values setup
-	__Cell__000007_Row_2_Cell_4.Name = `Row 2 - Cell 4`
+	__Cell__000007_Row_2_Cell_3.Name = `Row 2 - Cell 3`
+
+	// Cell values setup
+	__Cell__000008_Row_2_Cell_4.Name = `Row 2 - Cell 4`
+
+	// Cell values setup
+	__Cell__000009_Row_2_Cell_5.Name = `Row 2 - Cell 5`
 
 	// CellBoolean values setup
-	__CellBoolean__000000_Row_2_Cell_1.Name = `Row 2 - Cell 1`
-	__CellBoolean__000000_Row_2_Cell_1.Value = true
+	__CellBoolean__000000_Row_1_Cell_1_Cell_False.Name = `Row 1 -Cell 1 - Cell False`
+	__CellBoolean__000000_Row_1_Cell_1_Cell_False.Value = false
+
+	// CellBoolean values setup
+	__CellBoolean__000001_Row_2_Cell_1_Cell_true.Name = `Row 2 - Cell 1 - Cell true`
+	__CellBoolean__000001_Row_2_Cell_1_Cell_true.Value = true
 
 	// CellFloat64 values setup
-	__CellFloat64__000000_Row_2_Cell_2.Name = `Row 2 - Cell 2`
-	__CellFloat64__000000_Row_2_Cell_2.Value = 500.433333
+	__CellFloat64__000000_Row_1_Cell2_Float.Name = `Row 1 - Cell2 - Float`
+	__CellFloat64__000000_Row_1_Cell2_Float.Value = 20.433333
+
+	// CellFloat64 values setup
+	__CellFloat64__000001_Row_2_Cell_2_Float.Name = `Row 2 - Cell 2 - Float`
+	__CellFloat64__000001_Row_2_Cell_2_Float.Value = 18.550000
 
 	// CellIcon values setup
-	__CellIcon__000000_Row_1_Cell_3.Name = `Row 1 - Cell 3`
-	__CellIcon__000000_Row_1_Cell_3.Icon = `delete`
+	__CellIcon__000000_Row_1_Cell_3_Delete.Name = `Row 1 - Cell 3 - Delete`
+	__CellIcon__000000_Row_1_Cell_3_Delete.Icon = `delete`
 
 	// CellIcon values setup
-	__CellIcon__000001_Row_2_Cell_3.Name = `Row 2 - Cell 3`
-	__CellIcon__000001_Row_2_Cell_3.Icon = `home`
+	__CellIcon__000001_Row_2_Cell_3_home.Name = `Row 2 - Cell 3 - home`
+	__CellIcon__000001_Row_2_Cell_3_home.Icon = `home`
 
 	// CellInt values setup
-	__CellInt__000000_Row_1_Cell_2.Name = `Row 1 - Cell 2`
-	__CellInt__000000_Row_1_Cell_2.Value = 10
+	__CellInt__000000_Row_1_Cell_4_Int.Name = `Row 1 - Cell 4 - Int`
+	__CellInt__000000_Row_1_Cell_4_Int.Value = 10
+
+	// CellInt values setup
+	__CellInt__000001_Row_2_Cell_4_Int.Name = `Row 2 - Cell 4 - Int`
+	__CellInt__000001_Row_2_Cell_4_Int.Value = 288
 
 	// CellString values setup
-	__CellString__000000_Row_1_Cell_1_.Name = `Row 1 - Cell 1 `
+	__CellString__000000_Row_1_Cell_5.Name = `Row 1 - Cell 5`
+	__CellString__000000_Row_1_Cell_5.Value = `Je ferais le métier`
 
 	// CellString values setup
-	__CellString__000001_Row_1_Cell_4.Name = `Row 1 - Cell 4`
-
-	// CellString values setup
-	__CellString__000002_Row_2_Cell_4.Name = `Row 2 - Cell 4`
+	__CellString__000001_Row_2_Cell_5.Name = `Row 2 - Cell 5`
+	__CellString__000001_Row_2_Cell_5.Value = `des idoles antiques`
 
 	// DisplayedColumn values setup
-	__DisplayedColumn__000000_Column_1_String.Name = `Column 1 - String`
+	__DisplayedColumn__000000_Column_1_Boolean.Name = `Column 1 - Boolean`
 
 	// DisplayedColumn values setup
-	__DisplayedColumn__000001_Column_2_Int.Name = `Column 2 - Int`
+	__DisplayedColumn__000001_Column_2_Float64.Name = `Column 2 - Float64`
 
 	// DisplayedColumn values setup
 	__DisplayedColumn__000002_Column_3_Icon.Name = `Column 3 - Icon`
 
 	// DisplayedColumn values setup
-	__DisplayedColumn__000003_Column_4.Name = `Column 4`
+	__DisplayedColumn__000003_Column_4_Int.Name = `Column 4 - Int`
+
+	// DisplayedColumn values setup
+	__DisplayedColumn__000004_Column_5_String.Name = `Column 5 - String`
 
 	// Row values setup
 	__Row__000000_Row_1.Name = `Row 1`
@@ -156,26 +181,34 @@ func stageInjection(stage *models.StageStruct) {
 	__Table__000000_Table.Name = `Table`
 
 	// Setup of pointers
-	__Cell__000000_Row_1_Cell_1.CellString = __CellString__000000_Row_1_Cell_1_
-	__Cell__000001_Row_1_Cell_2.CellInt = __CellInt__000000_Row_1_Cell_2
-	__Cell__000002_Row_1_Cell_3.CellIcon = __CellIcon__000000_Row_1_Cell_3
-	__Cell__000003_Row_1_Cell_4.CellString = __CellString__000001_Row_1_Cell_4
-	__Cell__000004_Row_2_Cell_1.CellBool = __CellBoolean__000000_Row_2_Cell_1
-	__Cell__000005_Row_2_Cell_2.CellFloat64 = __CellFloat64__000000_Row_2_Cell_2
-	__Cell__000006_Row_2_Cell_3.CellIcon = __CellIcon__000001_Row_2_Cell_3
-	__Cell__000007_Row_2_Cell_4.CellString = __CellString__000002_Row_2_Cell_4
+	__Cell__000000_Row_1_Cell_1.CellBool = __CellBoolean__000000_Row_1_Cell_1_Cell_False
+	__Cell__000001_Row_1_Cell_2.CellFloat64 = __CellFloat64__000000_Row_1_Cell2_Float
+	__Cell__000001_Row_1_Cell_2.CellInt = __CellInt__000000_Row_1_Cell_4_Int
+	__Cell__000002_Row_1_Cell_3.CellIcon = __CellIcon__000000_Row_1_Cell_3_Delete
+	__Cell__000003_Row_1_Cell_4.CellString = __CellString__000000_Row_1_Cell_5
+	__Cell__000003_Row_1_Cell_4.CellInt = __CellInt__000000_Row_1_Cell_4_Int
+	__Cell__000004_Row_1_Cell_5.CellString = __CellString__000000_Row_1_Cell_5
+	__Cell__000005_Row_2_Cell_1.CellBool = __CellBoolean__000001_Row_2_Cell_1_Cell_true
+	__Cell__000006_Row_2_Cell_2.CellFloat64 = __CellFloat64__000001_Row_2_Cell_2_Float
+	__Cell__000007_Row_2_Cell_3.CellIcon = __CellIcon__000001_Row_2_Cell_3_home
+	__Cell__000008_Row_2_Cell_4.CellString = __CellString__000001_Row_2_Cell_5
+	__Cell__000008_Row_2_Cell_4.CellInt = __CellInt__000001_Row_2_Cell_4_Int
+	__Cell__000009_Row_2_Cell_5.CellString = __CellString__000001_Row_2_Cell_5
 	__Row__000000_Row_1.Cells = append(__Row__000000_Row_1.Cells, __Cell__000000_Row_1_Cell_1)
 	__Row__000000_Row_1.Cells = append(__Row__000000_Row_1.Cells, __Cell__000001_Row_1_Cell_2)
 	__Row__000000_Row_1.Cells = append(__Row__000000_Row_1.Cells, __Cell__000002_Row_1_Cell_3)
 	__Row__000000_Row_1.Cells = append(__Row__000000_Row_1.Cells, __Cell__000003_Row_1_Cell_4)
-	__Row__000001_Row_2.Cells = append(__Row__000001_Row_2.Cells, __Cell__000004_Row_2_Cell_1)
-	__Row__000001_Row_2.Cells = append(__Row__000001_Row_2.Cells, __Cell__000005_Row_2_Cell_2)
-	__Row__000001_Row_2.Cells = append(__Row__000001_Row_2.Cells, __Cell__000006_Row_2_Cell_3)
-	__Row__000001_Row_2.Cells = append(__Row__000001_Row_2.Cells, __Cell__000007_Row_2_Cell_4)
+	__Row__000000_Row_1.Cells = append(__Row__000000_Row_1.Cells, __Cell__000004_Row_1_Cell_5)
+	__Row__000001_Row_2.Cells = append(__Row__000001_Row_2.Cells, __Cell__000005_Row_2_Cell_1)
+	__Row__000001_Row_2.Cells = append(__Row__000001_Row_2.Cells, __Cell__000006_Row_2_Cell_2)
+	__Row__000001_Row_2.Cells = append(__Row__000001_Row_2.Cells, __Cell__000007_Row_2_Cell_3)
+	__Row__000001_Row_2.Cells = append(__Row__000001_Row_2.Cells, __Cell__000008_Row_2_Cell_4)
+	__Row__000001_Row_2.Cells = append(__Row__000001_Row_2.Cells, __Cell__000009_Row_2_Cell_5)
+	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000004_Column_5_String)
 	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000002_Column_3_Icon)
-	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000003_Column_4)
-	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000001_Column_2_Int)
-	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000000_Column_1_String)
+	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000003_Column_4_Int)
+	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000001_Column_2_Float64)
+	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000000_Column_1_Boolean)
 	__Table__000000_Table.Rows = append(__Table__000000_Table.Rows, __Row__000000_Row_1)
 	__Table__000000_Table.Rows = append(__Table__000000_Table.Rows, __Row__000001_Row_2)
 }
