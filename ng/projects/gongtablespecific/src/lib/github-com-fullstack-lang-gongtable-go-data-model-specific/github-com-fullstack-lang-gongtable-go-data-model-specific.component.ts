@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Subscription, debounceTime, distinctUntilChanged, forkJoin } from 'rxjs';
 
 import * as gongtable from 'gongtable'
 
@@ -18,7 +18,7 @@ const allowMultiSelect = true
   styleUrls: ['./github-com-fullstack-lang-gongtable-go-data-model-specific.component.css']
 })
 export class GithubComFullstackLangGongtableGoDataModelSpecificComponent implements OnInit {
-  
+
   displayedColumns: string[] = []
   allDisplayedColumns: string[] = [] // in case there is a checkbox
 
@@ -29,7 +29,7 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
 
   // for selection
   selectedTable: gongtable.TableDB | undefined = undefined;
-  
+
   @Input() DataStack: string = ""
   @Input() TableName: string = ""
 
@@ -39,7 +39,7 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
   // for sorting
   @ViewChild(MatSort)
   sort: MatSort | undefined
-  matSortDirective : string = ""
+  matSortDirective: string = ""
 
   // for pagination
   @ViewChild(MatPaginator)
@@ -61,6 +61,7 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
   constructor(
     private gongtableFrontRepoService: gongtable.FrontRepoService,
     private gongtableCommitNbFromBackService: gongtable.CommitNbFromBackService,
+    private rowService: gongtable.RowService,
   ) {
 
   }
@@ -132,9 +133,9 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
         this.dataSource = new MatTableDataSource(this.selectedTable.Rows!)
 
         if (this.selectedTable.HasCheckableRows) {
-          
+
         }
-  
+
         // enable filtering on all fields (including pointers and reverse pointer, which is not done by default)
 
         if (this.selectedTable.DisplayedColumns == undefined) {
@@ -160,12 +161,12 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
               if (rowDB.IsChecked) {
                 this.initialSelection.push(rowDB)
               }
-            }  
+            }
             this.selection = new SelectionModel<gongtable.RowDB>(allowMultiSelect, this.initialSelection)
           }
 
         }
-        this.allDisplayedColumns = this.allDisplayedColumns.concat( this.displayedColumns)
+        this.allDisplayedColumns = this.allDisplayedColumns.concat(this.displayedColumns)
 
         if (this.selectedTable.HasFiltering) {
           this.dataSource.filterPredicate = (rowDB: gongtable.RowDB, filter: string) => {
@@ -208,7 +209,7 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
               return ""
             }
 
-            let cell : gongtable.CellDB = rowDB.Cells[index]
+            let cell: gongtable.CellDB = rowDB.Cells[index]
             if (cell.CellInt) {
               return cell.CellInt.Value
             }
@@ -228,7 +229,7 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
                 return "false"
               }
             }
-            
+
             return "";
           };
         }
@@ -247,7 +248,7 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  
+
   selection: SelectionModel<gongtable.RowDB> = new (SelectionModel)
   initialSelection = new Array<gongtable.RowDB>()
 
@@ -262,5 +263,24 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
     this.isAllSelected() ?
       this.selection.clear() :
       this.selectedTable?.Rows?.forEach(row => this.selection.select(row));
+  }
+
+  save() {
+
+    this.selectedTable?.Rows?.forEach(row => row.IsChecked = false)
+
+    for (let row of this.selection.selected) {
+      row.IsChecked = true
+    }
+
+    const promises = []
+    for (let row of this.selectedTable?.Rows!) {
+
+      promises.push(this.rowService.updateRow(row, this.DataStack))
+    }
+
+    forkJoin(promises).subscribe(
+      () => this.refresh()
+    )
   }
 }

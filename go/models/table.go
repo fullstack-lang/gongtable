@@ -10,4 +10,6 @@ type Table struct {
 	HasPaginator     bool
 
 	HasCheckableRows bool
+
+	HasSaveButton bool
 }

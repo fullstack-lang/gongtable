@@ -240,6 +240,7 @@ func stageInjection(stage *models.StageStruct) {
 	__Table__000000_Table.HasColumnSorting = true
 	__Table__000000_Table.HasPaginator = true
 	__Table__000000_Table.HasCheckableRows = true
+	__Table__000000_Table.HasSaveButton = true
 
 	// Table values setup
 	__Table__000001_Table_2.Name = `Table 2`
@@ -247,6 +248,7 @@ func stageInjection(stage *models.StageStruct) {
 	__Table__000001_Table_2.HasColumnSorting = false
 	__Table__000001_Table_2.HasPaginator = false
 	__Table__000001_Table_2.HasCheckableRows = false
+	__Table__000001_Table_2.HasSaveButton = false
 
 	// Setup of pointers
 	__Cell__000000_Row_1_Cell_1.CellBool = __CellBoolean__000000_Row_1_Cell_1_Cell_False
