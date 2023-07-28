@@ -885,6 +885,27 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 			case "Table":
 				switch fieldName {
 				// insertion point for field dependant code
+				case "HasFiltering":
+					// convert string to boolean
+					fielValue, err := strconv.ParseBool(ident.Name)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_Table[identifier].HasFiltering = fielValue
+				case "HasColumnSorting":
+					// convert string to boolean
+					fielValue, err := strconv.ParseBool(ident.Name)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_Table[identifier].HasColumnSorting = fielValue
+				case "HasPaginator":
+					// convert string to boolean
+					fielValue, err := strconv.ParseBool(ident.Name)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_Table[identifier].HasPaginator = fielValue
 				}
 			}
 		case *ast.SelectorExpr:

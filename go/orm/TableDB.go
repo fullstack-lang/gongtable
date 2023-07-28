@@ -60,6 +60,18 @@ type TableDB struct {
 
 	// Declation for basic field tableDB.Name
 	Name_Data sql.NullString
+
+	// Declation for basic field tableDB.HasFiltering
+	// provide the sql storage for the boolan
+	HasFiltering_Data sql.NullBool
+
+	// Declation for basic field tableDB.HasColumnSorting
+	// provide the sql storage for the boolan
+	HasColumnSorting_Data sql.NullBool
+
+	// Declation for basic field tableDB.HasPaginator
+	// provide the sql storage for the boolan
+	HasPaginator_Data sql.NullBool
 	// encoding of pointers
 	TablePointersEnconding
 }
@@ -82,6 +94,12 @@ type TableWOP struct {
 	// insertion for WOP basic fields
 
 	Name string `xlsx:"1"`
+
+	HasFiltering bool `xlsx:"2"`
+
+	HasColumnSorting bool `xlsx:"3"`
+
+	HasPaginator bool `xlsx:"4"`
 	// insertion for WOP pointer fields
 }
 
@@ -89,6 +107,9 @@ var Table_Fields = []string{
 	// insertion for WOP basic fields
 	"ID",
 	"Name",
+	"HasFiltering",
+	"HasColumnSorting",
+	"HasPaginator",
 }
 
 type BackRepoTableStruct struct {
@@ -443,6 +464,15 @@ func (tableDB *TableDB) CopyBasicFieldsFromTable(table *models.Table) {
 
 	tableDB.Name_Data.String = table.Name
 	tableDB.Name_Data.Valid = true
+
+	tableDB.HasFiltering_Data.Bool = table.HasFiltering
+	tableDB.HasFiltering_Data.Valid = true
+
+	tableDB.HasColumnSorting_Data.Bool = table.HasColumnSorting
+	tableDB.HasColumnSorting_Data.Valid = true
+
+	tableDB.HasPaginator_Data.Bool = table.HasPaginator
+	tableDB.HasPaginator_Data.Valid = true
 }
 
 // CopyBasicFieldsFromTableWOP
@@ -451,12 +481,24 @@ func (tableDB *TableDB) CopyBasicFieldsFromTableWOP(table *TableWOP) {
 
 	tableDB.Name_Data.String = table.Name
 	tableDB.Name_Data.Valid = true
+
+	tableDB.HasFiltering_Data.Bool = table.HasFiltering
+	tableDB.HasFiltering_Data.Valid = true
+
+	tableDB.HasColumnSorting_Data.Bool = table.HasColumnSorting
+	tableDB.HasColumnSorting_Data.Valid = true
+
+	tableDB.HasPaginator_Data.Bool = table.HasPaginator
+	tableDB.HasPaginator_Data.Valid = true
 }
 
 // CopyBasicFieldsToTable
 func (tableDB *TableDB) CopyBasicFieldsToTable(table *models.Table) {
 	// insertion point for checkout of basic fields (back repo to stage)
 	table.Name = tableDB.Name_Data.String
+	table.HasFiltering = tableDB.HasFiltering_Data.Bool
+	table.HasColumnSorting = tableDB.HasColumnSorting_Data.Bool
+	table.HasPaginator = tableDB.HasPaginator_Data.Bool
 }
 
 // CopyBasicFieldsToTableWOP
@@ -464,6 +506,9 @@ func (tableDB *TableDB) CopyBasicFieldsToTableWOP(table *TableWOP) {
 	table.ID = int(tableDB.ID)
 	// insertion point for checkout of basic fields (back repo to stage)
 	table.Name = tableDB.Name_Data.String
+	table.HasFiltering = tableDB.HasFiltering_Data.Bool
+	table.HasColumnSorting = tableDB.HasColumnSorting_Data.Bool
+	table.HasPaginator = tableDB.HasPaginator_Data.Bool
 }
 
 // Backup generates a json file from a slice of all TableDB instances in the backrepo

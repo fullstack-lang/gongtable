@@ -16,6 +16,7 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
   dataSource: gongtable.RowDB[] = []
 
   @Input() DataStack: string = ""
+  @Input() TableName: string = ""
 
   // the component is refreshed when modification are performed in the back repo 
   // 
@@ -76,9 +77,22 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
       gongtablesFrontRepo => {
         this.gongtableFrontRepo = gongtablesFrontRepo
 
-        this.dataSource = this.gongtableFrontRepo.Rows_array
+        let selectedTable: gongtable.TableDB | undefined = undefined
+        for (let table of this.gongtableFrontRepo.Tables_array) {
+          if (table.Name == this.TableName) {
+            selectedTable = table
+          }
+        }
 
-        for (let column of this.gongtableFrontRepo.DisplayedColumns_array) {
+        if (selectedTable == undefined) {
+          return
+        }
+
+        this.dataSource = selectedTable.Rows!
+        if (selectedTable.DisplayedColumns == undefined) {
+          return
+        }
+        for (let column of selectedTable.DisplayedColumns) {
           this.displayedColumns.push(column.Name)
         }
       }

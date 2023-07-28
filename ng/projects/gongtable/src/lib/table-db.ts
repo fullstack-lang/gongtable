@@ -15,6 +15,9 @@ export class TableDB {
 
 	// insertion point for basic fields declarations
 	Name: string = ""
+	HasFiltering: boolean = false
+	HasColumnSorting: boolean = false
+	HasPaginator: boolean = false
 
 	// insertion point for other declarations
 	DisplayedColumns?: Array<DisplayedColumnDB>

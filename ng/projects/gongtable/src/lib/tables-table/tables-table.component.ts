@@ -75,6 +75,15 @@ export class TablesTableComponent implements OnInit {
         case 'Name':
           return tableDB.Name;
 
+        case 'HasFiltering':
+          return tableDB.HasFiltering ? "true" : "false";
+
+        case 'HasColumnSorting':
+          return tableDB.HasColumnSorting ? "true" : "false";
+
+        case 'HasPaginator':
+          return tableDB.HasPaginator ? "true" : "false";
+
         default:
           console.assert(false, "Unknown field")
           return "";
@@ -145,10 +154,16 @@ export class TablesTableComponent implements OnInit {
     if (this.mode == TableComponentMode.DISPLAY_MODE) {
       this.displayedColumns = ['ID', 'Delete', // insertion point for columns to display
         "Name",
+        "HasFiltering",
+        "HasColumnSorting",
+        "HasPaginator",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
+        "HasFiltering",
+        "HasColumnSorting",
+        "HasPaginator",
       ]
       this.selection = new SelectionModel<TableDB>(allowMultiSelect, this.initialSelection);
     }

@@ -33,6 +33,9 @@ enum TableDetailComponentState {
 export class TableDetailComponent implements OnInit {
 
 	// insertion point for declarations
+	HasFilteringFormControl: UntypedFormControl = new UntypedFormControl(false);
+	HasColumnSortingFormControl: UntypedFormControl = new UntypedFormControl(false);
+	HasPaginatorFormControl: UntypedFormControl = new UntypedFormControl(false);
 
 	// the TableDB of interest
 	table: TableDB = new TableDB
@@ -133,6 +136,9 @@ export class TableDetailComponent implements OnInit {
 				}
 
 				// insertion point for recovery of form controls value for bool fields
+				this.HasFilteringFormControl.setValue(this.table.HasFiltering)
+				this.HasColumnSortingFormControl.setValue(this.table.HasColumnSorting)
+				this.HasPaginatorFormControl.setValue(this.table.HasPaginator)
 			}
 		)
 
@@ -145,6 +151,9 @@ export class TableDetailComponent implements OnInit {
 		// pointers fields, after the translation, are nulled in order to perform serialization
 
 		// insertion point for translation/nullation of each field
+		this.table.HasFiltering = this.HasFilteringFormControl.value
+		this.table.HasColumnSorting = this.HasColumnSortingFormControl.value
+		this.table.HasPaginator = this.HasPaginatorFormControl.value
 
 		// save from the front pointer space to the non pointer space for serialization
 

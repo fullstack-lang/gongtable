@@ -12,8 +12,17 @@
         <ng-container *ngTemplateOutlet="radioToolbar"></ng-container>
     </as-split-area>
     <as-split-area [size]="$any('*')">
-        <lib-github-com-fullstack-lang-gongtable-go-data-model-specific [DataStack]="DataStack">
-        </lib-github-com-fullstack-lang-gongtable-go-data-model-specific>
+        <as-split direction="vertical">
+            <as-split-area [size]=50>
+                <lib-github-com-fullstack-lang-gongtable-go-data-model-specific TableName="Table" [DataStack]="DataStack">
+                </lib-github-com-fullstack-lang-gongtable-go-data-model-specific>
+            </as-split-area>
+            <as-split-area [size]=50>
+                <lib-github-com-fullstack-lang-gongtable-go-data-model-specific TableName="Table 2" [DataStack]="DataStack">
+                </lib-github-com-fullstack-lang-gongtable-go-data-model-specific>
+            </as-split-area>
+        </as-split>
+
     </as-split-area>
 </as-split>
 
