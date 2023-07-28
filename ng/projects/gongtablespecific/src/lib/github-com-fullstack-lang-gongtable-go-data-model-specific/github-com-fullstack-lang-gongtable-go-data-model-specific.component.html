@@ -57,3 +57,4 @@
              The *matRowDef directive defines a row for each row object in dataSource and sets its columns. -->
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
+<mat-paginator *ngIf="selectedTable?.HasPaginator" [pageSizeOptions]="[1, 2, 50, 100, 500, 1000]" showFirstLastButtons></mat-paginator>

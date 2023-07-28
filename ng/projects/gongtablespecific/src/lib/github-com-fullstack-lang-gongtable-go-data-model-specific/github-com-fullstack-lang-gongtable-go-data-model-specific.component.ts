@@ -6,6 +6,7 @@ import * as gongtable from 'gongtable'
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'lib-github-com-fullstack-lang-gongtable-go-data-model-specific',
@@ -31,6 +32,10 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
   @ViewChild(MatSort)
   sort: MatSort | undefined
   matSortDirective : string = ""
+
+  // for pagination
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator | undefined;
 
   // the component is refreshed when modification are performed in the back repo 
   // 
@@ -199,6 +204,9 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
           };
         }
 
+        if (this.selectedTable.HasPaginator) {
+          this.dataSource.paginator = this.paginator!
+        }
       }
     )
   }
