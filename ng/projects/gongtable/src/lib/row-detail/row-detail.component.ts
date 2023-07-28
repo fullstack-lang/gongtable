@@ -35,6 +35,7 @@ enum RowDetailComponentState {
 export class RowDetailComponent implements OnInit {
 
 	// insertion point for declarations
+	IsCheckedFormControl: UntypedFormControl = new UntypedFormControl(false);
 
 	// the RowDB of interest
 	row: RowDB = new RowDB
@@ -143,6 +144,7 @@ export class RowDetailComponent implements OnInit {
 				}
 
 				// insertion point for recovery of form controls value for bool fields
+				this.IsCheckedFormControl.setValue(this.row.IsChecked)
 			}
 		)
 
@@ -155,6 +157,7 @@ export class RowDetailComponent implements OnInit {
 		// pointers fields, after the translation, are nulled in order to perform serialization
 
 		// insertion point for translation/nullation of each field
+		this.row.IsChecked = this.IsCheckedFormControl.value
 
 		// save from the front pointer space to the non pointer space for serialization
 

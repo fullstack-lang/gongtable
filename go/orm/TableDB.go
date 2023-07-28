@@ -72,6 +72,10 @@ type TableDB struct {
 	// Declation for basic field tableDB.HasPaginator
 	// provide the sql storage for the boolan
 	HasPaginator_Data sql.NullBool
+
+	// Declation for basic field tableDB.HasCheckableRows
+	// provide the sql storage for the boolan
+	HasCheckableRows_Data sql.NullBool
 	// encoding of pointers
 	TablePointersEnconding
 }
@@ -100,6 +104,8 @@ type TableWOP struct {
 	HasColumnSorting bool `xlsx:"3"`
 
 	HasPaginator bool `xlsx:"4"`
+
+	HasCheckableRows bool `xlsx:"5"`
 	// insertion for WOP pointer fields
 }
 
@@ -110,6 +116,7 @@ var Table_Fields = []string{
 	"HasFiltering",
 	"HasColumnSorting",
 	"HasPaginator",
+	"HasCheckableRows",
 }
 
 type BackRepoTableStruct struct {
@@ -473,6 +480,9 @@ func (tableDB *TableDB) CopyBasicFieldsFromTable(table *models.Table) {
 
 	tableDB.HasPaginator_Data.Bool = table.HasPaginator
 	tableDB.HasPaginator_Data.Valid = true
+
+	tableDB.HasCheckableRows_Data.Bool = table.HasCheckableRows
+	tableDB.HasCheckableRows_Data.Valid = true
 }
 
 // CopyBasicFieldsFromTableWOP
@@ -490,6 +500,9 @@ func (tableDB *TableDB) CopyBasicFieldsFromTableWOP(table *TableWOP) {
 
 	tableDB.HasPaginator_Data.Bool = table.HasPaginator
 	tableDB.HasPaginator_Data.Valid = true
+
+	tableDB.HasCheckableRows_Data.Bool = table.HasCheckableRows
+	tableDB.HasCheckableRows_Data.Valid = true
 }
 
 // CopyBasicFieldsToTable
@@ -499,6 +512,7 @@ func (tableDB *TableDB) CopyBasicFieldsToTable(table *models.Table) {
 	table.HasFiltering = tableDB.HasFiltering_Data.Bool
 	table.HasColumnSorting = tableDB.HasColumnSorting_Data.Bool
 	table.HasPaginator = tableDB.HasPaginator_Data.Bool
+	table.HasCheckableRows = tableDB.HasCheckableRows_Data.Bool
 }
 
 // CopyBasicFieldsToTableWOP
@@ -509,6 +523,7 @@ func (tableDB *TableDB) CopyBasicFieldsToTableWOP(table *TableWOP) {
 	table.HasFiltering = tableDB.HasFiltering_Data.Bool
 	table.HasColumnSorting = tableDB.HasColumnSorting_Data.Bool
 	table.HasPaginator = tableDB.HasPaginator_Data.Bool
+	table.HasCheckableRows = tableDB.HasCheckableRows_Data.Bool
 }
 
 // Backup generates a json file from a slice of all TableDB instances in the backrepo

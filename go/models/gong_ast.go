@@ -881,6 +881,13 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 			case "Row":
 				switch fieldName {
 				// insertion point for field dependant code
+				case "IsChecked":
+					// convert string to boolean
+					fielValue, err := strconv.ParseBool(ident.Name)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_Row[identifier].IsChecked = fielValue
 				}
 			case "Table":
 				switch fieldName {
@@ -906,6 +913,13 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 						log.Fatalln(err)
 					}
 					__gong__map_Table[identifier].HasPaginator = fielValue
+				case "HasCheckableRows":
+					// convert string to boolean
+					fielValue, err := strconv.ParseBool(ident.Name)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_Table[identifier].HasCheckableRows = fielValue
 				}
 			}
 		case *ast.SelectorExpr:

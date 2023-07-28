@@ -26,6 +26,13 @@
             </td>
         </ng-container>
         <!-- -->
+        <ng-container matColumnDef="IsChecked">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> IsChecked </th>
+            <td mat-cell *matCellDef="let Row">
+                <mat-checkbox [checked]="Row.IsChecked" disabled=true></mat-checkbox>
+            </td>
+        </ng-container>
+        <!-- -->
         <ng-container matColumnDef="Table_Rows">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> <-- (Table) Rows </th>
             <td mat-cell *matCellDef="let row">

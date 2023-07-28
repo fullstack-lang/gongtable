@@ -7,6 +7,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { SelectionModel } from '@angular/cdk/collections';
+import { RowDB } from 'projects/gongtable/src/lib/row-db';
+
+const allowMultiSelect = true
 
 @Component({
   selector: 'lib-github-com-fullstack-lang-gongtable-go-data-model-specific',
@@ -14,14 +18,18 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./github-com-fullstack-lang-gongtable-go-data-model-specific.component.css']
 })
 export class GithubComFullstackLangGongtableGoDataModelSpecificComponent implements OnInit {
+  
   displayedColumns: string[] = []
+  allDisplayedColumns: string[] = [] // in case there is a checkbox
+
   mapHeaderIdIndex = new Map<string, number>()
 
   dataSource = new MatTableDataSource<gongtable.RowDB>()
 
 
-  selectedTable: gongtable.TableDB | undefined = undefined
-
+  // for selection
+  selectedTable: gongtable.TableDB | undefined = undefined;
+  
   @Input() DataStack: string = ""
   @Input() TableName: string = ""
 
@@ -123,6 +131,9 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
 
         this.dataSource = new MatTableDataSource(this.selectedTable.Rows!)
 
+        if (this.selectedTable.HasCheckableRows) {
+          
+        }
   
         // enable filtering on all fields (including pointers and reverse pointer, which is not done by default)
 
@@ -132,11 +143,29 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
 
         this.mapHeaderIdIndex = new Map<string, number>()
         let index = 0
+
+        this.displayedColumns = []
         for (let column of this.selectedTable.DisplayedColumns) {
           this.mapHeaderIdIndex.set(column.Name, index)
           this.displayedColumns.push(column.Name)
           index++
         }
+        this.allDisplayedColumns = []
+        if (this.selectedTable.HasCheckableRows) {
+          this.allDisplayedColumns = ['select']
+
+          if (this.selectedTable.Rows != undefined) {
+            this.initialSelection = []
+            for (let rowDB of this.selectedTable.Rows) {
+              if (rowDB.IsChecked) {
+                this.initialSelection.push(rowDB)
+              }
+            }  
+            this.selection = new SelectionModel<gongtable.RowDB>(allowMultiSelect, this.initialSelection)
+          }
+
+        }
+        this.allDisplayedColumns = this.allDisplayedColumns.concat( this.displayedColumns)
 
         if (this.selectedTable.HasFiltering) {
           this.dataSource.filterPredicate = (rowDB: gongtable.RowDB, filter: string) => {
@@ -217,5 +246,21 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  
+  selection: SelectionModel<gongtable.RowDB> = new (SelectionModel)
+  initialSelection = new Array<gongtable.RowDB>()
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.selectedTable?.Rows?.length
+    return numSelected === numRows;
+  }
+
+
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.selectedTable?.Rows?.forEach(row => this.selection.select(row));
   }
 }

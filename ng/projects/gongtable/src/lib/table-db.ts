@@ -18,6 +18,7 @@ export class TableDB {
 	HasFiltering: boolean = false
 	HasColumnSorting: boolean = false
 	HasPaginator: boolean = false
+	HasCheckableRows: boolean = false
 
 	// insertion point for other declarations
 	DisplayedColumns?: Array<DisplayedColumnDB>

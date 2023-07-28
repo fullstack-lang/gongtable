@@ -84,6 +84,9 @@ export class TablesTableComponent implements OnInit {
         case 'HasPaginator':
           return tableDB.HasPaginator ? "true" : "false";
 
+        case 'HasCheckableRows':
+          return tableDB.HasCheckableRows ? "true" : "false";
+
         default:
           console.assert(false, "Unknown field")
           return "";
@@ -157,6 +160,7 @@ export class TablesTableComponent implements OnInit {
         "HasFiltering",
         "HasColumnSorting",
         "HasPaginator",
+        "HasCheckableRows",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
@@ -164,6 +168,7 @@ export class TablesTableComponent implements OnInit {
         "HasFiltering",
         "HasColumnSorting",
         "HasPaginator",
+        "HasCheckableRows",
       ]
       this.selection = new SelectionModel<TableDB>(allowMultiSelect, this.initialSelection);
     }

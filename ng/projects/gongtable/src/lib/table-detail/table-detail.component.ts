@@ -36,6 +36,7 @@ export class TableDetailComponent implements OnInit {
 	HasFilteringFormControl: UntypedFormControl = new UntypedFormControl(false);
 	HasColumnSortingFormControl: UntypedFormControl = new UntypedFormControl(false);
 	HasPaginatorFormControl: UntypedFormControl = new UntypedFormControl(false);
+	HasCheckableRowsFormControl: UntypedFormControl = new UntypedFormControl(false);
 
 	// the TableDB of interest
 	table: TableDB = new TableDB
@@ -139,6 +140,7 @@ export class TableDetailComponent implements OnInit {
 				this.HasFilteringFormControl.setValue(this.table.HasFiltering)
 				this.HasColumnSortingFormControl.setValue(this.table.HasColumnSorting)
 				this.HasPaginatorFormControl.setValue(this.table.HasPaginator)
+				this.HasCheckableRowsFormControl.setValue(this.table.HasCheckableRows)
 			}
 		)
 
@@ -154,6 +156,7 @@ export class TableDetailComponent implements OnInit {
 		this.table.HasFiltering = this.HasFilteringFormControl.value
 		this.table.HasColumnSorting = this.HasColumnSortingFormControl.value
 		this.table.HasPaginator = this.HasPaginatorFormControl.value
+		this.table.HasCheckableRows = this.HasCheckableRowsFormControl.value
 
 		// save from the front pointer space to the non pointer space for serialization
 
