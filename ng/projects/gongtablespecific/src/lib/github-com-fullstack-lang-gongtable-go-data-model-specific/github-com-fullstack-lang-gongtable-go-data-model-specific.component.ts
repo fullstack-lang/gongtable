@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
 
 import * as gongtable from 'gongtable'
 
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'lib-github-com-fullstack-lang-gongtable-go-data-model-specific',
@@ -13,14 +14,23 @@ import { FormControl } from '@angular/forms';
 })
 export class GithubComFullstackLangGongtableGoDataModelSpecificComponent implements OnInit {
   displayedColumns: string[] = []
+  mapHeaderIdIndex = new Map<string, number>()
 
   dataSource = new MatTableDataSource<gongtable.RowDB>()
-  filterControl = new FormControl()
+
 
   selectedTable: gongtable.TableDB | undefined = undefined
 
   @Input() DataStack: string = ""
   @Input() TableName: string = ""
+
+  // for filtering
+  filterControl = new FormControl()
+
+  // for sorting
+  @ViewChild(MatSort)
+  sort: MatSort | undefined
+  matSortDirective : string = ""
 
   // the component is refreshed when modification are performed in the back repo 
   // 
@@ -108,6 +118,21 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
 
         this.dataSource = new MatTableDataSource(this.selectedTable.Rows!)
 
+  
+        // enable filtering on all fields (including pointers and reverse pointer, which is not done by default)
+
+        if (this.selectedTable.DisplayedColumns == undefined) {
+          return
+        }
+
+        this.mapHeaderIdIndex = new Map<string, number>()
+        let index = 0
+        for (let column of this.selectedTable.DisplayedColumns) {
+          this.mapHeaderIdIndex.set(column.Name, index)
+          this.displayedColumns.push(column.Name)
+          index++
+        }
+
         if (this.selectedTable.HasFiltering) {
           this.dataSource.filterPredicate = (rowDB: gongtable.RowDB, filter: string) => {
 
@@ -132,14 +157,48 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
             return isSelected
           }
         }
-        // enable filtering on all fields (including pointers and reverse pointer, which is not done by default)
 
-        if (this.selectedTable.DisplayedColumns == undefined) {
-          return
+        this.matSortDirective = ""
+        if (this.selectedTable.HasColumnSorting) {
+          this.dataSource.sort = this.sort!
+          this.matSortDirective = "mat-sort"
+
+          // enable sorting on all fields (including pointers and reverse pointer)
+          this.dataSource.sortingDataAccessor = (rowDB: gongtable.RowDB, sortHeaderId: string) => {
+
+            if (rowDB.Cells == undefined) {
+              return ""
+            }
+            let index = this.mapHeaderIdIndex.get(sortHeaderId)
+            if (index == undefined) {
+              return ""
+            }
+
+            let cell : gongtable.CellDB = rowDB.Cells[index]
+            if (cell.CellInt) {
+              return cell.CellInt.Value
+            }
+            if (cell.CellFloat64) {
+              return cell.CellFloat64.Value
+            }
+            if (cell.CellString) {
+              return cell.CellString.Value
+            }
+            if (cell.CellIcon) {
+              return cell.CellIcon.Icon
+            }
+            if (cell.CellBool) {
+              if (cell.CellBool.Value) {
+                return "true"
+              } else {
+                return "false"
+              }
+            }
+            
+            return "";
+          };
         }
-        for (let column of this.selectedTable.DisplayedColumns) {
-          this.displayedColumns.push(column.Name)
-        }
+
       }
     )
   }
