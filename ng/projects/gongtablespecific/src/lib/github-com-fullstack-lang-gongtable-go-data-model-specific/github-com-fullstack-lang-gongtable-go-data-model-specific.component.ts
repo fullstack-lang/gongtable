@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
 
 import * as gongtable from 'gongtable'
 
-
-
+import { MatTableDataSource } from '@angular/material/table';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'lib-github-com-fullstack-lang-gongtable-go-data-model-specific',
@@ -13,7 +13,11 @@ import * as gongtable from 'gongtable'
 })
 export class GithubComFullstackLangGongtableGoDataModelSpecificComponent implements OnInit {
   displayedColumns: string[] = []
-  dataSource: gongtable.RowDB[] = []
+
+  dataSource = new MatTableDataSource<gongtable.RowDB>()
+  filterControl = new FormControl()
+
+  selectedTable: gongtable.TableDB | undefined = undefined
 
   @Input() DataStack: string = ""
   @Input() TableName: string = ""
@@ -41,6 +45,19 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
   ngOnInit(): void {
     this.startAutoRefresh(500); // Refresh every 500 ms (half second)
 
+    this.filterControl.valueChanges
+      .pipe(
+        debounceTime(200), // Optional. To reduce number of requests.
+        distinctUntilChanged() // Optional. To prevent same filter fire multiple times.
+      )
+      .subscribe(value => {
+        this.dataSource.filter = value;
+      })
+
+    this.dataSource.filterPredicate = (data: any, filter: string) => {
+      const dataStr = JSON.stringify(data).toLowerCase(); // Convert the data to a lower case string.
+      return dataStr.indexOf(filter) !== -1;
+    }
   }
 
   ngOnDestroy(): void {
@@ -77,25 +94,61 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
       gongtablesFrontRepo => {
         this.gongtableFrontRepo = gongtablesFrontRepo
 
-        let selectedTable: gongtable.TableDB | undefined = undefined
+        this.selectedTable = undefined
+
         for (let table of this.gongtableFrontRepo.Tables_array) {
           if (table.Name == this.TableName) {
-            selectedTable = table
+            this.selectedTable = table
           }
         }
 
-        if (selectedTable == undefined) {
+        if (this.selectedTable == undefined) {
           return
         }
 
-        this.dataSource = selectedTable.Rows!
-        if (selectedTable.DisplayedColumns == undefined) {
+        this.dataSource = new MatTableDataSource(this.selectedTable.Rows!)
+
+        if (this.selectedTable.HasFiltering) {
+          this.dataSource.filterPredicate = (rowDB: gongtable.RowDB, filter: string) => {
+
+            // filtering is based on finding a lower case filter into a concatenated string
+            // the cellDB properties
+            let mergedContent = ""
+
+            for (let cell of rowDB.Cells!) {
+              if (cell.CellInt) {
+                mergedContent += cell.CellInt.Value
+              }
+              if (cell.CellFloat64) {
+                mergedContent += cell.CellFloat64.Value
+              }
+              if (cell.CellString) {
+                mergedContent += cell.CellString.Value
+              }
+            }
+
+            mergedContent = mergedContent.toLowerCase()
+            let isSelected = mergedContent.includes(filter.toLowerCase())
+            return isSelected
+          }
+        }
+        // enable filtering on all fields (including pointers and reverse pointer, which is not done by default)
+
+        if (this.selectedTable.DisplayedColumns == undefined) {
           return
         }
-        for (let column of selectedTable.DisplayedColumns) {
+        for (let column of this.selectedTable.DisplayedColumns) {
           this.displayedColumns.push(column.Name)
         }
       }
     )
+  }
+
+  ngAfterViewInit() {
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

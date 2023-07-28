@@ -232,7 +232,7 @@ func stageInjection(stage *models.StageStruct) {
 
 	// Table values setup
 	__Table__000000_Table.Name = `Table`
-	__Table__000000_Table.HasFiltering = false
+	__Table__000000_Table.HasFiltering = true
 	__Table__000000_Table.HasColumnSorting = false
 
 	// Table values setup
@@ -265,8 +265,8 @@ func stageInjection(stage *models.StageStruct) {
 	__Row__000001_Row_2.Cells = append(__Row__000001_Row_2.Cells, __Cell__000007_Row_2_Cell_3)
 	__Row__000001_Row_2.Cells = append(__Row__000001_Row_2.Cells, __Cell__000008_Row_2_Cell_4)
 	__Row__000001_Row_2.Cells = append(__Row__000001_Row_2.Cells, __Cell__000009_Row_2_Cell_5)
-	__Row__000002_Table_2_Row_1.Cells = append(__Row__000002_Table_2_Row_1.Cells, __Cell__000010_T2_R1_A)
 	__Row__000002_Table_2_Row_1.Cells = append(__Row__000002_Table_2_Row_1.Cells, __Cell__000011_T2_R1_B)
+	__Row__000002_Table_2_Row_1.Cells = append(__Row__000002_Table_2_Row_1.Cells, __Cell__000010_T2_R1_A)
 	__Row__000003_Table_2_Row_2.Cells = append(__Row__000003_Table_2_Row_2.Cells, __Cell__000013_T2_R2_B)
 	__Row__000003_Table_2_Row_2.Cells = append(__Row__000003_Table_2_Row_2.Cells, __Cell__000012_T2_R2_A)
 	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000006_Column_5_String)

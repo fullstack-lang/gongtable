@@ -1,3 +1,8 @@
+<!-- <input [formControl]="filterControl" placeholder="Filter"> -->
+<mat-form-field *ngIf="selectedTable?.HasFiltering">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+</mat-form-field>
 <!-- Main table element. 
      The mat-table directive applies Angular Material styling and functionality.
      The [dataSource] input specifies the data for the table, which is stored in the dataSource variable.
