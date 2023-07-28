@@ -66,6 +66,10 @@ type RowDB struct {
 
 	// Declation for basic field rowDB.Name
 	Name_Data sql.NullString
+
+	// Declation for basic field rowDB.IsChecked
+	// provide the sql storage for the boolan
+	IsChecked_Data sql.NullBool
 	// encoding of pointers
 	RowPointersEnconding
 }
@@ -88,6 +92,8 @@ type RowWOP struct {
 	// insertion for WOP basic fields
 
 	Name string `xlsx:"1"`
+
+	IsChecked bool `xlsx:"2"`
 	// insertion for WOP pointer fields
 }
 
@@ -95,6 +101,7 @@ var Row_Fields = []string{
 	// insertion for WOP basic fields
 	"ID",
 	"Name",
+	"IsChecked",
 }
 
 type BackRepoRowStruct struct {
@@ -403,6 +410,9 @@ func (rowDB *RowDB) CopyBasicFieldsFromRow(row *models.Row) {
 
 	rowDB.Name_Data.String = row.Name
 	rowDB.Name_Data.Valid = true
+
+	rowDB.IsChecked_Data.Bool = row.IsChecked
+	rowDB.IsChecked_Data.Valid = true
 }
 
 // CopyBasicFieldsFromRowWOP
@@ -411,12 +421,16 @@ func (rowDB *RowDB) CopyBasicFieldsFromRowWOP(row *RowWOP) {
 
 	rowDB.Name_Data.String = row.Name
 	rowDB.Name_Data.Valid = true
+
+	rowDB.IsChecked_Data.Bool = row.IsChecked
+	rowDB.IsChecked_Data.Valid = true
 }
 
 // CopyBasicFieldsToRow
 func (rowDB *RowDB) CopyBasicFieldsToRow(row *models.Row) {
 	// insertion point for checkout of basic fields (back repo to stage)
 	row.Name = rowDB.Name_Data.String
+	row.IsChecked = rowDB.IsChecked_Data.Bool
 }
 
 // CopyBasicFieldsToRowWOP
@@ -424,6 +438,7 @@ func (rowDB *RowDB) CopyBasicFieldsToRowWOP(row *RowWOP) {
 	row.ID = int(rowDB.ID)
 	// insertion point for checkout of basic fields (back repo to stage)
 	row.Name = rowDB.Name_Data.String
+	row.IsChecked = rowDB.IsChecked_Data.Bool
 }
 
 // Backup generates a json file from a slice of all RowDB instances in the backrepo

@@ -13,6 +13,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatSelectModule } from '@angular/material/select'
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 
 @NgModule({
@@ -31,6 +34,8 @@ import { MatPaginatorModule } from '@angular/material/paginator'
     MatInputModule,
     MatSortModule,
     MatPaginatorModule,
+    MatSelectModule,
+    DragDropModule,
   ],
   exports: [
     GithubComFullstackLangGongtableGoDataModelSpecificComponent

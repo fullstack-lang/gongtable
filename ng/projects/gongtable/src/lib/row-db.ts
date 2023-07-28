@@ -15,6 +15,7 @@ export class RowDB {
 
 	// insertion point for basic fields declarations
 	Name: string = ""
+	IsChecked: boolean = false
 
 	// insertion point for other declarations
 	Cells?: Array<CellDB>

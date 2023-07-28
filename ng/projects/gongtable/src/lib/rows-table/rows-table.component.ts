@@ -75,6 +75,9 @@ export class RowsTableComponent implements OnInit {
         case 'Name':
           return rowDB.Name;
 
+        case 'IsChecked':
+          return rowDB.IsChecked ? "true" : "false";
+
         case 'Table_Rows':
           if (this.frontRepo.Tables.get(rowDB.Table_RowsDBID.Int64) != undefined) {
             return this.frontRepo.Tables.get(rowDB.Table_RowsDBID.Int64)!.Name
@@ -156,11 +159,13 @@ export class RowsTableComponent implements OnInit {
     if (this.mode == TableComponentMode.DISPLAY_MODE) {
       this.displayedColumns = ['ID', 'Delete', // insertion point for columns to display
         "Name",
+        "IsChecked",
         "Table_Rows",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
+        "IsChecked",
         "Table_Rows",
       ]
       this.selection = new SelectionModel<RowDB>(allowMultiSelect, this.initialSelection);

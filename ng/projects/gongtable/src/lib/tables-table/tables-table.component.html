@@ -46,6 +46,20 @@
                 <mat-checkbox [checked]="Table.HasPaginator" disabled=true></mat-checkbox>
             </td>
         </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="HasCheckableRows">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> HasCheckableRows </th>
+            <td mat-cell *matCellDef="let Table">
+                <mat-checkbox [checked]="Table.HasCheckableRows" disabled=true></mat-checkbox>
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="HasSaveButton">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> HasSaveButton </th>
+            <td mat-cell *matCellDef="let Table">
+                <mat-checkbox [checked]="Table.HasSaveButton" disabled=true></mat-checkbox>
+            </td>
+        </ng-container>
 
         <ng-container matColumnDef="ID" sticky>
             <th mat-header-cell *matHeaderCellDef mat-sort-header> ID. </th>

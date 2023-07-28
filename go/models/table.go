@@ -8,4 +8,8 @@ type Table struct {
 	HasFiltering     bool
 	HasColumnSorting bool
 	HasPaginator     bool
+
+	HasCheckableRows bool
+
+	HasSaveButton bool
 }

@@ -34,6 +34,9 @@
             </button>
         </mat-grid-tile>
     </mat-grid-list>
+    <!-- -->
+    <mat-checkbox [formControl]="IsCheckedFormControl">IsChecked</mat-checkbox>
+
     <mat-form-field class="detail-full-width">
         <mat-label>(Table) Rows</mat-label>
         <mat-select [compareWith]="compareObjects" [(ngModel)]="row.Table_Rows_reverse" [ngModelOptions]="{standalone: true}">
