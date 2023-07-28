@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   views: string[] = [this.specific, this.default];
 
   DataStack = "gongtable"
+  GeneratedStack = "generated"
   ModelStacks = "github.com/fullstack-lang/gongtable/go/models"
 
   constructor(

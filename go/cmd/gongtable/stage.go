@@ -234,7 +234,7 @@ func stageInjection(stage *models.StageStruct) {
 	__Table__000000_Table.Name = `Table`
 	__Table__000000_Table.HasFiltering = true
 	__Table__000000_Table.HasColumnSorting = true
-	__Table__000000_Table.HasPaginator = false
+	__Table__000000_Table.HasPaginator = true
 
 	// Table values setup
 	__Table__000001_Table_2.Name = `Table 2`
