@@ -53,6 +53,8 @@ func stageInjection(stage *models.StageStruct) {
 	__Cell__000011_T2_R1_B := (&models.Cell{Name: `T2 - R1 - B`}).Stage(stage)
 	__Cell__000012_T2_R2_A := (&models.Cell{Name: `T2 - R2 - A`}).Stage(stage)
 	__Cell__000013_T2_R2_B := (&models.Cell{Name: `T2 - R2 - B`}).Stage(stage)
+	__Cell__000014_T2_R3_A := (&models.Cell{Name: `T2 - R3 - A`}).Stage(stage)
+	__Cell__000015_T2_R3_B := (&models.Cell{Name: `T2 - R3 - B`}).Stage(stage)
 
 	// Declarations of staged instances of CellBoolean
 	__CellBoolean__000000_Row_1_Cell_1_Cell_False := (&models.CellBoolean{Name: `Row 1 -Cell 1 - Cell False`}).Stage(stage)
@@ -77,6 +79,8 @@ func stageInjection(stage *models.StageStruct) {
 	__CellString__000003_T2_R1_B := (&models.CellString{Name: `T2 - R1 - B`}).Stage(stage)
 	__CellString__000004_T2_R2_A := (&models.CellString{Name: `T2 - R2 - A`}).Stage(stage)
 	__CellString__000005_T2_R2_B := (&models.CellString{Name: `T2 - R2 - B`}).Stage(stage)
+	__CellString__000006_T2_R3_A := (&models.CellString{Name: `T2 - R3 - A`}).Stage(stage)
+	__CellString__000007_T2_R3_B := (&models.CellString{Name: `T2 - R3 - B`}).Stage(stage)
 
 	// Declarations of staged instances of DisplayedColumn
 	__DisplayedColumn__000000_A := (&models.DisplayedColumn{Name: `A`}).Stage(stage)
@@ -92,6 +96,7 @@ func stageInjection(stage *models.StageStruct) {
 	__Row__000001_Row_2 := (&models.Row{Name: `Row 2`}).Stage(stage)
 	__Row__000002_Table_2_Row_1 := (&models.Row{Name: `Table 2 - Row 1`}).Stage(stage)
 	__Row__000003_Table_2_Row_2 := (&models.Row{Name: `Table 2 - Row 2`}).Stage(stage)
+	__Row__000004_Table_2_Row_3 := (&models.Row{Name: `Table 2 - Row 3`}).Stage(stage)
 
 	// Declarations of staged instances of Table
 	__Table__000000_Table := (&models.Table{Name: `Table`}).Stage(stage)
@@ -140,6 +145,12 @@ func stageInjection(stage *models.StageStruct) {
 
 	// Cell values setup
 	__Cell__000013_T2_R2_B.Name = `T2 - R2 - B`
+
+	// Cell values setup
+	__Cell__000014_T2_R3_A.Name = `T2 - R3 - A`
+
+	// Cell values setup
+	__Cell__000015_T2_R3_B.Name = `T2 - R3 - B`
 
 	// CellBoolean values setup
 	__CellBoolean__000000_Row_1_Cell_1_Cell_False.Name = `Row 1 -Cell 1 - Cell False`
@@ -197,6 +208,14 @@ func stageInjection(stage *models.StageStruct) {
 	__CellString__000005_T2_R2_B.Name = `T2 - R2 - B`
 	__CellString__000005_T2_R2_B.Value = `T2 - R2 - B`
 
+	// CellString values setup
+	__CellString__000006_T2_R3_A.Name = `T2 - R3 - A`
+	__CellString__000006_T2_R3_A.Value = `T2 - R3 - A`
+
+	// CellString values setup
+	__CellString__000007_T2_R3_B.Name = `T2 - R3 - B`
+	__CellString__000007_T2_R3_B.Value = `T2 - R3 - B`
+
 	// DisplayedColumn values setup
 	__DisplayedColumn__000000_A.Name = `A`
 
@@ -234,6 +253,10 @@ func stageInjection(stage *models.StageStruct) {
 	__Row__000003_Table_2_Row_2.Name = `Table 2 - Row 2`
 	__Row__000003_Table_2_Row_2.IsChecked = false
 
+	// Row values setup
+	__Row__000004_Table_2_Row_3.Name = `Table 2 - Row 3`
+	__Row__000004_Table_2_Row_3.IsChecked = false
+
 	// Table values setup
 	__Table__000000_Table.Name = `Table`
 	__Table__000000_Table.HasFiltering = true
@@ -241,6 +264,7 @@ func stageInjection(stage *models.StageStruct) {
 	__Table__000000_Table.HasPaginator = true
 	__Table__000000_Table.HasCheckableRows = true
 	__Table__000000_Table.HasSaveButton = true
+	__Table__000000_Table.CanDragDropRows = false
 
 	// Table values setup
 	__Table__000001_Table_2.Name = `Table 2`
@@ -248,7 +272,8 @@ func stageInjection(stage *models.StageStruct) {
 	__Table__000001_Table_2.HasColumnSorting = false
 	__Table__000001_Table_2.HasPaginator = false
 	__Table__000001_Table_2.HasCheckableRows = false
-	__Table__000001_Table_2.HasSaveButton = false
+	__Table__000001_Table_2.HasSaveButton = true
+	__Table__000001_Table_2.CanDragDropRows = true
 
 	// Setup of pointers
 	__Cell__000000_Row_1_Cell_1.CellBool = __CellBoolean__000000_Row_1_Cell_1_Cell_False
@@ -265,6 +290,8 @@ func stageInjection(stage *models.StageStruct) {
 	__Cell__000011_T2_R1_B.CellString = __CellString__000003_T2_R1_B
 	__Cell__000012_T2_R2_A.CellString = __CellString__000004_T2_R2_A
 	__Cell__000013_T2_R2_B.CellString = __CellString__000005_T2_R2_B
+	__Cell__000014_T2_R3_A.CellString = __CellString__000006_T2_R3_A
+	__Cell__000015_T2_R3_B.CellString = __CellString__000007_T2_R3_B
 	__Row__000000_Row_1.Cells = append(__Row__000000_Row_1.Cells, __Cell__000000_Row_1_Cell_1)
 	__Row__000000_Row_1.Cells = append(__Row__000000_Row_1.Cells, __Cell__000001_Row_1_Cell_2)
 	__Row__000000_Row_1.Cells = append(__Row__000000_Row_1.Cells, __Cell__000002_Row_1_Cell_3)
@@ -279,6 +306,8 @@ func stageInjection(stage *models.StageStruct) {
 	__Row__000002_Table_2_Row_1.Cells = append(__Row__000002_Table_2_Row_1.Cells, __Cell__000010_T2_R1_A)
 	__Row__000003_Table_2_Row_2.Cells = append(__Row__000003_Table_2_Row_2.Cells, __Cell__000013_T2_R2_B)
 	__Row__000003_Table_2_Row_2.Cells = append(__Row__000003_Table_2_Row_2.Cells, __Cell__000012_T2_R2_A)
+	__Row__000004_Table_2_Row_3.Cells = append(__Row__000004_Table_2_Row_3.Cells, __Cell__000014_T2_R3_A)
+	__Row__000004_Table_2_Row_3.Cells = append(__Row__000004_Table_2_Row_3.Cells, __Cell__000015_T2_R3_B)
 	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000006_Column_5_String)
 	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000004_Column_3_Icon)
 	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000005_Column_4_Int)
@@ -287,9 +316,9 @@ func stageInjection(stage *models.StageStruct) {
 	__Table__000000_Table.Rows = append(__Table__000000_Table.Rows, __Row__000000_Row_1)
 	__Table__000000_Table.Rows = append(__Table__000000_Table.Rows, __Row__000001_Row_2)
 	__Table__000001_Table_2.DisplayedColumns = append(__Table__000001_Table_2.DisplayedColumns, __DisplayedColumn__000000_A)
-	__Table__000001_Table_2.DisplayedColumns = append(__Table__000001_Table_2.DisplayedColumns, __DisplayedColumn__000001_B)
 	__Table__000001_Table_2.Rows = append(__Table__000001_Table_2.Rows, __Row__000002_Table_2_Row_1)
 	__Table__000001_Table_2.Rows = append(__Table__000001_Table_2.Rows, __Row__000003_Table_2_Row_2)
+	__Table__000001_Table_2.Rows = append(__Table__000001_Table_2.Rows, __Row__000004_Table_2_Row_3)
 }
 
 

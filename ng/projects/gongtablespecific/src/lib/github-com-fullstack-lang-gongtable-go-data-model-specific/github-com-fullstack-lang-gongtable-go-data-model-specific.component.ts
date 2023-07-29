@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Subscription, debounceTime, distinctUntilChanged, forkJoin } from 'rxjs';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import * as gongtable from 'gongtable'
 
@@ -129,6 +130,21 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
         if (this.selectedTable == undefined) {
           return
         }
+
+        // sort rows according to their index
+        this.selectedTable.Rows?.sort((t1, t2) => {
+          let t1_revPointerID_Index = t1.Table_RowsDBID_Index
+          let t2_revPointerID_Index = t2.Table_RowsDBID_Index
+          if (t1_revPointerID_Index && t2_revPointerID_Index) {
+            if (t1_revPointerID_Index.Int64 > t2_revPointerID_Index.Int64) {
+              return 1;
+            }
+            if (t1_revPointerID_Index.Int64 < t2_revPointerID_Index.Int64) {
+              return -1;
+            }
+          }
+          return 0;
+        })
 
         this.dataSource = new MatTableDataSource(this.selectedTable.Rows!)
 
@@ -275,7 +291,6 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
 
     const promises = []
     for (let row of this.selectedTable?.Rows!) {
-
       promises.push(this.rowService.updateRow(row, this.DataStack))
     }
 
@@ -283,4 +298,21 @@ export class GithubComFullstackLangGongtableGoDataModelSpecificComponent impleme
       () => this.refresh()
     )
   }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.selectedTable?.Rows!, event.previousIndex, event.currentIndex)
+
+    const promises = []
+    let index = 0
+    for (let row of this.selectedTable?.Rows!) {
+      row.Table_RowsDBID_Index.Int64 = index++
+      promises.push(this.rowService.updateRow(row, this.DataStack))
+    }
+
+    forkJoin(promises).subscribe(
+      () => this.refresh()
+    )
+  }
+
+  isDraggableRow = (index: number, item: gongtable.RowDB) => this.selectedTable?.CanDragDropRows
 }

@@ -12,4 +12,6 @@ type Table struct {
 	HasCheckableRows bool
 
 	HasSaveButton bool
+
+	CanDragDropRows bool
 }

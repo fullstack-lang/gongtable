@@ -80,6 +80,10 @@ type TableDB struct {
 	// Declation for basic field tableDB.HasSaveButton
 	// provide the sql storage for the boolan
 	HasSaveButton_Data sql.NullBool
+
+	// Declation for basic field tableDB.CanDragDropRows
+	// provide the sql storage for the boolan
+	CanDragDropRows_Data sql.NullBool
 	// encoding of pointers
 	TablePointersEnconding
 }
@@ -112,6 +116,8 @@ type TableWOP struct {
 	HasCheckableRows bool `xlsx:"5"`
 
 	HasSaveButton bool `xlsx:"6"`
+
+	CanDragDropRows bool `xlsx:"7"`
 	// insertion for WOP pointer fields
 }
 
@@ -124,6 +130,7 @@ var Table_Fields = []string{
 	"HasPaginator",
 	"HasCheckableRows",
 	"HasSaveButton",
+	"CanDragDropRows",
 }
 
 type BackRepoTableStruct struct {
@@ -493,6 +500,9 @@ func (tableDB *TableDB) CopyBasicFieldsFromTable(table *models.Table) {
 
 	tableDB.HasSaveButton_Data.Bool = table.HasSaveButton
 	tableDB.HasSaveButton_Data.Valid = true
+
+	tableDB.CanDragDropRows_Data.Bool = table.CanDragDropRows
+	tableDB.CanDragDropRows_Data.Valid = true
 }
 
 // CopyBasicFieldsFromTableWOP
@@ -516,6 +526,9 @@ func (tableDB *TableDB) CopyBasicFieldsFromTableWOP(table *TableWOP) {
 
 	tableDB.HasSaveButton_Data.Bool = table.HasSaveButton
 	tableDB.HasSaveButton_Data.Valid = true
+
+	tableDB.CanDragDropRows_Data.Bool = table.CanDragDropRows
+	tableDB.CanDragDropRows_Data.Valid = true
 }
 
 // CopyBasicFieldsToTable
@@ -527,6 +540,7 @@ func (tableDB *TableDB) CopyBasicFieldsToTable(table *models.Table) {
 	table.HasPaginator = tableDB.HasPaginator_Data.Bool
 	table.HasCheckableRows = tableDB.HasCheckableRows_Data.Bool
 	table.HasSaveButton = tableDB.HasSaveButton_Data.Bool
+	table.CanDragDropRows = tableDB.CanDragDropRows_Data.Bool
 }
 
 // CopyBasicFieldsToTableWOP
@@ -539,6 +553,7 @@ func (tableDB *TableDB) CopyBasicFieldsToTableWOP(table *TableWOP) {
 	table.HasPaginator = tableDB.HasPaginator_Data.Bool
 	table.HasCheckableRows = tableDB.HasCheckableRows_Data.Bool
 	table.HasSaveButton = tableDB.HasSaveButton_Data.Bool
+	table.CanDragDropRows = tableDB.CanDragDropRows_Data.Bool
 }
 
 // Backup generates a json file from a slice of all TableDB instances in the backrepo

@@ -38,6 +38,7 @@ export class TableDetailComponent implements OnInit {
 	HasPaginatorFormControl: UntypedFormControl = new UntypedFormControl(false);
 	HasCheckableRowsFormControl: UntypedFormControl = new UntypedFormControl(false);
 	HasSaveButtonFormControl: UntypedFormControl = new UntypedFormControl(false);
+	CanDragDropRowsFormControl: UntypedFormControl = new UntypedFormControl(false);
 
 	// the TableDB of interest
 	table: TableDB = new TableDB
@@ -143,6 +144,7 @@ export class TableDetailComponent implements OnInit {
 				this.HasPaginatorFormControl.setValue(this.table.HasPaginator)
 				this.HasCheckableRowsFormControl.setValue(this.table.HasCheckableRows)
 				this.HasSaveButtonFormControl.setValue(this.table.HasSaveButton)
+				this.CanDragDropRowsFormControl.setValue(this.table.CanDragDropRows)
 			}
 		)
 
@@ -160,6 +162,7 @@ export class TableDetailComponent implements OnInit {
 		this.table.HasPaginator = this.HasPaginatorFormControl.value
 		this.table.HasCheckableRows = this.HasCheckableRowsFormControl.value
 		this.table.HasSaveButton = this.HasSaveButtonFormControl.value
+		this.table.CanDragDropRows = this.CanDragDropRowsFormControl.value
 
 		// save from the front pointer space to the non pointer space for serialization
 

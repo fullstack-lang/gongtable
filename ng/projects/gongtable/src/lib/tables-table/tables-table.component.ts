@@ -90,6 +90,9 @@ export class TablesTableComponent implements OnInit {
         case 'HasSaveButton':
           return tableDB.HasSaveButton ? "true" : "false";
 
+        case 'CanDragDropRows':
+          return tableDB.CanDragDropRows ? "true" : "false";
+
         default:
           console.assert(false, "Unknown field")
           return "";
@@ -165,6 +168,7 @@ export class TablesTableComponent implements OnInit {
         "HasPaginator",
         "HasCheckableRows",
         "HasSaveButton",
+        "CanDragDropRows",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
@@ -174,6 +178,7 @@ export class TablesTableComponent implements OnInit {
         "HasPaginator",
         "HasCheckableRows",
         "HasSaveButton",
+        "CanDragDropRows",
       ]
       this.selection = new SelectionModel<TableDB>(allowMultiSelect, this.initialSelection);
     }
