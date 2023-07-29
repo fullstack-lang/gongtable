@@ -16,13 +16,6 @@
     }
 }
 
-.table__save {
-    position: relative !important;
-    left: 50%;
-    transform: translateX(-50%) !important;
-    margin-top: 15px !important;
-}
-
 .mat-mdc-row {
     background-color: white;
 }
@@ -30,4 +23,24 @@
 .table .mat-mdc-row:hover {
     background-color: #F8F8F8;
     cursor: pointer;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    height: 50px;
+}
+
+.left-toolbar,
+.center-toolbar,
+.right-toolbar {
+    display: flex;
+    align-items: center;
+}
+
+.center-toolbar {
+    justify-content: center;
+    flex-grow: 1;
 }
