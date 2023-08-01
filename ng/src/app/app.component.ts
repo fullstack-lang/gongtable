@@ -12,7 +12,8 @@ import * as gongtable from 'gongtable'
 export class AppComponent implements OnInit {
 
   default = 'Gongtable Data/Model'
-  specific = 'Gongtable'
+  specific = 'Table'
+  form = "Form"
   view = this.specific
 
   views: string[] = [this.specific, this.default];

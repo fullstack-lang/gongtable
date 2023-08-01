@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { GithubComFullstackLangGongtableGoDataModelSpecificComponent } from './github-com-fullstack-lang-gongtable-go-data-model-specific/github-com-fullstack-lang-gongtable-go-data-model-specific.component';
+import { MaterialTableComponent } from './material-table/material-table.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,7 +20,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
-    GithubComFullstackLangGongtableGoDataModelSpecificComponent
+    MaterialTableComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +38,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     DragDropModule,
   ],
   exports: [
-    GithubComFullstackLangGongtableGoDataModelSpecificComponent
+    MaterialTableComponent,
   ]
 })
 export class GongtablespecificModule { }

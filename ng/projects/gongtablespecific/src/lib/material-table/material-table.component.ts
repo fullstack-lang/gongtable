@@ -14,11 +14,11 @@ import { RowDB } from 'projects/gongtable/src/lib/row-db';
 const allowMultiSelect = true
 
 @Component({
-  selector: 'lib-github-com-fullstack-lang-gongtable-go-data-model-specific',
-  templateUrl: './github-com-fullstack-lang-gongtable-go-data-model-specific.component.html',
-  styleUrls: ['./github-com-fullstack-lang-gongtable-go-data-model-specific.component.css']
+  selector: 'lib-material-table',
+  templateUrl: './material-table.component.html',
+  styleUrls: ['./material-table.component.css']
 })
-export class GithubComFullstackLangGongtableGoDataModelSpecificComponent implements OnInit {
+export class MaterialTableComponent implements OnInit {
 
   displayedColumns: string[] = []
   allDisplayedColumns: string[] = [] // in case there is a checkbox

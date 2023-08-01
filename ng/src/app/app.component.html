@@ -14,20 +14,26 @@
     <as-split-area [size]="$any('*')">
         <as-split direction="vertical">
             <as-split-area [size]=30>
-                <lib-github-com-fullstack-lang-gongtable-go-data-model-specific TableName="Table" [DataStack]="DataStack">
-                </lib-github-com-fullstack-lang-gongtable-go-data-model-specific>
+                <lib-material-table TableName="Table" [DataStack]="DataStack">
+                </lib-material-table>
             </as-split-area>
             <as-split-area [size]=30>
-                <lib-github-com-fullstack-lang-gongtable-go-data-model-specific TableName="Table 2" [DataStack]="DataStack">
-                </lib-github-com-fullstack-lang-gongtable-go-data-model-specific>
+                <lib-material-table TableName="Table 2" [DataStack]="DataStack">
+                </lib-material-table>
             </as-split-area>
             <as-split-area [size]=40>
-                <lib-github-com-fullstack-lang-gongtable-go-data-model-specific TableName="Table" [DataStack]="GeneratedStack">
-                </lib-github-com-fullstack-lang-gongtable-go-data-model-specific>
+                <lib-material-table TableName="Table" [DataStack]="GeneratedStack">
+                </lib-material-table>
             </as-split-area>
 
         </as-split>
 
+    </as-split-area>
+</as-split>
+
+<as-split unit="pixel" *ngIf="view==form" direction="vertical">
+    <as-split-area [size]=40>
+        <ng-container *ngTemplateOutlet="radioToolbar"></ng-container>
     </as-split-area>
 </as-split>
 
