@@ -11,14 +11,18 @@ import * as gongtable from 'gongtable'
 })
 export class AppComponent implements OnInit {
 
-  default = 'Gongtable Data/Model'
-  specific = 'Table'
+  table = 'Table'
+  table_data_model = 'Table Data/Model'
+
   form = "Form"
-  view = this.specific
+  form_data_model = 'Form Data/Model'
 
-  views: string[] = [this.specific, this.default];
+  view = this.table
 
-  DataStack = "gongtable"
+  views: string[] = [this.table, this.form, this.table_data_model, this.form_data_model];
+
+  TableStack = "gongtable"
+  FormStack = "form"
   GeneratedStack = "generated"
   ModelStacks = "github.com/fullstack-lang/gongtable/go/models"
 

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
+
 import { MaterialTableComponent } from './material-table/material-table.component';
+import { MaterialFormComponent } from './material-form/material-form.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,9 +20,11 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 
+
 @NgModule({
   declarations: [
-    MaterialTableComponent
+    MaterialTableComponent,
+    MaterialFormComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +43,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
   ],
   exports: [
     MaterialTableComponent,
+    MaterialFormComponent,
   ]
 })
 export class GongtablespecificModule { }
