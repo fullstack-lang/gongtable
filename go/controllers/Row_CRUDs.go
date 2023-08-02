@@ -4,6 +4,7 @@ package controllers
 import (
 	"log"
 	"net/http"
+	"sync"
 	"time"
 
 	"github.com/fullstack-lang/gongtable/go/models"
@@ -15,6 +16,8 @@ import (
 // declaration in order to justify use of the models import
 var __Row__dummysDeclaration__ models.Row
 var __Row_time__dummyDeclaration time.Duration
+
+var mutexRow sync.Mutex
 
 // An RowID parameter model.
 //
@@ -109,6 +112,8 @@ func (controller *Controller) GetRows(c *gin.Context) {
 //	  200: nodeDBResponse
 func (controller *Controller) PostRow(c *gin.Context) {
 
+	mutexRow.Lock()
+
 	values := c.Request.URL.Query()
 	stackPath := ""
 	if len(values) == 1 {
@@ -162,6 +167,8 @@ func (controller *Controller) PostRow(c *gin.Context) {
 	backRepo.IncrementPushFromFrontNb()
 
 	c.JSON(http.StatusOK, rowDB)
+
+	mutexRow.Unlock()
 }
 
 // GetRow
@@ -218,6 +225,8 @@ func (controller *Controller) GetRow(c *gin.Context) {
 //
 //	200: rowDBResponse
 func (controller *Controller) UpdateRow(c *gin.Context) {
+
+	mutexRow.Lock()
 
 	values := c.Request.URL.Query()
 	stackPath := ""
@@ -286,6 +295,8 @@ func (controller *Controller) UpdateRow(c *gin.Context) {
 
 	// return status OK with the marshalling of the the rowDB
 	c.JSON(http.StatusOK, rowDB)
+
+	mutexRow.Unlock()
 }
 
 // DeleteRow
@@ -298,6 +309,8 @@ func (controller *Controller) UpdateRow(c *gin.Context) {
 //
 //	200: rowDBResponse
 func (controller *Controller) DeleteRow(c *gin.Context) {
+
+	mutexRow.Lock()
 
 	values := c.Request.URL.Query()
 	stackPath := ""
@@ -340,4 +353,6 @@ func (controller *Controller) DeleteRow(c *gin.Context) {
 	backRepo.IncrementPushFromFrontNb()
 
 	c.JSON(http.StatusOK, gin.H{"data": true})
+
+	mutexRow.Unlock()
 }

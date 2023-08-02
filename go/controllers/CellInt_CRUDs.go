@@ -4,6 +4,7 @@ package controllers
 import (
 	"log"
 	"net/http"
+	"sync"
 	"time"
 
 	"github.com/fullstack-lang/gongtable/go/models"
@@ -15,6 +16,8 @@ import (
 // declaration in order to justify use of the models import
 var __CellInt__dummysDeclaration__ models.CellInt
 var __CellInt_time__dummyDeclaration time.Duration
+
+var mutexCellInt sync.Mutex
 
 // An CellIntID parameter model.
 //
@@ -109,6 +112,8 @@ func (controller *Controller) GetCellInts(c *gin.Context) {
 //	  200: nodeDBResponse
 func (controller *Controller) PostCellInt(c *gin.Context) {
 
+	mutexCellInt.Lock()
+
 	values := c.Request.URL.Query()
 	stackPath := ""
 	if len(values) == 1 {
@@ -162,6 +167,8 @@ func (controller *Controller) PostCellInt(c *gin.Context) {
 	backRepo.IncrementPushFromFrontNb()
 
 	c.JSON(http.StatusOK, cellintDB)
+
+	mutexCellInt.Unlock()
 }
 
 // GetCellInt
@@ -218,6 +225,8 @@ func (controller *Controller) GetCellInt(c *gin.Context) {
 //
 //	200: cellintDBResponse
 func (controller *Controller) UpdateCellInt(c *gin.Context) {
+
+	mutexCellInt.Lock()
 
 	values := c.Request.URL.Query()
 	stackPath := ""
@@ -286,6 +295,8 @@ func (controller *Controller) UpdateCellInt(c *gin.Context) {
 
 	// return status OK with the marshalling of the the cellintDB
 	c.JSON(http.StatusOK, cellintDB)
+
+	mutexCellInt.Unlock()
 }
 
 // DeleteCellInt
@@ -298,6 +309,8 @@ func (controller *Controller) UpdateCellInt(c *gin.Context) {
 //
 //	200: cellintDBResponse
 func (controller *Controller) DeleteCellInt(c *gin.Context) {
+
+	mutexCellInt.Lock()
 
 	values := c.Request.URL.Query()
 	stackPath := ""
@@ -340,4 +353,6 @@ func (controller *Controller) DeleteCellInt(c *gin.Context) {
 	backRepo.IncrementPushFromFrontNb()
 
 	c.JSON(http.StatusOK, gin.H{"data": true})
+
+	mutexCellInt.Unlock()
 }

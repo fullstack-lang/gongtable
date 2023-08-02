@@ -69,6 +69,8 @@ var map_DocLink_Identifier_Default map[string]any = map[string]any{
 
 	"ref_models.CellString.Name": (ref_models.CellString{}).Name,
 
+	"ref_models.CellString.Value": (ref_models.CellString{}).Value,
+
 	"ref_models.DisplayedColumn": &(ref_models.DisplayedColumn{}),
 
 	"ref_models.DisplayedColumn.Name": (ref_models.DisplayedColumn{}).Name,
@@ -77,11 +79,25 @@ var map_DocLink_Identifier_Default map[string]any = map[string]any{
 
 	"ref_models.Row.Cells": (ref_models.Row{}).Cells,
 
+	"ref_models.Row.IsChecked": (ref_models.Row{}).IsChecked,
+
 	"ref_models.Row.Name": (ref_models.Row{}).Name,
 
 	"ref_models.Table": &(ref_models.Table{}),
 
+	"ref_models.Table.CanDragDropRows": (ref_models.Table{}).CanDragDropRows,
+
 	"ref_models.Table.DisplayedColumns": (ref_models.Table{}).DisplayedColumns,
+
+	"ref_models.Table.HasCheckableRows": (ref_models.Table{}).HasCheckableRows,
+
+	"ref_models.Table.HasColumnSorting": (ref_models.Table{}).HasColumnSorting,
+
+	"ref_models.Table.HasFiltering": (ref_models.Table{}).HasFiltering,
+
+	"ref_models.Table.HasPaginator": (ref_models.Table{}).HasPaginator,
+
+	"ref_models.Table.HasSaveButton": (ref_models.Table{}).HasSaveButton,
 
 	"ref_models.Table.Name": (ref_models.Table{}).Name,
 
@@ -106,11 +122,18 @@ func DefaultInjection(stage *models.StageStruct) {
 	// Declarations of staged instances of DiagramPackage
 
 	// Declarations of staged instances of Field
-	__Field__000000_Icon := (&models.Field{Name: `Icon`}).Stage(stage)
-	__Field__000001_Name := (&models.Field{Name: `Name`}).Stage(stage)
-	__Field__000002_Value := (&models.Field{Name: `Value`}).Stage(stage)
-	__Field__000003_Value := (&models.Field{Name: `Value`}).Stage(stage)
-	__Field__000004_Value := (&models.Field{Name: `Value`}).Stage(stage)
+	__Field__000000_CanDragDropRows := (&models.Field{Name: `CanDragDropRows`}).Stage(stage)
+	__Field__000001_HasCheckableRows := (&models.Field{Name: `HasCheckableRows`}).Stage(stage)
+	__Field__000002_HasColumnSorting := (&models.Field{Name: `HasColumnSorting`}).Stage(stage)
+	__Field__000003_HasFiltering := (&models.Field{Name: `HasFiltering`}).Stage(stage)
+	__Field__000004_HasPaginator := (&models.Field{Name: `HasPaginator`}).Stage(stage)
+	__Field__000005_HasSaveButton := (&models.Field{Name: `HasSaveButton`}).Stage(stage)
+	__Field__000006_Icon := (&models.Field{Name: `Icon`}).Stage(stage)
+	__Field__000007_Name := (&models.Field{Name: `Name`}).Stage(stage)
+	__Field__000008_Name := (&models.Field{Name: `Name`}).Stage(stage)
+	__Field__000009_Value := (&models.Field{Name: `Value`}).Stage(stage)
+	__Field__000010_Value := (&models.Field{Name: `Value`}).Stage(stage)
+	__Field__000011_Value := (&models.Field{Name: `Value`}).Stage(stage)
 
 	// Declarations of staged instances of GongEnumShape
 
@@ -173,59 +196,136 @@ func DefaultInjection(stage *models.StageStruct) {
 	__Classdiagram__000000_Default.IsInDrawMode = true
 
 	// Field values setup
-	__Field__000000_Icon.Name = `Icon`
+	__Field__000000_CanDragDropRows.Name = `CanDragDropRows`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.Table.CanDragDropRows]
+	__Field__000000_CanDragDropRows.Identifier = `ref_models.Table.CanDragDropRows`
+	__Field__000000_CanDragDropRows.FieldTypeAsString = ``
+	__Field__000000_CanDragDropRows.Structname = `Table`
+	__Field__000000_CanDragDropRows.Fieldtypename = `bool`
+
+	// Field values setup
+	__Field__000001_HasCheckableRows.Name = `HasCheckableRows`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.Table.HasCheckableRows]
+	__Field__000001_HasCheckableRows.Identifier = `ref_models.Table.HasCheckableRows`
+	__Field__000001_HasCheckableRows.FieldTypeAsString = ``
+	__Field__000001_HasCheckableRows.Structname = `Table`
+	__Field__000001_HasCheckableRows.Fieldtypename = `bool`
+
+	// Field values setup
+	__Field__000002_HasColumnSorting.Name = `HasColumnSorting`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.Table.HasColumnSorting]
+	__Field__000002_HasColumnSorting.Identifier = `ref_models.Table.HasColumnSorting`
+	__Field__000002_HasColumnSorting.FieldTypeAsString = ``
+	__Field__000002_HasColumnSorting.Structname = `Table`
+	__Field__000002_HasColumnSorting.Fieldtypename = `bool`
+
+	// Field values setup
+	__Field__000003_HasFiltering.Name = `HasFiltering`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.Table.HasFiltering]
+	__Field__000003_HasFiltering.Identifier = `ref_models.Table.HasFiltering`
+	__Field__000003_HasFiltering.FieldTypeAsString = ``
+	__Field__000003_HasFiltering.Structname = `Table`
+	__Field__000003_HasFiltering.Fieldtypename = `bool`
+
+	// Field values setup
+	__Field__000004_HasPaginator.Name = `HasPaginator`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.Table.HasPaginator]
+	__Field__000004_HasPaginator.Identifier = `ref_models.Table.HasPaginator`
+	__Field__000004_HasPaginator.FieldTypeAsString = ``
+	__Field__000004_HasPaginator.Structname = `Table`
+	__Field__000004_HasPaginator.Fieldtypename = `bool`
+
+	// Field values setup
+	__Field__000005_HasSaveButton.Name = `HasSaveButton`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.Table.HasSaveButton]
+	__Field__000005_HasSaveButton.Identifier = `ref_models.Table.HasSaveButton`
+	__Field__000005_HasSaveButton.FieldTypeAsString = ``
+	__Field__000005_HasSaveButton.Structname = `Table`
+	__Field__000005_HasSaveButton.Fieldtypename = `bool`
+
+	// Field values setup
+	__Field__000006_Icon.Name = `Icon`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.CellIcon.Icon]
-	__Field__000000_Icon.Identifier = `ref_models.CellIcon.Icon`
-	__Field__000000_Icon.FieldTypeAsString = ``
-	__Field__000000_Icon.Structname = `CellIcon`
-	__Field__000000_Icon.Fieldtypename = `string`
+	__Field__000006_Icon.Identifier = `ref_models.CellIcon.Icon`
+	__Field__000006_Icon.FieldTypeAsString = ``
+	__Field__000006_Icon.Structname = `CellIcon`
+	__Field__000006_Icon.Fieldtypename = `string`
 
 	// Field values setup
-	__Field__000001_Name.Name = `Name`
+	__Field__000007_Name.Name = `Name`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.Table.Name]
+	__Field__000007_Name.Identifier = `ref_models.Table.Name`
+	__Field__000007_Name.FieldTypeAsString = ``
+	__Field__000007_Name.Structname = `Table`
+	__Field__000007_Name.Fieldtypename = `string`
+
+	// Field values setup
+	__Field__000008_Name.Name = `Name`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.CellString.Name]
-	__Field__000001_Name.Identifier = `ref_models.CellString.Name`
-	__Field__000001_Name.FieldTypeAsString = ``
-	__Field__000001_Name.Structname = `CellString`
-	__Field__000001_Name.Fieldtypename = `string`
+	__Field__000008_Name.Identifier = `ref_models.CellString.Name`
+	__Field__000008_Name.FieldTypeAsString = ``
+	__Field__000008_Name.Structname = `CellString`
+	__Field__000008_Name.Fieldtypename = `string`
 
 	// Field values setup
-	__Field__000002_Value.Name = `Value`
-
-	// comment added to overcome the problem with the comment map association
-
-	//gong:ident [ref_models.CellBoolean.Value]
-	__Field__000002_Value.Identifier = `ref_models.CellBoolean.Value`
-	__Field__000002_Value.FieldTypeAsString = ``
-	__Field__000002_Value.Structname = `CellBoolean`
-	__Field__000002_Value.Fieldtypename = `bool`
-
-	// Field values setup
-	__Field__000003_Value.Name = `Value`
-
-	// comment added to overcome the problem with the comment map association
-
-	//gong:ident [ref_models.CellFloat64.Value]
-	__Field__000003_Value.Identifier = `ref_models.CellFloat64.Value`
-	__Field__000003_Value.FieldTypeAsString = ``
-	__Field__000003_Value.Structname = `CellFloat64`
-	__Field__000003_Value.Fieldtypename = `float64`
-
-	// Field values setup
-	__Field__000004_Value.Name = `Value`
+	__Field__000009_Value.Name = `Value`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.CellInt.Value]
-	__Field__000004_Value.Identifier = `ref_models.CellInt.Value`
-	__Field__000004_Value.FieldTypeAsString = ``
-	__Field__000004_Value.Structname = `CellInt`
-	__Field__000004_Value.Fieldtypename = `int`
+	__Field__000009_Value.Identifier = `ref_models.CellInt.Value`
+	__Field__000009_Value.FieldTypeAsString = ``
+	__Field__000009_Value.Structname = `CellInt`
+	__Field__000009_Value.Fieldtypename = `int`
+
+	// Field values setup
+	__Field__000010_Value.Name = `Value`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.CellBoolean.Value]
+	__Field__000010_Value.Identifier = `ref_models.CellBoolean.Value`
+	__Field__000010_Value.FieldTypeAsString = ``
+	__Field__000010_Value.Structname = `CellBoolean`
+	__Field__000010_Value.Fieldtypename = `bool`
+
+	// Field values setup
+	__Field__000011_Value.Name = `Value`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.CellFloat64.Value]
+	__Field__000011_Value.Identifier = `ref_models.CellFloat64.Value`
+	__Field__000011_Value.FieldTypeAsString = ``
+	__Field__000011_Value.Structname = `CellFloat64`
+	__Field__000011_Value.Fieldtypename = `float64`
 
 	// GongStructShape values setup
 	__GongStructShape__000000_Default_Cell.Name = `Default-Cell`
@@ -235,7 +335,7 @@ func DefaultInjection(stage *models.StageStruct) {
 	//gong:ident [ref_models.Cell]
 	__GongStructShape__000000_Default_Cell.Identifier = `ref_models.Cell`
 	__GongStructShape__000000_Default_Cell.ShowNbInstances = true
-	__GongStructShape__000000_Default_Cell.NbInstances = 8
+	__GongStructShape__000000_Default_Cell.NbInstances = 16
 	__GongStructShape__000000_Default_Cell.Width = 240.000000
 	__GongStructShape__000000_Default_Cell.Heigth = 63.000000
 	__GongStructShape__000000_Default_Cell.IsSelected = false
@@ -248,7 +348,7 @@ func DefaultInjection(stage *models.StageStruct) {
 	//gong:ident [ref_models.CellBoolean]
 	__GongStructShape__000001_Default_CellBoolean.Identifier = `ref_models.CellBoolean`
 	__GongStructShape__000001_Default_CellBoolean.ShowNbInstances = true
-	__GongStructShape__000001_Default_CellBoolean.NbInstances = 1
+	__GongStructShape__000001_Default_CellBoolean.NbInstances = 2
 	__GongStructShape__000001_Default_CellBoolean.Width = 240.000000
 	__GongStructShape__000001_Default_CellBoolean.Heigth = 78.000000
 	__GongStructShape__000001_Default_CellBoolean.IsSelected = false
@@ -261,7 +361,7 @@ func DefaultInjection(stage *models.StageStruct) {
 	//gong:ident [ref_models.CellFloat64]
 	__GongStructShape__000002_Default_CellFloat64.Identifier = `ref_models.CellFloat64`
 	__GongStructShape__000002_Default_CellFloat64.ShowNbInstances = true
-	__GongStructShape__000002_Default_CellFloat64.NbInstances = 1
+	__GongStructShape__000002_Default_CellFloat64.NbInstances = 2
 	__GongStructShape__000002_Default_CellFloat64.Width = 240.000000
 	__GongStructShape__000002_Default_CellFloat64.Heigth = 78.000000
 	__GongStructShape__000002_Default_CellFloat64.IsSelected = false
@@ -287,7 +387,7 @@ func DefaultInjection(stage *models.StageStruct) {
 	//gong:ident [ref_models.CellInt]
 	__GongStructShape__000004_Default_CellInt.Identifier = `ref_models.CellInt`
 	__GongStructShape__000004_Default_CellInt.ShowNbInstances = true
-	__GongStructShape__000004_Default_CellInt.NbInstances = 1
+	__GongStructShape__000004_Default_CellInt.NbInstances = 2
 	__GongStructShape__000004_Default_CellInt.Width = 240.000000
 	__GongStructShape__000004_Default_CellInt.Heigth = 78.000000
 	__GongStructShape__000004_Default_CellInt.IsSelected = false
@@ -300,7 +400,7 @@ func DefaultInjection(stage *models.StageStruct) {
 	//gong:ident [ref_models.CellString]
 	__GongStructShape__000005_Default_CellString.Identifier = `ref_models.CellString`
 	__GongStructShape__000005_Default_CellString.ShowNbInstances = true
-	__GongStructShape__000005_Default_CellString.NbInstances = 3
+	__GongStructShape__000005_Default_CellString.NbInstances = 8
 	__GongStructShape__000005_Default_CellString.Width = 240.000000
 	__GongStructShape__000005_Default_CellString.Heigth = 78.000000
 	__GongStructShape__000005_Default_CellString.IsSelected = false
@@ -313,7 +413,7 @@ func DefaultInjection(stage *models.StageStruct) {
 	//gong:ident [ref_models.DisplayedColumn]
 	__GongStructShape__000006_Default_DisplayedColumn.Identifier = `ref_models.DisplayedColumn`
 	__GongStructShape__000006_Default_DisplayedColumn.ShowNbInstances = true
-	__GongStructShape__000006_Default_DisplayedColumn.NbInstances = 4
+	__GongStructShape__000006_Default_DisplayedColumn.NbInstances = 7
 	__GongStructShape__000006_Default_DisplayedColumn.Width = 240.000000
 	__GongStructShape__000006_Default_DisplayedColumn.Heigth = 63.000000
 	__GongStructShape__000006_Default_DisplayedColumn.IsSelected = false
@@ -326,7 +426,7 @@ func DefaultInjection(stage *models.StageStruct) {
 	//gong:ident [ref_models.Row]
 	__GongStructShape__000007_Default_Row.Identifier = `ref_models.Row`
 	__GongStructShape__000007_Default_Row.ShowNbInstances = true
-	__GongStructShape__000007_Default_Row.NbInstances = 2
+	__GongStructShape__000007_Default_Row.NbInstances = 5
 	__GongStructShape__000007_Default_Row.Width = 240.000000
 	__GongStructShape__000007_Default_Row.Heigth = 63.000000
 	__GongStructShape__000007_Default_Row.IsSelected = false
@@ -339,9 +439,9 @@ func DefaultInjection(stage *models.StageStruct) {
 	//gong:ident [ref_models.Table]
 	__GongStructShape__000008_Default_Table.Identifier = `ref_models.Table`
 	__GongStructShape__000008_Default_Table.ShowNbInstances = true
-	__GongStructShape__000008_Default_Table.NbInstances = 1
+	__GongStructShape__000008_Default_Table.NbInstances = 2
 	__GongStructShape__000008_Default_Table.Width = 240.000000
-	__GongStructShape__000008_Default_Table.Heigth = 63.000000
+	__GongStructShape__000008_Default_Table.Heigth = 168.000000
 	__GongStructShape__000008_Default_Table.IsSelected = false
 
 	// Link values setup
@@ -547,49 +647,49 @@ func DefaultInjection(stage *models.StageStruct) {
 	__Link__000007_Rows.SourceMultiplicityOffsetX = -43.000000
 	__Link__000007_Rows.SourceMultiplicityOffsetY = 16.000000
 	__Link__000007_Rows.StartOrientation = models.ORIENTATION_VERTICAL
-	__Link__000007_Rows.StartRatio = 0.377507
+	__Link__000007_Rows.StartRatio = 0.376111
 	__Link__000007_Rows.EndOrientation = models.ORIENTATION_VERTICAL
-	__Link__000007_Rows.EndRatio = 0.356673
-	__Link__000007_Rows.CornerOffsetRatio = 1.746032
+	__Link__000007_Rows.EndRatio = 0.338611
+	__Link__000007_Rows.CornerOffsetRatio = 1.315476
 
 	// Position values setup
-	__Position__000000_Pos_Default_Cell.X = 536.000000
-	__Position__000000_Pos_Default_Cell.Y = 272.000000
+	__Position__000000_Pos_Default_Cell.X = 535.000000
+	__Position__000000_Pos_Default_Cell.Y = 369.000000
 	__Position__000000_Pos_Default_Cell.Name = `Pos-Default-Cell`
 
 	// Position values setup
-	__Position__000001_Pos_Default_CellBoolean.X = 959.000000
-	__Position__000001_Pos_Default_CellBoolean.Y = 481.000000
+	__Position__000001_Pos_Default_CellBoolean.X = 957.000000
+	__Position__000001_Pos_Default_CellBoolean.Y = 544.000000
 	__Position__000001_Pos_Default_CellBoolean.Name = `Pos-Default-CellBoolean`
 
 	// Position values setup
-	__Position__000002_Pos_Default_CellFloat64.X = 959.000000
-	__Position__000002_Pos_Default_CellFloat64.Y = 189.000000
+	__Position__000002_Pos_Default_CellFloat64.X = 957.000000
+	__Position__000002_Pos_Default_CellFloat64.Y = 252.000000
 	__Position__000002_Pos_Default_CellFloat64.Name = `Pos-Default-CellFloat64`
 
 	// Position values setup
-	__Position__000003_Pos_Default_CellIcon.X = 960.000000
-	__Position__000003_Pos_Default_CellIcon.Y = 281.000000
+	__Position__000003_Pos_Default_CellIcon.X = 958.000000
+	__Position__000003_Pos_Default_CellIcon.Y = 344.000000
 	__Position__000003_Pos_Default_CellIcon.Name = `Pos-Default-CellIcon`
 
 	// Position values setup
-	__Position__000004_Pos_Default_CellInt.X = 961.000000
-	__Position__000004_Pos_Default_CellInt.Y = 374.000000
+	__Position__000004_Pos_Default_CellInt.X = 959.000000
+	__Position__000004_Pos_Default_CellInt.Y = 437.000000
 	__Position__000004_Pos_Default_CellInt.Name = `Pos-Default-CellInt`
 
 	// Position values setup
-	__Position__000005_Pos_Default_CellString.X = 953.999939
-	__Position__000005_Pos_Default_CellString.Y = 99.000000
+	__Position__000005_Pos_Default_CellString.X = 951.999939
+	__Position__000005_Pos_Default_CellString.Y = 162.000000
 	__Position__000005_Pos_Default_CellString.Name = `Pos-Default-CellString`
 
 	// Position values setup
-	__Position__000006_Pos_Default_DisplayedColumn.X = 536.000000
-	__Position__000006_Pos_Default_DisplayedColumn.Y = 90.000000
+	__Position__000006_Pos_Default_DisplayedColumn.X = 535.000000
+	__Position__000006_Pos_Default_DisplayedColumn.Y = 130.000000
 	__Position__000006_Pos_Default_DisplayedColumn.Name = `Pos-Default-DisplayedColumn`
 
 	// Position values setup
-	__Position__000007_Pos_Default_Row.X = 21.000000
-	__Position__000007_Pos_Default_Row.Y = 271.000000
+	__Position__000007_Pos_Default_Row.X = 20.000000
+	__Position__000007_Pos_Default_Row.Y = 364.000000
 	__Position__000007_Pos_Default_Row.Name = `Pos-Default-Row`
 
 	// Position values setup
@@ -654,19 +754,26 @@ func DefaultInjection(stage *models.StageStruct) {
 	__GongStructShape__000000_Default_Cell.Links = append(__GongStructShape__000000_Default_Cell.Links, __Link__000003_CellInt)
 	__GongStructShape__000000_Default_Cell.Links = append(__GongStructShape__000000_Default_Cell.Links, __Link__000004_CellString)
 	__GongStructShape__000001_Default_CellBoolean.Position = __Position__000001_Pos_Default_CellBoolean
-	__GongStructShape__000001_Default_CellBoolean.Fields = append(__GongStructShape__000001_Default_CellBoolean.Fields, __Field__000002_Value)
+	__GongStructShape__000001_Default_CellBoolean.Fields = append(__GongStructShape__000001_Default_CellBoolean.Fields, __Field__000010_Value)
 	__GongStructShape__000002_Default_CellFloat64.Position = __Position__000002_Pos_Default_CellFloat64
-	__GongStructShape__000002_Default_CellFloat64.Fields = append(__GongStructShape__000002_Default_CellFloat64.Fields, __Field__000003_Value)
+	__GongStructShape__000002_Default_CellFloat64.Fields = append(__GongStructShape__000002_Default_CellFloat64.Fields, __Field__000011_Value)
 	__GongStructShape__000003_Default_CellIcon.Position = __Position__000003_Pos_Default_CellIcon
-	__GongStructShape__000003_Default_CellIcon.Fields = append(__GongStructShape__000003_Default_CellIcon.Fields, __Field__000000_Icon)
+	__GongStructShape__000003_Default_CellIcon.Fields = append(__GongStructShape__000003_Default_CellIcon.Fields, __Field__000006_Icon)
 	__GongStructShape__000004_Default_CellInt.Position = __Position__000004_Pos_Default_CellInt
-	__GongStructShape__000004_Default_CellInt.Fields = append(__GongStructShape__000004_Default_CellInt.Fields, __Field__000004_Value)
+	__GongStructShape__000004_Default_CellInt.Fields = append(__GongStructShape__000004_Default_CellInt.Fields, __Field__000009_Value)
 	__GongStructShape__000005_Default_CellString.Position = __Position__000005_Pos_Default_CellString
-	__GongStructShape__000005_Default_CellString.Fields = append(__GongStructShape__000005_Default_CellString.Fields, __Field__000001_Name)
+	__GongStructShape__000005_Default_CellString.Fields = append(__GongStructShape__000005_Default_CellString.Fields, __Field__000008_Name)
 	__GongStructShape__000006_Default_DisplayedColumn.Position = __Position__000006_Pos_Default_DisplayedColumn
 	__GongStructShape__000007_Default_Row.Position = __Position__000007_Pos_Default_Row
 	__GongStructShape__000007_Default_Row.Links = append(__GongStructShape__000007_Default_Row.Links, __Link__000005_Cells)
 	__GongStructShape__000008_Default_Table.Position = __Position__000008_Pos_Default_Table
+	__GongStructShape__000008_Default_Table.Fields = append(__GongStructShape__000008_Default_Table.Fields, __Field__000007_Name)
+	__GongStructShape__000008_Default_Table.Fields = append(__GongStructShape__000008_Default_Table.Fields, __Field__000003_HasFiltering)
+	__GongStructShape__000008_Default_Table.Fields = append(__GongStructShape__000008_Default_Table.Fields, __Field__000002_HasColumnSorting)
+	__GongStructShape__000008_Default_Table.Fields = append(__GongStructShape__000008_Default_Table.Fields, __Field__000004_HasPaginator)
+	__GongStructShape__000008_Default_Table.Fields = append(__GongStructShape__000008_Default_Table.Fields, __Field__000001_HasCheckableRows)
+	__GongStructShape__000008_Default_Table.Fields = append(__GongStructShape__000008_Default_Table.Fields, __Field__000005_HasSaveButton)
+	__GongStructShape__000008_Default_Table.Fields = append(__GongStructShape__000008_Default_Table.Fields, __Field__000000_CanDragDropRows)
 	__GongStructShape__000008_Default_Table.Links = append(__GongStructShape__000008_Default_Table.Links, __Link__000007_Rows)
 	__GongStructShape__000008_Default_Table.Links = append(__GongStructShape__000008_Default_Table.Links, __Link__000006_DisplayedColumns)
 	__Link__000000_CellBool.Middlevertice = __Vertice__000000_Verticle_in_class_diagram_Default_in_middle_between_Default_Cell_and_Default_CellBoolean

@@ -4,6 +4,7 @@ package controllers
 import (
 	"log"
 	"net/http"
+	"sync"
 	"time"
 
 	"github.com/fullstack-lang/gongtable/go/models"
@@ -15,6 +16,8 @@ import (
 // declaration in order to justify use of the models import
 var __CellFloat64__dummysDeclaration__ models.CellFloat64
 var __CellFloat64_time__dummyDeclaration time.Duration
+
+var mutexCellFloat64 sync.Mutex
 
 // An CellFloat64ID parameter model.
 //
@@ -109,6 +112,8 @@ func (controller *Controller) GetCellFloat64s(c *gin.Context) {
 //	  200: nodeDBResponse
 func (controller *Controller) PostCellFloat64(c *gin.Context) {
 
+	mutexCellFloat64.Lock()
+
 	values := c.Request.URL.Query()
 	stackPath := ""
 	if len(values) == 1 {
@@ -162,6 +167,8 @@ func (controller *Controller) PostCellFloat64(c *gin.Context) {
 	backRepo.IncrementPushFromFrontNb()
 
 	c.JSON(http.StatusOK, cellfloat64DB)
+
+	mutexCellFloat64.Unlock()
 }
 
 // GetCellFloat64
@@ -218,6 +225,8 @@ func (controller *Controller) GetCellFloat64(c *gin.Context) {
 //
 //	200: cellfloat64DBResponse
 func (controller *Controller) UpdateCellFloat64(c *gin.Context) {
+
+	mutexCellFloat64.Lock()
 
 	values := c.Request.URL.Query()
 	stackPath := ""
@@ -286,6 +295,8 @@ func (controller *Controller) UpdateCellFloat64(c *gin.Context) {
 
 	// return status OK with the marshalling of the the cellfloat64DB
 	c.JSON(http.StatusOK, cellfloat64DB)
+
+	mutexCellFloat64.Unlock()
 }
 
 // DeleteCellFloat64
@@ -298,6 +309,8 @@ func (controller *Controller) UpdateCellFloat64(c *gin.Context) {
 //
 //	200: cellfloat64DBResponse
 func (controller *Controller) DeleteCellFloat64(c *gin.Context) {
+
+	mutexCellFloat64.Lock()
 
 	values := c.Request.URL.Query()
 	stackPath := ""
@@ -340,4 +353,6 @@ func (controller *Controller) DeleteCellFloat64(c *gin.Context) {
 	backRepo.IncrementPushFromFrontNb()
 
 	c.JSON(http.StatusOK, gin.H{"data": true})
+
+	mutexCellFloat64.Unlock()
 }

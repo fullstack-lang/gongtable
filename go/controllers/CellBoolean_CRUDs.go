@@ -4,6 +4,7 @@ package controllers
 import (
 	"log"
 	"net/http"
+	"sync"
 	"time"
 
 	"github.com/fullstack-lang/gongtable/go/models"
@@ -15,6 +16,8 @@ import (
 // declaration in order to justify use of the models import
 var __CellBoolean__dummysDeclaration__ models.CellBoolean
 var __CellBoolean_time__dummyDeclaration time.Duration
+
+var mutexCellBoolean sync.Mutex
 
 // An CellBooleanID parameter model.
 //
@@ -109,6 +112,8 @@ func (controller *Controller) GetCellBooleans(c *gin.Context) {
 //	  200: nodeDBResponse
 func (controller *Controller) PostCellBoolean(c *gin.Context) {
 
+	mutexCellBoolean.Lock()
+
 	values := c.Request.URL.Query()
 	stackPath := ""
 	if len(values) == 1 {
@@ -162,6 +167,8 @@ func (controller *Controller) PostCellBoolean(c *gin.Context) {
 	backRepo.IncrementPushFromFrontNb()
 
 	c.JSON(http.StatusOK, cellbooleanDB)
+
+	mutexCellBoolean.Unlock()
 }
 
 // GetCellBoolean
@@ -218,6 +225,8 @@ func (controller *Controller) GetCellBoolean(c *gin.Context) {
 //
 //	200: cellbooleanDBResponse
 func (controller *Controller) UpdateCellBoolean(c *gin.Context) {
+
+	mutexCellBoolean.Lock()
 
 	values := c.Request.URL.Query()
 	stackPath := ""
@@ -286,6 +295,8 @@ func (controller *Controller) UpdateCellBoolean(c *gin.Context) {
 
 	// return status OK with the marshalling of the the cellbooleanDB
 	c.JSON(http.StatusOK, cellbooleanDB)
+
+	mutexCellBoolean.Unlock()
 }
 
 // DeleteCellBoolean
@@ -298,6 +309,8 @@ func (controller *Controller) UpdateCellBoolean(c *gin.Context) {
 //
 //	200: cellbooleanDBResponse
 func (controller *Controller) DeleteCellBoolean(c *gin.Context) {
+
+	mutexCellBoolean.Lock()
 
 	values := c.Request.URL.Query()
 	stackPath := ""
@@ -340,4 +353,6 @@ func (controller *Controller) DeleteCellBoolean(c *gin.Context) {
 	backRepo.IncrementPushFromFrontNb()
 
 	c.JSON(http.StatusOK, gin.H{"data": true})
+
+	mutexCellBoolean.Unlock()
 }

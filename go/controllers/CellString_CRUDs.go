@@ -4,6 +4,7 @@ package controllers
 import (
 	"log"
 	"net/http"
+	"sync"
 	"time"
 
 	"github.com/fullstack-lang/gongtable/go/models"
@@ -15,6 +16,8 @@ import (
 // declaration in order to justify use of the models import
 var __CellString__dummysDeclaration__ models.CellString
 var __CellString_time__dummyDeclaration time.Duration
+
+var mutexCellString sync.Mutex
 
 // An CellStringID parameter model.
 //
@@ -109,6 +112,8 @@ func (controller *Controller) GetCellStrings(c *gin.Context) {
 //	  200: nodeDBResponse
 func (controller *Controller) PostCellString(c *gin.Context) {
 
+	mutexCellString.Lock()
+
 	values := c.Request.URL.Query()
 	stackPath := ""
 	if len(values) == 1 {
@@ -162,6 +167,8 @@ func (controller *Controller) PostCellString(c *gin.Context) {
 	backRepo.IncrementPushFromFrontNb()
 
 	c.JSON(http.StatusOK, cellstringDB)
+
+	mutexCellString.Unlock()
 }
 
 // GetCellString
@@ -218,6 +225,8 @@ func (controller *Controller) GetCellString(c *gin.Context) {
 //
 //	200: cellstringDBResponse
 func (controller *Controller) UpdateCellString(c *gin.Context) {
+
+	mutexCellString.Lock()
 
 	values := c.Request.URL.Query()
 	stackPath := ""
@@ -286,6 +295,8 @@ func (controller *Controller) UpdateCellString(c *gin.Context) {
 
 	// return status OK with the marshalling of the the cellstringDB
 	c.JSON(http.StatusOK, cellstringDB)
+
+	mutexCellString.Unlock()
 }
 
 // DeleteCellString
@@ -298,6 +309,8 @@ func (controller *Controller) UpdateCellString(c *gin.Context) {
 //
 //	200: cellstringDBResponse
 func (controller *Controller) DeleteCellString(c *gin.Context) {
+
+	mutexCellString.Lock()
 
 	values := c.Request.URL.Query()
 	stackPath := ""
@@ -340,4 +353,6 @@ func (controller *Controller) DeleteCellString(c *gin.Context) {
 	backRepo.IncrementPushFromFrontNb()
 
 	c.JSON(http.StatusOK, gin.H{"data": true})
+
+	mutexCellString.Unlock()
 }
