@@ -26,20 +26,20 @@ import { DisplayedColumnDetailComponent } from './displayedcolumn-detail/display
 import { FormsTableComponent } from './forms-table/forms-table.component'
 import { FormDetailComponent } from './form-detail/form-detail.component'
 
-import { FormCellsTableComponent } from './formcells-table/formcells-table.component'
-import { FormCellDetailComponent } from './formcell-detail/formcell-detail.component'
+import { FormFieldsTableComponent } from './formfields-table/formfields-table.component'
+import { FormFieldDetailComponent } from './formfield-detail/formfield-detail.component'
 
-import { FormCellBooleansTableComponent } from './formcellbooleans-table/formcellbooleans-table.component'
-import { FormCellBooleanDetailComponent } from './formcellboolean-detail/formcellboolean-detail.component'
+import { FormFieldBooleansTableComponent } from './formfieldbooleans-table/formfieldbooleans-table.component'
+import { FormFieldBooleanDetailComponent } from './formfieldboolean-detail/formfieldboolean-detail.component'
 
-import { FormCellFloat64sTableComponent } from './formcellfloat64s-table/formcellfloat64s-table.component'
-import { FormCellFloat64DetailComponent } from './formcellfloat64-detail/formcellfloat64-detail.component'
+import { FormFieldFloat64sTableComponent } from './formfieldfloat64s-table/formfieldfloat64s-table.component'
+import { FormFieldFloat64DetailComponent } from './formfieldfloat64-detail/formfieldfloat64-detail.component'
 
-import { FormCellIntsTableComponent } from './formcellints-table/formcellints-table.component'
-import { FormCellIntDetailComponent } from './formcellint-detail/formcellint-detail.component'
+import { FormFieldIntsTableComponent } from './formfieldints-table/formfieldints-table.component'
+import { FormFieldIntDetailComponent } from './formfieldint-detail/formfieldint-detail.component'
 
-import { FormCellStringsTableComponent } from './formcellstrings-table/formcellstrings-table.component'
-import { FormCellStringDetailComponent } from './formcellstring-detail/formcellstring-detail.component'
+import { FormFieldStringsTableComponent } from './formfieldstrings-table/formfieldstrings-table.component'
+import { FormFieldStringDetailComponent } from './formfieldstring-detail/formfieldstring-detail.component'
 
 import { RowsTableComponent } from './rows-table/rows-table.component'
 import { RowDetailComponent } from './row-detail/row-detail.component'
@@ -342,168 +342,168 @@ export class RouteService {
         return route
     }
 
-    getFormCellTablePath(): string {
-        return this.getPathRoot() + '-formcells/:GONG__StackPath'
+    getFormFieldTablePath(): string {
+        return this.getPathRoot() + '-formfields/:GONG__StackPath'
     }
-    getFormCellTableRoute(stackPath: string): Route {
+    getFormFieldTableRoute(stackPath: string): Route {
         let route: Route =
-            { path: this.getFormCellTablePath(), component: FormCellsTableComponent, outlet: this.getTableOutlet(stackPath) }
+            { path: this.getFormFieldTablePath(), component: FormFieldsTableComponent, outlet: this.getTableOutlet(stackPath) }
         return route
     }
-    getFormCellAdderPath(): string {
-        return this.getPathRoot() + '-formcell-adder/:GONG__StackPath'
+    getFormFieldAdderPath(): string {
+        return this.getPathRoot() + '-formfield-adder/:GONG__StackPath'
     }
-    getFormCellAdderRoute(stackPath: string): Route {
+    getFormFieldAdderRoute(stackPath: string): Route {
         let route: Route =
-            { path: this.getFormCellAdderPath(), component: FormCellDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+            { path: this.getFormFieldAdderPath(), component: FormFieldDetailComponent, outlet: this.getEditorOutlet(stackPath) }
         return route
     }
-    getFormCellAdderForUsePath(): string {
-        return this.getPathRoot() + '-formcell-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    getFormFieldAdderForUsePath(): string {
+        return this.getPathRoot() + '-formfield-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
     }
-    getFormCellAdderForUseRoute(stackPath: string): Route {
+    getFormFieldAdderForUseRoute(stackPath: string): Route {
         let route: Route =
-            { path: this.getFormCellAdderForUsePath(), component: FormCellDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+            { path: this.getFormFieldAdderForUsePath(), component: FormFieldDetailComponent, outlet: this.getEditorOutlet(stackPath) }
         return route
     }
-    getFormCellDetailPath(): string {
-        return this.getPathRoot() + '-formcell-detail/:id/:GONG__StackPath'
+    getFormFieldDetailPath(): string {
+        return this.getPathRoot() + '-formfield-detail/:id/:GONG__StackPath'
     }
-    getFormCellDetailRoute(stackPath: string): Route {
+    getFormFieldDetailRoute(stackPath: string): Route {
         let route: Route =
-            { path: this.getFormCellDetailPath(), component: FormCellDetailComponent, outlet: this.getEditorOutlet(stackPath) }
-        return route
-    }
-
-    getFormCellBooleanTablePath(): string {
-        return this.getPathRoot() + '-formcellbooleans/:GONG__StackPath'
-    }
-    getFormCellBooleanTableRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormCellBooleanTablePath(), component: FormCellBooleansTableComponent, outlet: this.getTableOutlet(stackPath) }
-        return route
-    }
-    getFormCellBooleanAdderPath(): string {
-        return this.getPathRoot() + '-formcellboolean-adder/:GONG__StackPath'
-    }
-    getFormCellBooleanAdderRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormCellBooleanAdderPath(), component: FormCellBooleanDetailComponent, outlet: this.getEditorOutlet(stackPath) }
-        return route
-    }
-    getFormCellBooleanAdderForUsePath(): string {
-        return this.getPathRoot() + '-formcellboolean-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
-    }
-    getFormCellBooleanAdderForUseRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormCellBooleanAdderForUsePath(), component: FormCellBooleanDetailComponent, outlet: this.getEditorOutlet(stackPath) }
-        return route
-    }
-    getFormCellBooleanDetailPath(): string {
-        return this.getPathRoot() + '-formcellboolean-detail/:id/:GONG__StackPath'
-    }
-    getFormCellBooleanDetailRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormCellBooleanDetailPath(), component: FormCellBooleanDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+            { path: this.getFormFieldDetailPath(), component: FormFieldDetailComponent, outlet: this.getEditorOutlet(stackPath) }
         return route
     }
 
-    getFormCellFloat64TablePath(): string {
-        return this.getPathRoot() + '-formcellfloat64s/:GONG__StackPath'
+    getFormFieldBooleanTablePath(): string {
+        return this.getPathRoot() + '-formfieldbooleans/:GONG__StackPath'
     }
-    getFormCellFloat64TableRoute(stackPath: string): Route {
+    getFormFieldBooleanTableRoute(stackPath: string): Route {
         let route: Route =
-            { path: this.getFormCellFloat64TablePath(), component: FormCellFloat64sTableComponent, outlet: this.getTableOutlet(stackPath) }
+            { path: this.getFormFieldBooleanTablePath(), component: FormFieldBooleansTableComponent, outlet: this.getTableOutlet(stackPath) }
         return route
     }
-    getFormCellFloat64AdderPath(): string {
-        return this.getPathRoot() + '-formcellfloat64-adder/:GONG__StackPath'
+    getFormFieldBooleanAdderPath(): string {
+        return this.getPathRoot() + '-formfieldboolean-adder/:GONG__StackPath'
     }
-    getFormCellFloat64AdderRoute(stackPath: string): Route {
+    getFormFieldBooleanAdderRoute(stackPath: string): Route {
         let route: Route =
-            { path: this.getFormCellFloat64AdderPath(), component: FormCellFloat64DetailComponent, outlet: this.getEditorOutlet(stackPath) }
+            { path: this.getFormFieldBooleanAdderPath(), component: FormFieldBooleanDetailComponent, outlet: this.getEditorOutlet(stackPath) }
         return route
     }
-    getFormCellFloat64AdderForUsePath(): string {
-        return this.getPathRoot() + '-formcellfloat64-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    getFormFieldBooleanAdderForUsePath(): string {
+        return this.getPathRoot() + '-formfieldboolean-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
     }
-    getFormCellFloat64AdderForUseRoute(stackPath: string): Route {
+    getFormFieldBooleanAdderForUseRoute(stackPath: string): Route {
         let route: Route =
-            { path: this.getFormCellFloat64AdderForUsePath(), component: FormCellFloat64DetailComponent, outlet: this.getEditorOutlet(stackPath) }
+            { path: this.getFormFieldBooleanAdderForUsePath(), component: FormFieldBooleanDetailComponent, outlet: this.getEditorOutlet(stackPath) }
         return route
     }
-    getFormCellFloat64DetailPath(): string {
-        return this.getPathRoot() + '-formcellfloat64-detail/:id/:GONG__StackPath'
+    getFormFieldBooleanDetailPath(): string {
+        return this.getPathRoot() + '-formfieldboolean-detail/:id/:GONG__StackPath'
     }
-    getFormCellFloat64DetailRoute(stackPath: string): Route {
+    getFormFieldBooleanDetailRoute(stackPath: string): Route {
         let route: Route =
-            { path: this.getFormCellFloat64DetailPath(), component: FormCellFloat64DetailComponent, outlet: this.getEditorOutlet(stackPath) }
-        return route
-    }
-
-    getFormCellIntTablePath(): string {
-        return this.getPathRoot() + '-formcellints/:GONG__StackPath'
-    }
-    getFormCellIntTableRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormCellIntTablePath(), component: FormCellIntsTableComponent, outlet: this.getTableOutlet(stackPath) }
-        return route
-    }
-    getFormCellIntAdderPath(): string {
-        return this.getPathRoot() + '-formcellint-adder/:GONG__StackPath'
-    }
-    getFormCellIntAdderRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormCellIntAdderPath(), component: FormCellIntDetailComponent, outlet: this.getEditorOutlet(stackPath) }
-        return route
-    }
-    getFormCellIntAdderForUsePath(): string {
-        return this.getPathRoot() + '-formcellint-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
-    }
-    getFormCellIntAdderForUseRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormCellIntAdderForUsePath(), component: FormCellIntDetailComponent, outlet: this.getEditorOutlet(stackPath) }
-        return route
-    }
-    getFormCellIntDetailPath(): string {
-        return this.getPathRoot() + '-formcellint-detail/:id/:GONG__StackPath'
-    }
-    getFormCellIntDetailRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormCellIntDetailPath(), component: FormCellIntDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+            { path: this.getFormFieldBooleanDetailPath(), component: FormFieldBooleanDetailComponent, outlet: this.getEditorOutlet(stackPath) }
         return route
     }
 
-    getFormCellStringTablePath(): string {
-        return this.getPathRoot() + '-formcellstrings/:GONG__StackPath'
+    getFormFieldFloat64TablePath(): string {
+        return this.getPathRoot() + '-formfieldfloat64s/:GONG__StackPath'
     }
-    getFormCellStringTableRoute(stackPath: string): Route {
+    getFormFieldFloat64TableRoute(stackPath: string): Route {
         let route: Route =
-            { path: this.getFormCellStringTablePath(), component: FormCellStringsTableComponent, outlet: this.getTableOutlet(stackPath) }
+            { path: this.getFormFieldFloat64TablePath(), component: FormFieldFloat64sTableComponent, outlet: this.getTableOutlet(stackPath) }
         return route
     }
-    getFormCellStringAdderPath(): string {
-        return this.getPathRoot() + '-formcellstring-adder/:GONG__StackPath'
+    getFormFieldFloat64AdderPath(): string {
+        return this.getPathRoot() + '-formfieldfloat64-adder/:GONG__StackPath'
     }
-    getFormCellStringAdderRoute(stackPath: string): Route {
+    getFormFieldFloat64AdderRoute(stackPath: string): Route {
         let route: Route =
-            { path: this.getFormCellStringAdderPath(), component: FormCellStringDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+            { path: this.getFormFieldFloat64AdderPath(), component: FormFieldFloat64DetailComponent, outlet: this.getEditorOutlet(stackPath) }
         return route
     }
-    getFormCellStringAdderForUsePath(): string {
-        return this.getPathRoot() + '-formcellstring-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    getFormFieldFloat64AdderForUsePath(): string {
+        return this.getPathRoot() + '-formfieldfloat64-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
     }
-    getFormCellStringAdderForUseRoute(stackPath: string): Route {
+    getFormFieldFloat64AdderForUseRoute(stackPath: string): Route {
         let route: Route =
-            { path: this.getFormCellStringAdderForUsePath(), component: FormCellStringDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+            { path: this.getFormFieldFloat64AdderForUsePath(), component: FormFieldFloat64DetailComponent, outlet: this.getEditorOutlet(stackPath) }
         return route
     }
-    getFormCellStringDetailPath(): string {
-        return this.getPathRoot() + '-formcellstring-detail/:id/:GONG__StackPath'
+    getFormFieldFloat64DetailPath(): string {
+        return this.getPathRoot() + '-formfieldfloat64-detail/:id/:GONG__StackPath'
     }
-    getFormCellStringDetailRoute(stackPath: string): Route {
+    getFormFieldFloat64DetailRoute(stackPath: string): Route {
         let route: Route =
-            { path: this.getFormCellStringDetailPath(), component: FormCellStringDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+            { path: this.getFormFieldFloat64DetailPath(), component: FormFieldFloat64DetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
+    getFormFieldIntTablePath(): string {
+        return this.getPathRoot() + '-formfieldints/:GONG__StackPath'
+    }
+    getFormFieldIntTableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldIntTablePath(), component: FormFieldIntsTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getFormFieldIntAdderPath(): string {
+        return this.getPathRoot() + '-formfieldint-adder/:GONG__StackPath'
+    }
+    getFormFieldIntAdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldIntAdderPath(), component: FormFieldIntDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormFieldIntAdderForUsePath(): string {
+        return this.getPathRoot() + '-formfieldint-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getFormFieldIntAdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldIntAdderForUsePath(), component: FormFieldIntDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormFieldIntDetailPath(): string {
+        return this.getPathRoot() + '-formfieldint-detail/:id/:GONG__StackPath'
+    }
+    getFormFieldIntDetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldIntDetailPath(), component: FormFieldIntDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
+    getFormFieldStringTablePath(): string {
+        return this.getPathRoot() + '-formfieldstrings/:GONG__StackPath'
+    }
+    getFormFieldStringTableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldStringTablePath(), component: FormFieldStringsTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getFormFieldStringAdderPath(): string {
+        return this.getPathRoot() + '-formfieldstring-adder/:GONG__StackPath'
+    }
+    getFormFieldStringAdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldStringAdderPath(), component: FormFieldStringDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormFieldStringAdderForUsePath(): string {
+        return this.getPathRoot() + '-formfieldstring-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getFormFieldStringAdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldStringAdderForUsePath(), component: FormFieldStringDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormFieldStringDetailPath(): string {
+        return this.getPathRoot() + '-formfieldstring-detail/:id/:GONG__StackPath'
+    }
+    getFormFieldStringDetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldStringDetailPath(), component: FormFieldStringDetailComponent, outlet: this.getEditorOutlet(stackPath) }
         return route
     }
 
@@ -619,30 +619,30 @@ export class RouteService {
             this.getFormAdderForUseRoute(stackPath),
             this.getFormDetailRoute(stackPath),
 
-            this.getFormCellTableRoute(stackPath),
-            this.getFormCellAdderRoute(stackPath),
-            this.getFormCellAdderForUseRoute(stackPath),
-            this.getFormCellDetailRoute(stackPath),
+            this.getFormFieldTableRoute(stackPath),
+            this.getFormFieldAdderRoute(stackPath),
+            this.getFormFieldAdderForUseRoute(stackPath),
+            this.getFormFieldDetailRoute(stackPath),
 
-            this.getFormCellBooleanTableRoute(stackPath),
-            this.getFormCellBooleanAdderRoute(stackPath),
-            this.getFormCellBooleanAdderForUseRoute(stackPath),
-            this.getFormCellBooleanDetailRoute(stackPath),
+            this.getFormFieldBooleanTableRoute(stackPath),
+            this.getFormFieldBooleanAdderRoute(stackPath),
+            this.getFormFieldBooleanAdderForUseRoute(stackPath),
+            this.getFormFieldBooleanDetailRoute(stackPath),
 
-            this.getFormCellFloat64TableRoute(stackPath),
-            this.getFormCellFloat64AdderRoute(stackPath),
-            this.getFormCellFloat64AdderForUseRoute(stackPath),
-            this.getFormCellFloat64DetailRoute(stackPath),
+            this.getFormFieldFloat64TableRoute(stackPath),
+            this.getFormFieldFloat64AdderRoute(stackPath),
+            this.getFormFieldFloat64AdderForUseRoute(stackPath),
+            this.getFormFieldFloat64DetailRoute(stackPath),
 
-            this.getFormCellIntTableRoute(stackPath),
-            this.getFormCellIntAdderRoute(stackPath),
-            this.getFormCellIntAdderForUseRoute(stackPath),
-            this.getFormCellIntDetailRoute(stackPath),
+            this.getFormFieldIntTableRoute(stackPath),
+            this.getFormFieldIntAdderRoute(stackPath),
+            this.getFormFieldIntAdderForUseRoute(stackPath),
+            this.getFormFieldIntDetailRoute(stackPath),
 
-            this.getFormCellStringTableRoute(stackPath),
-            this.getFormCellStringAdderRoute(stackPath),
-            this.getFormCellStringAdderForUseRoute(stackPath),
-            this.getFormCellStringDetailRoute(stackPath),
+            this.getFormFieldStringTableRoute(stackPath),
+            this.getFormFieldStringAdderRoute(stackPath),
+            this.getFormFieldStringAdderForUseRoute(stackPath),
+            this.getFormFieldStringDetailRoute(stackPath),
 
             this.getRowTableRoute(stackPath),
             this.getRowAdderRoute(stackPath),

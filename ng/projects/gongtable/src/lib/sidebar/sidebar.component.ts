@@ -27,16 +27,16 @@ import { DisplayedColumnService } from '../displayedcolumn.service'
 import { getDisplayedColumnUniqueID } from '../front-repo.service'
 import { FormService } from '../form.service'
 import { getFormUniqueID } from '../front-repo.service'
-import { FormCellService } from '../formcell.service'
-import { getFormCellUniqueID } from '../front-repo.service'
-import { FormCellBooleanService } from '../formcellboolean.service'
-import { getFormCellBooleanUniqueID } from '../front-repo.service'
-import { FormCellFloat64Service } from '../formcellfloat64.service'
-import { getFormCellFloat64UniqueID } from '../front-repo.service'
-import { FormCellIntService } from '../formcellint.service'
-import { getFormCellIntUniqueID } from '../front-repo.service'
-import { FormCellStringService } from '../formcellstring.service'
-import { getFormCellStringUniqueID } from '../front-repo.service'
+import { FormFieldService } from '../formfield.service'
+import { getFormFieldUniqueID } from '../front-repo.service'
+import { FormFieldBooleanService } from '../formfieldboolean.service'
+import { getFormFieldBooleanUniqueID } from '../front-repo.service'
+import { FormFieldFloat64Service } from '../formfieldfloat64.service'
+import { getFormFieldFloat64UniqueID } from '../front-repo.service'
+import { FormFieldIntService } from '../formfieldint.service'
+import { getFormFieldIntUniqueID } from '../front-repo.service'
+import { FormFieldStringService } from '../formfieldstring.service'
+import { getFormFieldStringUniqueID } from '../front-repo.service'
 import { RowService } from '../row.service'
 import { getRowUniqueID } from '../front-repo.service'
 import { TableService } from '../table.service'
@@ -194,11 +194,11 @@ export class SidebarComponent implements OnInit {
     private cellstringService: CellStringService,
     private displayedcolumnService: DisplayedColumnService,
     private formService: FormService,
-    private formcellService: FormCellService,
-    private formcellbooleanService: FormCellBooleanService,
-    private formcellfloat64Service: FormCellFloat64Service,
-    private formcellintService: FormCellIntService,
-    private formcellstringService: FormCellStringService,
+    private formfieldService: FormFieldService,
+    private formfieldbooleanService: FormFieldBooleanService,
+    private formfieldfloat64Service: FormFieldFloat64Service,
+    private formfieldintService: FormFieldIntService,
+    private formfieldstringService: FormFieldStringService,
     private rowService: RowService,
     private tableService: TableService,
 
@@ -301,7 +301,7 @@ export class SidebarComponent implements OnInit {
       }
     )
     // observable for changes in structs
-    this.formcellService.FormCellServiceChanged.subscribe(
+    this.formfieldService.FormFieldServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
           this.refresh()
@@ -309,7 +309,7 @@ export class SidebarComponent implements OnInit {
       }
     )
     // observable for changes in structs
-    this.formcellbooleanService.FormCellBooleanServiceChanged.subscribe(
+    this.formfieldbooleanService.FormFieldBooleanServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
           this.refresh()
@@ -317,7 +317,7 @@ export class SidebarComponent implements OnInit {
       }
     )
     // observable for changes in structs
-    this.formcellfloat64Service.FormCellFloat64ServiceChanged.subscribe(
+    this.formfieldfloat64Service.FormFieldFloat64ServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
           this.refresh()
@@ -325,7 +325,7 @@ export class SidebarComponent implements OnInit {
       }
     )
     // observable for changes in structs
-    this.formcellintService.FormCellIntServiceChanged.subscribe(
+    this.formfieldintService.FormFieldIntServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
           this.refresh()
@@ -333,7 +333,7 @@ export class SidebarComponent implements OnInit {
       }
     )
     // observable for changes in structs
-    this.formcellstringService.FormCellStringServiceChanged.subscribe(
+    this.formfieldstringService.FormFieldStringServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
           this.refresh()
@@ -908,54 +908,54 @@ export class SidebarComponent implements OnInit {
           * let append a node for the slide of pointer FormCells
           */
           let FormCellsGongNodeAssociation: GongNode = {
-            name: "(FormCell) FormCells",
+            name: "(FormField) FormCells",
             type: GongNodeType.ONE__ZERO_MANY_ASSOCIATION,
             id: formDB.ID,
             uniqueIdPerStack: 19 * nonInstanceNodeId,
             structName: "Form",
             associationField: "FormCells",
-            associatedStructName: "FormCell",
+            associatedStructName: "FormField",
             children: new Array<GongNode>()
           }
           nonInstanceNodeId = nonInstanceNodeId + 1
           formGongNodeInstance.children.push(FormCellsGongNodeAssociation)
 
-          formDB.FormCells?.forEach(formcellDB => {
-            let formcellNode: GongNode = {
-              name: formcellDB.Name,
+          formDB.FormCells?.forEach(formfieldDB => {
+            let formfieldNode: GongNode = {
+              name: formfieldDB.Name,
               type: GongNodeType.INSTANCE,
-              id: formcellDB.ID,
+              id: formfieldDB.ID,
               uniqueIdPerStack: // godel numbering (thank you kurt)
                 7 * getFormUniqueID(formDB.ID)
-                + 11 * getFormCellUniqueID(formcellDB.ID),
-              structName: "FormCell",
+                + 11 * getFormFieldUniqueID(formfieldDB.ID),
+              structName: "FormField",
               associationField: "",
               associatedStructName: "",
               children: new Array<GongNode>()
             }
-            FormCellsGongNodeAssociation.children.push(formcellNode)
+            FormCellsGongNodeAssociation.children.push(formfieldNode)
           })
 
         }
       )
 
       /**
-      * fill up the FormCell part of the mat tree
+      * fill up the FormField part of the mat tree
       */
-      let formcellGongNodeStruct: GongNode = {
-        name: "FormCell",
+      let formfieldGongNodeStruct: GongNode = {
+        name: "FormField",
         type: GongNodeType.STRUCT,
         id: 0,
         uniqueIdPerStack: 13 * nonInstanceNodeId,
-        structName: "FormCell",
+        structName: "FormField",
         associationField: "",
         associatedStructName: "",
         children: new Array<GongNode>()
       }
       nonInstanceNodeId = nonInstanceNodeId + 1
-      this.gongNodeTree.push(formcellGongNodeStruct)
+      this.gongNodeTree.push(formfieldGongNodeStruct)
 
-      this.frontRepo.FormCells_array.sort((t1, t2) => {
+      this.frontRepo.FormFields_array.sort((t1, t2) => {
         if (t1.Name > t2.Name) {
           return 1;
         }
@@ -965,181 +965,181 @@ export class SidebarComponent implements OnInit {
         return 0;
       });
 
-      this.frontRepo.FormCells_array.forEach(
-        formcellDB => {
-          let formcellGongNodeInstance: GongNode = {
-            name: formcellDB.Name,
+      this.frontRepo.FormFields_array.forEach(
+        formfieldDB => {
+          let formfieldGongNodeInstance: GongNode = {
+            name: formfieldDB.Name,
             type: GongNodeType.INSTANCE,
-            id: formcellDB.ID,
-            uniqueIdPerStack: getFormCellUniqueID(formcellDB.ID),
-            structName: "FormCell",
+            id: formfieldDB.ID,
+            uniqueIdPerStack: getFormFieldUniqueID(formfieldDB.ID),
+            structName: "FormField",
             associationField: "",
             associatedStructName: "",
             children: new Array<GongNode>()
           }
-          formcellGongNodeStruct.children!.push(formcellGongNodeInstance)
+          formfieldGongNodeStruct.children!.push(formfieldGongNodeInstance)
 
           // insertion point for per field code
           /**
-          * let append a node for the association FormCellString
+          * let append a node for the association FormFieldString
           */
-          let FormCellStringGongNodeAssociation: GongNode = {
-            name: "(FormCellString) FormCellString",
+          let FormFieldStringGongNodeAssociation: GongNode = {
+            name: "(FormFieldString) FormFieldString",
             type: GongNodeType.ONE__ZERO_ONE_ASSOCIATION,
-            id: formcellDB.ID,
+            id: formfieldDB.ID,
             uniqueIdPerStack: 17 * nonInstanceNodeId,
-            structName: "FormCell",
-            associationField: "FormCellString",
-            associatedStructName: "FormCellString",
+            structName: "FormField",
+            associationField: "FormFieldString",
+            associatedStructName: "FormFieldString",
             children: new Array<GongNode>()
           }
           nonInstanceNodeId = nonInstanceNodeId + 1
-          formcellGongNodeInstance.children!.push(FormCellStringGongNodeAssociation)
+          formfieldGongNodeInstance.children!.push(FormFieldStringGongNodeAssociation)
 
           /**
-            * let append a node for the instance behind the asssociation FormCellString
+            * let append a node for the instance behind the asssociation FormFieldString
             */
-          if (formcellDB.FormCellString != undefined) {
-            let formcellGongNodeInstance_FormCellString: GongNode = {
-              name: formcellDB.FormCellString.Name,
+          if (formfieldDB.FormFieldString != undefined) {
+            let formfieldGongNodeInstance_FormFieldString: GongNode = {
+              name: formfieldDB.FormFieldString.Name,
               type: GongNodeType.INSTANCE,
-              id: formcellDB.FormCellString.ID,
+              id: formfieldDB.FormFieldString.ID,
               uniqueIdPerStack: // godel numbering (thank you kurt)
-                3 * getFormCellUniqueID(formcellDB.ID)
-                + 5 * getFormCellStringUniqueID(formcellDB.FormCellString.ID),
-              structName: "FormCellString",
+                3 * getFormFieldUniqueID(formfieldDB.ID)
+                + 5 * getFormFieldStringUniqueID(formfieldDB.FormFieldString.ID),
+              structName: "FormFieldString",
               associationField: "",
               associatedStructName: "",
               children: new Array<GongNode>()
             }
-            FormCellStringGongNodeAssociation.children.push(formcellGongNodeInstance_FormCellString)
+            FormFieldStringGongNodeAssociation.children.push(formfieldGongNodeInstance_FormFieldString)
           }
 
           /**
-          * let append a node for the association FormCellFloat64
+          * let append a node for the association FormFieldFloat64
           */
-          let FormCellFloat64GongNodeAssociation: GongNode = {
-            name: "(FormCellFloat64) FormCellFloat64",
+          let FormFieldFloat64GongNodeAssociation: GongNode = {
+            name: "(FormFieldFloat64) FormFieldFloat64",
             type: GongNodeType.ONE__ZERO_ONE_ASSOCIATION,
-            id: formcellDB.ID,
+            id: formfieldDB.ID,
             uniqueIdPerStack: 17 * nonInstanceNodeId,
-            structName: "FormCell",
-            associationField: "FormCellFloat64",
-            associatedStructName: "FormCellFloat64",
+            structName: "FormField",
+            associationField: "FormFieldFloat64",
+            associatedStructName: "FormFieldFloat64",
             children: new Array<GongNode>()
           }
           nonInstanceNodeId = nonInstanceNodeId + 1
-          formcellGongNodeInstance.children!.push(FormCellFloat64GongNodeAssociation)
+          formfieldGongNodeInstance.children!.push(FormFieldFloat64GongNodeAssociation)
 
           /**
-            * let append a node for the instance behind the asssociation FormCellFloat64
+            * let append a node for the instance behind the asssociation FormFieldFloat64
             */
-          if (formcellDB.FormCellFloat64 != undefined) {
-            let formcellGongNodeInstance_FormCellFloat64: GongNode = {
-              name: formcellDB.FormCellFloat64.Name,
+          if (formfieldDB.FormFieldFloat64 != undefined) {
+            let formfieldGongNodeInstance_FormFieldFloat64: GongNode = {
+              name: formfieldDB.FormFieldFloat64.Name,
               type: GongNodeType.INSTANCE,
-              id: formcellDB.FormCellFloat64.ID,
+              id: formfieldDB.FormFieldFloat64.ID,
               uniqueIdPerStack: // godel numbering (thank you kurt)
-                3 * getFormCellUniqueID(formcellDB.ID)
-                + 5 * getFormCellFloat64UniqueID(formcellDB.FormCellFloat64.ID),
-              structName: "FormCellFloat64",
+                3 * getFormFieldUniqueID(formfieldDB.ID)
+                + 5 * getFormFieldFloat64UniqueID(formfieldDB.FormFieldFloat64.ID),
+              structName: "FormFieldFloat64",
               associationField: "",
               associatedStructName: "",
               children: new Array<GongNode>()
             }
-            FormCellFloat64GongNodeAssociation.children.push(formcellGongNodeInstance_FormCellFloat64)
+            FormFieldFloat64GongNodeAssociation.children.push(formfieldGongNodeInstance_FormFieldFloat64)
           }
 
           /**
-          * let append a node for the association FormCellInt
+          * let append a node for the association FormFieldInt
           */
-          let FormCellIntGongNodeAssociation: GongNode = {
-            name: "(FormCellInt) FormCellInt",
+          let FormFieldIntGongNodeAssociation: GongNode = {
+            name: "(FormFieldInt) FormFieldInt",
             type: GongNodeType.ONE__ZERO_ONE_ASSOCIATION,
-            id: formcellDB.ID,
+            id: formfieldDB.ID,
             uniqueIdPerStack: 17 * nonInstanceNodeId,
-            structName: "FormCell",
-            associationField: "FormCellInt",
-            associatedStructName: "FormCellInt",
+            structName: "FormField",
+            associationField: "FormFieldInt",
+            associatedStructName: "FormFieldInt",
             children: new Array<GongNode>()
           }
           nonInstanceNodeId = nonInstanceNodeId + 1
-          formcellGongNodeInstance.children!.push(FormCellIntGongNodeAssociation)
+          formfieldGongNodeInstance.children!.push(FormFieldIntGongNodeAssociation)
 
           /**
-            * let append a node for the instance behind the asssociation FormCellInt
+            * let append a node for the instance behind the asssociation FormFieldInt
             */
-          if (formcellDB.FormCellInt != undefined) {
-            let formcellGongNodeInstance_FormCellInt: GongNode = {
-              name: formcellDB.FormCellInt.Name,
+          if (formfieldDB.FormFieldInt != undefined) {
+            let formfieldGongNodeInstance_FormFieldInt: GongNode = {
+              name: formfieldDB.FormFieldInt.Name,
               type: GongNodeType.INSTANCE,
-              id: formcellDB.FormCellInt.ID,
+              id: formfieldDB.FormFieldInt.ID,
               uniqueIdPerStack: // godel numbering (thank you kurt)
-                3 * getFormCellUniqueID(formcellDB.ID)
-                + 5 * getFormCellIntUniqueID(formcellDB.FormCellInt.ID),
-              structName: "FormCellInt",
+                3 * getFormFieldUniqueID(formfieldDB.ID)
+                + 5 * getFormFieldIntUniqueID(formfieldDB.FormFieldInt.ID),
+              structName: "FormFieldInt",
               associationField: "",
               associatedStructName: "",
               children: new Array<GongNode>()
             }
-            FormCellIntGongNodeAssociation.children.push(formcellGongNodeInstance_FormCellInt)
+            FormFieldIntGongNodeAssociation.children.push(formfieldGongNodeInstance_FormFieldInt)
           }
 
           /**
-          * let append a node for the association FormCellBool
+          * let append a node for the association FormFieldBool
           */
-          let FormCellBoolGongNodeAssociation: GongNode = {
-            name: "(FormCellBoolean) FormCellBool",
+          let FormFieldBoolGongNodeAssociation: GongNode = {
+            name: "(FormFieldBoolean) FormFieldBool",
             type: GongNodeType.ONE__ZERO_ONE_ASSOCIATION,
-            id: formcellDB.ID,
+            id: formfieldDB.ID,
             uniqueIdPerStack: 17 * nonInstanceNodeId,
-            structName: "FormCell",
-            associationField: "FormCellBool",
-            associatedStructName: "FormCellBoolean",
+            structName: "FormField",
+            associationField: "FormFieldBool",
+            associatedStructName: "FormFieldBoolean",
             children: new Array<GongNode>()
           }
           nonInstanceNodeId = nonInstanceNodeId + 1
-          formcellGongNodeInstance.children!.push(FormCellBoolGongNodeAssociation)
+          formfieldGongNodeInstance.children!.push(FormFieldBoolGongNodeAssociation)
 
           /**
-            * let append a node for the instance behind the asssociation FormCellBool
+            * let append a node for the instance behind the asssociation FormFieldBool
             */
-          if (formcellDB.FormCellBool != undefined) {
-            let formcellGongNodeInstance_FormCellBool: GongNode = {
-              name: formcellDB.FormCellBool.Name,
+          if (formfieldDB.FormFieldBool != undefined) {
+            let formfieldGongNodeInstance_FormFieldBool: GongNode = {
+              name: formfieldDB.FormFieldBool.Name,
               type: GongNodeType.INSTANCE,
-              id: formcellDB.FormCellBool.ID,
+              id: formfieldDB.FormFieldBool.ID,
               uniqueIdPerStack: // godel numbering (thank you kurt)
-                3 * getFormCellUniqueID(formcellDB.ID)
-                + 5 * getFormCellBooleanUniqueID(formcellDB.FormCellBool.ID),
-              structName: "FormCellBoolean",
+                3 * getFormFieldUniqueID(formfieldDB.ID)
+                + 5 * getFormFieldBooleanUniqueID(formfieldDB.FormFieldBool.ID),
+              structName: "FormFieldBoolean",
               associationField: "",
               associatedStructName: "",
               children: new Array<GongNode>()
             }
-            FormCellBoolGongNodeAssociation.children.push(formcellGongNodeInstance_FormCellBool)
+            FormFieldBoolGongNodeAssociation.children.push(formfieldGongNodeInstance_FormFieldBool)
           }
 
         }
       )
 
       /**
-      * fill up the FormCellBoolean part of the mat tree
+      * fill up the FormFieldBoolean part of the mat tree
       */
-      let formcellbooleanGongNodeStruct: GongNode = {
-        name: "FormCellBoolean",
+      let formfieldbooleanGongNodeStruct: GongNode = {
+        name: "FormFieldBoolean",
         type: GongNodeType.STRUCT,
         id: 0,
         uniqueIdPerStack: 13 * nonInstanceNodeId,
-        structName: "FormCellBoolean",
+        structName: "FormFieldBoolean",
         associationField: "",
         associatedStructName: "",
         children: new Array<GongNode>()
       }
       nonInstanceNodeId = nonInstanceNodeId + 1
-      this.gongNodeTree.push(formcellbooleanGongNodeStruct)
+      this.gongNodeTree.push(formfieldbooleanGongNodeStruct)
 
-      this.frontRepo.FormCellBooleans_array.sort((t1, t2) => {
+      this.frontRepo.FormFieldBooleans_array.sort((t1, t2) => {
         if (t1.Name > t2.Name) {
           return 1;
         }
@@ -1149,41 +1149,41 @@ export class SidebarComponent implements OnInit {
         return 0;
       });
 
-      this.frontRepo.FormCellBooleans_array.forEach(
-        formcellbooleanDB => {
-          let formcellbooleanGongNodeInstance: GongNode = {
-            name: formcellbooleanDB.Name,
+      this.frontRepo.FormFieldBooleans_array.forEach(
+        formfieldbooleanDB => {
+          let formfieldbooleanGongNodeInstance: GongNode = {
+            name: formfieldbooleanDB.Name,
             type: GongNodeType.INSTANCE,
-            id: formcellbooleanDB.ID,
-            uniqueIdPerStack: getFormCellBooleanUniqueID(formcellbooleanDB.ID),
-            structName: "FormCellBoolean",
+            id: formfieldbooleanDB.ID,
+            uniqueIdPerStack: getFormFieldBooleanUniqueID(formfieldbooleanDB.ID),
+            structName: "FormFieldBoolean",
             associationField: "",
             associatedStructName: "",
             children: new Array<GongNode>()
           }
-          formcellbooleanGongNodeStruct.children!.push(formcellbooleanGongNodeInstance)
+          formfieldbooleanGongNodeStruct.children!.push(formfieldbooleanGongNodeInstance)
 
           // insertion point for per field code
         }
       )
 
       /**
-      * fill up the FormCellFloat64 part of the mat tree
+      * fill up the FormFieldFloat64 part of the mat tree
       */
-      let formcellfloat64GongNodeStruct: GongNode = {
-        name: "FormCellFloat64",
+      let formfieldfloat64GongNodeStruct: GongNode = {
+        name: "FormFieldFloat64",
         type: GongNodeType.STRUCT,
         id: 0,
         uniqueIdPerStack: 13 * nonInstanceNodeId,
-        structName: "FormCellFloat64",
+        structName: "FormFieldFloat64",
         associationField: "",
         associatedStructName: "",
         children: new Array<GongNode>()
       }
       nonInstanceNodeId = nonInstanceNodeId + 1
-      this.gongNodeTree.push(formcellfloat64GongNodeStruct)
+      this.gongNodeTree.push(formfieldfloat64GongNodeStruct)
 
-      this.frontRepo.FormCellFloat64s_array.sort((t1, t2) => {
+      this.frontRepo.FormFieldFloat64s_array.sort((t1, t2) => {
         if (t1.Name > t2.Name) {
           return 1;
         }
@@ -1193,41 +1193,41 @@ export class SidebarComponent implements OnInit {
         return 0;
       });
 
-      this.frontRepo.FormCellFloat64s_array.forEach(
-        formcellfloat64DB => {
-          let formcellfloat64GongNodeInstance: GongNode = {
-            name: formcellfloat64DB.Name,
+      this.frontRepo.FormFieldFloat64s_array.forEach(
+        formfieldfloat64DB => {
+          let formfieldfloat64GongNodeInstance: GongNode = {
+            name: formfieldfloat64DB.Name,
             type: GongNodeType.INSTANCE,
-            id: formcellfloat64DB.ID,
-            uniqueIdPerStack: getFormCellFloat64UniqueID(formcellfloat64DB.ID),
-            structName: "FormCellFloat64",
+            id: formfieldfloat64DB.ID,
+            uniqueIdPerStack: getFormFieldFloat64UniqueID(formfieldfloat64DB.ID),
+            structName: "FormFieldFloat64",
             associationField: "",
             associatedStructName: "",
             children: new Array<GongNode>()
           }
-          formcellfloat64GongNodeStruct.children!.push(formcellfloat64GongNodeInstance)
+          formfieldfloat64GongNodeStruct.children!.push(formfieldfloat64GongNodeInstance)
 
           // insertion point for per field code
         }
       )
 
       /**
-      * fill up the FormCellInt part of the mat tree
+      * fill up the FormFieldInt part of the mat tree
       */
-      let formcellintGongNodeStruct: GongNode = {
-        name: "FormCellInt",
+      let formfieldintGongNodeStruct: GongNode = {
+        name: "FormFieldInt",
         type: GongNodeType.STRUCT,
         id: 0,
         uniqueIdPerStack: 13 * nonInstanceNodeId,
-        structName: "FormCellInt",
+        structName: "FormFieldInt",
         associationField: "",
         associatedStructName: "",
         children: new Array<GongNode>()
       }
       nonInstanceNodeId = nonInstanceNodeId + 1
-      this.gongNodeTree.push(formcellintGongNodeStruct)
+      this.gongNodeTree.push(formfieldintGongNodeStruct)
 
-      this.frontRepo.FormCellInts_array.sort((t1, t2) => {
+      this.frontRepo.FormFieldInts_array.sort((t1, t2) => {
         if (t1.Name > t2.Name) {
           return 1;
         }
@@ -1237,41 +1237,41 @@ export class SidebarComponent implements OnInit {
         return 0;
       });
 
-      this.frontRepo.FormCellInts_array.forEach(
-        formcellintDB => {
-          let formcellintGongNodeInstance: GongNode = {
-            name: formcellintDB.Name,
+      this.frontRepo.FormFieldInts_array.forEach(
+        formfieldintDB => {
+          let formfieldintGongNodeInstance: GongNode = {
+            name: formfieldintDB.Name,
             type: GongNodeType.INSTANCE,
-            id: formcellintDB.ID,
-            uniqueIdPerStack: getFormCellIntUniqueID(formcellintDB.ID),
-            structName: "FormCellInt",
+            id: formfieldintDB.ID,
+            uniqueIdPerStack: getFormFieldIntUniqueID(formfieldintDB.ID),
+            structName: "FormFieldInt",
             associationField: "",
             associatedStructName: "",
             children: new Array<GongNode>()
           }
-          formcellintGongNodeStruct.children!.push(formcellintGongNodeInstance)
+          formfieldintGongNodeStruct.children!.push(formfieldintGongNodeInstance)
 
           // insertion point for per field code
         }
       )
 
       /**
-      * fill up the FormCellString part of the mat tree
+      * fill up the FormFieldString part of the mat tree
       */
-      let formcellstringGongNodeStruct: GongNode = {
-        name: "FormCellString",
+      let formfieldstringGongNodeStruct: GongNode = {
+        name: "FormFieldString",
         type: GongNodeType.STRUCT,
         id: 0,
         uniqueIdPerStack: 13 * nonInstanceNodeId,
-        structName: "FormCellString",
+        structName: "FormFieldString",
         associationField: "",
         associatedStructName: "",
         children: new Array<GongNode>()
       }
       nonInstanceNodeId = nonInstanceNodeId + 1
-      this.gongNodeTree.push(formcellstringGongNodeStruct)
+      this.gongNodeTree.push(formfieldstringGongNodeStruct)
 
-      this.frontRepo.FormCellStrings_array.sort((t1, t2) => {
+      this.frontRepo.FormFieldStrings_array.sort((t1, t2) => {
         if (t1.Name > t2.Name) {
           return 1;
         }
@@ -1281,19 +1281,19 @@ export class SidebarComponent implements OnInit {
         return 0;
       });
 
-      this.frontRepo.FormCellStrings_array.forEach(
-        formcellstringDB => {
-          let formcellstringGongNodeInstance: GongNode = {
-            name: formcellstringDB.Name,
+      this.frontRepo.FormFieldStrings_array.forEach(
+        formfieldstringDB => {
+          let formfieldstringGongNodeInstance: GongNode = {
+            name: formfieldstringDB.Name,
             type: GongNodeType.INSTANCE,
-            id: formcellstringDB.ID,
-            uniqueIdPerStack: getFormCellStringUniqueID(formcellstringDB.ID),
-            structName: "FormCellString",
+            id: formfieldstringDB.ID,
+            uniqueIdPerStack: getFormFieldStringUniqueID(formfieldstringDB.ID),
+            structName: "FormFieldString",
             associationField: "",
             associatedStructName: "",
             children: new Array<GongNode>()
           }
-          formcellstringGongNodeStruct.children!.push(formcellstringGongNodeInstance)
+          formfieldstringGongNodeStruct.children!.push(formfieldstringGongNodeInstance)
 
           // insertion point for per field code
         }

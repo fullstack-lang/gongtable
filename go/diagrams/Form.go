@@ -81,41 +81,41 @@ var map_DocLink_Identifier_Form map[string]any = map[string]any{
 
 	"ref_models.Form.Name": (ref_models.Form{}).Name,
 
-	"ref_models.FormCell": &(ref_models.FormCell{}),
+	"ref_models.FormCell": &(ref_models.FormField{}),
 
-	"ref_models.FormCell.FormCellBool": (ref_models.FormCell{}).FormCellBool,
+	"ref_models.FormCell.FormCellBool": (ref_models.FormField{}).FormFieldBool,
 
-	"ref_models.FormCell.FormCellFloat64": (ref_models.FormCell{}).FormCellFloat64,
+	"ref_models.FormCell.FormCellFloat64": (ref_models.FormField{}).FormFieldFloat64,
 
-	"ref_models.FormCell.FormCellInt": (ref_models.FormCell{}).FormCellInt,
+	"ref_models.FormCell.FormCellInt": (ref_models.FormField{}).FormFieldInt,
 
-	"ref_models.FormCell.FormCellString": (ref_models.FormCell{}).FormCellString,
+	"ref_models.FormCell.FormCellString": (ref_models.FormField{}).FormFieldString,
 
-	"ref_models.FormCell.Name": (ref_models.FormCell{}).Name,
+	"ref_models.FormCell.Name": (ref_models.FormField{}).Name,
 
-	"ref_models.FormCellBoolean": &(ref_models.FormCellBoolean{}),
+	"ref_models.FormCellBoolean": &(ref_models.FormFieldBoolean{}),
 
-	"ref_models.FormCellBoolean.Name": (ref_models.FormCellBoolean{}).Name,
+	"ref_models.FormCellBoolean.Name": (ref_models.FormFieldBoolean{}).Name,
 
-	"ref_models.FormCellBoolean.Value": (ref_models.FormCellBoolean{}).Value,
+	"ref_models.FormCellBoolean.Value": (ref_models.FormFieldBoolean{}).Value,
 
-	"ref_models.FormCellFloat64": &(ref_models.FormCellFloat64{}),
+	"ref_models.FormCellFloat64": &(ref_models.FormFieldFloat64{}),
 
-	"ref_models.FormCellFloat64.Name": (ref_models.FormCellFloat64{}).Name,
+	"ref_models.FormCellFloat64.Name": (ref_models.FormFieldFloat64{}).Name,
 
-	"ref_models.FormCellFloat64.Value": (ref_models.FormCellFloat64{}).Value,
+	"ref_models.FormCellFloat64.Value": (ref_models.FormFieldFloat64{}).Value,
 
-	"ref_models.FormCellInt": &(ref_models.FormCellInt{}),
+	"ref_models.FormCellInt": &(ref_models.FormFieldInt{}),
 
-	"ref_models.FormCellInt.Name": (ref_models.FormCellInt{}).Name,
+	"ref_models.FormCellInt.Name": (ref_models.FormFieldInt{}).Name,
 
-	"ref_models.FormCellInt.Value": (ref_models.FormCellInt{}).Value,
+	"ref_models.FormCellInt.Value": (ref_models.FormFieldInt{}).Value,
 
-	"ref_models.FormCellString": &(ref_models.FormCellString{}),
+	"ref_models.FormCellString": &(ref_models.FormFieldString{}),
 
-	"ref_models.FormCellString.Name": (ref_models.FormCellString{}).Name,
+	"ref_models.FormCellString.Name": (ref_models.FormFieldString{}).Name,
 
-	"ref_models.FormCellString.Value": (ref_models.FormCellString{}).Value,
+	"ref_models.FormCellString.Value": (ref_models.FormFieldString{}).Value,
 
 	"ref_models.Row": &(ref_models.Row{}),
 
@@ -565,5 +565,3 @@ func FormInjection(stage *models.StageStruct) {
 	__Link__000003_FormCellString.Middlevertice = __Vertice__000004_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormCellString
 	__Link__000004_FormCells.Middlevertice = __Vertice__000000_Verticle_in_class_diagram_Form_in_middle_between_Form_Form_and_Form_FormCell
 }
-
-

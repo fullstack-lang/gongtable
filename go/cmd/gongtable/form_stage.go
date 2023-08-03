@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/fullstack-lang/gongtable/go/models"
-
 	// injection point for ident package import declaration{{ImportPackageDeclaration}}
 )
 
@@ -56,14 +55,14 @@ func form_stageInjection(stage *models.StageStruct) {
 	__Form__000000_Manually_Filled_Form := (&models.Form{Name: `Manually Filled Form`}).Stage(stage)
 
 	// Declarations of staged instances of FormCell
-	__FormCell__000000_Form_Cell_Int := (&models.FormCell{Name: `Form Cell Int`}).Stage(stage)
+	__FormCell__000000_Form_Cell_Int := (&models.FormField{Name: `Form Cell Int`}).Stage(stage)
 
 	// Declarations of staged instances of FormCellBoolean
 
 	// Declarations of staged instances of FormCellFloat64
 
 	// Declarations of staged instances of FormCellInt
-	__FormCellInt__000000_Form_Cell_Int := (&models.FormCellInt{Name: `Form Cell Int`}).Stage(stage)
+	__FormCellInt__000000_Form_Cell_Int := (&models.FormFieldInt{Name: `Form Cell Int`}).Stage(stage)
 
 	// Declarations of staged instances of FormCellString
 
@@ -85,7 +84,5 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// Setup of pointers
 	__Form__000000_Manually_Filled_Form.FormCells = append(__Form__000000_Manually_Filled_Form.FormCells, __FormCell__000000_Form_Cell_Int)
-	__FormCell__000000_Form_Cell_Int.FormCellInt = __FormCellInt__000000_Form_Cell_Int
+	__FormCell__000000_Form_Cell_Int.FormFieldInt = __FormCellInt__000000_Form_Cell_Int
 }
-
-

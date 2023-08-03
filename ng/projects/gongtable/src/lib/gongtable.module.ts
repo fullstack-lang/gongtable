@@ -71,25 +71,25 @@ import { FormsTableComponent } from './forms-table/forms-table.component'
 import { FormSortingComponent } from './form-sorting/form-sorting.component'
 import { FormDetailComponent } from './form-detail/form-detail.component'
 
-import { FormCellsTableComponent } from './formcells-table/formcells-table.component'
-import { FormCellSortingComponent } from './formcell-sorting/formcell-sorting.component'
-import { FormCellDetailComponent } from './formcell-detail/formcell-detail.component'
+import { FormFieldsTableComponent } from './formfields-table/formfields-table.component'
+import { FormFieldSortingComponent } from './formfield-sorting/formfield-sorting.component'
+import { FormFieldDetailComponent } from './formfield-detail/formfield-detail.component'
 
-import { FormCellBooleansTableComponent } from './formcellbooleans-table/formcellbooleans-table.component'
-import { FormCellBooleanSortingComponent } from './formcellboolean-sorting/formcellboolean-sorting.component'
-import { FormCellBooleanDetailComponent } from './formcellboolean-detail/formcellboolean-detail.component'
+import { FormFieldBooleansTableComponent } from './formfieldbooleans-table/formfieldbooleans-table.component'
+import { FormFieldBooleanSortingComponent } from './formfieldboolean-sorting/formfieldboolean-sorting.component'
+import { FormFieldBooleanDetailComponent } from './formfieldboolean-detail/formfieldboolean-detail.component'
 
-import { FormCellFloat64sTableComponent } from './formcellfloat64s-table/formcellfloat64s-table.component'
-import { FormCellFloat64SortingComponent } from './formcellfloat64-sorting/formcellfloat64-sorting.component'
-import { FormCellFloat64DetailComponent } from './formcellfloat64-detail/formcellfloat64-detail.component'
+import { FormFieldFloat64sTableComponent } from './formfieldfloat64s-table/formfieldfloat64s-table.component'
+import { FormFieldFloat64SortingComponent } from './formfieldfloat64-sorting/formfieldfloat64-sorting.component'
+import { FormFieldFloat64DetailComponent } from './formfieldfloat64-detail/formfieldfloat64-detail.component'
 
-import { FormCellIntsTableComponent } from './formcellints-table/formcellints-table.component'
-import { FormCellIntSortingComponent } from './formcellint-sorting/formcellint-sorting.component'
-import { FormCellIntDetailComponent } from './formcellint-detail/formcellint-detail.component'
+import { FormFieldIntsTableComponent } from './formfieldints-table/formfieldints-table.component'
+import { FormFieldIntSortingComponent } from './formfieldint-sorting/formfieldint-sorting.component'
+import { FormFieldIntDetailComponent } from './formfieldint-detail/formfieldint-detail.component'
 
-import { FormCellStringsTableComponent } from './formcellstrings-table/formcellstrings-table.component'
-import { FormCellStringSortingComponent } from './formcellstring-sorting/formcellstring-sorting.component'
-import { FormCellStringDetailComponent } from './formcellstring-detail/formcellstring-detail.component'
+import { FormFieldStringsTableComponent } from './formfieldstrings-table/formfieldstrings-table.component'
+import { FormFieldStringSortingComponent } from './formfieldstring-sorting/formfieldstring-sorting.component'
+import { FormFieldStringDetailComponent } from './formfieldstring-detail/formfieldstring-detail.component'
 
 import { RowsTableComponent } from './rows-table/rows-table.component'
 import { RowSortingComponent } from './row-sorting/row-sorting.component'
@@ -135,25 +135,25 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormSortingComponent,
 		FormDetailComponent,
 
-		FormCellsTableComponent,
-		FormCellSortingComponent,
-		FormCellDetailComponent,
+		FormFieldsTableComponent,
+		FormFieldSortingComponent,
+		FormFieldDetailComponent,
 
-		FormCellBooleansTableComponent,
-		FormCellBooleanSortingComponent,
-		FormCellBooleanDetailComponent,
+		FormFieldBooleansTableComponent,
+		FormFieldBooleanSortingComponent,
+		FormFieldBooleanDetailComponent,
 
-		FormCellFloat64sTableComponent,
-		FormCellFloat64SortingComponent,
-		FormCellFloat64DetailComponent,
+		FormFieldFloat64sTableComponent,
+		FormFieldFloat64SortingComponent,
+		FormFieldFloat64DetailComponent,
 
-		FormCellIntsTableComponent,
-		FormCellIntSortingComponent,
-		FormCellIntDetailComponent,
+		FormFieldIntsTableComponent,
+		FormFieldIntSortingComponent,
+		FormFieldIntDetailComponent,
 
-		FormCellStringsTableComponent,
-		FormCellStringSortingComponent,
-		FormCellStringDetailComponent,
+		FormFieldStringsTableComponent,
+		FormFieldStringSortingComponent,
+		FormFieldStringDetailComponent,
 
 		RowsTableComponent,
 		RowSortingComponent,
@@ -234,25 +234,25 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormSortingComponent,
 		FormDetailComponent,
 
-		FormCellsTableComponent,
-		FormCellSortingComponent,
-		FormCellDetailComponent,
+		FormFieldsTableComponent,
+		FormFieldSortingComponent,
+		FormFieldDetailComponent,
 
-		FormCellBooleansTableComponent,
-		FormCellBooleanSortingComponent,
-		FormCellBooleanDetailComponent,
+		FormFieldBooleansTableComponent,
+		FormFieldBooleanSortingComponent,
+		FormFieldBooleanDetailComponent,
 
-		FormCellFloat64sTableComponent,
-		FormCellFloat64SortingComponent,
-		FormCellFloat64DetailComponent,
+		FormFieldFloat64sTableComponent,
+		FormFieldFloat64SortingComponent,
+		FormFieldFloat64DetailComponent,
 
-		FormCellIntsTableComponent,
-		FormCellIntSortingComponent,
-		FormCellIntDetailComponent,
+		FormFieldIntsTableComponent,
+		FormFieldIntSortingComponent,
+		FormFieldIntDetailComponent,
 
-		FormCellStringsTableComponent,
-		FormCellStringSortingComponent,
-		FormCellStringDetailComponent,
+		FormFieldStringsTableComponent,
+		FormFieldStringSortingComponent,
+		FormFieldStringDetailComponent,
 
 		RowsTableComponent,
 		RowSortingComponent,

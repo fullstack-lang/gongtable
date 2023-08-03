@@ -80,9 +80,9 @@ export class MaterialFormComponent implements OnInit {
 
         this.selectedForm = undefined
 
-        for (let table of this.gongtableFrontRepo.Tables_array) {
-          if (table.Name == this.FormName) {
-            this.selectedForm = table
+        for (let form of this.gongtableFrontRepo.Forms_array) {
+          if (form.Name == this.FormName) {
+            this.selectedForm = form
           }
         }
 

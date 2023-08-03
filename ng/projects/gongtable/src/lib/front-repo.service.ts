@@ -28,20 +28,20 @@ import { DisplayedColumnService } from './displayedcolumn.service'
 import { FormDB } from './form-db'
 import { FormService } from './form.service'
 
-import { FormCellDB } from './formcell-db'
-import { FormCellService } from './formcell.service'
+import { FormFieldDB } from './formfield-db'
+import { FormFieldService } from './formfield.service'
 
-import { FormCellBooleanDB } from './formcellboolean-db'
-import { FormCellBooleanService } from './formcellboolean.service'
+import { FormFieldBooleanDB } from './formfieldboolean-db'
+import { FormFieldBooleanService } from './formfieldboolean.service'
 
-import { FormCellFloat64DB } from './formcellfloat64-db'
-import { FormCellFloat64Service } from './formcellfloat64.service'
+import { FormFieldFloat64DB } from './formfieldfloat64-db'
+import { FormFieldFloat64Service } from './formfieldfloat64.service'
 
-import { FormCellIntDB } from './formcellint-db'
-import { FormCellIntService } from './formcellint.service'
+import { FormFieldIntDB } from './formfieldint-db'
+import { FormFieldIntService } from './formfieldint.service'
 
-import { FormCellStringDB } from './formcellstring-db'
-import { FormCellStringService } from './formcellstring.service'
+import { FormFieldStringDB } from './formfieldstring-db'
+import { FormFieldStringService } from './formfieldstring.service'
 
 import { RowDB } from './row-db'
 import { RowService } from './row.service'
@@ -76,21 +76,21 @@ export class FrontRepo { // insertion point sub template
   Forms_array = new Array<FormDB>(); // array of repo instances
   Forms = new Map<number, FormDB>(); // map of repo instances
   Forms_batch = new Map<number, FormDB>(); // same but only in last GET (for finding repo instances to delete)
-  FormCells_array = new Array<FormCellDB>(); // array of repo instances
-  FormCells = new Map<number, FormCellDB>(); // map of repo instances
-  FormCells_batch = new Map<number, FormCellDB>(); // same but only in last GET (for finding repo instances to delete)
-  FormCellBooleans_array = new Array<FormCellBooleanDB>(); // array of repo instances
-  FormCellBooleans = new Map<number, FormCellBooleanDB>(); // map of repo instances
-  FormCellBooleans_batch = new Map<number, FormCellBooleanDB>(); // same but only in last GET (for finding repo instances to delete)
-  FormCellFloat64s_array = new Array<FormCellFloat64DB>(); // array of repo instances
-  FormCellFloat64s = new Map<number, FormCellFloat64DB>(); // map of repo instances
-  FormCellFloat64s_batch = new Map<number, FormCellFloat64DB>(); // same but only in last GET (for finding repo instances to delete)
-  FormCellInts_array = new Array<FormCellIntDB>(); // array of repo instances
-  FormCellInts = new Map<number, FormCellIntDB>(); // map of repo instances
-  FormCellInts_batch = new Map<number, FormCellIntDB>(); // same but only in last GET (for finding repo instances to delete)
-  FormCellStrings_array = new Array<FormCellStringDB>(); // array of repo instances
-  FormCellStrings = new Map<number, FormCellStringDB>(); // map of repo instances
-  FormCellStrings_batch = new Map<number, FormCellStringDB>(); // same but only in last GET (for finding repo instances to delete)
+  FormFields_array = new Array<FormFieldDB>(); // array of repo instances
+  FormFields = new Map<number, FormFieldDB>(); // map of repo instances
+  FormFields_batch = new Map<number, FormFieldDB>(); // same but only in last GET (for finding repo instances to delete)
+  FormFieldBooleans_array = new Array<FormFieldBooleanDB>(); // array of repo instances
+  FormFieldBooleans = new Map<number, FormFieldBooleanDB>(); // map of repo instances
+  FormFieldBooleans_batch = new Map<number, FormFieldBooleanDB>(); // same but only in last GET (for finding repo instances to delete)
+  FormFieldFloat64s_array = new Array<FormFieldFloat64DB>(); // array of repo instances
+  FormFieldFloat64s = new Map<number, FormFieldFloat64DB>(); // map of repo instances
+  FormFieldFloat64s_batch = new Map<number, FormFieldFloat64DB>(); // same but only in last GET (for finding repo instances to delete)
+  FormFieldInts_array = new Array<FormFieldIntDB>(); // array of repo instances
+  FormFieldInts = new Map<number, FormFieldIntDB>(); // map of repo instances
+  FormFieldInts_batch = new Map<number, FormFieldIntDB>(); // same but only in last GET (for finding repo instances to delete)
+  FormFieldStrings_array = new Array<FormFieldStringDB>(); // array of repo instances
+  FormFieldStrings = new Map<number, FormFieldStringDB>(); // map of repo instances
+  FormFieldStrings_batch = new Map<number, FormFieldStringDB>(); // same but only in last GET (for finding repo instances to delete)
   Rows_array = new Array<RowDB>(); // array of repo instances
   Rows = new Map<number, RowDB>(); // map of repo instances
   Rows_batch = new Map<number, RowDB>(); // same but only in last GET (for finding repo instances to delete)
@@ -167,11 +167,11 @@ export class FrontRepoService {
     private cellstringService: CellStringService,
     private displayedcolumnService: DisplayedColumnService,
     private formService: FormService,
-    private formcellService: FormCellService,
-    private formcellbooleanService: FormCellBooleanService,
-    private formcellfloat64Service: FormCellFloat64Service,
-    private formcellintService: FormCellIntService,
-    private formcellstringService: FormCellStringService,
+    private formfieldService: FormFieldService,
+    private formfieldbooleanService: FormFieldBooleanService,
+    private formfieldfloat64Service: FormFieldFloat64Service,
+    private formfieldintService: FormFieldIntService,
+    private formfieldstringService: FormFieldStringService,
     private rowService: RowService,
     private tableService: TableService,
   ) { }
@@ -212,11 +212,11 @@ export class FrontRepoService {
     Observable<CellStringDB[]>,
     Observable<DisplayedColumnDB[]>,
     Observable<FormDB[]>,
-    Observable<FormCellDB[]>,
-    Observable<FormCellBooleanDB[]>,
-    Observable<FormCellFloat64DB[]>,
-    Observable<FormCellIntDB[]>,
-    Observable<FormCellStringDB[]>,
+    Observable<FormFieldDB[]>,
+    Observable<FormFieldBooleanDB[]>,
+    Observable<FormFieldFloat64DB[]>,
+    Observable<FormFieldIntDB[]>,
+    Observable<FormFieldStringDB[]>,
     Observable<RowDB[]>,
     Observable<TableDB[]>,
   ] = [ // insertion point sub template
@@ -228,11 +228,11 @@ export class FrontRepoService {
       this.cellstringService.getCellStrings(this.GONG__StackPath),
       this.displayedcolumnService.getDisplayedColumns(this.GONG__StackPath),
       this.formService.getForms(this.GONG__StackPath),
-      this.formcellService.getFormCells(this.GONG__StackPath),
-      this.formcellbooleanService.getFormCellBooleans(this.GONG__StackPath),
-      this.formcellfloat64Service.getFormCellFloat64s(this.GONG__StackPath),
-      this.formcellintService.getFormCellInts(this.GONG__StackPath),
-      this.formcellstringService.getFormCellStrings(this.GONG__StackPath),
+      this.formfieldService.getFormFields(this.GONG__StackPath),
+      this.formfieldbooleanService.getFormFieldBooleans(this.GONG__StackPath),
+      this.formfieldfloat64Service.getFormFieldFloat64s(this.GONG__StackPath),
+      this.formfieldintService.getFormFieldInts(this.GONG__StackPath),
+      this.formfieldstringService.getFormFieldStrings(this.GONG__StackPath),
       this.rowService.getRows(this.GONG__StackPath),
       this.tableService.getTables(this.GONG__StackPath),
     ];
@@ -256,11 +256,11 @@ export class FrontRepoService {
       this.cellstringService.getCellStrings(this.GONG__StackPath),
       this.displayedcolumnService.getDisplayedColumns(this.GONG__StackPath),
       this.formService.getForms(this.GONG__StackPath),
-      this.formcellService.getFormCells(this.GONG__StackPath),
-      this.formcellbooleanService.getFormCellBooleans(this.GONG__StackPath),
-      this.formcellfloat64Service.getFormCellFloat64s(this.GONG__StackPath),
-      this.formcellintService.getFormCellInts(this.GONG__StackPath),
-      this.formcellstringService.getFormCellStrings(this.GONG__StackPath),
+      this.formfieldService.getFormFields(this.GONG__StackPath),
+      this.formfieldbooleanService.getFormFieldBooleans(this.GONG__StackPath),
+      this.formfieldfloat64Service.getFormFieldFloat64s(this.GONG__StackPath),
+      this.formfieldintService.getFormFieldInts(this.GONG__StackPath),
+      this.formfieldstringService.getFormFieldStrings(this.GONG__StackPath),
       this.rowService.getRows(this.GONG__StackPath),
       this.tableService.getTables(this.GONG__StackPath),
     ]
@@ -279,11 +279,11 @@ export class FrontRepoService {
             cellstrings_,
             displayedcolumns_,
             forms_,
-            formcells_,
-            formcellbooleans_,
-            formcellfloat64s_,
-            formcellints_,
-            formcellstrings_,
+            formfields_,
+            formfieldbooleans_,
+            formfieldfloat64s_,
+            formfieldints_,
+            formfieldstrings_,
             rows_,
             tables_,
           ]) => {
@@ -305,16 +305,16 @@ export class FrontRepoService {
             displayedcolumns = displayedcolumns_ as DisplayedColumnDB[]
             var forms: FormDB[]
             forms = forms_ as FormDB[]
-            var formcells: FormCellDB[]
-            formcells = formcells_ as FormCellDB[]
-            var formcellbooleans: FormCellBooleanDB[]
-            formcellbooleans = formcellbooleans_ as FormCellBooleanDB[]
-            var formcellfloat64s: FormCellFloat64DB[]
-            formcellfloat64s = formcellfloat64s_ as FormCellFloat64DB[]
-            var formcellints: FormCellIntDB[]
-            formcellints = formcellints_ as FormCellIntDB[]
-            var formcellstrings: FormCellStringDB[]
-            formcellstrings = formcellstrings_ as FormCellStringDB[]
+            var formfields: FormFieldDB[]
+            formfields = formfields_ as FormFieldDB[]
+            var formfieldbooleans: FormFieldBooleanDB[]
+            formfieldbooleans = formfieldbooleans_ as FormFieldBooleanDB[]
+            var formfieldfloat64s: FormFieldFloat64DB[]
+            formfieldfloat64s = formfieldfloat64s_ as FormFieldFloat64DB[]
+            var formfieldints: FormFieldIntDB[]
+            formfieldints = formfieldints_ as FormFieldIntDB[]
+            var formfieldstrings: FormFieldStringDB[]
+            formfieldstrings = formfieldstrings_ as FormFieldStringDB[]
             var rows: RowDB[]
             rows = rows_ as RowDB[]
             var tables: TableDB[]
@@ -588,29 +588,29 @@ export class FrontRepoService {
             });
 
             // init the array
-            this.frontRepo.FormCells_array = formcells
+            this.frontRepo.FormFields_array = formfields
 
-            // clear the map that counts FormCell in the GET
-            this.frontRepo.FormCells_batch.clear()
+            // clear the map that counts FormField in the GET
+            this.frontRepo.FormFields_batch.clear()
 
-            formcells.forEach(
-              formcell => {
-                this.frontRepo.FormCells.set(formcell.ID, formcell)
-                this.frontRepo.FormCells_batch.set(formcell.ID, formcell)
+            formfields.forEach(
+              formfield => {
+                this.frontRepo.FormFields.set(formfield.ID, formfield)
+                this.frontRepo.FormFields_batch.set(formfield.ID, formfield)
               }
             )
 
-            // clear formcells that are absent from the batch
-            this.frontRepo.FormCells.forEach(
-              formcell => {
-                if (this.frontRepo.FormCells_batch.get(formcell.ID) == undefined) {
-                  this.frontRepo.FormCells.delete(formcell.ID)
+            // clear formfields that are absent from the batch
+            this.frontRepo.FormFields.forEach(
+              formfield => {
+                if (this.frontRepo.FormFields_batch.get(formfield.ID) == undefined) {
+                  this.frontRepo.FormFields.delete(formfield.ID)
                 }
               }
             )
 
-            // sort FormCells_array array
-            this.frontRepo.FormCells_array.sort((t1, t2) => {
+            // sort FormFields_array array
+            this.frontRepo.FormFields_array.sort((t1, t2) => {
               if (t1.Name > t2.Name) {
                 return 1;
               }
@@ -621,29 +621,29 @@ export class FrontRepoService {
             });
 
             // init the array
-            this.frontRepo.FormCellBooleans_array = formcellbooleans
+            this.frontRepo.FormFieldBooleans_array = formfieldbooleans
 
-            // clear the map that counts FormCellBoolean in the GET
-            this.frontRepo.FormCellBooleans_batch.clear()
+            // clear the map that counts FormFieldBoolean in the GET
+            this.frontRepo.FormFieldBooleans_batch.clear()
 
-            formcellbooleans.forEach(
-              formcellboolean => {
-                this.frontRepo.FormCellBooleans.set(formcellboolean.ID, formcellboolean)
-                this.frontRepo.FormCellBooleans_batch.set(formcellboolean.ID, formcellboolean)
+            formfieldbooleans.forEach(
+              formfieldboolean => {
+                this.frontRepo.FormFieldBooleans.set(formfieldboolean.ID, formfieldboolean)
+                this.frontRepo.FormFieldBooleans_batch.set(formfieldboolean.ID, formfieldboolean)
               }
             )
 
-            // clear formcellbooleans that are absent from the batch
-            this.frontRepo.FormCellBooleans.forEach(
-              formcellboolean => {
-                if (this.frontRepo.FormCellBooleans_batch.get(formcellboolean.ID) == undefined) {
-                  this.frontRepo.FormCellBooleans.delete(formcellboolean.ID)
+            // clear formfieldbooleans that are absent from the batch
+            this.frontRepo.FormFieldBooleans.forEach(
+              formfieldboolean => {
+                if (this.frontRepo.FormFieldBooleans_batch.get(formfieldboolean.ID) == undefined) {
+                  this.frontRepo.FormFieldBooleans.delete(formfieldboolean.ID)
                 }
               }
             )
 
-            // sort FormCellBooleans_array array
-            this.frontRepo.FormCellBooleans_array.sort((t1, t2) => {
+            // sort FormFieldBooleans_array array
+            this.frontRepo.FormFieldBooleans_array.sort((t1, t2) => {
               if (t1.Name > t2.Name) {
                 return 1;
               }
@@ -654,29 +654,29 @@ export class FrontRepoService {
             });
 
             // init the array
-            this.frontRepo.FormCellFloat64s_array = formcellfloat64s
+            this.frontRepo.FormFieldFloat64s_array = formfieldfloat64s
 
-            // clear the map that counts FormCellFloat64 in the GET
-            this.frontRepo.FormCellFloat64s_batch.clear()
+            // clear the map that counts FormFieldFloat64 in the GET
+            this.frontRepo.FormFieldFloat64s_batch.clear()
 
-            formcellfloat64s.forEach(
-              formcellfloat64 => {
-                this.frontRepo.FormCellFloat64s.set(formcellfloat64.ID, formcellfloat64)
-                this.frontRepo.FormCellFloat64s_batch.set(formcellfloat64.ID, formcellfloat64)
+            formfieldfloat64s.forEach(
+              formfieldfloat64 => {
+                this.frontRepo.FormFieldFloat64s.set(formfieldfloat64.ID, formfieldfloat64)
+                this.frontRepo.FormFieldFloat64s_batch.set(formfieldfloat64.ID, formfieldfloat64)
               }
             )
 
-            // clear formcellfloat64s that are absent from the batch
-            this.frontRepo.FormCellFloat64s.forEach(
-              formcellfloat64 => {
-                if (this.frontRepo.FormCellFloat64s_batch.get(formcellfloat64.ID) == undefined) {
-                  this.frontRepo.FormCellFloat64s.delete(formcellfloat64.ID)
+            // clear formfieldfloat64s that are absent from the batch
+            this.frontRepo.FormFieldFloat64s.forEach(
+              formfieldfloat64 => {
+                if (this.frontRepo.FormFieldFloat64s_batch.get(formfieldfloat64.ID) == undefined) {
+                  this.frontRepo.FormFieldFloat64s.delete(formfieldfloat64.ID)
                 }
               }
             )
 
-            // sort FormCellFloat64s_array array
-            this.frontRepo.FormCellFloat64s_array.sort((t1, t2) => {
+            // sort FormFieldFloat64s_array array
+            this.frontRepo.FormFieldFloat64s_array.sort((t1, t2) => {
               if (t1.Name > t2.Name) {
                 return 1;
               }
@@ -687,29 +687,29 @@ export class FrontRepoService {
             });
 
             // init the array
-            this.frontRepo.FormCellInts_array = formcellints
+            this.frontRepo.FormFieldInts_array = formfieldints
 
-            // clear the map that counts FormCellInt in the GET
-            this.frontRepo.FormCellInts_batch.clear()
+            // clear the map that counts FormFieldInt in the GET
+            this.frontRepo.FormFieldInts_batch.clear()
 
-            formcellints.forEach(
-              formcellint => {
-                this.frontRepo.FormCellInts.set(formcellint.ID, formcellint)
-                this.frontRepo.FormCellInts_batch.set(formcellint.ID, formcellint)
+            formfieldints.forEach(
+              formfieldint => {
+                this.frontRepo.FormFieldInts.set(formfieldint.ID, formfieldint)
+                this.frontRepo.FormFieldInts_batch.set(formfieldint.ID, formfieldint)
               }
             )
 
-            // clear formcellints that are absent from the batch
-            this.frontRepo.FormCellInts.forEach(
-              formcellint => {
-                if (this.frontRepo.FormCellInts_batch.get(formcellint.ID) == undefined) {
-                  this.frontRepo.FormCellInts.delete(formcellint.ID)
+            // clear formfieldints that are absent from the batch
+            this.frontRepo.FormFieldInts.forEach(
+              formfieldint => {
+                if (this.frontRepo.FormFieldInts_batch.get(formfieldint.ID) == undefined) {
+                  this.frontRepo.FormFieldInts.delete(formfieldint.ID)
                 }
               }
             )
 
-            // sort FormCellInts_array array
-            this.frontRepo.FormCellInts_array.sort((t1, t2) => {
+            // sort FormFieldInts_array array
+            this.frontRepo.FormFieldInts_array.sort((t1, t2) => {
               if (t1.Name > t2.Name) {
                 return 1;
               }
@@ -720,29 +720,29 @@ export class FrontRepoService {
             });
 
             // init the array
-            this.frontRepo.FormCellStrings_array = formcellstrings
+            this.frontRepo.FormFieldStrings_array = formfieldstrings
 
-            // clear the map that counts FormCellString in the GET
-            this.frontRepo.FormCellStrings_batch.clear()
+            // clear the map that counts FormFieldString in the GET
+            this.frontRepo.FormFieldStrings_batch.clear()
 
-            formcellstrings.forEach(
-              formcellstring => {
-                this.frontRepo.FormCellStrings.set(formcellstring.ID, formcellstring)
-                this.frontRepo.FormCellStrings_batch.set(formcellstring.ID, formcellstring)
+            formfieldstrings.forEach(
+              formfieldstring => {
+                this.frontRepo.FormFieldStrings.set(formfieldstring.ID, formfieldstring)
+                this.frontRepo.FormFieldStrings_batch.set(formfieldstring.ID, formfieldstring)
               }
             )
 
-            // clear formcellstrings that are absent from the batch
-            this.frontRepo.FormCellStrings.forEach(
-              formcellstring => {
-                if (this.frontRepo.FormCellStrings_batch.get(formcellstring.ID) == undefined) {
-                  this.frontRepo.FormCellStrings.delete(formcellstring.ID)
+            // clear formfieldstrings that are absent from the batch
+            this.frontRepo.FormFieldStrings.forEach(
+              formfieldstring => {
+                if (this.frontRepo.FormFieldStrings_batch.get(formfieldstring.ID) == undefined) {
+                  this.frontRepo.FormFieldStrings.delete(formfieldstring.ID)
                 }
               }
             )
 
-            // sort FormCellStrings_array array
-            this.frontRepo.FormCellStrings_array.sort((t1, t2) => {
+            // sort FormFieldStrings_array array
+            this.frontRepo.FormFieldStrings_array.sort((t1, t2) => {
               if (t1.Name > t2.Name) {
                 return 1;
               }
@@ -939,77 +939,77 @@ export class FrontRepoService {
                 // insertion point for redeeming ONE-MANY associations
               }
             )
-            formcells.forEach(
-              formcell => {
+            formfields.forEach(
+              formfield => {
                 // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
-                // insertion point for pointer field FormCellString redeeming
+                // insertion point for pointer field FormFieldString redeeming
                 {
-                  let _formcellstring = this.frontRepo.FormCellStrings.get(formcell.FormCellStringID.Int64)
-                  if (_formcellstring) {
-                    formcell.FormCellString = _formcellstring
+                  let _formfieldstring = this.frontRepo.FormFieldStrings.get(formfield.FormFieldStringID.Int64)
+                  if (_formfieldstring) {
+                    formfield.FormFieldString = _formfieldstring
                   }
                 }
-                // insertion point for pointer field FormCellFloat64 redeeming
+                // insertion point for pointer field FormFieldFloat64 redeeming
                 {
-                  let _formcellfloat64 = this.frontRepo.FormCellFloat64s.get(formcell.FormCellFloat64ID.Int64)
-                  if (_formcellfloat64) {
-                    formcell.FormCellFloat64 = _formcellfloat64
+                  let _formfieldfloat64 = this.frontRepo.FormFieldFloat64s.get(formfield.FormFieldFloat64ID.Int64)
+                  if (_formfieldfloat64) {
+                    formfield.FormFieldFloat64 = _formfieldfloat64
                   }
                 }
-                // insertion point for pointer field FormCellInt redeeming
+                // insertion point for pointer field FormFieldInt redeeming
                 {
-                  let _formcellint = this.frontRepo.FormCellInts.get(formcell.FormCellIntID.Int64)
-                  if (_formcellint) {
-                    formcell.FormCellInt = _formcellint
+                  let _formfieldint = this.frontRepo.FormFieldInts.get(formfield.FormFieldIntID.Int64)
+                  if (_formfieldint) {
+                    formfield.FormFieldInt = _formfieldint
                   }
                 }
-                // insertion point for pointer field FormCellBool redeeming
+                // insertion point for pointer field FormFieldBool redeeming
                 {
-                  let _formcellboolean = this.frontRepo.FormCellBooleans.get(formcell.FormCellBoolID.Int64)
-                  if (_formcellboolean) {
-                    formcell.FormCellBool = _formcellboolean
+                  let _formfieldboolean = this.frontRepo.FormFieldBooleans.get(formfield.FormFieldBoolID.Int64)
+                  if (_formfieldboolean) {
+                    formfield.FormFieldBool = _formfieldboolean
                   }
                 }
 
                 // insertion point for redeeming ONE-MANY associations
                 // insertion point for slice of pointer field Form.FormCells redeeming
                 {
-                  let _form = this.frontRepo.Forms.get(formcell.Form_FormCellsDBID.Int64)
+                  let _form = this.frontRepo.Forms.get(formfield.Form_FormCellsDBID.Int64)
                   if (_form) {
                     if (_form.FormCells == undefined) {
-                      _form.FormCells = new Array<FormCellDB>()
+                      _form.FormCells = new Array<FormFieldDB>()
                     }
-                    _form.FormCells.push(formcell)
-                    if (formcell.Form_FormCells_reverse == undefined) {
-                      formcell.Form_FormCells_reverse = _form
+                    _form.FormCells.push(formfield)
+                    if (formfield.Form_FormCells_reverse == undefined) {
+                      formfield.Form_FormCells_reverse = _form
                     }
                   }
                 }
               }
             )
-            formcellbooleans.forEach(
-              formcellboolean => {
+            formfieldbooleans.forEach(
+              formfieldboolean => {
                 // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
 
                 // insertion point for redeeming ONE-MANY associations
               }
             )
-            formcellfloat64s.forEach(
-              formcellfloat64 => {
+            formfieldfloat64s.forEach(
+              formfieldfloat64 => {
                 // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
 
                 // insertion point for redeeming ONE-MANY associations
               }
             )
-            formcellints.forEach(
-              formcellint => {
+            formfieldints.forEach(
+              formfieldint => {
                 // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
 
                 // insertion point for redeeming ONE-MANY associations
               }
             )
-            formcellstrings.forEach(
-              formcellstring => {
+            formfieldstrings.forEach(
+              formfieldstring => {
                 // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
 
                 // insertion point for redeeming ONE-MANY associations
@@ -1522,82 +1522,82 @@ export class FrontRepoService {
     )
   }
 
-  // FormCellPull performs a GET on FormCell of the stack and redeem association pointers 
-  FormCellPull(): Observable<FrontRepo> {
+  // FormFieldPull performs a GET on FormField of the stack and redeem association pointers 
+  FormFieldPull(): Observable<FrontRepo> {
     return new Observable<FrontRepo>(
       (observer) => {
         combineLatest([
-          this.formcellService.getFormCells(this.GONG__StackPath)
+          this.formfieldService.getFormFields(this.GONG__StackPath)
         ]).subscribe(
           ([ // insertion point sub template 
-            formcells,
+            formfields,
           ]) => {
             // init the array
-            this.frontRepo.FormCells_array = formcells
+            this.frontRepo.FormFields_array = formfields
 
-            // clear the map that counts FormCell in the GET
-            this.frontRepo.FormCells_batch.clear()
+            // clear the map that counts FormField in the GET
+            this.frontRepo.FormFields_batch.clear()
 
             // 
             // First Step: init map of instances
             // insertion point sub template 
-            formcells.forEach(
-              formcell => {
-                this.frontRepo.FormCells.set(formcell.ID, formcell)
-                this.frontRepo.FormCells_batch.set(formcell.ID, formcell)
+            formfields.forEach(
+              formfield => {
+                this.frontRepo.FormFields.set(formfield.ID, formfield)
+                this.frontRepo.FormFields_batch.set(formfield.ID, formfield)
 
                 // insertion point for redeeming ONE/ZERO-ONE associations
-                // insertion point for pointer field FormCellString redeeming
+                // insertion point for pointer field FormFieldString redeeming
                 {
-                  let _formcellstring = this.frontRepo.FormCellStrings.get(formcell.FormCellStringID.Int64)
-                  if (_formcellstring) {
-                    formcell.FormCellString = _formcellstring
+                  let _formfieldstring = this.frontRepo.FormFieldStrings.get(formfield.FormFieldStringID.Int64)
+                  if (_formfieldstring) {
+                    formfield.FormFieldString = _formfieldstring
                   }
                 }
-                // insertion point for pointer field FormCellFloat64 redeeming
+                // insertion point for pointer field FormFieldFloat64 redeeming
                 {
-                  let _formcellfloat64 = this.frontRepo.FormCellFloat64s.get(formcell.FormCellFloat64ID.Int64)
-                  if (_formcellfloat64) {
-                    formcell.FormCellFloat64 = _formcellfloat64
+                  let _formfieldfloat64 = this.frontRepo.FormFieldFloat64s.get(formfield.FormFieldFloat64ID.Int64)
+                  if (_formfieldfloat64) {
+                    formfield.FormFieldFloat64 = _formfieldfloat64
                   }
                 }
-                // insertion point for pointer field FormCellInt redeeming
+                // insertion point for pointer field FormFieldInt redeeming
                 {
-                  let _formcellint = this.frontRepo.FormCellInts.get(formcell.FormCellIntID.Int64)
-                  if (_formcellint) {
-                    formcell.FormCellInt = _formcellint
+                  let _formfieldint = this.frontRepo.FormFieldInts.get(formfield.FormFieldIntID.Int64)
+                  if (_formfieldint) {
+                    formfield.FormFieldInt = _formfieldint
                   }
                 }
-                // insertion point for pointer field FormCellBool redeeming
+                // insertion point for pointer field FormFieldBool redeeming
                 {
-                  let _formcellboolean = this.frontRepo.FormCellBooleans.get(formcell.FormCellBoolID.Int64)
-                  if (_formcellboolean) {
-                    formcell.FormCellBool = _formcellboolean
+                  let _formfieldboolean = this.frontRepo.FormFieldBooleans.get(formfield.FormFieldBoolID.Int64)
+                  if (_formfieldboolean) {
+                    formfield.FormFieldBool = _formfieldboolean
                   }
                 }
 
                 // insertion point for redeeming ONE-MANY associations
                 // insertion point for slice of pointer field Form.FormCells redeeming
                 {
-                  let _form = this.frontRepo.Forms.get(formcell.Form_FormCellsDBID.Int64)
+                  let _form = this.frontRepo.Forms.get(formfield.Form_FormCellsDBID.Int64)
                   if (_form) {
                     if (_form.FormCells == undefined) {
-                      _form.FormCells = new Array<FormCellDB>()
+                      _form.FormCells = new Array<FormFieldDB>()
                     }
-                    _form.FormCells.push(formcell)
-                    if (formcell.Form_FormCells_reverse == undefined) {
-                      formcell.Form_FormCells_reverse = _form
+                    _form.FormCells.push(formfield)
+                    if (formfield.Form_FormCells_reverse == undefined) {
+                      formfield.Form_FormCells_reverse = _form
                     }
                   }
                 }
               }
             )
 
-            // clear formcells that are absent from the GET
-            this.frontRepo.FormCells.forEach(
-              formcell => {
-                if (this.frontRepo.FormCells_batch.get(formcell.ID) == undefined) {
-                  this.frontRepo.FormCells.delete(formcell.ID)
+            // clear formfields that are absent from the GET
+            this.frontRepo.FormFields.forEach(
+              formfield => {
+                if (this.frontRepo.FormFields_batch.get(formfield.ID) == undefined) {
+                  this.frontRepo.FormFields.delete(formfield.ID)
                 }
               }
             )
@@ -1614,29 +1614,29 @@ export class FrontRepoService {
     )
   }
 
-  // FormCellBooleanPull performs a GET on FormCellBoolean of the stack and redeem association pointers 
-  FormCellBooleanPull(): Observable<FrontRepo> {
+  // FormFieldBooleanPull performs a GET on FormFieldBoolean of the stack and redeem association pointers 
+  FormFieldBooleanPull(): Observable<FrontRepo> {
     return new Observable<FrontRepo>(
       (observer) => {
         combineLatest([
-          this.formcellbooleanService.getFormCellBooleans(this.GONG__StackPath)
+          this.formfieldbooleanService.getFormFieldBooleans(this.GONG__StackPath)
         ]).subscribe(
           ([ // insertion point sub template 
-            formcellbooleans,
+            formfieldbooleans,
           ]) => {
             // init the array
-            this.frontRepo.FormCellBooleans_array = formcellbooleans
+            this.frontRepo.FormFieldBooleans_array = formfieldbooleans
 
-            // clear the map that counts FormCellBoolean in the GET
-            this.frontRepo.FormCellBooleans_batch.clear()
+            // clear the map that counts FormFieldBoolean in the GET
+            this.frontRepo.FormFieldBooleans_batch.clear()
 
             // 
             // First Step: init map of instances
             // insertion point sub template 
-            formcellbooleans.forEach(
-              formcellboolean => {
-                this.frontRepo.FormCellBooleans.set(formcellboolean.ID, formcellboolean)
-                this.frontRepo.FormCellBooleans_batch.set(formcellboolean.ID, formcellboolean)
+            formfieldbooleans.forEach(
+              formfieldboolean => {
+                this.frontRepo.FormFieldBooleans.set(formfieldboolean.ID, formfieldboolean)
+                this.frontRepo.FormFieldBooleans_batch.set(formfieldboolean.ID, formfieldboolean)
 
                 // insertion point for redeeming ONE/ZERO-ONE associations
 
@@ -1644,11 +1644,11 @@ export class FrontRepoService {
               }
             )
 
-            // clear formcellbooleans that are absent from the GET
-            this.frontRepo.FormCellBooleans.forEach(
-              formcellboolean => {
-                if (this.frontRepo.FormCellBooleans_batch.get(formcellboolean.ID) == undefined) {
-                  this.frontRepo.FormCellBooleans.delete(formcellboolean.ID)
+            // clear formfieldbooleans that are absent from the GET
+            this.frontRepo.FormFieldBooleans.forEach(
+              formfieldboolean => {
+                if (this.frontRepo.FormFieldBooleans_batch.get(formfieldboolean.ID) == undefined) {
+                  this.frontRepo.FormFieldBooleans.delete(formfieldboolean.ID)
                 }
               }
             )
@@ -1665,29 +1665,29 @@ export class FrontRepoService {
     )
   }
 
-  // FormCellFloat64Pull performs a GET on FormCellFloat64 of the stack and redeem association pointers 
-  FormCellFloat64Pull(): Observable<FrontRepo> {
+  // FormFieldFloat64Pull performs a GET on FormFieldFloat64 of the stack and redeem association pointers 
+  FormFieldFloat64Pull(): Observable<FrontRepo> {
     return new Observable<FrontRepo>(
       (observer) => {
         combineLatest([
-          this.formcellfloat64Service.getFormCellFloat64s(this.GONG__StackPath)
+          this.formfieldfloat64Service.getFormFieldFloat64s(this.GONG__StackPath)
         ]).subscribe(
           ([ // insertion point sub template 
-            formcellfloat64s,
+            formfieldfloat64s,
           ]) => {
             // init the array
-            this.frontRepo.FormCellFloat64s_array = formcellfloat64s
+            this.frontRepo.FormFieldFloat64s_array = formfieldfloat64s
 
-            // clear the map that counts FormCellFloat64 in the GET
-            this.frontRepo.FormCellFloat64s_batch.clear()
+            // clear the map that counts FormFieldFloat64 in the GET
+            this.frontRepo.FormFieldFloat64s_batch.clear()
 
             // 
             // First Step: init map of instances
             // insertion point sub template 
-            formcellfloat64s.forEach(
-              formcellfloat64 => {
-                this.frontRepo.FormCellFloat64s.set(formcellfloat64.ID, formcellfloat64)
-                this.frontRepo.FormCellFloat64s_batch.set(formcellfloat64.ID, formcellfloat64)
+            formfieldfloat64s.forEach(
+              formfieldfloat64 => {
+                this.frontRepo.FormFieldFloat64s.set(formfieldfloat64.ID, formfieldfloat64)
+                this.frontRepo.FormFieldFloat64s_batch.set(formfieldfloat64.ID, formfieldfloat64)
 
                 // insertion point for redeeming ONE/ZERO-ONE associations
 
@@ -1695,11 +1695,11 @@ export class FrontRepoService {
               }
             )
 
-            // clear formcellfloat64s that are absent from the GET
-            this.frontRepo.FormCellFloat64s.forEach(
-              formcellfloat64 => {
-                if (this.frontRepo.FormCellFloat64s_batch.get(formcellfloat64.ID) == undefined) {
-                  this.frontRepo.FormCellFloat64s.delete(formcellfloat64.ID)
+            // clear formfieldfloat64s that are absent from the GET
+            this.frontRepo.FormFieldFloat64s.forEach(
+              formfieldfloat64 => {
+                if (this.frontRepo.FormFieldFloat64s_batch.get(formfieldfloat64.ID) == undefined) {
+                  this.frontRepo.FormFieldFloat64s.delete(formfieldfloat64.ID)
                 }
               }
             )
@@ -1716,29 +1716,29 @@ export class FrontRepoService {
     )
   }
 
-  // FormCellIntPull performs a GET on FormCellInt of the stack and redeem association pointers 
-  FormCellIntPull(): Observable<FrontRepo> {
+  // FormFieldIntPull performs a GET on FormFieldInt of the stack and redeem association pointers 
+  FormFieldIntPull(): Observable<FrontRepo> {
     return new Observable<FrontRepo>(
       (observer) => {
         combineLatest([
-          this.formcellintService.getFormCellInts(this.GONG__StackPath)
+          this.formfieldintService.getFormFieldInts(this.GONG__StackPath)
         ]).subscribe(
           ([ // insertion point sub template 
-            formcellints,
+            formfieldints,
           ]) => {
             // init the array
-            this.frontRepo.FormCellInts_array = formcellints
+            this.frontRepo.FormFieldInts_array = formfieldints
 
-            // clear the map that counts FormCellInt in the GET
-            this.frontRepo.FormCellInts_batch.clear()
+            // clear the map that counts FormFieldInt in the GET
+            this.frontRepo.FormFieldInts_batch.clear()
 
             // 
             // First Step: init map of instances
             // insertion point sub template 
-            formcellints.forEach(
-              formcellint => {
-                this.frontRepo.FormCellInts.set(formcellint.ID, formcellint)
-                this.frontRepo.FormCellInts_batch.set(formcellint.ID, formcellint)
+            formfieldints.forEach(
+              formfieldint => {
+                this.frontRepo.FormFieldInts.set(formfieldint.ID, formfieldint)
+                this.frontRepo.FormFieldInts_batch.set(formfieldint.ID, formfieldint)
 
                 // insertion point for redeeming ONE/ZERO-ONE associations
 
@@ -1746,11 +1746,11 @@ export class FrontRepoService {
               }
             )
 
-            // clear formcellints that are absent from the GET
-            this.frontRepo.FormCellInts.forEach(
-              formcellint => {
-                if (this.frontRepo.FormCellInts_batch.get(formcellint.ID) == undefined) {
-                  this.frontRepo.FormCellInts.delete(formcellint.ID)
+            // clear formfieldints that are absent from the GET
+            this.frontRepo.FormFieldInts.forEach(
+              formfieldint => {
+                if (this.frontRepo.FormFieldInts_batch.get(formfieldint.ID) == undefined) {
+                  this.frontRepo.FormFieldInts.delete(formfieldint.ID)
                 }
               }
             )
@@ -1767,29 +1767,29 @@ export class FrontRepoService {
     )
   }
 
-  // FormCellStringPull performs a GET on FormCellString of the stack and redeem association pointers 
-  FormCellStringPull(): Observable<FrontRepo> {
+  // FormFieldStringPull performs a GET on FormFieldString of the stack and redeem association pointers 
+  FormFieldStringPull(): Observable<FrontRepo> {
     return new Observable<FrontRepo>(
       (observer) => {
         combineLatest([
-          this.formcellstringService.getFormCellStrings(this.GONG__StackPath)
+          this.formfieldstringService.getFormFieldStrings(this.GONG__StackPath)
         ]).subscribe(
           ([ // insertion point sub template 
-            formcellstrings,
+            formfieldstrings,
           ]) => {
             // init the array
-            this.frontRepo.FormCellStrings_array = formcellstrings
+            this.frontRepo.FormFieldStrings_array = formfieldstrings
 
-            // clear the map that counts FormCellString in the GET
-            this.frontRepo.FormCellStrings_batch.clear()
+            // clear the map that counts FormFieldString in the GET
+            this.frontRepo.FormFieldStrings_batch.clear()
 
             // 
             // First Step: init map of instances
             // insertion point sub template 
-            formcellstrings.forEach(
-              formcellstring => {
-                this.frontRepo.FormCellStrings.set(formcellstring.ID, formcellstring)
-                this.frontRepo.FormCellStrings_batch.set(formcellstring.ID, formcellstring)
+            formfieldstrings.forEach(
+              formfieldstring => {
+                this.frontRepo.FormFieldStrings.set(formfieldstring.ID, formfieldstring)
+                this.frontRepo.FormFieldStrings_batch.set(formfieldstring.ID, formfieldstring)
 
                 // insertion point for redeeming ONE/ZERO-ONE associations
 
@@ -1797,11 +1797,11 @@ export class FrontRepoService {
               }
             )
 
-            // clear formcellstrings that are absent from the GET
-            this.frontRepo.FormCellStrings.forEach(
-              formcellstring => {
-                if (this.frontRepo.FormCellStrings_batch.get(formcellstring.ID) == undefined) {
-                  this.frontRepo.FormCellStrings.delete(formcellstring.ID)
+            // clear formfieldstrings that are absent from the GET
+            this.frontRepo.FormFieldStrings.forEach(
+              formfieldstring => {
+                if (this.frontRepo.FormFieldStrings_batch.get(formfieldstring.ID) == undefined) {
+                  this.frontRepo.FormFieldStrings.delete(formfieldstring.ID)
                 }
               }
             )
@@ -1959,19 +1959,19 @@ export function getDisplayedColumnUniqueID(id: number): number {
 export function getFormUniqueID(id: number): number {
   return 61 * id
 }
-export function getFormCellUniqueID(id: number): number {
+export function getFormFieldUniqueID(id: number): number {
   return 67 * id
 }
-export function getFormCellBooleanUniqueID(id: number): number {
+export function getFormFieldBooleanUniqueID(id: number): number {
   return 71 * id
 }
-export function getFormCellFloat64UniqueID(id: number): number {
+export function getFormFieldFloat64UniqueID(id: number): number {
   return 73 * id
 }
-export function getFormCellIntUniqueID(id: number): number {
+export function getFormFieldIntUniqueID(id: number): number {
   return 79 * id
 }
-export function getFormCellStringUniqueID(id: number): number {
+export function getFormFieldStringUniqueID(id: number): number {
   return 83 * id
 }
 export function getRowUniqueID(id: number): number {

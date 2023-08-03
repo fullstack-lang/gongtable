@@ -211,18 +211,18 @@ func (backRepoForm *BackRepoFormStruct) CommitPhaseTwoInstance(backRepo *BackRep
 		// This loop encodes the slice of pointers form.FormCells into the back repo.
 		// Each back repo instance at the end of the association encode the ID of the association start
 		// into a dedicated field for coding the association. The back repo instance is then saved to the db
-		for idx, formcellAssocEnd := range form.FormCells {
+		for idx, formfieldAssocEnd := range form.FormCells {
 
 			// get the back repo instance at the association end
-			formcellAssocEnd_DB :=
-				backRepo.BackRepoFormCell.GetFormCellDBFromFormCellPtr(formcellAssocEnd)
+			formfieldAssocEnd_DB :=
+				backRepo.BackRepoFormField.GetFormFieldDBFromFormFieldPtr(formfieldAssocEnd)
 
 			// encode reverse pointer in the association end back repo instance
-			formcellAssocEnd_DB.Form_FormCellsDBID.Int64 = int64(formDB.ID)
-			formcellAssocEnd_DB.Form_FormCellsDBID.Valid = true
-			formcellAssocEnd_DB.Form_FormCellsDBID_Index.Int64 = int64(idx)
-			formcellAssocEnd_DB.Form_FormCellsDBID_Index.Valid = true
-			if q := backRepoForm.db.Save(formcellAssocEnd_DB); q.Error != nil {
+			formfieldAssocEnd_DB.Form_FormCellsDBID.Int64 = int64(formDB.ID)
+			formfieldAssocEnd_DB.Form_FormCellsDBID.Valid = true
+			formfieldAssocEnd_DB.Form_FormCellsDBID_Index.Int64 = int64(idx)
+			formfieldAssocEnd_DB.Form_FormCellsDBID_Index.Valid = true
+			if q := backRepoForm.db.Save(formfieldAssocEnd_DB); q.Error != nil {
 				return q.Error
 			}
 		}
@@ -335,30 +335,30 @@ func (backRepoForm *BackRepoFormStruct) CheckoutPhaseTwoInstance(backRepo *BackR
 
 	// insertion point for checkout of pointer encoding
 	// This loop redeem form.FormCells in the stage from the encode in the back repo
-	// It parses all FormCellDB in the back repo and if the reverse pointer encoding matches the back repo ID
+	// It parses all FormFieldDB in the back repo and if the reverse pointer encoding matches the back repo ID
 	// it appends the stage instance
 	// 1. reset the slice
 	form.FormCells = form.FormCells[:0]
 	// 2. loop all instances in the type in the association end
-	for _, formcellDB_AssocEnd := range backRepo.BackRepoFormCell.Map_FormCellDBID_FormCellDB {
+	for _, formfieldDB_AssocEnd := range backRepo.BackRepoFormField.Map_FormFieldDBID_FormFieldDB {
 		// 3. Does the ID encoding at the end and the ID at the start matches ?
-		if formcellDB_AssocEnd.Form_FormCellsDBID.Int64 == int64(formDB.ID) {
+		if formfieldDB_AssocEnd.Form_FormCellsDBID.Int64 == int64(formDB.ID) {
 			// 4. fetch the associated instance in the stage
-			formcell_AssocEnd := backRepo.BackRepoFormCell.Map_FormCellDBID_FormCellPtr[formcellDB_AssocEnd.ID]
+			formfield_AssocEnd := backRepo.BackRepoFormField.Map_FormFieldDBID_FormFieldPtr[formfieldDB_AssocEnd.ID]
 			// 5. append it the association slice
-			form.FormCells = append(form.FormCells, formcell_AssocEnd)
+			form.FormCells = append(form.FormCells, formfield_AssocEnd)
 		}
 	}
 
 	// sort the array according to the order
 	sort.Slice(form.FormCells, func(i, j int) bool {
-		formcellDB_i_ID := backRepo.BackRepoFormCell.Map_FormCellPtr_FormCellDBID[form.FormCells[i]]
-		formcellDB_j_ID := backRepo.BackRepoFormCell.Map_FormCellPtr_FormCellDBID[form.FormCells[j]]
+		formfieldDB_i_ID := backRepo.BackRepoFormField.Map_FormFieldPtr_FormFieldDBID[form.FormCells[i]]
+		formfieldDB_j_ID := backRepo.BackRepoFormField.Map_FormFieldPtr_FormFieldDBID[form.FormCells[j]]
 
-		formcellDB_i := backRepo.BackRepoFormCell.Map_FormCellDBID_FormCellDB[formcellDB_i_ID]
-		formcellDB_j := backRepo.BackRepoFormCell.Map_FormCellDBID_FormCellDB[formcellDB_j_ID]
+		formfieldDB_i := backRepo.BackRepoFormField.Map_FormFieldDBID_FormFieldDB[formfieldDB_i_ID]
+		formfieldDB_j := backRepo.BackRepoFormField.Map_FormFieldDBID_FormFieldDB[formfieldDB_j_ID]
 
-		return formcellDB_i.Form_FormCellsDBID_Index.Int64 < formcellDB_j.Form_FormCellsDBID_Index.Int64
+		return formfieldDB_i.Form_FormCellsDBID_Index.Int64 < formfieldDB_j.Form_FormCellsDBID_Index.Int64
 	})
 
 	return

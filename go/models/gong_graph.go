@@ -29,20 +29,20 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 	case *Form:
 		ok = stage.IsStagedForm(target)
 
-	case *FormCell:
-		ok = stage.IsStagedFormCell(target)
+	case *FormField:
+		ok = stage.IsStagedFormField(target)
 
-	case *FormCellBoolean:
-		ok = stage.IsStagedFormCellBoolean(target)
+	case *FormFieldBoolean:
+		ok = stage.IsStagedFormFieldBoolean(target)
 
-	case *FormCellFloat64:
-		ok = stage.IsStagedFormCellFloat64(target)
+	case *FormFieldFloat64:
+		ok = stage.IsStagedFormFieldFloat64(target)
 
-	case *FormCellInt:
-		ok = stage.IsStagedFormCellInt(target)
+	case *FormFieldInt:
+		ok = stage.IsStagedFormFieldInt(target)
 
-	case *FormCellString:
-		ok = stage.IsStagedFormCellString(target)
+	case *FormFieldString:
+		ok = stage.IsStagedFormFieldString(target)
 
 	case *Row:
 		ok = stage.IsStagedRow(target)
@@ -113,37 +113,37 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 		return
 	}
 
-	func (stage *StageStruct) IsStagedFormCell(formcell *FormCell) (ok bool) {
+	func (stage *StageStruct) IsStagedFormField(formfield *FormField) (ok bool) {
 
-		_, ok = stage.FormCells[formcell]
+		_, ok = stage.FormFields[formfield]
 	
 		return
 	}
 
-	func (stage *StageStruct) IsStagedFormCellBoolean(formcellboolean *FormCellBoolean) (ok bool) {
+	func (stage *StageStruct) IsStagedFormFieldBoolean(formfieldboolean *FormFieldBoolean) (ok bool) {
 
-		_, ok = stage.FormCellBooleans[formcellboolean]
+		_, ok = stage.FormFieldBooleans[formfieldboolean]
 	
 		return
 	}
 
-	func (stage *StageStruct) IsStagedFormCellFloat64(formcellfloat64 *FormCellFloat64) (ok bool) {
+	func (stage *StageStruct) IsStagedFormFieldFloat64(formfieldfloat64 *FormFieldFloat64) (ok bool) {
 
-		_, ok = stage.FormCellFloat64s[formcellfloat64]
+		_, ok = stage.FormFieldFloat64s[formfieldfloat64]
 	
 		return
 	}
 
-	func (stage *StageStruct) IsStagedFormCellInt(formcellint *FormCellInt) (ok bool) {
+	func (stage *StageStruct) IsStagedFormFieldInt(formfieldint *FormFieldInt) (ok bool) {
 
-		_, ok = stage.FormCellInts[formcellint]
+		_, ok = stage.FormFieldInts[formfieldint]
 	
 		return
 	}
 
-	func (stage *StageStruct) IsStagedFormCellString(formcellstring *FormCellString) (ok bool) {
+	func (stage *StageStruct) IsStagedFormFieldString(formfieldstring *FormFieldString) (ok bool) {
 
-		_, ok = stage.FormCellStrings[formcellstring]
+		_, ok = stage.FormFieldStrings[formfieldstring]
 	
 		return
 	}
@@ -195,20 +195,20 @@ func StageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *Form:
 		stage.StageBranchForm(target)
 
-	case *FormCell:
-		stage.StageBranchFormCell(target)
+	case *FormField:
+		stage.StageBranchFormField(target)
 
-	case *FormCellBoolean:
-		stage.StageBranchFormCellBoolean(target)
+	case *FormFieldBoolean:
+		stage.StageBranchFormFieldBoolean(target)
 
-	case *FormCellFloat64:
-		stage.StageBranchFormCellFloat64(target)
+	case *FormFieldFloat64:
+		stage.StageBranchFormFieldFloat64(target)
 
-	case *FormCellInt:
-		stage.StageBranchFormCellInt(target)
+	case *FormFieldInt:
+		stage.StageBranchFormFieldInt(target)
 
-	case *FormCellString:
-		stage.StageBranchFormCellString(target)
+	case *FormFieldString:
+		stage.StageBranchFormFieldString(target)
 
 	case *Row:
 		stage.StageBranchRow(target)
@@ -354,62 +354,47 @@ func (stage *StageStruct) StageBranchForm(form *Form) {
 	//insertion point for the staging of instances referenced by pointers
 
 	//insertion point for the staging of instances referenced by slice of pointers
-	for _, _formcell := range form.FormCells {
-		StageBranch(stage, _formcell)
+	for _, _formfield := range form.FormCells {
+		StageBranch(stage, _formfield)
 	}
 
 }
 
-func (stage *StageStruct) StageBranchFormCell(formcell *FormCell) {
+func (stage *StageStruct) StageBranchFormField(formfield *FormField) {
 
 	// check if instance is already staged
-	if IsStaged(stage, formcell) {
+	if IsStaged(stage, formfield) {
 		return
 	}
 
-	formcell.Stage(stage)
+	formfield.Stage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
-	if formcell.FormCellString != nil {
-		StageBranch(stage, formcell.FormCellString)
+	if formfield.FormFieldString != nil {
+		StageBranch(stage, formfield.FormFieldString)
 	}
-	if formcell.FormCellFloat64 != nil {
-		StageBranch(stage, formcell.FormCellFloat64)
+	if formfield.FormFieldFloat64 != nil {
+		StageBranch(stage, formfield.FormFieldFloat64)
 	}
-	if formcell.FormCellInt != nil {
-		StageBranch(stage, formcell.FormCellInt)
+	if formfield.FormFieldInt != nil {
+		StageBranch(stage, formfield.FormFieldInt)
 	}
-	if formcell.FormCellBool != nil {
-		StageBranch(stage, formcell.FormCellBool)
+	if formfield.FormFieldBool != nil {
+		StageBranch(stage, formfield.FormFieldBool)
 	}
 
 	//insertion point for the staging of instances referenced by slice of pointers
 
 }
 
-func (stage *StageStruct) StageBranchFormCellBoolean(formcellboolean *FormCellBoolean) {
+func (stage *StageStruct) StageBranchFormFieldBoolean(formfieldboolean *FormFieldBoolean) {
 
 	// check if instance is already staged
-	if IsStaged(stage, formcellboolean) {
+	if IsStaged(stage, formfieldboolean) {
 		return
 	}
 
-	formcellboolean.Stage(stage)
-
-	//insertion point for the staging of instances referenced by pointers
-
-	//insertion point for the staging of instances referenced by slice of pointers
-
-}
-
-func (stage *StageStruct) StageBranchFormCellFloat64(formcellfloat64 *FormCellFloat64) {
-
-	// check if instance is already staged
-	if IsStaged(stage, formcellfloat64) {
-		return
-	}
-
-	formcellfloat64.Stage(stage)
+	formfieldboolean.Stage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
 
@@ -417,14 +402,14 @@ func (stage *StageStruct) StageBranchFormCellFloat64(formcellfloat64 *FormCellFl
 
 }
 
-func (stage *StageStruct) StageBranchFormCellInt(formcellint *FormCellInt) {
+func (stage *StageStruct) StageBranchFormFieldFloat64(formfieldfloat64 *FormFieldFloat64) {
 
 	// check if instance is already staged
-	if IsStaged(stage, formcellint) {
+	if IsStaged(stage, formfieldfloat64) {
 		return
 	}
 
-	formcellint.Stage(stage)
+	formfieldfloat64.Stage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
 
@@ -432,14 +417,29 @@ func (stage *StageStruct) StageBranchFormCellInt(formcellint *FormCellInt) {
 
 }
 
-func (stage *StageStruct) StageBranchFormCellString(formcellstring *FormCellString) {
+func (stage *StageStruct) StageBranchFormFieldInt(formfieldint *FormFieldInt) {
 
 	// check if instance is already staged
-	if IsStaged(stage, formcellstring) {
+	if IsStaged(stage, formfieldint) {
 		return
 	}
 
-	formcellstring.Stage(stage)
+	formfieldint.Stage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
+
+}
+
+func (stage *StageStruct) StageBranchFormFieldString(formfieldstring *FormFieldString) {
+
+	// check if instance is already staged
+	if IsStaged(stage, formfieldstring) {
+		return
+	}
+
+	formfieldstring.Stage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
 
@@ -519,20 +519,20 @@ func UnstageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *Form:
 		stage.UnstageBranchForm(target)
 
-	case *FormCell:
-		stage.UnstageBranchFormCell(target)
+	case *FormField:
+		stage.UnstageBranchFormField(target)
 
-	case *FormCellBoolean:
-		stage.UnstageBranchFormCellBoolean(target)
+	case *FormFieldBoolean:
+		stage.UnstageBranchFormFieldBoolean(target)
 
-	case *FormCellFloat64:
-		stage.UnstageBranchFormCellFloat64(target)
+	case *FormFieldFloat64:
+		stage.UnstageBranchFormFieldFloat64(target)
 
-	case *FormCellInt:
-		stage.UnstageBranchFormCellInt(target)
+	case *FormFieldInt:
+		stage.UnstageBranchFormFieldInt(target)
 
-	case *FormCellString:
-		stage.UnstageBranchFormCellString(target)
+	case *FormFieldString:
+		stage.UnstageBranchFormFieldString(target)
 
 	case *Row:
 		stage.UnstageBranchRow(target)
@@ -678,62 +678,47 @@ func (stage *StageStruct) UnstageBranchForm(form *Form) {
 	//insertion point for the staging of instances referenced by pointers
 
 	//insertion point for the staging of instances referenced by slice of pointers
-	for _, _formcell := range form.FormCells {
-		UnstageBranch(stage, _formcell)
+	for _, _formfield := range form.FormCells {
+		UnstageBranch(stage, _formfield)
 	}
 
 }
 
-func (stage *StageStruct) UnstageBranchFormCell(formcell *FormCell) {
+func (stage *StageStruct) UnstageBranchFormField(formfield *FormField) {
 
 	// check if instance is already staged
-	if ! IsStaged(stage, formcell) {
+	if ! IsStaged(stage, formfield) {
 		return
 	}
 
-	formcell.Unstage(stage)
+	formfield.Unstage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
-	if formcell.FormCellString != nil {
-		UnstageBranch(stage, formcell.FormCellString)
+	if formfield.FormFieldString != nil {
+		UnstageBranch(stage, formfield.FormFieldString)
 	}
-	if formcell.FormCellFloat64 != nil {
-		UnstageBranch(stage, formcell.FormCellFloat64)
+	if formfield.FormFieldFloat64 != nil {
+		UnstageBranch(stage, formfield.FormFieldFloat64)
 	}
-	if formcell.FormCellInt != nil {
-		UnstageBranch(stage, formcell.FormCellInt)
+	if formfield.FormFieldInt != nil {
+		UnstageBranch(stage, formfield.FormFieldInt)
 	}
-	if formcell.FormCellBool != nil {
-		UnstageBranch(stage, formcell.FormCellBool)
+	if formfield.FormFieldBool != nil {
+		UnstageBranch(stage, formfield.FormFieldBool)
 	}
 
 	//insertion point for the staging of instances referenced by slice of pointers
 
 }
 
-func (stage *StageStruct) UnstageBranchFormCellBoolean(formcellboolean *FormCellBoolean) {
+func (stage *StageStruct) UnstageBranchFormFieldBoolean(formfieldboolean *FormFieldBoolean) {
 
 	// check if instance is already staged
-	if ! IsStaged(stage, formcellboolean) {
+	if ! IsStaged(stage, formfieldboolean) {
 		return
 	}
 
-	formcellboolean.Unstage(stage)
-
-	//insertion point for the staging of instances referenced by pointers
-
-	//insertion point for the staging of instances referenced by slice of pointers
-
-}
-
-func (stage *StageStruct) UnstageBranchFormCellFloat64(formcellfloat64 *FormCellFloat64) {
-
-	// check if instance is already staged
-	if ! IsStaged(stage, formcellfloat64) {
-		return
-	}
-
-	formcellfloat64.Unstage(stage)
+	formfieldboolean.Unstage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
 
@@ -741,14 +726,14 @@ func (stage *StageStruct) UnstageBranchFormCellFloat64(formcellfloat64 *FormCell
 
 }
 
-func (stage *StageStruct) UnstageBranchFormCellInt(formcellint *FormCellInt) {
+func (stage *StageStruct) UnstageBranchFormFieldFloat64(formfieldfloat64 *FormFieldFloat64) {
 
 	// check if instance is already staged
-	if ! IsStaged(stage, formcellint) {
+	if ! IsStaged(stage, formfieldfloat64) {
 		return
 	}
 
-	formcellint.Unstage(stage)
+	formfieldfloat64.Unstage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
 
@@ -756,14 +741,29 @@ func (stage *StageStruct) UnstageBranchFormCellInt(formcellint *FormCellInt) {
 
 }
 
-func (stage *StageStruct) UnstageBranchFormCellString(formcellstring *FormCellString) {
+func (stage *StageStruct) UnstageBranchFormFieldInt(formfieldint *FormFieldInt) {
 
 	// check if instance is already staged
-	if ! IsStaged(stage, formcellstring) {
+	if ! IsStaged(stage, formfieldint) {
 		return
 	}
 
-	formcellstring.Unstage(stage)
+	formfieldint.Unstage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
+
+}
+
+func (stage *StageStruct) UnstageBranchFormFieldString(formfieldstring *FormFieldString) {
+
+	// check if instance is already staged
+	if ! IsStaged(stage, formfieldstring) {
+		return
+	}
+
+	formfieldstring.Unstage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
 

@@ -15,16 +15,16 @@
   import { DisplayedColumnSortingComponent } from './displayedcolumn-sorting/displayedcolumn-sorting.component'
   import { FormsTableComponent } from './forms-table/forms-table.component'
   import { FormSortingComponent } from './form-sorting/form-sorting.component'
-  import { FormCellsTableComponent } from './formcells-table/formcells-table.component'
-  import { FormCellSortingComponent } from './formcell-sorting/formcell-sorting.component'
-  import { FormCellBooleansTableComponent } from './formcellbooleans-table/formcellbooleans-table.component'
-  import { FormCellBooleanSortingComponent } from './formcellboolean-sorting/formcellboolean-sorting.component'
-  import { FormCellFloat64sTableComponent } from './formcellfloat64s-table/formcellfloat64s-table.component'
-  import { FormCellFloat64SortingComponent } from './formcellfloat64-sorting/formcellfloat64-sorting.component'
-  import { FormCellIntsTableComponent } from './formcellints-table/formcellints-table.component'
-  import { FormCellIntSortingComponent } from './formcellint-sorting/formcellint-sorting.component'
-  import { FormCellStringsTableComponent } from './formcellstrings-table/formcellstrings-table.component'
-  import { FormCellStringSortingComponent } from './formcellstring-sorting/formcellstring-sorting.component'
+  import { FormFieldsTableComponent } from './formfields-table/formfields-table.component'
+  import { FormFieldSortingComponent } from './formfield-sorting/formfield-sorting.component'
+  import { FormFieldBooleansTableComponent } from './formfieldbooleans-table/formfieldbooleans-table.component'
+  import { FormFieldBooleanSortingComponent } from './formfieldboolean-sorting/formfieldboolean-sorting.component'
+  import { FormFieldFloat64sTableComponent } from './formfieldfloat64s-table/formfieldfloat64s-table.component'
+  import { FormFieldFloat64SortingComponent } from './formfieldfloat64-sorting/formfieldfloat64-sorting.component'
+  import { FormFieldIntsTableComponent } from './formfieldints-table/formfieldints-table.component'
+  import { FormFieldIntSortingComponent } from './formfieldint-sorting/formfieldint-sorting.component'
+  import { FormFieldStringsTableComponent } from './formfieldstrings-table/formfieldstrings-table.component'
+  import { FormFieldStringSortingComponent } from './formfieldstring-sorting/formfieldstring-sorting.component'
   import { RowsTableComponent } from './rows-table/rows-table.component'
   import { RowSortingComponent } from './row-sorting/row-sorting.component'
   import { TablesTableComponent } from './tables-table/tables-table.component'
@@ -47,16 +47,16 @@
   export const MapOfDisplayedColumnSortingComponents: Map<string, any> = new Map([["DisplayedColumnSortingComponent", DisplayedColumnSortingComponent],])
   export const MapOfFormsComponents: Map<string, any> = new Map([["FormsTableComponent", FormsTableComponent],])
   export const MapOfFormSortingComponents: Map<string, any> = new Map([["FormSortingComponent", FormSortingComponent],])
-  export const MapOfFormCellsComponents: Map<string, any> = new Map([["FormCellsTableComponent", FormCellsTableComponent],])
-  export const MapOfFormCellSortingComponents: Map<string, any> = new Map([["FormCellSortingComponent", FormCellSortingComponent],])
-  export const MapOfFormCellBooleansComponents: Map<string, any> = new Map([["FormCellBooleansTableComponent", FormCellBooleansTableComponent],])
-  export const MapOfFormCellBooleanSortingComponents: Map<string, any> = new Map([["FormCellBooleanSortingComponent", FormCellBooleanSortingComponent],])
-  export const MapOfFormCellFloat64sComponents: Map<string, any> = new Map([["FormCellFloat64sTableComponent", FormCellFloat64sTableComponent],])
-  export const MapOfFormCellFloat64SortingComponents: Map<string, any> = new Map([["FormCellFloat64SortingComponent", FormCellFloat64SortingComponent],])
-  export const MapOfFormCellIntsComponents: Map<string, any> = new Map([["FormCellIntsTableComponent", FormCellIntsTableComponent],])
-  export const MapOfFormCellIntSortingComponents: Map<string, any> = new Map([["FormCellIntSortingComponent", FormCellIntSortingComponent],])
-  export const MapOfFormCellStringsComponents: Map<string, any> = new Map([["FormCellStringsTableComponent", FormCellStringsTableComponent],])
-  export const MapOfFormCellStringSortingComponents: Map<string, any> = new Map([["FormCellStringSortingComponent", FormCellStringSortingComponent],])
+  export const MapOfFormFieldsComponents: Map<string, any> = new Map([["FormFieldsTableComponent", FormFieldsTableComponent],])
+  export const MapOfFormFieldSortingComponents: Map<string, any> = new Map([["FormFieldSortingComponent", FormFieldSortingComponent],])
+  export const MapOfFormFieldBooleansComponents: Map<string, any> = new Map([["FormFieldBooleansTableComponent", FormFieldBooleansTableComponent],])
+  export const MapOfFormFieldBooleanSortingComponents: Map<string, any> = new Map([["FormFieldBooleanSortingComponent", FormFieldBooleanSortingComponent],])
+  export const MapOfFormFieldFloat64sComponents: Map<string, any> = new Map([["FormFieldFloat64sTableComponent", FormFieldFloat64sTableComponent],])
+  export const MapOfFormFieldFloat64SortingComponents: Map<string, any> = new Map([["FormFieldFloat64SortingComponent", FormFieldFloat64SortingComponent],])
+  export const MapOfFormFieldIntsComponents: Map<string, any> = new Map([["FormFieldIntsTableComponent", FormFieldIntsTableComponent],])
+  export const MapOfFormFieldIntSortingComponents: Map<string, any> = new Map([["FormFieldIntSortingComponent", FormFieldIntSortingComponent],])
+  export const MapOfFormFieldStringsComponents: Map<string, any> = new Map([["FormFieldStringsTableComponent", FormFieldStringsTableComponent],])
+  export const MapOfFormFieldStringSortingComponents: Map<string, any> = new Map([["FormFieldStringSortingComponent", FormFieldStringSortingComponent],])
   export const MapOfRowsComponents: Map<string, any> = new Map([["RowsTableComponent", RowsTableComponent],])
   export const MapOfRowSortingComponents: Map<string, any> = new Map([["RowSortingComponent", RowSortingComponent],])
   export const MapOfTablesComponents: Map<string, any> = new Map([["TablesTableComponent", TablesTableComponent],])
@@ -75,11 +75,11 @@ export const MapOfComponents: Map<string, any> =
       ["CellString", MapOfCellStringsComponents],
       ["DisplayedColumn", MapOfDisplayedColumnsComponents],
       ["Form", MapOfFormsComponents],
-      ["FormCell", MapOfFormCellsComponents],
-      ["FormCellBoolean", MapOfFormCellBooleansComponents],
-      ["FormCellFloat64", MapOfFormCellFloat64sComponents],
-      ["FormCellInt", MapOfFormCellIntsComponents],
-      ["FormCellString", MapOfFormCellStringsComponents],
+      ["FormField", MapOfFormFieldsComponents],
+      ["FormFieldBoolean", MapOfFormFieldBooleansComponents],
+      ["FormFieldFloat64", MapOfFormFieldFloat64sComponents],
+      ["FormFieldInt", MapOfFormFieldIntsComponents],
+      ["FormFieldString", MapOfFormFieldStringsComponents],
       ["Row", MapOfRowsComponents],
       ["Table", MapOfTablesComponents],
     ]
@@ -98,11 +98,11 @@ export const MapOfSortingComponents: Map<string, any> =
       ["CellString", MapOfCellStringSortingComponents],
       ["DisplayedColumn", MapOfDisplayedColumnSortingComponents],
       ["Form", MapOfFormSortingComponents],
-      ["FormCell", MapOfFormCellSortingComponents],
-      ["FormCellBoolean", MapOfFormCellBooleanSortingComponents],
-      ["FormCellFloat64", MapOfFormCellFloat64SortingComponents],
-      ["FormCellInt", MapOfFormCellIntSortingComponents],
-      ["FormCellString", MapOfFormCellStringSortingComponents],
+      ["FormField", MapOfFormFieldSortingComponents],
+      ["FormFieldBoolean", MapOfFormFieldBooleanSortingComponents],
+      ["FormFieldFloat64", MapOfFormFieldFloat64SortingComponents],
+      ["FormFieldInt", MapOfFormFieldIntSortingComponents],
+      ["FormFieldString", MapOfFormFieldStringSortingComponents],
       ["Row", MapOfRowSortingComponents],
       ["Table", MapOfTableSortingComponents],
     ]

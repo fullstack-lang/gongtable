@@ -37,25 +37,25 @@ func AfterCreateFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterFormCreateCallback != nil {
 			stage.OnAfterFormCreateCallback.OnAfterCreate(stage, target)
 		}
-	case *FormCell:
-		if stage.OnAfterFormCellCreateCallback != nil {
-			stage.OnAfterFormCellCreateCallback.OnAfterCreate(stage, target)
+	case *FormField:
+		if stage.OnAfterFormFieldCreateCallback != nil {
+			stage.OnAfterFormFieldCreateCallback.OnAfterCreate(stage, target)
 		}
-	case *FormCellBoolean:
-		if stage.OnAfterFormCellBooleanCreateCallback != nil {
-			stage.OnAfterFormCellBooleanCreateCallback.OnAfterCreate(stage, target)
+	case *FormFieldBoolean:
+		if stage.OnAfterFormFieldBooleanCreateCallback != nil {
+			stage.OnAfterFormFieldBooleanCreateCallback.OnAfterCreate(stage, target)
 		}
-	case *FormCellFloat64:
-		if stage.OnAfterFormCellFloat64CreateCallback != nil {
-			stage.OnAfterFormCellFloat64CreateCallback.OnAfterCreate(stage, target)
+	case *FormFieldFloat64:
+		if stage.OnAfterFormFieldFloat64CreateCallback != nil {
+			stage.OnAfterFormFieldFloat64CreateCallback.OnAfterCreate(stage, target)
 		}
-	case *FormCellInt:
-		if stage.OnAfterFormCellIntCreateCallback != nil {
-			stage.OnAfterFormCellIntCreateCallback.OnAfterCreate(stage, target)
+	case *FormFieldInt:
+		if stage.OnAfterFormFieldIntCreateCallback != nil {
+			stage.OnAfterFormFieldIntCreateCallback.OnAfterCreate(stage, target)
 		}
-	case *FormCellString:
-		if stage.OnAfterFormCellStringCreateCallback != nil {
-			stage.OnAfterFormCellStringCreateCallback.OnAfterCreate(stage, target)
+	case *FormFieldString:
+		if stage.OnAfterFormFieldStringCreateCallback != nil {
+			stage.OnAfterFormFieldStringCreateCallback.OnAfterCreate(stage, target)
 		}
 	case *Row:
 		if stage.OnAfterRowCreateCallback != nil {
@@ -115,30 +115,30 @@ func AfterUpdateFromFront[Type Gongstruct](stage *StageStruct, old, new *Type) {
 		if stage.OnAfterFormUpdateCallback != nil {
 			stage.OnAfterFormUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
-	case *FormCell:
-		newTarget := any(new).(*FormCell)
-		if stage.OnAfterFormCellUpdateCallback != nil {
-			stage.OnAfterFormCellUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
+	case *FormField:
+		newTarget := any(new).(*FormField)
+		if stage.OnAfterFormFieldUpdateCallback != nil {
+			stage.OnAfterFormFieldUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
-	case *FormCellBoolean:
-		newTarget := any(new).(*FormCellBoolean)
-		if stage.OnAfterFormCellBooleanUpdateCallback != nil {
-			stage.OnAfterFormCellBooleanUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
+	case *FormFieldBoolean:
+		newTarget := any(new).(*FormFieldBoolean)
+		if stage.OnAfterFormFieldBooleanUpdateCallback != nil {
+			stage.OnAfterFormFieldBooleanUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
-	case *FormCellFloat64:
-		newTarget := any(new).(*FormCellFloat64)
-		if stage.OnAfterFormCellFloat64UpdateCallback != nil {
-			stage.OnAfterFormCellFloat64UpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
+	case *FormFieldFloat64:
+		newTarget := any(new).(*FormFieldFloat64)
+		if stage.OnAfterFormFieldFloat64UpdateCallback != nil {
+			stage.OnAfterFormFieldFloat64UpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
-	case *FormCellInt:
-		newTarget := any(new).(*FormCellInt)
-		if stage.OnAfterFormCellIntUpdateCallback != nil {
-			stage.OnAfterFormCellIntUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
+	case *FormFieldInt:
+		newTarget := any(new).(*FormFieldInt)
+		if stage.OnAfterFormFieldIntUpdateCallback != nil {
+			stage.OnAfterFormFieldIntUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
-	case *FormCellString:
-		newTarget := any(new).(*FormCellString)
-		if stage.OnAfterFormCellStringUpdateCallback != nil {
-			stage.OnAfterFormCellStringUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
+	case *FormFieldString:
+		newTarget := any(new).(*FormFieldString)
+		if stage.OnAfterFormFieldStringUpdateCallback != nil {
+			stage.OnAfterFormFieldStringUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
 	case *Row:
 		newTarget := any(new).(*Row)
@@ -200,30 +200,30 @@ func AfterDeleteFromFront[Type Gongstruct](stage *StageStruct, staged, front *Ty
 			staged := any(staged).(*Form)
 			stage.OnAfterFormDeleteCallback.OnAfterDelete(stage, staged, front)
 		}
-	case *FormCell:
-		if stage.OnAfterFormCellDeleteCallback != nil {
-			staged := any(staged).(*FormCell)
-			stage.OnAfterFormCellDeleteCallback.OnAfterDelete(stage, staged, front)
+	case *FormField:
+		if stage.OnAfterFormFieldDeleteCallback != nil {
+			staged := any(staged).(*FormField)
+			stage.OnAfterFormFieldDeleteCallback.OnAfterDelete(stage, staged, front)
 		}
-	case *FormCellBoolean:
-		if stage.OnAfterFormCellBooleanDeleteCallback != nil {
-			staged := any(staged).(*FormCellBoolean)
-			stage.OnAfterFormCellBooleanDeleteCallback.OnAfterDelete(stage, staged, front)
+	case *FormFieldBoolean:
+		if stage.OnAfterFormFieldBooleanDeleteCallback != nil {
+			staged := any(staged).(*FormFieldBoolean)
+			stage.OnAfterFormFieldBooleanDeleteCallback.OnAfterDelete(stage, staged, front)
 		}
-	case *FormCellFloat64:
-		if stage.OnAfterFormCellFloat64DeleteCallback != nil {
-			staged := any(staged).(*FormCellFloat64)
-			stage.OnAfterFormCellFloat64DeleteCallback.OnAfterDelete(stage, staged, front)
+	case *FormFieldFloat64:
+		if stage.OnAfterFormFieldFloat64DeleteCallback != nil {
+			staged := any(staged).(*FormFieldFloat64)
+			stage.OnAfterFormFieldFloat64DeleteCallback.OnAfterDelete(stage, staged, front)
 		}
-	case *FormCellInt:
-		if stage.OnAfterFormCellIntDeleteCallback != nil {
-			staged := any(staged).(*FormCellInt)
-			stage.OnAfterFormCellIntDeleteCallback.OnAfterDelete(stage, staged, front)
+	case *FormFieldInt:
+		if stage.OnAfterFormFieldIntDeleteCallback != nil {
+			staged := any(staged).(*FormFieldInt)
+			stage.OnAfterFormFieldIntDeleteCallback.OnAfterDelete(stage, staged, front)
 		}
-	case *FormCellString:
-		if stage.OnAfterFormCellStringDeleteCallback != nil {
-			staged := any(staged).(*FormCellString)
-			stage.OnAfterFormCellStringDeleteCallback.OnAfterDelete(stage, staged, front)
+	case *FormFieldString:
+		if stage.OnAfterFormFieldStringDeleteCallback != nil {
+			staged := any(staged).(*FormFieldString)
+			stage.OnAfterFormFieldStringDeleteCallback.OnAfterDelete(stage, staged, front)
 		}
 	case *Row:
 		if stage.OnAfterRowDeleteCallback != nil {
@@ -277,25 +277,25 @@ func AfterReadFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterFormReadCallback != nil {
 			stage.OnAfterFormReadCallback.OnAfterRead(stage, target)
 		}
-	case *FormCell:
-		if stage.OnAfterFormCellReadCallback != nil {
-			stage.OnAfterFormCellReadCallback.OnAfterRead(stage, target)
+	case *FormField:
+		if stage.OnAfterFormFieldReadCallback != nil {
+			stage.OnAfterFormFieldReadCallback.OnAfterRead(stage, target)
 		}
-	case *FormCellBoolean:
-		if stage.OnAfterFormCellBooleanReadCallback != nil {
-			stage.OnAfterFormCellBooleanReadCallback.OnAfterRead(stage, target)
+	case *FormFieldBoolean:
+		if stage.OnAfterFormFieldBooleanReadCallback != nil {
+			stage.OnAfterFormFieldBooleanReadCallback.OnAfterRead(stage, target)
 		}
-	case *FormCellFloat64:
-		if stage.OnAfterFormCellFloat64ReadCallback != nil {
-			stage.OnAfterFormCellFloat64ReadCallback.OnAfterRead(stage, target)
+	case *FormFieldFloat64:
+		if stage.OnAfterFormFieldFloat64ReadCallback != nil {
+			stage.OnAfterFormFieldFloat64ReadCallback.OnAfterRead(stage, target)
 		}
-	case *FormCellInt:
-		if stage.OnAfterFormCellIntReadCallback != nil {
-			stage.OnAfterFormCellIntReadCallback.OnAfterRead(stage, target)
+	case *FormFieldInt:
+		if stage.OnAfterFormFieldIntReadCallback != nil {
+			stage.OnAfterFormFieldIntReadCallback.OnAfterRead(stage, target)
 		}
-	case *FormCellString:
-		if stage.OnAfterFormCellStringReadCallback != nil {
-			stage.OnAfterFormCellStringReadCallback.OnAfterRead(stage, target)
+	case *FormFieldString:
+		if stage.OnAfterFormFieldStringReadCallback != nil {
+			stage.OnAfterFormFieldStringReadCallback.OnAfterRead(stage, target)
 		}
 	case *Row:
 		if stage.OnAfterRowReadCallback != nil {
@@ -340,20 +340,20 @@ func SetCallbackAfterUpdateFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *Form:
 		stage.OnAfterFormUpdateCallback = any(callback).(OnAfterUpdateInterface[Form])
 	
-	case *FormCell:
-		stage.OnAfterFormCellUpdateCallback = any(callback).(OnAfterUpdateInterface[FormCell])
+	case *FormField:
+		stage.OnAfterFormFieldUpdateCallback = any(callback).(OnAfterUpdateInterface[FormField])
 	
-	case *FormCellBoolean:
-		stage.OnAfterFormCellBooleanUpdateCallback = any(callback).(OnAfterUpdateInterface[FormCellBoolean])
+	case *FormFieldBoolean:
+		stage.OnAfterFormFieldBooleanUpdateCallback = any(callback).(OnAfterUpdateInterface[FormFieldBoolean])
 	
-	case *FormCellFloat64:
-		stage.OnAfterFormCellFloat64UpdateCallback = any(callback).(OnAfterUpdateInterface[FormCellFloat64])
+	case *FormFieldFloat64:
+		stage.OnAfterFormFieldFloat64UpdateCallback = any(callback).(OnAfterUpdateInterface[FormFieldFloat64])
 	
-	case *FormCellInt:
-		stage.OnAfterFormCellIntUpdateCallback = any(callback).(OnAfterUpdateInterface[FormCellInt])
+	case *FormFieldInt:
+		stage.OnAfterFormFieldIntUpdateCallback = any(callback).(OnAfterUpdateInterface[FormFieldInt])
 	
-	case *FormCellString:
-		stage.OnAfterFormCellStringUpdateCallback = any(callback).(OnAfterUpdateInterface[FormCellString])
+	case *FormFieldString:
+		stage.OnAfterFormFieldStringUpdateCallback = any(callback).(OnAfterUpdateInterface[FormFieldString])
 	
 	case *Row:
 		stage.OnAfterRowUpdateCallback = any(callback).(OnAfterUpdateInterface[Row])
@@ -392,20 +392,20 @@ func SetCallbackAfterCreateFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *Form:
 		stage.OnAfterFormCreateCallback = any(callback).(OnAfterCreateInterface[Form])
 	
-	case *FormCell:
-		stage.OnAfterFormCellCreateCallback = any(callback).(OnAfterCreateInterface[FormCell])
+	case *FormField:
+		stage.OnAfterFormFieldCreateCallback = any(callback).(OnAfterCreateInterface[FormField])
 	
-	case *FormCellBoolean:
-		stage.OnAfterFormCellBooleanCreateCallback = any(callback).(OnAfterCreateInterface[FormCellBoolean])
+	case *FormFieldBoolean:
+		stage.OnAfterFormFieldBooleanCreateCallback = any(callback).(OnAfterCreateInterface[FormFieldBoolean])
 	
-	case *FormCellFloat64:
-		stage.OnAfterFormCellFloat64CreateCallback = any(callback).(OnAfterCreateInterface[FormCellFloat64])
+	case *FormFieldFloat64:
+		stage.OnAfterFormFieldFloat64CreateCallback = any(callback).(OnAfterCreateInterface[FormFieldFloat64])
 	
-	case *FormCellInt:
-		stage.OnAfterFormCellIntCreateCallback = any(callback).(OnAfterCreateInterface[FormCellInt])
+	case *FormFieldInt:
+		stage.OnAfterFormFieldIntCreateCallback = any(callback).(OnAfterCreateInterface[FormFieldInt])
 	
-	case *FormCellString:
-		stage.OnAfterFormCellStringCreateCallback = any(callback).(OnAfterCreateInterface[FormCellString])
+	case *FormFieldString:
+		stage.OnAfterFormFieldStringCreateCallback = any(callback).(OnAfterCreateInterface[FormFieldString])
 	
 	case *Row:
 		stage.OnAfterRowCreateCallback = any(callback).(OnAfterCreateInterface[Row])
@@ -444,20 +444,20 @@ func SetCallbackAfterDeleteFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *Form:
 		stage.OnAfterFormDeleteCallback = any(callback).(OnAfterDeleteInterface[Form])
 	
-	case *FormCell:
-		stage.OnAfterFormCellDeleteCallback = any(callback).(OnAfterDeleteInterface[FormCell])
+	case *FormField:
+		stage.OnAfterFormFieldDeleteCallback = any(callback).(OnAfterDeleteInterface[FormField])
 	
-	case *FormCellBoolean:
-		stage.OnAfterFormCellBooleanDeleteCallback = any(callback).(OnAfterDeleteInterface[FormCellBoolean])
+	case *FormFieldBoolean:
+		stage.OnAfterFormFieldBooleanDeleteCallback = any(callback).(OnAfterDeleteInterface[FormFieldBoolean])
 	
-	case *FormCellFloat64:
-		stage.OnAfterFormCellFloat64DeleteCallback = any(callback).(OnAfterDeleteInterface[FormCellFloat64])
+	case *FormFieldFloat64:
+		stage.OnAfterFormFieldFloat64DeleteCallback = any(callback).(OnAfterDeleteInterface[FormFieldFloat64])
 	
-	case *FormCellInt:
-		stage.OnAfterFormCellIntDeleteCallback = any(callback).(OnAfterDeleteInterface[FormCellInt])
+	case *FormFieldInt:
+		stage.OnAfterFormFieldIntDeleteCallback = any(callback).(OnAfterDeleteInterface[FormFieldInt])
 	
-	case *FormCellString:
-		stage.OnAfterFormCellStringDeleteCallback = any(callback).(OnAfterDeleteInterface[FormCellString])
+	case *FormFieldString:
+		stage.OnAfterFormFieldStringDeleteCallback = any(callback).(OnAfterDeleteInterface[FormFieldString])
 	
 	case *Row:
 		stage.OnAfterRowDeleteCallback = any(callback).(OnAfterDeleteInterface[Row])
@@ -496,20 +496,20 @@ func SetCallbackAfterReadFromFront[Type Gongstruct](stage *StageStruct, callback
 	case *Form:
 		stage.OnAfterFormReadCallback = any(callback).(OnAfterReadInterface[Form])
 	
-	case *FormCell:
-		stage.OnAfterFormCellReadCallback = any(callback).(OnAfterReadInterface[FormCell])
+	case *FormField:
+		stage.OnAfterFormFieldReadCallback = any(callback).(OnAfterReadInterface[FormField])
 	
-	case *FormCellBoolean:
-		stage.OnAfterFormCellBooleanReadCallback = any(callback).(OnAfterReadInterface[FormCellBoolean])
+	case *FormFieldBoolean:
+		stage.OnAfterFormFieldBooleanReadCallback = any(callback).(OnAfterReadInterface[FormFieldBoolean])
 	
-	case *FormCellFloat64:
-		stage.OnAfterFormCellFloat64ReadCallback = any(callback).(OnAfterReadInterface[FormCellFloat64])
+	case *FormFieldFloat64:
+		stage.OnAfterFormFieldFloat64ReadCallback = any(callback).(OnAfterReadInterface[FormFieldFloat64])
 	
-	case *FormCellInt:
-		stage.OnAfterFormCellIntReadCallback = any(callback).(OnAfterReadInterface[FormCellInt])
+	case *FormFieldInt:
+		stage.OnAfterFormFieldIntReadCallback = any(callback).(OnAfterReadInterface[FormFieldInt])
 	
-	case *FormCellString:
-		stage.OnAfterFormCellStringReadCallback = any(callback).(OnAfterReadInterface[FormCellString])
+	case *FormFieldString:
+		stage.OnAfterFormFieldStringReadCallback = any(callback).(OnAfterReadInterface[FormFieldString])
 	
 	case *Row:
 		stage.OnAfterRowReadCallback = any(callback).(OnAfterReadInterface[Row])
