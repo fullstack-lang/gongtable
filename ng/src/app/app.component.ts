@@ -21,9 +21,9 @@ export class AppComponent implements OnInit {
 
   views: string[] = [this.table, this.form, this.table_data_model, this.form_data_model];
 
-  TableStack = "gongtable"
+  TableStack = "manual entry table"
   FormStack = "form"
-  GeneratedStack = "generated"
+  TableGeneratedStack = "generated table"
   ModelStacks = "github.com/fullstack-lang/gongtable/go/models"
 
   constructor(
