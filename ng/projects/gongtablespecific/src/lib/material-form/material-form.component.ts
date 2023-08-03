@@ -3,6 +3,8 @@ import { Subscription } from 'rxjs';
 
 import * as gongtable from 'gongtable'
 
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 @Component({
   selector: 'lib-material-form',
   templateUrl: './material-form.component.html',
@@ -25,16 +27,18 @@ export class MaterialFormComponent implements OnInit {
   currTime: number = 0
   dateOfLastTimerEmission: Date = new Date
 
-
   public gongtableFrontRepo?: gongtable.FrontRepo
 
   // for selection
   selectedForm: gongtable.FormDB | undefined = undefined;
 
+  // angular stuff
+  myForm: FormGroup | undefined
+
   constructor(
     private gongtableFrontRepoService: gongtable.FrontRepoService,
     private gongtableCommitNbFromBackService: gongtable.CommitNbFromBackService,
-    private rowService: gongtable.RowService,
+    private fb: FormBuilder,
   ) {
 
   }
@@ -89,7 +93,21 @@ export class MaterialFormComponent implements OnInit {
         if (this.selectedForm == undefined) {
           return
         }
+
+        this.myForm = this.fb.group({
+          firstName: ['', Validators.required],
+          lastName: ['', Validators.required],
+          email: ['', [Validators.required, Validators.email]],
+          password: ['', [Validators.required, Validators.minLength(6)]],
+        });
       }
     )
+  }
+
+  submitForm() {
+    if (this.myForm?.valid) {
+      console.log(this.myForm.value);
+      // handle your form submission
+    }
   }
 }

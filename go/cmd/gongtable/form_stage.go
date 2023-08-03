@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/fullstack-lang/gongtable/go/models"
+
 	// injection point for ident package import declaration{{ImportPackageDeclaration}}
 )
 
@@ -52,19 +53,19 @@ func form_stageInjection(stage *models.StageStruct) {
 	// Declarations of staged instances of DisplayedColumn
 
 	// Declarations of staged instances of Form
-	__Form__000000_Manually_Filled_Form := (&models.Form{Name: `Manually Filled Form`}).Stage(stage)
+	__Form__000000_Form_1 := (&models.Form{Name: `Form 1`}).Stage(stage)
 
-	// Declarations of staged instances of FormCell
-	__FormCell__000000_Form_Cell_Int := (&models.FormField{Name: `Form Cell Int`}).Stage(stage)
+	// Declarations of staged instances of FormField
+	__FormField__000000_Form_Cell_Int := (&models.FormField{Name: `Form Cell Int`}).Stage(stage)
 
-	// Declarations of staged instances of FormCellBoolean
+	// Declarations of staged instances of FormFieldBoolean
 
-	// Declarations of staged instances of FormCellFloat64
+	// Declarations of staged instances of FormFieldFloat64
 
-	// Declarations of staged instances of FormCellInt
-	__FormCellInt__000000_Form_Cell_Int := (&models.FormFieldInt{Name: `Form Cell Int`}).Stage(stage)
+	// Declarations of staged instances of FormFieldInt
+	__FormFieldInt__000000_Form_Cell_Int := (&models.FormFieldInt{Name: `Form Cell Int`}).Stage(stage)
 
-	// Declarations of staged instances of FormCellString
+	// Declarations of staged instances of FormFieldString
 
 	// Declarations of staged instances of Row
 
@@ -73,16 +74,18 @@ func form_stageInjection(stage *models.StageStruct) {
 	// Setup of values
 
 	// Form values setup
-	__Form__000000_Manually_Filled_Form.Name = `Manually Filled Form`
+	__Form__000000_Form_1.Name = `Form 1`
 
-	// FormCell values setup
-	__FormCell__000000_Form_Cell_Int.Name = `Form Cell Int`
+	// FormField values setup
+	__FormField__000000_Form_Cell_Int.Name = `Form Cell Int`
 
-	// FormCellInt values setup
-	__FormCellInt__000000_Form_Cell_Int.Name = `Form Cell Int`
-	__FormCellInt__000000_Form_Cell_Int.Value = 12
+	// FormFieldInt values setup
+	__FormFieldInt__000000_Form_Cell_Int.Name = `Form Cell Int`
+	__FormFieldInt__000000_Form_Cell_Int.Value = 12
 
 	// Setup of pointers
-	__Form__000000_Manually_Filled_Form.FormCells = append(__Form__000000_Manually_Filled_Form.FormCells, __FormCell__000000_Form_Cell_Int)
-	__FormCell__000000_Form_Cell_Int.FormFieldInt = __FormCellInt__000000_Form_Cell_Int
+	__Form__000000_Form_1.FormCells = append(__Form__000000_Form_1.FormCells, __FormField__000000_Form_Cell_Int)
+	__FormField__000000_Form_Cell_Int.FormFieldInt = __FormFieldInt__000000_Form_Cell_Int
 }
+
+

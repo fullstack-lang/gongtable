@@ -31,12 +31,12 @@
     </as-split-area>
 </as-split>
 
-<as-split unit="pixel" *ngIf="view==form" direction="vertical">
+<as-split unit="pixel" *ngIf="view==form_view" direction="vertical">
     <as-split-area [size]=40>
         <ng-container *ngTemplateOutlet="radioToolbar"></ng-container>
     </as-split-area>
     <as-split-area [size]="$any('*')">
-        <lib-material-form FormName="Form" [DataStack]="FormStack">
+        <lib-material-form [FormName]="FormName" [DataStack]="FormStack">
 
         </lib-material-form>
     </as-split-area>
