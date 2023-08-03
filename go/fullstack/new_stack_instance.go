@@ -55,6 +55,12 @@ func NewStackInstance(
 	models.SetOrchestratorOnAfterUpdate[models.CellInt](stage)
 	models.SetOrchestratorOnAfterUpdate[models.CellString](stage)
 	models.SetOrchestratorOnAfterUpdate[models.DisplayedColumn](stage)
+	models.SetOrchestratorOnAfterUpdate[models.Form](stage)
+	models.SetOrchestratorOnAfterUpdate[models.FormCell](stage)
+	models.SetOrchestratorOnAfterUpdate[models.FormCellBoolean](stage)
+	models.SetOrchestratorOnAfterUpdate[models.FormCellFloat64](stage)
+	models.SetOrchestratorOnAfterUpdate[models.FormCellInt](stage)
+	models.SetOrchestratorOnAfterUpdate[models.FormCellString](stage)
 	models.SetOrchestratorOnAfterUpdate[models.Row](stage)
 	models.SetOrchestratorOnAfterUpdate[models.Table](stage)
 

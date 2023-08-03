@@ -11,11 +11,11 @@ import (
 
 // generated in order to avoid error in the package import
 // if there are no elements in the stage to marshall
-var ___dummy__Stage_Default models.StageStruct
-var ___dummy__Time_Default time.Time
+var ___dummy__Stage_Table models.StageStruct
+var ___dummy__Time_Table time.Time
 
 // Injection point for meta package dummy declaration
-var ___dummy__ref_models_Default ref_models.StageStruct
+var ___dummy__ref_models_Table ref_models.StageStruct
 
 // currently, DocLink renaming is not enabled in gopls
 // the following map are devised to overcome this limitation
@@ -24,7 +24,7 @@ var ___dummy__ref_models_Default ref_models.StageStruct
 // [Corresponding Issue](https://github.com/golang/go/issues/57559)
 //
 // When parsed, those maps will help with the renaming process
-var map_DocLink_Identifier_Default map[string]any = map[string]any{
+var map_DocLink_Identifier_Table map[string]any = map[string]any{
 	// injection point for docLink to identifiers
 
 	"ref_models.Cell": &(ref_models.Cell{}),
@@ -75,6 +75,48 @@ var map_DocLink_Identifier_Default map[string]any = map[string]any{
 
 	"ref_models.DisplayedColumn.Name": (ref_models.DisplayedColumn{}).Name,
 
+	"ref_models.Form": &(ref_models.Form{}),
+
+	"ref_models.Form.FormCells": (ref_models.Form{}).FormCells,
+
+	"ref_models.Form.Name": (ref_models.Form{}).Name,
+
+	"ref_models.FormCell": &(ref_models.FormCell{}),
+
+	"ref_models.FormCell.FormCellBool": (ref_models.FormCell{}).FormCellBool,
+
+	"ref_models.FormCell.FormCellFloat64": (ref_models.FormCell{}).FormCellFloat64,
+
+	"ref_models.FormCell.FormCellInt": (ref_models.FormCell{}).FormCellInt,
+
+	"ref_models.FormCell.FormCellString": (ref_models.FormCell{}).FormCellString,
+
+	"ref_models.FormCell.Name": (ref_models.FormCell{}).Name,
+
+	"ref_models.FormCellBoolean": &(ref_models.FormCellBoolean{}),
+
+	"ref_models.FormCellBoolean.Name": (ref_models.FormCellBoolean{}).Name,
+
+	"ref_models.FormCellBoolean.Value": (ref_models.FormCellBoolean{}).Value,
+
+	"ref_models.FormCellFloat64": &(ref_models.FormCellFloat64{}),
+
+	"ref_models.FormCellFloat64.Name": (ref_models.FormCellFloat64{}).Name,
+
+	"ref_models.FormCellFloat64.Value": (ref_models.FormCellFloat64{}).Value,
+
+	"ref_models.FormCellInt": &(ref_models.FormCellInt{}),
+
+	"ref_models.FormCellInt.Name": (ref_models.FormCellInt{}).Name,
+
+	"ref_models.FormCellInt.Value": (ref_models.FormCellInt{}).Value,
+
+	"ref_models.FormCellString": &(ref_models.FormCellString{}),
+
+	"ref_models.FormCellString.Name": (ref_models.FormCellString{}).Name,
+
+	"ref_models.FormCellString.Value": (ref_models.FormCellString{}).Value,
+
 	"ref_models.Row": &(ref_models.Row{}),
 
 	"ref_models.Row.Cells": (ref_models.Row{}).Cells,
@@ -108,16 +150,16 @@ var map_DocLink_Identifier_Default map[string]any = map[string]any{
 // but it has to properly reference the Injection gateway in the main package
 // func init() {
 // 	_ = __Dummy_time_variable
-// 	InjectionGateway["Default"] = DefaultInjection
+// 	InjectionGateway["Table"] = TableInjection
 // }
 
-// DefaultInjection will stage objects of database "Default"
-func DefaultInjection(stage *models.StageStruct) {
+// TableInjection will stage objects of database "Table"
+func TableInjection(stage *models.StageStruct) {
 
 	// Declaration of instances to stage
 
 	// Declarations of staged instances of Classdiagram
-	__Classdiagram__000000_Default := (&models.Classdiagram{Name: `Default`}).Stage(stage)
+	__Classdiagram__000000_Table := (&models.Classdiagram{Name: `Table`}).Stage(stage)
 
 	// Declarations of staged instances of DiagramPackage
 
@@ -130,7 +172,7 @@ func DefaultInjection(stage *models.StageStruct) {
 	__Field__000005_HasSaveButton := (&models.Field{Name: `HasSaveButton`}).Stage(stage)
 	__Field__000006_Icon := (&models.Field{Name: `Icon`}).Stage(stage)
 	__Field__000007_Name := (&models.Field{Name: `Name`}).Stage(stage)
-	__Field__000008_Name := (&models.Field{Name: `Name`}).Stage(stage)
+	__Field__000008_Value := (&models.Field{Name: `Value`}).Stage(stage)
 	__Field__000009_Value := (&models.Field{Name: `Value`}).Stage(stage)
 	__Field__000010_Value := (&models.Field{Name: `Value`}).Stage(stage)
 	__Field__000011_Value := (&models.Field{Name: `Value`}).Stage(stage)
@@ -192,8 +234,8 @@ func DefaultInjection(stage *models.StageStruct) {
 	// Setup of values
 
 	// Classdiagram values setup
-	__Classdiagram__000000_Default.Name = `Default`
-	__Classdiagram__000000_Default.IsInDrawMode = true
+	__Classdiagram__000000_Table.Name = `Table`
+	__Classdiagram__000000_Table.IsInDrawMode = true
 
 	// Field values setup
 	__Field__000000_CanDragDropRows.Name = `CanDragDropRows`
@@ -284,26 +326,26 @@ func DefaultInjection(stage *models.StageStruct) {
 	__Field__000007_Name.Fieldtypename = `string`
 
 	// Field values setup
-	__Field__000008_Name.Name = `Name`
+	__Field__000008_Value.Name = `Value`
 
 	// comment added to overcome the problem with the comment map association
 
-	//gong:ident [ref_models.CellString.Name]
-	__Field__000008_Name.Identifier = `ref_models.CellString.Name`
-	__Field__000008_Name.FieldTypeAsString = ``
-	__Field__000008_Name.Structname = `CellString`
-	__Field__000008_Name.Fieldtypename = `string`
+	//gong:ident [ref_models.CellInt.Value]
+	__Field__000008_Value.Identifier = `ref_models.CellInt.Value`
+	__Field__000008_Value.FieldTypeAsString = ``
+	__Field__000008_Value.Structname = `CellInt`
+	__Field__000008_Value.Fieldtypename = `int`
 
 	// Field values setup
 	__Field__000009_Value.Name = `Value`
 
 	// comment added to overcome the problem with the comment map association
 
-	//gong:ident [ref_models.CellInt.Value]
-	__Field__000009_Value.Identifier = `ref_models.CellInt.Value`
+	//gong:ident [ref_models.CellString.Value]
+	__Field__000009_Value.Identifier = `ref_models.CellString.Value`
 	__Field__000009_Value.FieldTypeAsString = ``
-	__Field__000009_Value.Structname = `CellInt`
-	__Field__000009_Value.Fieldtypename = `int`
+	__Field__000009_Value.Structname = `CellString`
+	__Field__000009_Value.Fieldtypename = `string`
 
 	// Field values setup
 	__Field__000010_Value.Name = `Value`
@@ -658,23 +700,23 @@ func DefaultInjection(stage *models.StageStruct) {
 	__Position__000000_Pos_Default_Cell.Name = `Pos-Default-Cell`
 
 	// Position values setup
-	__Position__000001_Pos_Default_CellBoolean.X = 957.000000
-	__Position__000001_Pos_Default_CellBoolean.Y = 544.000000
+	__Position__000001_Pos_Default_CellBoolean.X = 953.000000
+	__Position__000001_Pos_Default_CellBoolean.Y = 56.000000
 	__Position__000001_Pos_Default_CellBoolean.Name = `Pos-Default-CellBoolean`
 
 	// Position values setup
-	__Position__000002_Pos_Default_CellFloat64.X = 957.000000
-	__Position__000002_Pos_Default_CellFloat64.Y = 252.000000
+	__Position__000002_Pos_Default_CellFloat64.X = 965.000000
+	__Position__000002_Pos_Default_CellFloat64.Y = 583.000000
 	__Position__000002_Pos_Default_CellFloat64.Name = `Pos-Default-CellFloat64`
 
 	// Position values setup
-	__Position__000003_Pos_Default_CellIcon.X = 958.000000
+	__Position__000003_Pos_Default_CellIcon.X = 957.000000
 	__Position__000003_Pos_Default_CellIcon.Y = 344.000000
 	__Position__000003_Pos_Default_CellIcon.Name = `Pos-Default-CellIcon`
 
 	// Position values setup
-	__Position__000004_Pos_Default_CellInt.X = 959.000000
-	__Position__000004_Pos_Default_CellInt.Y = 437.000000
+	__Position__000004_Pos_Default_CellInt.X = 963.000000
+	__Position__000004_Pos_Default_CellInt.Y = 494.000000
 	__Position__000004_Pos_Default_CellInt.Name = `Pos-Default-CellInt`
 
 	// Position values setup
@@ -738,15 +780,15 @@ func DefaultInjection(stage *models.StageStruct) {
 	__Vertice__000007_Verticle_in_class_diagram_Default_in_middle_between_Default_Table_and_Default_Row.Name = `Verticle in class diagram Default in middle between Default-Table and Default-Row`
 
 	// Setup of pointers
-	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000008_Default_Table)
-	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000007_Default_Row)
-	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000005_Default_CellString)
-	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000000_Default_Cell)
-	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000006_Default_DisplayedColumn)
-	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000001_Default_CellBoolean)
-	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000002_Default_CellFloat64)
-	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000003_Default_CellIcon)
-	__Classdiagram__000000_Default.GongStructShapes = append(__Classdiagram__000000_Default.GongStructShapes, __GongStructShape__000004_Default_CellInt)
+	__Classdiagram__000000_Table.GongStructShapes = append(__Classdiagram__000000_Table.GongStructShapes, __GongStructShape__000008_Default_Table)
+	__Classdiagram__000000_Table.GongStructShapes = append(__Classdiagram__000000_Table.GongStructShapes, __GongStructShape__000007_Default_Row)
+	__Classdiagram__000000_Table.GongStructShapes = append(__Classdiagram__000000_Table.GongStructShapes, __GongStructShape__000005_Default_CellString)
+	__Classdiagram__000000_Table.GongStructShapes = append(__Classdiagram__000000_Table.GongStructShapes, __GongStructShape__000000_Default_Cell)
+	__Classdiagram__000000_Table.GongStructShapes = append(__Classdiagram__000000_Table.GongStructShapes, __GongStructShape__000006_Default_DisplayedColumn)
+	__Classdiagram__000000_Table.GongStructShapes = append(__Classdiagram__000000_Table.GongStructShapes, __GongStructShape__000001_Default_CellBoolean)
+	__Classdiagram__000000_Table.GongStructShapes = append(__Classdiagram__000000_Table.GongStructShapes, __GongStructShape__000002_Default_CellFloat64)
+	__Classdiagram__000000_Table.GongStructShapes = append(__Classdiagram__000000_Table.GongStructShapes, __GongStructShape__000003_Default_CellIcon)
+	__Classdiagram__000000_Table.GongStructShapes = append(__Classdiagram__000000_Table.GongStructShapes, __GongStructShape__000004_Default_CellInt)
 	__GongStructShape__000000_Default_Cell.Position = __Position__000000_Pos_Default_Cell
 	__GongStructShape__000000_Default_Cell.Links = append(__GongStructShape__000000_Default_Cell.Links, __Link__000000_CellBool)
 	__GongStructShape__000000_Default_Cell.Links = append(__GongStructShape__000000_Default_Cell.Links, __Link__000001_CellFloat64)
@@ -760,9 +802,9 @@ func DefaultInjection(stage *models.StageStruct) {
 	__GongStructShape__000003_Default_CellIcon.Position = __Position__000003_Pos_Default_CellIcon
 	__GongStructShape__000003_Default_CellIcon.Fields = append(__GongStructShape__000003_Default_CellIcon.Fields, __Field__000006_Icon)
 	__GongStructShape__000004_Default_CellInt.Position = __Position__000004_Pos_Default_CellInt
-	__GongStructShape__000004_Default_CellInt.Fields = append(__GongStructShape__000004_Default_CellInt.Fields, __Field__000009_Value)
+	__GongStructShape__000004_Default_CellInt.Fields = append(__GongStructShape__000004_Default_CellInt.Fields, __Field__000008_Value)
 	__GongStructShape__000005_Default_CellString.Position = __Position__000005_Pos_Default_CellString
-	__GongStructShape__000005_Default_CellString.Fields = append(__GongStructShape__000005_Default_CellString.Fields, __Field__000008_Name)
+	__GongStructShape__000005_Default_CellString.Fields = append(__GongStructShape__000005_Default_CellString.Fields, __Field__000009_Value)
 	__GongStructShape__000006_Default_DisplayedColumn.Position = __Position__000006_Pos_Default_DisplayedColumn
 	__GongStructShape__000007_Default_Row.Position = __Position__000007_Pos_Default_Row
 	__GongStructShape__000007_Default_Row.Links = append(__GongStructShape__000007_Default_Row.Links, __Link__000005_Cells)

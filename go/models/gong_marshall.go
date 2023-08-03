@@ -364,6 +364,222 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 
 	}
 
+	map_Form_Identifiers := make(map[*Form]string)
+	_ = map_Form_Identifiers
+
+	formOrdered := []*Form{}
+	for form := range stage.Forms {
+		formOrdered = append(formOrdered, form)
+	}
+	sort.Slice(formOrdered[:], func(i, j int) bool {
+		return formOrdered[i].Name < formOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of Form"
+	for idx, form := range formOrdered {
+
+		id = generatesIdentifier("Form", idx, form.Name)
+		map_Form_Identifiers[form] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "Form")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", form.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// Form values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(form.Name))
+		initializerStatements += setValueField
+
+	}
+
+	map_FormCell_Identifiers := make(map[*FormCell]string)
+	_ = map_FormCell_Identifiers
+
+	formcellOrdered := []*FormCell{}
+	for formcell := range stage.FormCells {
+		formcellOrdered = append(formcellOrdered, formcell)
+	}
+	sort.Slice(formcellOrdered[:], func(i, j int) bool {
+		return formcellOrdered[i].Name < formcellOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of FormCell"
+	for idx, formcell := range formcellOrdered {
+
+		id = generatesIdentifier("FormCell", idx, formcell.Name)
+		map_FormCell_Identifiers[formcell] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "FormCell")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", formcell.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// FormCell values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formcell.Name))
+		initializerStatements += setValueField
+
+	}
+
+	map_FormCellBoolean_Identifiers := make(map[*FormCellBoolean]string)
+	_ = map_FormCellBoolean_Identifiers
+
+	formcellbooleanOrdered := []*FormCellBoolean{}
+	for formcellboolean := range stage.FormCellBooleans {
+		formcellbooleanOrdered = append(formcellbooleanOrdered, formcellboolean)
+	}
+	sort.Slice(formcellbooleanOrdered[:], func(i, j int) bool {
+		return formcellbooleanOrdered[i].Name < formcellbooleanOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of FormCellBoolean"
+	for idx, formcellboolean := range formcellbooleanOrdered {
+
+		id = generatesIdentifier("FormCellBoolean", idx, formcellboolean.Name)
+		map_FormCellBoolean_Identifiers[formcellboolean] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "FormCellBoolean")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", formcellboolean.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// FormCellBoolean values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formcellboolean.Name))
+		initializerStatements += setValueField
+
+		setValueField = NumberInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Value")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", fmt.Sprintf("%t", formcellboolean.Value))
+		initializerStatements += setValueField
+
+	}
+
+	map_FormCellFloat64_Identifiers := make(map[*FormCellFloat64]string)
+	_ = map_FormCellFloat64_Identifiers
+
+	formcellfloat64Ordered := []*FormCellFloat64{}
+	for formcellfloat64 := range stage.FormCellFloat64s {
+		formcellfloat64Ordered = append(formcellfloat64Ordered, formcellfloat64)
+	}
+	sort.Slice(formcellfloat64Ordered[:], func(i, j int) bool {
+		return formcellfloat64Ordered[i].Name < formcellfloat64Ordered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of FormCellFloat64"
+	for idx, formcellfloat64 := range formcellfloat64Ordered {
+
+		id = generatesIdentifier("FormCellFloat64", idx, formcellfloat64.Name)
+		map_FormCellFloat64_Identifiers[formcellfloat64] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "FormCellFloat64")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", formcellfloat64.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// FormCellFloat64 values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formcellfloat64.Name))
+		initializerStatements += setValueField
+
+		setValueField = NumberInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Value")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", fmt.Sprintf("%f", formcellfloat64.Value))
+		initializerStatements += setValueField
+
+	}
+
+	map_FormCellInt_Identifiers := make(map[*FormCellInt]string)
+	_ = map_FormCellInt_Identifiers
+
+	formcellintOrdered := []*FormCellInt{}
+	for formcellint := range stage.FormCellInts {
+		formcellintOrdered = append(formcellintOrdered, formcellint)
+	}
+	sort.Slice(formcellintOrdered[:], func(i, j int) bool {
+		return formcellintOrdered[i].Name < formcellintOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of FormCellInt"
+	for idx, formcellint := range formcellintOrdered {
+
+		id = generatesIdentifier("FormCellInt", idx, formcellint.Name)
+		map_FormCellInt_Identifiers[formcellint] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "FormCellInt")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", formcellint.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// FormCellInt values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formcellint.Name))
+		initializerStatements += setValueField
+
+		setValueField = NumberInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Value")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", fmt.Sprintf("%d", formcellint.Value))
+		initializerStatements += setValueField
+
+	}
+
+	map_FormCellString_Identifiers := make(map[*FormCellString]string)
+	_ = map_FormCellString_Identifiers
+
+	formcellstringOrdered := []*FormCellString{}
+	for formcellstring := range stage.FormCellStrings {
+		formcellstringOrdered = append(formcellstringOrdered, formcellstring)
+	}
+	sort.Slice(formcellstringOrdered[:], func(i, j int) bool {
+		return formcellstringOrdered[i].Name < formcellstringOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of FormCellString"
+	for idx, formcellstring := range formcellstringOrdered {
+
+		id = generatesIdentifier("FormCellString", idx, formcellstring.Name)
+		map_FormCellString_Identifiers[formcellstring] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "FormCellString")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", formcellstring.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// FormCellString values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formcellstring.Name))
+		initializerStatements += setValueField
+
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Value")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formcellstring.Value))
+		initializerStatements += setValueField
+
+	}
+
 	map_Row_Identifiers := make(map[*Row]string)
 	_ = map_Row_Identifiers
 
@@ -577,6 +793,106 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 
 		id = generatesIdentifier("DisplayedColumn", idx, displayedcolumn.Name)
 		map_DisplayedColumn_Identifiers[displayedcolumn] = id
+
+		// Initialisation of values
+	}
+
+	for idx, form := range formOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("Form", idx, form.Name)
+		map_Form_Identifiers[form] = id
+
+		// Initialisation of values
+		for _, _formcell := range form.FormCells {
+			setPointerField = SliceOfPointersFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormCells")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormCell_Identifiers[_formcell])
+			pointersInitializesStatements += setPointerField
+		}
+
+	}
+
+	for idx, formcell := range formcellOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("FormCell", idx, formcell.Name)
+		map_FormCell_Identifiers[formcell] = id
+
+		// Initialisation of values
+		if formcell.FormCellString != nil {
+			setPointerField = PointerFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormCellString")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormCellString_Identifiers[formcell.FormCellString])
+			pointersInitializesStatements += setPointerField
+		}
+
+		if formcell.FormCellFloat64 != nil {
+			setPointerField = PointerFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormCellFloat64")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormCellFloat64_Identifiers[formcell.FormCellFloat64])
+			pointersInitializesStatements += setPointerField
+		}
+
+		if formcell.FormCellInt != nil {
+			setPointerField = PointerFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormCellInt")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormCellInt_Identifiers[formcell.FormCellInt])
+			pointersInitializesStatements += setPointerField
+		}
+
+		if formcell.FormCellBool != nil {
+			setPointerField = PointerFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormCellBool")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormCellBoolean_Identifiers[formcell.FormCellBool])
+			pointersInitializesStatements += setPointerField
+		}
+
+	}
+
+	for idx, formcellboolean := range formcellbooleanOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("FormCellBoolean", idx, formcellboolean.Name)
+		map_FormCellBoolean_Identifiers[formcellboolean] = id
+
+		// Initialisation of values
+	}
+
+	for idx, formcellfloat64 := range formcellfloat64Ordered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("FormCellFloat64", idx, formcellfloat64.Name)
+		map_FormCellFloat64_Identifiers[formcellfloat64] = id
+
+		// Initialisation of values
+	}
+
+	for idx, formcellint := range formcellintOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("FormCellInt", idx, formcellint.Name)
+		map_FormCellInt_Identifiers[formcellint] = id
+
+		// Initialisation of values
+	}
+
+	for idx, formcellstring := range formcellstringOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("FormCellString", idx, formcellstring.Name)
+		map_FormCellString_Identifiers[formcellstring] = id
 
 		// Initialisation of values
 	}

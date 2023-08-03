@@ -86,6 +86,54 @@ type StageStruct struct { // insertion point for definition of arrays registerin
 	OnAfterDisplayedColumnDeleteCallback OnAfterDeleteInterface[DisplayedColumn]
 	OnAfterDisplayedColumnReadCallback   OnAfterReadInterface[DisplayedColumn]
 
+	Forms           map[*Form]any
+	Forms_mapString map[string]*Form
+
+	OnAfterFormCreateCallback OnAfterCreateInterface[Form]
+	OnAfterFormUpdateCallback OnAfterUpdateInterface[Form]
+	OnAfterFormDeleteCallback OnAfterDeleteInterface[Form]
+	OnAfterFormReadCallback   OnAfterReadInterface[Form]
+
+	FormCells           map[*FormCell]any
+	FormCells_mapString map[string]*FormCell
+
+	OnAfterFormCellCreateCallback OnAfterCreateInterface[FormCell]
+	OnAfterFormCellUpdateCallback OnAfterUpdateInterface[FormCell]
+	OnAfterFormCellDeleteCallback OnAfterDeleteInterface[FormCell]
+	OnAfterFormCellReadCallback   OnAfterReadInterface[FormCell]
+
+	FormCellBooleans           map[*FormCellBoolean]any
+	FormCellBooleans_mapString map[string]*FormCellBoolean
+
+	OnAfterFormCellBooleanCreateCallback OnAfterCreateInterface[FormCellBoolean]
+	OnAfterFormCellBooleanUpdateCallback OnAfterUpdateInterface[FormCellBoolean]
+	OnAfterFormCellBooleanDeleteCallback OnAfterDeleteInterface[FormCellBoolean]
+	OnAfterFormCellBooleanReadCallback   OnAfterReadInterface[FormCellBoolean]
+
+	FormCellFloat64s           map[*FormCellFloat64]any
+	FormCellFloat64s_mapString map[string]*FormCellFloat64
+
+	OnAfterFormCellFloat64CreateCallback OnAfterCreateInterface[FormCellFloat64]
+	OnAfterFormCellFloat64UpdateCallback OnAfterUpdateInterface[FormCellFloat64]
+	OnAfterFormCellFloat64DeleteCallback OnAfterDeleteInterface[FormCellFloat64]
+	OnAfterFormCellFloat64ReadCallback   OnAfterReadInterface[FormCellFloat64]
+
+	FormCellInts           map[*FormCellInt]any
+	FormCellInts_mapString map[string]*FormCellInt
+
+	OnAfterFormCellIntCreateCallback OnAfterCreateInterface[FormCellInt]
+	OnAfterFormCellIntUpdateCallback OnAfterUpdateInterface[FormCellInt]
+	OnAfterFormCellIntDeleteCallback OnAfterDeleteInterface[FormCellInt]
+	OnAfterFormCellIntReadCallback   OnAfterReadInterface[FormCellInt]
+
+	FormCellStrings           map[*FormCellString]any
+	FormCellStrings_mapString map[string]*FormCellString
+
+	OnAfterFormCellStringCreateCallback OnAfterCreateInterface[FormCellString]
+	OnAfterFormCellStringUpdateCallback OnAfterUpdateInterface[FormCellString]
+	OnAfterFormCellStringDeleteCallback OnAfterDeleteInterface[FormCellString]
+	OnAfterFormCellStringReadCallback   OnAfterReadInterface[FormCellString]
+
 	Rows           map[*Row]any
 	Rows_mapString map[string]*Row
 
@@ -180,6 +228,18 @@ type BackRepoInterface interface {
 	CheckoutCellString(cellstring *CellString)
 	CommitDisplayedColumn(displayedcolumn *DisplayedColumn)
 	CheckoutDisplayedColumn(displayedcolumn *DisplayedColumn)
+	CommitForm(form *Form)
+	CheckoutForm(form *Form)
+	CommitFormCell(formcell *FormCell)
+	CheckoutFormCell(formcell *FormCell)
+	CommitFormCellBoolean(formcellboolean *FormCellBoolean)
+	CheckoutFormCellBoolean(formcellboolean *FormCellBoolean)
+	CommitFormCellFloat64(formcellfloat64 *FormCellFloat64)
+	CheckoutFormCellFloat64(formcellfloat64 *FormCellFloat64)
+	CommitFormCellInt(formcellint *FormCellInt)
+	CheckoutFormCellInt(formcellint *FormCellInt)
+	CommitFormCellString(formcellstring *FormCellString)
+	CheckoutFormCellString(formcellstring *FormCellString)
 	CommitRow(row *Row)
 	CheckoutRow(row *Row)
 	CommitTable(table *Table)
@@ -223,6 +283,24 @@ func NewStage() (stage *StageStruct) {
 		DisplayedColumns:           make(map[*DisplayedColumn]any),
 		DisplayedColumns_mapString: make(map[string]*DisplayedColumn),
 
+		Forms:           make(map[*Form]any),
+		Forms_mapString: make(map[string]*Form),
+
+		FormCells:           make(map[*FormCell]any),
+		FormCells_mapString: make(map[string]*FormCell),
+
+		FormCellBooleans:           make(map[*FormCellBoolean]any),
+		FormCellBooleans_mapString: make(map[string]*FormCellBoolean),
+
+		FormCellFloat64s:           make(map[*FormCellFloat64]any),
+		FormCellFloat64s_mapString: make(map[string]*FormCellFloat64),
+
+		FormCellInts:           make(map[*FormCellInt]any),
+		FormCellInts_mapString: make(map[string]*FormCellInt),
+
+		FormCellStrings:           make(map[*FormCellString]any),
+		FormCellStrings_mapString: make(map[string]*FormCellString),
+
 		Rows:           make(map[*Row]any),
 		Rows_mapString: make(map[string]*Row),
 
@@ -261,6 +339,12 @@ func (stage *StageStruct) Commit() {
 	stage.Map_GongStructName_InstancesNb["CellInt"] = len(stage.CellInts)
 	stage.Map_GongStructName_InstancesNb["CellString"] = len(stage.CellStrings)
 	stage.Map_GongStructName_InstancesNb["DisplayedColumn"] = len(stage.DisplayedColumns)
+	stage.Map_GongStructName_InstancesNb["Form"] = len(stage.Forms)
+	stage.Map_GongStructName_InstancesNb["FormCell"] = len(stage.FormCells)
+	stage.Map_GongStructName_InstancesNb["FormCellBoolean"] = len(stage.FormCellBooleans)
+	stage.Map_GongStructName_InstancesNb["FormCellFloat64"] = len(stage.FormCellFloat64s)
+	stage.Map_GongStructName_InstancesNb["FormCellInt"] = len(stage.FormCellInts)
+	stage.Map_GongStructName_InstancesNb["FormCellString"] = len(stage.FormCellStrings)
 	stage.Map_GongStructName_InstancesNb["Row"] = len(stage.Rows)
 	stage.Map_GongStructName_InstancesNb["Table"] = len(stage.Tables)
 
@@ -279,6 +363,12 @@ func (stage *StageStruct) Checkout() {
 	stage.Map_GongStructName_InstancesNb["CellInt"] = len(stage.CellInts)
 	stage.Map_GongStructName_InstancesNb["CellString"] = len(stage.CellStrings)
 	stage.Map_GongStructName_InstancesNb["DisplayedColumn"] = len(stage.DisplayedColumns)
+	stage.Map_GongStructName_InstancesNb["Form"] = len(stage.Forms)
+	stage.Map_GongStructName_InstancesNb["FormCell"] = len(stage.FormCells)
+	stage.Map_GongStructName_InstancesNb["FormCellBoolean"] = len(stage.FormCellBooleans)
+	stage.Map_GongStructName_InstancesNb["FormCellFloat64"] = len(stage.FormCellFloat64s)
+	stage.Map_GongStructName_InstancesNb["FormCellInt"] = len(stage.FormCellInts)
+	stage.Map_GongStructName_InstancesNb["FormCellString"] = len(stage.FormCellStrings)
 	stage.Map_GongStructName_InstancesNb["Row"] = len(stage.Rows)
 	stage.Map_GongStructName_InstancesNb["Table"] = len(stage.Tables)
 
@@ -593,6 +683,246 @@ func (displayedcolumn *DisplayedColumn) GetName() (res string) {
 	return displayedcolumn.Name
 }
 
+// Stage puts form to the model stage
+func (form *Form) Stage(stage *StageStruct) *Form {
+	stage.Forms[form] = __member
+	stage.Forms_mapString[form.Name] = form
+
+	return form
+}
+
+// Unstage removes form off the model stage
+func (form *Form) Unstage(stage *StageStruct) *Form {
+	delete(stage.Forms, form)
+	delete(stage.Forms_mapString, form.Name)
+	return form
+}
+
+// commit form to the back repo (if it is already staged)
+func (form *Form) Commit(stage *StageStruct) *Form {
+	if _, ok := stage.Forms[form]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitForm(form)
+		}
+	}
+	return form
+}
+
+// Checkout form to the back repo (if it is already staged)
+func (form *Form) Checkout(stage *StageStruct) *Form {
+	if _, ok := stage.Forms[form]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutForm(form)
+		}
+	}
+	return form
+}
+
+// for satisfaction of GongStruct interface
+func (form *Form) GetName() (res string) {
+	return form.Name
+}
+
+// Stage puts formcell to the model stage
+func (formcell *FormCell) Stage(stage *StageStruct) *FormCell {
+	stage.FormCells[formcell] = __member
+	stage.FormCells_mapString[formcell.Name] = formcell
+
+	return formcell
+}
+
+// Unstage removes formcell off the model stage
+func (formcell *FormCell) Unstage(stage *StageStruct) *FormCell {
+	delete(stage.FormCells, formcell)
+	delete(stage.FormCells_mapString, formcell.Name)
+	return formcell
+}
+
+// commit formcell to the back repo (if it is already staged)
+func (formcell *FormCell) Commit(stage *StageStruct) *FormCell {
+	if _, ok := stage.FormCells[formcell]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitFormCell(formcell)
+		}
+	}
+	return formcell
+}
+
+// Checkout formcell to the back repo (if it is already staged)
+func (formcell *FormCell) Checkout(stage *StageStruct) *FormCell {
+	if _, ok := stage.FormCells[formcell]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutFormCell(formcell)
+		}
+	}
+	return formcell
+}
+
+// for satisfaction of GongStruct interface
+func (formcell *FormCell) GetName() (res string) {
+	return formcell.Name
+}
+
+// Stage puts formcellboolean to the model stage
+func (formcellboolean *FormCellBoolean) Stage(stage *StageStruct) *FormCellBoolean {
+	stage.FormCellBooleans[formcellboolean] = __member
+	stage.FormCellBooleans_mapString[formcellboolean.Name] = formcellboolean
+
+	return formcellboolean
+}
+
+// Unstage removes formcellboolean off the model stage
+func (formcellboolean *FormCellBoolean) Unstage(stage *StageStruct) *FormCellBoolean {
+	delete(stage.FormCellBooleans, formcellboolean)
+	delete(stage.FormCellBooleans_mapString, formcellboolean.Name)
+	return formcellboolean
+}
+
+// commit formcellboolean to the back repo (if it is already staged)
+func (formcellboolean *FormCellBoolean) Commit(stage *StageStruct) *FormCellBoolean {
+	if _, ok := stage.FormCellBooleans[formcellboolean]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitFormCellBoolean(formcellboolean)
+		}
+	}
+	return formcellboolean
+}
+
+// Checkout formcellboolean to the back repo (if it is already staged)
+func (formcellboolean *FormCellBoolean) Checkout(stage *StageStruct) *FormCellBoolean {
+	if _, ok := stage.FormCellBooleans[formcellboolean]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutFormCellBoolean(formcellboolean)
+		}
+	}
+	return formcellboolean
+}
+
+// for satisfaction of GongStruct interface
+func (formcellboolean *FormCellBoolean) GetName() (res string) {
+	return formcellboolean.Name
+}
+
+// Stage puts formcellfloat64 to the model stage
+func (formcellfloat64 *FormCellFloat64) Stage(stage *StageStruct) *FormCellFloat64 {
+	stage.FormCellFloat64s[formcellfloat64] = __member
+	stage.FormCellFloat64s_mapString[formcellfloat64.Name] = formcellfloat64
+
+	return formcellfloat64
+}
+
+// Unstage removes formcellfloat64 off the model stage
+func (formcellfloat64 *FormCellFloat64) Unstage(stage *StageStruct) *FormCellFloat64 {
+	delete(stage.FormCellFloat64s, formcellfloat64)
+	delete(stage.FormCellFloat64s_mapString, formcellfloat64.Name)
+	return formcellfloat64
+}
+
+// commit formcellfloat64 to the back repo (if it is already staged)
+func (formcellfloat64 *FormCellFloat64) Commit(stage *StageStruct) *FormCellFloat64 {
+	if _, ok := stage.FormCellFloat64s[formcellfloat64]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitFormCellFloat64(formcellfloat64)
+		}
+	}
+	return formcellfloat64
+}
+
+// Checkout formcellfloat64 to the back repo (if it is already staged)
+func (formcellfloat64 *FormCellFloat64) Checkout(stage *StageStruct) *FormCellFloat64 {
+	if _, ok := stage.FormCellFloat64s[formcellfloat64]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutFormCellFloat64(formcellfloat64)
+		}
+	}
+	return formcellfloat64
+}
+
+// for satisfaction of GongStruct interface
+func (formcellfloat64 *FormCellFloat64) GetName() (res string) {
+	return formcellfloat64.Name
+}
+
+// Stage puts formcellint to the model stage
+func (formcellint *FormCellInt) Stage(stage *StageStruct) *FormCellInt {
+	stage.FormCellInts[formcellint] = __member
+	stage.FormCellInts_mapString[formcellint.Name] = formcellint
+
+	return formcellint
+}
+
+// Unstage removes formcellint off the model stage
+func (formcellint *FormCellInt) Unstage(stage *StageStruct) *FormCellInt {
+	delete(stage.FormCellInts, formcellint)
+	delete(stage.FormCellInts_mapString, formcellint.Name)
+	return formcellint
+}
+
+// commit formcellint to the back repo (if it is already staged)
+func (formcellint *FormCellInt) Commit(stage *StageStruct) *FormCellInt {
+	if _, ok := stage.FormCellInts[formcellint]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitFormCellInt(formcellint)
+		}
+	}
+	return formcellint
+}
+
+// Checkout formcellint to the back repo (if it is already staged)
+func (formcellint *FormCellInt) Checkout(stage *StageStruct) *FormCellInt {
+	if _, ok := stage.FormCellInts[formcellint]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutFormCellInt(formcellint)
+		}
+	}
+	return formcellint
+}
+
+// for satisfaction of GongStruct interface
+func (formcellint *FormCellInt) GetName() (res string) {
+	return formcellint.Name
+}
+
+// Stage puts formcellstring to the model stage
+func (formcellstring *FormCellString) Stage(stage *StageStruct) *FormCellString {
+	stage.FormCellStrings[formcellstring] = __member
+	stage.FormCellStrings_mapString[formcellstring.Name] = formcellstring
+
+	return formcellstring
+}
+
+// Unstage removes formcellstring off the model stage
+func (formcellstring *FormCellString) Unstage(stage *StageStruct) *FormCellString {
+	delete(stage.FormCellStrings, formcellstring)
+	delete(stage.FormCellStrings_mapString, formcellstring.Name)
+	return formcellstring
+}
+
+// commit formcellstring to the back repo (if it is already staged)
+func (formcellstring *FormCellString) Commit(stage *StageStruct) *FormCellString {
+	if _, ok := stage.FormCellStrings[formcellstring]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitFormCellString(formcellstring)
+		}
+	}
+	return formcellstring
+}
+
+// Checkout formcellstring to the back repo (if it is already staged)
+func (formcellstring *FormCellString) Checkout(stage *StageStruct) *FormCellString {
+	if _, ok := stage.FormCellStrings[formcellstring]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutFormCellString(formcellstring)
+		}
+	}
+	return formcellstring
+}
+
+// for satisfaction of GongStruct interface
+func (formcellstring *FormCellString) GetName() (res string) {
+	return formcellstring.Name
+}
+
 // Stage puts row to the model stage
 func (row *Row) Stage(stage *StageStruct) *Row {
 	stage.Rows[row] = __member
@@ -682,6 +1012,12 @@ type AllModelsStructCreateInterface interface { // insertion point for Callbacks
 	CreateORMCellInt(CellInt *CellInt)
 	CreateORMCellString(CellString *CellString)
 	CreateORMDisplayedColumn(DisplayedColumn *DisplayedColumn)
+	CreateORMForm(Form *Form)
+	CreateORMFormCell(FormCell *FormCell)
+	CreateORMFormCellBoolean(FormCellBoolean *FormCellBoolean)
+	CreateORMFormCellFloat64(FormCellFloat64 *FormCellFloat64)
+	CreateORMFormCellInt(FormCellInt *FormCellInt)
+	CreateORMFormCellString(FormCellString *FormCellString)
 	CreateORMRow(Row *Row)
 	CreateORMTable(Table *Table)
 }
@@ -694,6 +1030,12 @@ type AllModelsStructDeleteInterface interface { // insertion point for Callbacks
 	DeleteORMCellInt(CellInt *CellInt)
 	DeleteORMCellString(CellString *CellString)
 	DeleteORMDisplayedColumn(DisplayedColumn *DisplayedColumn)
+	DeleteORMForm(Form *Form)
+	DeleteORMFormCell(FormCell *FormCell)
+	DeleteORMFormCellBoolean(FormCellBoolean *FormCellBoolean)
+	DeleteORMFormCellFloat64(FormCellFloat64 *FormCellFloat64)
+	DeleteORMFormCellInt(FormCellInt *FormCellInt)
+	DeleteORMFormCellString(FormCellString *FormCellString)
 	DeleteORMRow(Row *Row)
 	DeleteORMTable(Table *Table)
 }
@@ -719,6 +1061,24 @@ func (stage *StageStruct) Reset() { // insertion point for array reset
 
 	stage.DisplayedColumns = make(map[*DisplayedColumn]any)
 	stage.DisplayedColumns_mapString = make(map[string]*DisplayedColumn)
+
+	stage.Forms = make(map[*Form]any)
+	stage.Forms_mapString = make(map[string]*Form)
+
+	stage.FormCells = make(map[*FormCell]any)
+	stage.FormCells_mapString = make(map[string]*FormCell)
+
+	stage.FormCellBooleans = make(map[*FormCellBoolean]any)
+	stage.FormCellBooleans_mapString = make(map[string]*FormCellBoolean)
+
+	stage.FormCellFloat64s = make(map[*FormCellFloat64]any)
+	stage.FormCellFloat64s_mapString = make(map[string]*FormCellFloat64)
+
+	stage.FormCellInts = make(map[*FormCellInt]any)
+	stage.FormCellInts_mapString = make(map[string]*FormCellInt)
+
+	stage.FormCellStrings = make(map[*FormCellString]any)
+	stage.FormCellStrings_mapString = make(map[string]*FormCellString)
 
 	stage.Rows = make(map[*Row]any)
 	stage.Rows_mapString = make(map[string]*Row)
@@ -749,6 +1109,24 @@ func (stage *StageStruct) Nil() { // insertion point for array nil
 
 	stage.DisplayedColumns = nil
 	stage.DisplayedColumns_mapString = nil
+
+	stage.Forms = nil
+	stage.Forms_mapString = nil
+
+	stage.FormCells = nil
+	stage.FormCells_mapString = nil
+
+	stage.FormCellBooleans = nil
+	stage.FormCellBooleans_mapString = nil
+
+	stage.FormCellFloat64s = nil
+	stage.FormCellFloat64s_mapString = nil
+
+	stage.FormCellInts = nil
+	stage.FormCellInts_mapString = nil
+
+	stage.FormCellStrings = nil
+	stage.FormCellStrings_mapString = nil
 
 	stage.Rows = nil
 	stage.Rows_mapString = nil
@@ -787,6 +1165,30 @@ func (stage *StageStruct) Unstage() { // insertion point for array nil
 		displayedcolumn.Unstage(stage)
 	}
 
+	for form := range stage.Forms {
+		form.Unstage(stage)
+	}
+
+	for formcell := range stage.FormCells {
+		formcell.Unstage(stage)
+	}
+
+	for formcellboolean := range stage.FormCellBooleans {
+		formcellboolean.Unstage(stage)
+	}
+
+	for formcellfloat64 := range stage.FormCellFloat64s {
+		formcellfloat64.Unstage(stage)
+	}
+
+	for formcellint := range stage.FormCellInts {
+		formcellint.Unstage(stage)
+	}
+
+	for formcellstring := range stage.FormCellStrings {
+		formcellstring.Unstage(stage)
+	}
+
 	for row := range stage.Rows {
 		row.Unstage(stage)
 	}
@@ -803,7 +1205,7 @@ func (stage *StageStruct) Unstage() { // insertion point for array nil
 // - full refactoring of Gongstruct identifiers / fields
 type Gongstruct interface {
 	// insertion point for generic types
-	Cell | CellBoolean | CellFloat64 | CellIcon | CellInt | CellString | DisplayedColumn | Row | Table
+	Cell | CellBoolean | CellFloat64 | CellIcon | CellInt | CellString | DisplayedColumn | Form | FormCell | FormCellBoolean | FormCellFloat64 | FormCellInt | FormCellString | Row | Table
 }
 
 // Gongstruct is the type parameter for generated generic function that allows
@@ -812,7 +1214,7 @@ type Gongstruct interface {
 // - full refactoring of Gongstruct identifiers / fields
 type PointerToGongstruct interface {
 	// insertion point for generic types
-	*Cell | *CellBoolean | *CellFloat64 | *CellIcon | *CellInt | *CellString | *DisplayedColumn | *Row | *Table
+	*Cell | *CellBoolean | *CellFloat64 | *CellIcon | *CellInt | *CellString | *DisplayedColumn | *Form | *FormCell | *FormCellBoolean | *FormCellFloat64 | *FormCellInt | *FormCellString | *Row | *Table
 	GetName() string
 }
 
@@ -826,6 +1228,12 @@ type GongstructSet interface {
 		map[*CellInt]any |
 		map[*CellString]any |
 		map[*DisplayedColumn]any |
+		map[*Form]any |
+		map[*FormCell]any |
+		map[*FormCellBoolean]any |
+		map[*FormCellFloat64]any |
+		map[*FormCellInt]any |
+		map[*FormCellString]any |
 		map[*Row]any |
 		map[*Table]any |
 		map[*any]any // because go does not support an extra "|" at the end of type specifications
@@ -841,6 +1249,12 @@ type GongstructMapString interface {
 		map[string]*CellInt |
 		map[string]*CellString |
 		map[string]*DisplayedColumn |
+		map[string]*Form |
+		map[string]*FormCell |
+		map[string]*FormCellBoolean |
+		map[string]*FormCellFloat64 |
+		map[string]*FormCellInt |
+		map[string]*FormCellString |
 		map[string]*Row |
 		map[string]*Table |
 		map[*any]any // because go does not support an extra "|" at the end of type specifications
@@ -867,6 +1281,18 @@ func GongGetSet[Type GongstructSet](stage *StageStruct) *Type {
 		return any(&stage.CellStrings).(*Type)
 	case map[*DisplayedColumn]any:
 		return any(&stage.DisplayedColumns).(*Type)
+	case map[*Form]any:
+		return any(&stage.Forms).(*Type)
+	case map[*FormCell]any:
+		return any(&stage.FormCells).(*Type)
+	case map[*FormCellBoolean]any:
+		return any(&stage.FormCellBooleans).(*Type)
+	case map[*FormCellFloat64]any:
+		return any(&stage.FormCellFloat64s).(*Type)
+	case map[*FormCellInt]any:
+		return any(&stage.FormCellInts).(*Type)
+	case map[*FormCellString]any:
+		return any(&stage.FormCellStrings).(*Type)
 	case map[*Row]any:
 		return any(&stage.Rows).(*Type)
 	case map[*Table]any:
@@ -897,6 +1323,18 @@ func GongGetMap[Type GongstructMapString](stage *StageStruct) *Type {
 		return any(&stage.CellStrings_mapString).(*Type)
 	case map[string]*DisplayedColumn:
 		return any(&stage.DisplayedColumns_mapString).(*Type)
+	case map[string]*Form:
+		return any(&stage.Forms_mapString).(*Type)
+	case map[string]*FormCell:
+		return any(&stage.FormCells_mapString).(*Type)
+	case map[string]*FormCellBoolean:
+		return any(&stage.FormCellBooleans_mapString).(*Type)
+	case map[string]*FormCellFloat64:
+		return any(&stage.FormCellFloat64s_mapString).(*Type)
+	case map[string]*FormCellInt:
+		return any(&stage.FormCellInts_mapString).(*Type)
+	case map[string]*FormCellString:
+		return any(&stage.FormCellStrings_mapString).(*Type)
 	case map[string]*Row:
 		return any(&stage.Rows_mapString).(*Type)
 	case map[string]*Table:
@@ -927,6 +1365,18 @@ func GetGongstructInstancesSet[Type Gongstruct](stage *StageStruct) *map[*Type]a
 		return any(&stage.CellStrings).(*map[*Type]any)
 	case DisplayedColumn:
 		return any(&stage.DisplayedColumns).(*map[*Type]any)
+	case Form:
+		return any(&stage.Forms).(*map[*Type]any)
+	case FormCell:
+		return any(&stage.FormCells).(*map[*Type]any)
+	case FormCellBoolean:
+		return any(&stage.FormCellBooleans).(*map[*Type]any)
+	case FormCellFloat64:
+		return any(&stage.FormCellFloat64s).(*map[*Type]any)
+	case FormCellInt:
+		return any(&stage.FormCellInts).(*map[*Type]any)
+	case FormCellString:
+		return any(&stage.FormCellStrings).(*map[*Type]any)
 	case Row:
 		return any(&stage.Rows).(*map[*Type]any)
 	case Table:
@@ -957,6 +1407,18 @@ func GetGongstructInstancesMap[Type Gongstruct](stage *StageStruct) *map[string]
 		return any(&stage.CellStrings_mapString).(*map[string]*Type)
 	case DisplayedColumn:
 		return any(&stage.DisplayedColumns_mapString).(*map[string]*Type)
+	case Form:
+		return any(&stage.Forms_mapString).(*map[string]*Type)
+	case FormCell:
+		return any(&stage.FormCells_mapString).(*map[string]*Type)
+	case FormCellBoolean:
+		return any(&stage.FormCellBooleans_mapString).(*map[string]*Type)
+	case FormCellFloat64:
+		return any(&stage.FormCellFloat64s_mapString).(*map[string]*Type)
+	case FormCellInt:
+		return any(&stage.FormCellInts_mapString).(*map[string]*Type)
+	case FormCellString:
+		return any(&stage.FormCellStrings_mapString).(*map[string]*Type)
 	case Row:
 		return any(&stage.Rows_mapString).(*map[string]*Type)
 	case Table:
@@ -1011,6 +1473,40 @@ func GetAssociationName[Type Gongstruct]() *Type {
 		}).(*Type)
 	case DisplayedColumn:
 		return any(&DisplayedColumn{
+			// Initialisation of associations
+		}).(*Type)
+	case Form:
+		return any(&Form{
+			// Initialisation of associations
+			// field is initialized with an instance of FormCell with the name of the field
+			FormCells: []*FormCell{{Name: "FormCells"}},
+		}).(*Type)
+	case FormCell:
+		return any(&FormCell{
+			// Initialisation of associations
+			// field is initialized with an instance of FormCellString with the name of the field
+			FormCellString: &FormCellString{Name: "FormCellString"},
+			// field is initialized with an instance of FormCellFloat64 with the name of the field
+			FormCellFloat64: &FormCellFloat64{Name: "FormCellFloat64"},
+			// field is initialized with an instance of FormCellInt with the name of the field
+			FormCellInt: &FormCellInt{Name: "FormCellInt"},
+			// field is initialized with an instance of FormCellBoolean with the name of the field
+			FormCellBool: &FormCellBoolean{Name: "FormCellBool"},
+		}).(*Type)
+	case FormCellBoolean:
+		return any(&FormCellBoolean{
+			// Initialisation of associations
+		}).(*Type)
+	case FormCellFloat64:
+		return any(&FormCellFloat64{
+			// Initialisation of associations
+		}).(*Type)
+	case FormCellInt:
+		return any(&FormCellInt{
+			// Initialisation of associations
+		}).(*Type)
+	case FormCellString:
+		return any(&FormCellString{
 			// Initialisation of associations
 		}).(*Type)
 	case Row:
@@ -1165,6 +1661,104 @@ func GetPointerReverseMap[Start, End Gongstruct](fieldname string, stage *StageS
 		switch fieldname {
 		// insertion point for per direct association field
 		}
+	// reverse maps of direct associations of Form
+	case Form:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of FormCell
+	case FormCell:
+		switch fieldname {
+		// insertion point for per direct association field
+		case "FormCellString":
+			res := make(map[*FormCellString][]*FormCell)
+			for formcell := range stage.FormCells {
+				if formcell.FormCellString != nil {
+					formcellstring_ := formcell.FormCellString
+					var formcells []*FormCell
+					_, ok := res[formcellstring_]
+					if ok {
+						formcells = res[formcellstring_]
+					} else {
+						formcells = make([]*FormCell, 0)
+					}
+					formcells = append(formcells, formcell)
+					res[formcellstring_] = formcells
+				}
+			}
+			return any(res).(map[*End][]*Start)
+		case "FormCellFloat64":
+			res := make(map[*FormCellFloat64][]*FormCell)
+			for formcell := range stage.FormCells {
+				if formcell.FormCellFloat64 != nil {
+					formcellfloat64_ := formcell.FormCellFloat64
+					var formcells []*FormCell
+					_, ok := res[formcellfloat64_]
+					if ok {
+						formcells = res[formcellfloat64_]
+					} else {
+						formcells = make([]*FormCell, 0)
+					}
+					formcells = append(formcells, formcell)
+					res[formcellfloat64_] = formcells
+				}
+			}
+			return any(res).(map[*End][]*Start)
+		case "FormCellInt":
+			res := make(map[*FormCellInt][]*FormCell)
+			for formcell := range stage.FormCells {
+				if formcell.FormCellInt != nil {
+					formcellint_ := formcell.FormCellInt
+					var formcells []*FormCell
+					_, ok := res[formcellint_]
+					if ok {
+						formcells = res[formcellint_]
+					} else {
+						formcells = make([]*FormCell, 0)
+					}
+					formcells = append(formcells, formcell)
+					res[formcellint_] = formcells
+				}
+			}
+			return any(res).(map[*End][]*Start)
+		case "FormCellBool":
+			res := make(map[*FormCellBoolean][]*FormCell)
+			for formcell := range stage.FormCells {
+				if formcell.FormCellBool != nil {
+					formcellboolean_ := formcell.FormCellBool
+					var formcells []*FormCell
+					_, ok := res[formcellboolean_]
+					if ok {
+						formcells = res[formcellboolean_]
+					} else {
+						formcells = make([]*FormCell, 0)
+					}
+					formcells = append(formcells, formcell)
+					res[formcellboolean_] = formcells
+				}
+			}
+			return any(res).(map[*End][]*Start)
+		}
+	// reverse maps of direct associations of FormCellBoolean
+	case FormCellBoolean:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of FormCellFloat64
+	case FormCellFloat64:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of FormCellInt
+	case FormCellInt:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of FormCellString
+	case FormCellString:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
 	// reverse maps of direct associations of Row
 	case Row:
 		switch fieldname {
@@ -1223,6 +1817,44 @@ func GetSliceOfPointersReverseMap[Start, End Gongstruct](fieldname string, stage
 		}
 	// reverse maps of direct associations of DisplayedColumn
 	case DisplayedColumn:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of Form
+	case Form:
+		switch fieldname {
+		// insertion point for per direct association field
+		case "FormCells":
+			res := make(map[*FormCell]*Form)
+			for form := range stage.Forms {
+				for _, formcell_ := range form.FormCells {
+					res[formcell_] = form
+				}
+			}
+			return any(res).(map[*End]*Start)
+		}
+	// reverse maps of direct associations of FormCell
+	case FormCell:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of FormCellBoolean
+	case FormCellBoolean:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of FormCellFloat64
+	case FormCellFloat64:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of FormCellInt
+	case FormCellInt:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of FormCellString
+	case FormCellString:
 		switch fieldname {
 		// insertion point for per direct association field
 		}
@@ -1286,6 +1918,18 @@ func GetGongstructName[Type Gongstruct]() (res string) {
 		res = "CellString"
 	case DisplayedColumn:
 		res = "DisplayedColumn"
+	case Form:
+		res = "Form"
+	case FormCell:
+		res = "FormCell"
+	case FormCellBoolean:
+		res = "FormCellBoolean"
+	case FormCellFloat64:
+		res = "FormCellFloat64"
+	case FormCellInt:
+		res = "FormCellInt"
+	case FormCellString:
+		res = "FormCellString"
 	case Row:
 		res = "Row"
 	case Table:
@@ -1315,6 +1959,18 @@ func GetFields[Type Gongstruct]() (res []string) {
 		res = []string{"Name", "Value"}
 	case DisplayedColumn:
 		res = []string{"Name"}
+	case Form:
+		res = []string{"Name", "FormCells"}
+	case FormCell:
+		res = []string{"Name", "FormCellString", "FormCellFloat64", "FormCellInt", "FormCellBool"}
+	case FormCellBoolean:
+		res = []string{"Name", "Value"}
+	case FormCellFloat64:
+		res = []string{"Name", "Value"}
+	case FormCellInt:
+		res = []string{"Name", "Value"}
+	case FormCellString:
+		res = []string{"Name", "Value"}
 	case Row:
 		res = []string{"Name", "Cells", "IsChecked"}
 	case Table:
@@ -1399,6 +2055,73 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 		// string value of fields
 		case "Name":
 			res = any(instance).(DisplayedColumn).Name
+		}
+	case Form:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(Form).Name
+		case "FormCells":
+			for idx, __instance__ := range any(instance).(Form).FormCells {
+				if idx > 0 {
+					res += "\n"
+				}
+				res += __instance__.Name
+			}
+		}
+	case FormCell:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(FormCell).Name
+		case "FormCellString":
+			if any(instance).(FormCell).FormCellString != nil {
+				res = any(instance).(FormCell).FormCellString.Name
+			}
+		case "FormCellFloat64":
+			if any(instance).(FormCell).FormCellFloat64 != nil {
+				res = any(instance).(FormCell).FormCellFloat64.Name
+			}
+		case "FormCellInt":
+			if any(instance).(FormCell).FormCellInt != nil {
+				res = any(instance).(FormCell).FormCellInt.Name
+			}
+		case "FormCellBool":
+			if any(instance).(FormCell).FormCellBool != nil {
+				res = any(instance).(FormCell).FormCellBool.Name
+			}
+		}
+	case FormCellBoolean:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(FormCellBoolean).Name
+		case "Value":
+			res = fmt.Sprintf("%t", any(instance).(FormCellBoolean).Value)
+		}
+	case FormCellFloat64:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(FormCellFloat64).Name
+		case "Value":
+			res = fmt.Sprintf("%f", any(instance).(FormCellFloat64).Value)
+		}
+	case FormCellInt:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(FormCellInt).Name
+		case "Value":
+			res = fmt.Sprintf("%d", any(instance).(FormCellInt).Value)
+		}
+	case FormCellString:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(FormCellString).Name
+		case "Value":
+			res = any(instance).(FormCellString).Value
 		}
 	case Row:
 		switch fieldName {

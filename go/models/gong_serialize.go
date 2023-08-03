@@ -20,6 +20,12 @@ func SerializeStage(stage *StageStruct, filename string) {
 		SerializeExcelize[CellInt](stage, f)
 		SerializeExcelize[CellString](stage, f)
 		SerializeExcelize[DisplayedColumn](stage, f)
+		SerializeExcelize[Form](stage, f)
+		SerializeExcelize[FormCell](stage, f)
+		SerializeExcelize[FormCellBoolean](stage, f)
+		SerializeExcelize[FormCellFloat64](stage, f)
+		SerializeExcelize[FormCellInt](stage, f)
+		SerializeExcelize[FormCellString](stage, f)
 		SerializeExcelize[Row](stage, f)
 		SerializeExcelize[Table](stage, f)
 	}

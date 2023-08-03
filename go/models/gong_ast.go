@@ -310,6 +310,12 @@ var __gong__map_CellIcon = make(map[string]*CellIcon)
 var __gong__map_CellInt = make(map[string]*CellInt)
 var __gong__map_CellString = make(map[string]*CellString)
 var __gong__map_DisplayedColumn = make(map[string]*DisplayedColumn)
+var __gong__map_Form = make(map[string]*Form)
+var __gong__map_FormCell = make(map[string]*FormCell)
+var __gong__map_FormCellBoolean = make(map[string]*FormCellBoolean)
+var __gong__map_FormCellFloat64 = make(map[string]*FormCellFloat64)
+var __gong__map_FormCellInt = make(map[string]*FormCellInt)
+var __gong__map_FormCellString = make(map[string]*FormCellString)
 var __gong__map_Row = make(map[string]*Row)
 var __gong__map_Table = make(map[string]*Table)
 
@@ -512,6 +518,30 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 										instanceDisplayedColumn := (&DisplayedColumn{Name: instanceName}).Stage(stage)
 										instance = any(instanceDisplayedColumn)
 										__gong__map_DisplayedColumn[identifier] = instanceDisplayedColumn
+									case "Form":
+										instanceForm := (&Form{Name: instanceName}).Stage(stage)
+										instance = any(instanceForm)
+										__gong__map_Form[identifier] = instanceForm
+									case "FormCell":
+										instanceFormCell := (&FormCell{Name: instanceName}).Stage(stage)
+										instance = any(instanceFormCell)
+										__gong__map_FormCell[identifier] = instanceFormCell
+									case "FormCellBoolean":
+										instanceFormCellBoolean := (&FormCellBoolean{Name: instanceName}).Stage(stage)
+										instance = any(instanceFormCellBoolean)
+										__gong__map_FormCellBoolean[identifier] = instanceFormCellBoolean
+									case "FormCellFloat64":
+										instanceFormCellFloat64 := (&FormCellFloat64{Name: instanceName}).Stage(stage)
+										instance = any(instanceFormCellFloat64)
+										__gong__map_FormCellFloat64[identifier] = instanceFormCellFloat64
+									case "FormCellInt":
+										instanceFormCellInt := (&FormCellInt{Name: instanceName}).Stage(stage)
+										instance = any(instanceFormCellInt)
+										__gong__map_FormCellInt[identifier] = instanceFormCellInt
+									case "FormCellString":
+										instanceFormCellString := (&FormCellString{Name: instanceName}).Stage(stage)
+										instance = any(instanceFormCellString)
+										__gong__map_FormCellString[identifier] = instanceFormCellString
 									case "Row":
 										instanceRow := (&Row{Name: instanceName}).Stage(stage)
 										instance = any(instanceRow)
@@ -584,6 +614,30 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 							switch fieldName {
 							// insertion point for date assign code
 							}
+						case "Form":
+							switch fieldName {
+							// insertion point for date assign code
+							}
+						case "FormCell":
+							switch fieldName {
+							// insertion point for date assign code
+							}
+						case "FormCellBoolean":
+							switch fieldName {
+							// insertion point for date assign code
+							}
+						case "FormCellFloat64":
+							switch fieldName {
+							// insertion point for date assign code
+							}
+						case "FormCellInt":
+							switch fieldName {
+							// insertion point for date assign code
+							}
+						case "FormCellString":
+							switch fieldName {
+							// insertion point for date assign code
+							}
 						case "Row":
 							switch fieldName {
 							// insertion point for date assign code
@@ -642,6 +696,36 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 						// insertion point for slice of pointers assign code
 						}
 					case "DisplayedColumn":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						}
+					case "Form":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						case "FormCells":
+							// remove first and last char
+							targetIdentifier := ident.Name
+							target := __gong__map_FormCell[targetIdentifier]
+							__gong__map_Form[identifier].FormCells =
+								append(__gong__map_Form[identifier].FormCells, target)
+						}
+					case "FormCell":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						}
+					case "FormCellBoolean":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						}
+					case "FormCellFloat64":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						}
+					case "FormCellInt":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						}
+					case "FormCellString":
 						switch fieldName {
 						// insertion point for slice of pointers assign code
 						}
@@ -798,6 +882,72 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_DisplayedColumn[identifier].Name = fielValue
 				}
+			case "Form":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_Form[identifier].Name = fielValue
+				}
+			case "FormCell":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormCell[identifier].Name = fielValue
+				}
+			case "FormCellBoolean":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormCellBoolean[identifier].Name = fielValue
+				}
+			case "FormCellFloat64":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormCellFloat64[identifier].Name = fielValue
+				case "Value":
+					// convert string to float64
+					fielValue, err := strconv.ParseFloat(basicLit.Value, 64)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_FormCellFloat64[identifier].Value = exprSign * fielValue
+				}
+			case "FormCellInt":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormCellInt[identifier].Name = fielValue
+				case "Value":
+					// convert string to int
+					fielValue, err := strconv.ParseInt(basicLit.Value, 10, 64)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_FormCellInt[identifier].Value = int(exprSign) * int(fielValue)
+				}
+			case "FormCellString":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormCellString[identifier].Name = fielValue
+				case "Value":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormCellString[identifier].Value = fielValue
+				}
 			case "Row":
 				switch fieldName {
 				// insertion point for field dependant code
@@ -875,6 +1025,49 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				// insertion point for field dependant code
 				}
 			case "DisplayedColumn":
+				switch fieldName {
+				// insertion point for field dependant code
+				}
+			case "Form":
+				switch fieldName {
+				// insertion point for field dependant code
+				}
+			case "FormCell":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "FormCellString":
+					targetIdentifier := ident.Name
+					__gong__map_FormCell[identifier].FormCellString = __gong__map_FormCellString[targetIdentifier]
+				case "FormCellFloat64":
+					targetIdentifier := ident.Name
+					__gong__map_FormCell[identifier].FormCellFloat64 = __gong__map_FormCellFloat64[targetIdentifier]
+				case "FormCellInt":
+					targetIdentifier := ident.Name
+					__gong__map_FormCell[identifier].FormCellInt = __gong__map_FormCellInt[targetIdentifier]
+				case "FormCellBool":
+					targetIdentifier := ident.Name
+					__gong__map_FormCell[identifier].FormCellBool = __gong__map_FormCellBoolean[targetIdentifier]
+				}
+			case "FormCellBoolean":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Value":
+					// convert string to boolean
+					fielValue, err := strconv.ParseBool(ident.Name)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_FormCellBoolean[identifier].Value = fielValue
+				}
+			case "FormCellFloat64":
+				switch fieldName {
+				// insertion point for field dependant code
+				}
+			case "FormCellInt":
+				switch fieldName {
+				// insertion point for field dependant code
+				}
+			case "FormCellString":
 				switch fieldName {
 				// insertion point for field dependant code
 				}
@@ -988,6 +1181,30 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// insertion point for enum assign code
 					}
 				case "DisplayedColumn":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "Form":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "FormCell":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "FormCellBoolean":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "FormCellFloat64":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "FormCellInt":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "FormCellString":
 					switch fieldName {
 					// insertion point for enum assign code
 					}

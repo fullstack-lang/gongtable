@@ -35,6 +35,18 @@ type BackRepoStruct struct {
 
 	BackRepoDisplayedColumn BackRepoDisplayedColumnStruct
 
+	BackRepoForm BackRepoFormStruct
+
+	BackRepoFormCell BackRepoFormCellStruct
+
+	BackRepoFormCellBoolean BackRepoFormCellBooleanStruct
+
+	BackRepoFormCellFloat64 BackRepoFormCellFloat64Struct
+
+	BackRepoFormCellInt BackRepoFormCellIntStruct
+
+	BackRepoFormCellString BackRepoFormCellStringStruct
+
 	BackRepoRow BackRepoRowStruct
 
 	BackRepoTable BackRepoTableStruct
@@ -82,6 +94,12 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		&CellIntDB{},
 		&CellStringDB{},
 		&DisplayedColumnDB{},
+		&FormDB{},
+		&FormCellDB{},
+		&FormCellBooleanDB{},
+		&FormCellFloat64DB{},
+		&FormCellIntDB{},
+		&FormCellStringDB{},
 		&RowDB{},
 		&TableDB{},
 	)
@@ -146,6 +164,54 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_DisplayedColumnDBID_DisplayedColumnPtr: make(map[uint]*models.DisplayedColumn, 0),
 		Map_DisplayedColumnDBID_DisplayedColumnDB:  make(map[uint]*DisplayedColumnDB, 0),
 		Map_DisplayedColumnPtr_DisplayedColumnDBID: make(map[*models.DisplayedColumn]uint, 0),
+
+		db:    db,
+		stage: stage,
+	}
+	backRepo.BackRepoForm = BackRepoFormStruct{
+		Map_FormDBID_FormPtr: make(map[uint]*models.Form, 0),
+		Map_FormDBID_FormDB:  make(map[uint]*FormDB, 0),
+		Map_FormPtr_FormDBID: make(map[*models.Form]uint, 0),
+
+		db:    db,
+		stage: stage,
+	}
+	backRepo.BackRepoFormCell = BackRepoFormCellStruct{
+		Map_FormCellDBID_FormCellPtr: make(map[uint]*models.FormCell, 0),
+		Map_FormCellDBID_FormCellDB:  make(map[uint]*FormCellDB, 0),
+		Map_FormCellPtr_FormCellDBID: make(map[*models.FormCell]uint, 0),
+
+		db:    db,
+		stage: stage,
+	}
+	backRepo.BackRepoFormCellBoolean = BackRepoFormCellBooleanStruct{
+		Map_FormCellBooleanDBID_FormCellBooleanPtr: make(map[uint]*models.FormCellBoolean, 0),
+		Map_FormCellBooleanDBID_FormCellBooleanDB:  make(map[uint]*FormCellBooleanDB, 0),
+		Map_FormCellBooleanPtr_FormCellBooleanDBID: make(map[*models.FormCellBoolean]uint, 0),
+
+		db:    db,
+		stage: stage,
+	}
+	backRepo.BackRepoFormCellFloat64 = BackRepoFormCellFloat64Struct{
+		Map_FormCellFloat64DBID_FormCellFloat64Ptr: make(map[uint]*models.FormCellFloat64, 0),
+		Map_FormCellFloat64DBID_FormCellFloat64DB:  make(map[uint]*FormCellFloat64DB, 0),
+		Map_FormCellFloat64Ptr_FormCellFloat64DBID: make(map[*models.FormCellFloat64]uint, 0),
+
+		db:    db,
+		stage: stage,
+	}
+	backRepo.BackRepoFormCellInt = BackRepoFormCellIntStruct{
+		Map_FormCellIntDBID_FormCellIntPtr: make(map[uint]*models.FormCellInt, 0),
+		Map_FormCellIntDBID_FormCellIntDB:  make(map[uint]*FormCellIntDB, 0),
+		Map_FormCellIntPtr_FormCellIntDBID: make(map[*models.FormCellInt]uint, 0),
+
+		db:    db,
+		stage: stage,
+	}
+	backRepo.BackRepoFormCellString = BackRepoFormCellStringStruct{
+		Map_FormCellStringDBID_FormCellStringPtr: make(map[uint]*models.FormCellString, 0),
+		Map_FormCellStringDBID_FormCellStringDB:  make(map[uint]*FormCellStringDB, 0),
+		Map_FormCellStringPtr_FormCellStringDBID: make(map[*models.FormCellString]uint, 0),
 
 		db:    db,
 		stage: stage,
@@ -218,6 +284,12 @@ func (backRepo *BackRepoStruct) Commit(stage *models.StageStruct) {
 	backRepo.BackRepoCellInt.CommitPhaseOne(stage)
 	backRepo.BackRepoCellString.CommitPhaseOne(stage)
 	backRepo.BackRepoDisplayedColumn.CommitPhaseOne(stage)
+	backRepo.BackRepoForm.CommitPhaseOne(stage)
+	backRepo.BackRepoFormCell.CommitPhaseOne(stage)
+	backRepo.BackRepoFormCellBoolean.CommitPhaseOne(stage)
+	backRepo.BackRepoFormCellFloat64.CommitPhaseOne(stage)
+	backRepo.BackRepoFormCellInt.CommitPhaseOne(stage)
+	backRepo.BackRepoFormCellString.CommitPhaseOne(stage)
 	backRepo.BackRepoRow.CommitPhaseOne(stage)
 	backRepo.BackRepoTable.CommitPhaseOne(stage)
 
@@ -229,6 +301,12 @@ func (backRepo *BackRepoStruct) Commit(stage *models.StageStruct) {
 	backRepo.BackRepoCellInt.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoCellString.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoDisplayedColumn.CommitPhaseTwo(backRepo)
+	backRepo.BackRepoForm.CommitPhaseTwo(backRepo)
+	backRepo.BackRepoFormCell.CommitPhaseTwo(backRepo)
+	backRepo.BackRepoFormCellBoolean.CommitPhaseTwo(backRepo)
+	backRepo.BackRepoFormCellFloat64.CommitPhaseTwo(backRepo)
+	backRepo.BackRepoFormCellInt.CommitPhaseTwo(backRepo)
+	backRepo.BackRepoFormCellString.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoRow.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoTable.CommitPhaseTwo(backRepo)
 
@@ -245,6 +323,12 @@ func (backRepo *BackRepoStruct) Checkout(stage *models.StageStruct) {
 	backRepo.BackRepoCellInt.CheckoutPhaseOne()
 	backRepo.BackRepoCellString.CheckoutPhaseOne()
 	backRepo.BackRepoDisplayedColumn.CheckoutPhaseOne()
+	backRepo.BackRepoForm.CheckoutPhaseOne()
+	backRepo.BackRepoFormCell.CheckoutPhaseOne()
+	backRepo.BackRepoFormCellBoolean.CheckoutPhaseOne()
+	backRepo.BackRepoFormCellFloat64.CheckoutPhaseOne()
+	backRepo.BackRepoFormCellInt.CheckoutPhaseOne()
+	backRepo.BackRepoFormCellString.CheckoutPhaseOne()
 	backRepo.BackRepoRow.CheckoutPhaseOne()
 	backRepo.BackRepoTable.CheckoutPhaseOne()
 
@@ -256,6 +340,12 @@ func (backRepo *BackRepoStruct) Checkout(stage *models.StageStruct) {
 	backRepo.BackRepoCellInt.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoCellString.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoDisplayedColumn.CheckoutPhaseTwo(backRepo)
+	backRepo.BackRepoForm.CheckoutPhaseTwo(backRepo)
+	backRepo.BackRepoFormCell.CheckoutPhaseTwo(backRepo)
+	backRepo.BackRepoFormCellBoolean.CheckoutPhaseTwo(backRepo)
+	backRepo.BackRepoFormCellFloat64.CheckoutPhaseTwo(backRepo)
+	backRepo.BackRepoFormCellInt.CheckoutPhaseTwo(backRepo)
+	backRepo.BackRepoFormCellString.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoRow.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoTable.CheckoutPhaseTwo(backRepo)
 }
@@ -291,6 +381,12 @@ func (backRepo *BackRepoStruct) Backup(stage *models.StageStruct, dirPath string
 	backRepo.BackRepoCellInt.Backup(dirPath)
 	backRepo.BackRepoCellString.Backup(dirPath)
 	backRepo.BackRepoDisplayedColumn.Backup(dirPath)
+	backRepo.BackRepoForm.Backup(dirPath)
+	backRepo.BackRepoFormCell.Backup(dirPath)
+	backRepo.BackRepoFormCellBoolean.Backup(dirPath)
+	backRepo.BackRepoFormCellFloat64.Backup(dirPath)
+	backRepo.BackRepoFormCellInt.Backup(dirPath)
+	backRepo.BackRepoFormCellString.Backup(dirPath)
 	backRepo.BackRepoRow.Backup(dirPath)
 	backRepo.BackRepoTable.Backup(dirPath)
 }
@@ -310,6 +406,12 @@ func (backRepo *BackRepoStruct) BackupXL(stage *models.StageStruct, dirPath stri
 	backRepo.BackRepoCellInt.BackupXL(file)
 	backRepo.BackRepoCellString.BackupXL(file)
 	backRepo.BackRepoDisplayedColumn.BackupXL(file)
+	backRepo.BackRepoForm.BackupXL(file)
+	backRepo.BackRepoFormCell.BackupXL(file)
+	backRepo.BackRepoFormCellBoolean.BackupXL(file)
+	backRepo.BackRepoFormCellFloat64.BackupXL(file)
+	backRepo.BackRepoFormCellInt.BackupXL(file)
+	backRepo.BackRepoFormCellString.BackupXL(file)
 	backRepo.BackRepoRow.BackupXL(file)
 	backRepo.BackRepoTable.BackupXL(file)
 
@@ -343,6 +445,12 @@ func (backRepo *BackRepoStruct) Restore(stage *models.StageStruct, dirPath strin
 	backRepo.BackRepoCellInt.RestorePhaseOne(dirPath)
 	backRepo.BackRepoCellString.RestorePhaseOne(dirPath)
 	backRepo.BackRepoDisplayedColumn.RestorePhaseOne(dirPath)
+	backRepo.BackRepoForm.RestorePhaseOne(dirPath)
+	backRepo.BackRepoFormCell.RestorePhaseOne(dirPath)
+	backRepo.BackRepoFormCellBoolean.RestorePhaseOne(dirPath)
+	backRepo.BackRepoFormCellFloat64.RestorePhaseOne(dirPath)
+	backRepo.BackRepoFormCellInt.RestorePhaseOne(dirPath)
+	backRepo.BackRepoFormCellString.RestorePhaseOne(dirPath)
 	backRepo.BackRepoRow.RestorePhaseOne(dirPath)
 	backRepo.BackRepoTable.RestorePhaseOne(dirPath)
 
@@ -358,6 +466,12 @@ func (backRepo *BackRepoStruct) Restore(stage *models.StageStruct, dirPath strin
 	backRepo.BackRepoCellInt.RestorePhaseTwo()
 	backRepo.BackRepoCellString.RestorePhaseTwo()
 	backRepo.BackRepoDisplayedColumn.RestorePhaseTwo()
+	backRepo.BackRepoForm.RestorePhaseTwo()
+	backRepo.BackRepoFormCell.RestorePhaseTwo()
+	backRepo.BackRepoFormCellBoolean.RestorePhaseTwo()
+	backRepo.BackRepoFormCellFloat64.RestorePhaseTwo()
+	backRepo.BackRepoFormCellInt.RestorePhaseTwo()
+	backRepo.BackRepoFormCellString.RestorePhaseTwo()
 	backRepo.BackRepoRow.RestorePhaseTwo()
 	backRepo.BackRepoTable.RestorePhaseTwo()
 
@@ -394,6 +508,12 @@ func (backRepo *BackRepoStruct) RestoreXL(stage *models.StageStruct, dirPath str
 	backRepo.BackRepoCellInt.RestoreXLPhaseOne(file)
 	backRepo.BackRepoCellString.RestoreXLPhaseOne(file)
 	backRepo.BackRepoDisplayedColumn.RestoreXLPhaseOne(file)
+	backRepo.BackRepoForm.RestoreXLPhaseOne(file)
+	backRepo.BackRepoFormCell.RestoreXLPhaseOne(file)
+	backRepo.BackRepoFormCellBoolean.RestoreXLPhaseOne(file)
+	backRepo.BackRepoFormCellFloat64.RestoreXLPhaseOne(file)
+	backRepo.BackRepoFormCellInt.RestoreXLPhaseOne(file)
+	backRepo.BackRepoFormCellString.RestoreXLPhaseOne(file)
 	backRepo.BackRepoRow.RestoreXLPhaseOne(file)
 	backRepo.BackRepoTable.RestoreXLPhaseOne(file)
 

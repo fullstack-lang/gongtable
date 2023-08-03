@@ -174,7 +174,7 @@ func stageInjection(stage *models.StageStruct) {
 
 	// CellIcon values setup
 	__CellIcon__000001_Row_2_Cell_3_home.Name = `Row 2 - Cell 3 - home`
-	__CellIcon__000001_Row_2_Cell_3_home.Icon = `home`
+	__CellIcon__000001_Row_2_Cell_3_home.Icon = `edit`
 
 	// CellInt values setup
 	__CellInt__000000_Row_1_Cell_4_Int.Name = `Row 1 - Cell 4 - Int`

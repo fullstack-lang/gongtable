@@ -1,0 +1,93 @@
+<section class="container mat-elevation-z8" tabindex="0">
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    </mat-form-field>
+    <h1 *ngIf="dialogData">formcell</h1>
+    <table class="table" mat-table [dataSource]="matTableDataSource" matSort>
+        <!-- Checkbox Column, only used when the component is used to select items for a field that is a slice of pointers -->
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+
+        <!-- insertion point for fields specific code -->
+        <!-- -->
+        <ng-container matColumnDef="Name" sticky>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let FormCell">
+                {{FormCell.Name}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="FormCellString">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> FormCellString </th>
+            <td mat-cell *matCellDef="let FormCell">
+                {{ FormCell.FormCellString ? FormCell.FormCellString.Name : ''}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="FormCellFloat64">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> FormCellFloat64 </th>
+            <td mat-cell *matCellDef="let FormCell">
+                {{ FormCell.FormCellFloat64 ? FormCell.FormCellFloat64.Name : ''}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="FormCellInt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> FormCellInt </th>
+            <td mat-cell *matCellDef="let FormCell">
+                {{ FormCell.FormCellInt ? FormCell.FormCellInt.Name : ''}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="FormCellBool">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> FormCellBool </th>
+            <td mat-cell *matCellDef="let FormCell">
+                {{ FormCell.FormCellBool ? FormCell.FormCellBool.Name : ''}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="Form_FormCells">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> <-- (Form) FormCells </th>
+            <td mat-cell *matCellDef="let formcell">
+                {{frontRepo.Forms.get(formcell.Form_FormCellsDBID.Int64)?.Name}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ID" sticky>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID. </th>
+            <td mat-cell *matCellDef="let FormCell"> {{FormCell.ID}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Delete" sticky>
+            <th mat-header-cell *matHeaderCellDef> Delete </th>
+            <td mat-cell *matCellDef="let formcell;  let j = index;">
+                <i class="material-icons my-delete-button" [ngStyle]="{'color':'rgba(0,0,0,.50)'}" (click)="deleteFormCell(formcell.ID, formcell); $event.stopPropagation()">delete</i>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+
+        <tr mat-row *matRowDef="
+        let row; 
+        columns: displayedColumns;
+        " (click)="setEditorRouterOutlet( row.ID ) " class="row-link">
+        </tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[50, 100, 500, 1000]" showFirstLastButtons></mat-paginator>
+    <button class="table__save" color="primary" *ngIf="dialogData" mat-raised-button (click)="save()">
+        Save
+    </button>
+</section>
