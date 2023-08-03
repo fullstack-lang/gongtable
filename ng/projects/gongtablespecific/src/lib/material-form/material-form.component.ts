@@ -9,4 +9,7 @@ export class MaterialFormComponent {
 
   @Input() DataStack: string = ""
 
+  // within the same stack, there can be multiple form. This one is the form to display
+  @Input() FormName: string = ""
+
 }
