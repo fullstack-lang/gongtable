@@ -38,7 +38,7 @@ export class MaterialFormComponent implements OnInit {
   constructor(
     private gongtableFrontRepoService: gongtable.FrontRepoService,
     private gongtableCommitNbFromBackService: gongtable.CommitNbFromBackService,
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
   ) {
 
   }
@@ -94,15 +94,33 @@ export class MaterialFormComponent implements OnInit {
           return
         }
 
-        this.myForm = this.fb.group({
+        const formGroupConfig = {
           firstName: ['', Validators.required],
           lastName: ['', Validators.required],
           email: ['', [Validators.required, Validators.email]],
+          age: ['', [Validators.required, Validators.min(18), Validators.max(20)]], // integer field with validation for minimum age
           password: ['', [Validators.required, Validators.minLength(6)]],
-        });
+          choice: ['', Validators.required], // dropdown field
+          date: ['', Validators.required],
+          time: ['', Validators.required],
+          acceptTerms: [false, Validators.requiredTrue] // boolean field
+        };
+
+        this.myForm = this.formBuilder.group(formGroupConfig);
+
+
+
       }
     )
   }
+
+  options = [
+    { label: 'Option 1', value: 'option1' },
+    { label: 'Option 2', value: 'option2' },
+    { label: 'Option 3', value: 'option3' },
+    { label: 'Option 4', value: 'option4' },
+    { label: 'Option 5', value: 'option5' },
+  ];
 
   submitForm() {
     if (this.myForm?.valid) {

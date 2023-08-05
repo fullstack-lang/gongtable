@@ -11,8 +11,25 @@
     </div>
     <div>
         <mat-form-field appearance="fill">
+            <mat-label>Date</mat-label>
+            <input matInput type="date" formControlName="date" placeholder="Select date">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Time</mat-label>
+            <input matInput type="time" formControlName="time" placeholder="Select time" step="1">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
             <input matInput formControlName="email" placeholder="Email">
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Age</mat-label>
+            <input matInput type="number" formControlName="age" placeholder="Age">
         </mat-form-field>
     </div>
     <div>
@@ -20,6 +37,19 @@
             <mat-label>Password</mat-label>
             <input matInput type="password" formControlName="password" placeholder="Password">
         </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Choice</mat-label>
+            <mat-select formControlName="choice">
+                <mat-option *ngFor="let option of options" [value]="option.value">
+                    {{ option.label }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-checkbox formControlName="acceptTerms">I accept the terms and conditions</mat-checkbox>
     </div>
     <button mat-raised-button color="primary" type="submit">Submit</button>
 </form>

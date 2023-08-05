@@ -11,15 +11,15 @@ import * as gongtable from 'gongtable'
 })
 export class AppComponent implements OnInit {
 
-  table = 'Table'
+  table_view = 'Table'
   table_data_model = 'Table Data/Model'
 
   form_view = "Form"
   form_data_model = 'Form Data/Model'
 
-  view = this.table
+  view = this.form_view
 
-  views: string[] = [this.table, this.form_view, this.table_data_model, this.form_data_model];
+  views: string[] = [this.table_view, this.form_view, this.table_data_model, this.form_data_model];
 
   TableStack = "manualy filled table"
 
