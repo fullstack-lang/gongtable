@@ -18,7 +18,7 @@ import { FormFieldStringDB } from './formfieldstring-db'
 import { FormFieldFloat64DB } from './formfieldfloat64-db'
 import { FormFieldIntDB } from './formfieldint-db'
 import { FormFieldBooleanDB } from './formfieldboolean-db'
-import { FormGroupDB } from './formgroup-db'
+import { FormDivDB } from './formdiv-db'
 
 @Injectable({
   providedIn: 'root'
@@ -79,8 +79,8 @@ export class FormFieldService {
     formfielddb.FormFieldFloat64 = new FormFieldFloat64DB
     formfielddb.FormFieldInt = new FormFieldIntDB
     formfielddb.FormFieldBool = new FormFieldBooleanDB
-    let _FormGroup_FormFields_reverse = formfielddb.FormGroup_FormFields_reverse
-    formfielddb.FormGroup_FormFields_reverse = new FormGroupDB
+    let _FormDiv_FormFields_reverse = formfielddb.FormDiv_FormFields_reverse
+    formfielddb.FormDiv_FormFields_reverse = new FormDivDB
 
     let params = new HttpParams().set("GONG__StackPath", GONG__StackPath)
     let httpOptions = {
@@ -91,7 +91,7 @@ export class FormFieldService {
     return this.http.post<FormFieldDB>(this.formfieldsUrl, formfielddb, httpOptions).pipe(
       tap(_ => {
         // insertion point for restoration of reverse pointers
-        formfielddb.FormGroup_FormFields_reverse = _FormGroup_FormFields_reverse
+        formfielddb.FormDiv_FormFields_reverse = _FormDiv_FormFields_reverse
         // this.log(`posted formfielddb id=${formfielddb.ID}`)
       }),
       catchError(this.handleError<FormFieldDB>('postFormField'))
@@ -125,8 +125,8 @@ export class FormFieldService {
     formfielddb.FormFieldFloat64 = new FormFieldFloat64DB
     formfielddb.FormFieldInt = new FormFieldIntDB
     formfielddb.FormFieldBool = new FormFieldBooleanDB
-    let _FormGroup_FormFields_reverse = formfielddb.FormGroup_FormFields_reverse
-    formfielddb.FormGroup_FormFields_reverse = new FormGroupDB
+    let _FormDiv_FormFields_reverse = formfielddb.FormDiv_FormFields_reverse
+    formfielddb.FormDiv_FormFields_reverse = new FormDivDB
 
     let params = new HttpParams().set("GONG__StackPath", GONG__StackPath)
     let httpOptions = {
@@ -137,7 +137,7 @@ export class FormFieldService {
     return this.http.put<FormFieldDB>(url, formfielddb, httpOptions).pipe(
       tap(_ => {
         // insertion point for restoration of reverse pointers
-        formfielddb.FormGroup_FormFields_reverse = _FormGroup_FormFields_reverse
+        formfielddb.FormDiv_FormFields_reverse = _FormDiv_FormFields_reverse
         // this.log(`updated formfielddb id=${formfielddb.ID}`)
       }),
       catchError(this.handleError<FormFieldDB>('updateFormField'))

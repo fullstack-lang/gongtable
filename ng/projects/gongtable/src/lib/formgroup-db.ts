@@ -1,5 +1,5 @@
 // insertion point for imports
-import { FormFieldDB } from './formfield-db'
+import { FormDivDB } from './formdiv-db'
 
 // usefull for managing pointer ID values that can be nullable
 import { NullInt64 } from './null-int64'
@@ -16,5 +16,5 @@ export class FormGroupDB {
 	Name: string = ""
 
 	// insertion point for other declarations
-	FormFields?: Array<FormFieldDB>
+	FormDivs?: Array<FormDivDB>
 }

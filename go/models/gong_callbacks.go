@@ -33,6 +33,10 @@ func AfterCreateFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterDisplayedColumnCreateCallback != nil {
 			stage.OnAfterDisplayedColumnCreateCallback.OnAfterCreate(stage, target)
 		}
+	case *FormDiv:
+		if stage.OnAfterFormDivCreateCallback != nil {
+			stage.OnAfterFormDivCreateCallback.OnAfterCreate(stage, target)
+		}
 	case *FormField:
 		if stage.OnAfterFormFieldCreateCallback != nil {
 			stage.OnAfterFormFieldCreateCallback.OnAfterCreate(stage, target)
@@ -109,6 +113,11 @@ func AfterUpdateFromFront[Type Gongstruct](stage *StageStruct, old, new *Type) {
 		newTarget := any(new).(*DisplayedColumn)
 		if stage.OnAfterDisplayedColumnUpdateCallback != nil {
 			stage.OnAfterDisplayedColumnUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
+		}
+	case *FormDiv:
+		newTarget := any(new).(*FormDiv)
+		if stage.OnAfterFormDivUpdateCallback != nil {
+			stage.OnAfterFormDivUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
 	case *FormField:
 		newTarget := any(new).(*FormField)
@@ -195,6 +204,11 @@ func AfterDeleteFromFront[Type Gongstruct](stage *StageStruct, staged, front *Ty
 			staged := any(staged).(*DisplayedColumn)
 			stage.OnAfterDisplayedColumnDeleteCallback.OnAfterDelete(stage, staged, front)
 		}
+	case *FormDiv:
+		if stage.OnAfterFormDivDeleteCallback != nil {
+			staged := any(staged).(*FormDiv)
+			stage.OnAfterFormDivDeleteCallback.OnAfterDelete(stage, staged, front)
+		}
 	case *FormField:
 		if stage.OnAfterFormFieldDeleteCallback != nil {
 			staged := any(staged).(*FormField)
@@ -273,6 +287,10 @@ func AfterReadFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterDisplayedColumnReadCallback != nil {
 			stage.OnAfterDisplayedColumnReadCallback.OnAfterRead(stage, target)
 		}
+	case *FormDiv:
+		if stage.OnAfterFormDivReadCallback != nil {
+			stage.OnAfterFormDivReadCallback.OnAfterRead(stage, target)
+		}
 	case *FormField:
 		if stage.OnAfterFormFieldReadCallback != nil {
 			stage.OnAfterFormFieldReadCallback.OnAfterRead(stage, target)
@@ -337,6 +355,9 @@ func SetCallbackAfterUpdateFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *DisplayedColumn:
 		stage.OnAfterDisplayedColumnUpdateCallback = any(callback).(OnAfterUpdateInterface[DisplayedColumn])
 	
+	case *FormDiv:
+		stage.OnAfterFormDivUpdateCallback = any(callback).(OnAfterUpdateInterface[FormDiv])
+	
 	case *FormField:
 		stage.OnAfterFormFieldUpdateCallback = any(callback).(OnAfterUpdateInterface[FormField])
 	
@@ -388,6 +409,9 @@ func SetCallbackAfterCreateFromFront[Type Gongstruct](stage *StageStruct, callba
 	
 	case *DisplayedColumn:
 		stage.OnAfterDisplayedColumnCreateCallback = any(callback).(OnAfterCreateInterface[DisplayedColumn])
+	
+	case *FormDiv:
+		stage.OnAfterFormDivCreateCallback = any(callback).(OnAfterCreateInterface[FormDiv])
 	
 	case *FormField:
 		stage.OnAfterFormFieldCreateCallback = any(callback).(OnAfterCreateInterface[FormField])
@@ -441,6 +465,9 @@ func SetCallbackAfterDeleteFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *DisplayedColumn:
 		stage.OnAfterDisplayedColumnDeleteCallback = any(callback).(OnAfterDeleteInterface[DisplayedColumn])
 	
+	case *FormDiv:
+		stage.OnAfterFormDivDeleteCallback = any(callback).(OnAfterDeleteInterface[FormDiv])
+	
 	case *FormField:
 		stage.OnAfterFormFieldDeleteCallback = any(callback).(OnAfterDeleteInterface[FormField])
 	
@@ -492,6 +519,9 @@ func SetCallbackAfterReadFromFront[Type Gongstruct](stage *StageStruct, callback
 	
 	case *DisplayedColumn:
 		stage.OnAfterDisplayedColumnReadCallback = any(callback).(OnAfterReadInterface[DisplayedColumn])
+	
+	case *FormDiv:
+		stage.OnAfterFormDivReadCallback = any(callback).(OnAfterReadInterface[FormDiv])
 	
 	case *FormField:
 		stage.OnAfterFormFieldReadCallback = any(callback).(OnAfterReadInterface[FormField])

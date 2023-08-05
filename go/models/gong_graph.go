@@ -26,6 +26,9 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 	case *DisplayedColumn:
 		ok = stage.IsStagedDisplayedColumn(target)
 
+	case *FormDiv:
+		ok = stage.IsStagedFormDiv(target)
+
 	case *FormField:
 		ok = stage.IsStagedFormField(target)
 
@@ -102,6 +105,13 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 	func (stage *StageStruct) IsStagedDisplayedColumn(displayedcolumn *DisplayedColumn) (ok bool) {
 
 		_, ok = stage.DisplayedColumns[displayedcolumn]
+	
+		return
+	}
+
+	func (stage *StageStruct) IsStagedFormDiv(formdiv *FormDiv) (ok bool) {
+
+		_, ok = stage.FormDivs[formdiv]
 	
 		return
 	}
@@ -191,6 +201,9 @@ func StageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 
 	case *DisplayedColumn:
 		stage.StageBranchDisplayedColumn(target)
+
+	case *FormDiv:
+		stage.StageBranchFormDiv(target)
 
 	case *FormField:
 		stage.StageBranchFormField(target)
@@ -342,6 +355,24 @@ func (stage *StageStruct) StageBranchDisplayedColumn(displayedcolumn *DisplayedC
 
 }
 
+func (stage *StageStruct) StageBranchFormDiv(formdiv *FormDiv) {
+
+	// check if instance is already staged
+	if IsStaged(stage, formdiv) {
+		return
+	}
+
+	formdiv.Stage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
+	for _, _formfield := range formdiv.FormFields {
+		StageBranch(stage, _formfield)
+	}
+
+}
+
 func (stage *StageStruct) StageBranchFormField(formfield *FormField) {
 
 	// check if instance is already staged
@@ -441,8 +472,8 @@ func (stage *StageStruct) StageBranchFormGroup(formgroup *FormGroup) {
 	//insertion point for the staging of instances referenced by pointers
 
 	//insertion point for the staging of instances referenced by slice of pointers
-	for _, _formfield := range formgroup.FormFields {
-		StageBranch(stage, _formfield)
+	for _, _formdiv := range formgroup.FormDivs {
+		StageBranch(stage, _formdiv)
 	}
 
 }
@@ -515,6 +546,9 @@ func UnstageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 
 	case *DisplayedColumn:
 		stage.UnstageBranchDisplayedColumn(target)
+
+	case *FormDiv:
+		stage.UnstageBranchFormDiv(target)
 
 	case *FormField:
 		stage.UnstageBranchFormField(target)
@@ -666,6 +700,24 @@ func (stage *StageStruct) UnstageBranchDisplayedColumn(displayedcolumn *Displaye
 
 }
 
+func (stage *StageStruct) UnstageBranchFormDiv(formdiv *FormDiv) {
+
+	// check if instance is already staged
+	if ! IsStaged(stage, formdiv) {
+		return
+	}
+
+	formdiv.Unstage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
+	for _, _formfield := range formdiv.FormFields {
+		UnstageBranch(stage, _formfield)
+	}
+
+}
+
 func (stage *StageStruct) UnstageBranchFormField(formfield *FormField) {
 
 	// check if instance is already staged
@@ -765,8 +817,8 @@ func (stage *StageStruct) UnstageBranchFormGroup(formgroup *FormGroup) {
 	//insertion point for the staging of instances referenced by pointers
 
 	//insertion point for the staging of instances referenced by slice of pointers
-	for _, _formfield := range formgroup.FormFields {
-		UnstageBranch(stage, _formfield)
+	for _, _formdiv := range formgroup.FormDivs {
+		UnstageBranch(stage, _formdiv)
 	}
 
 }

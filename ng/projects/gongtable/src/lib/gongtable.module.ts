@@ -67,6 +67,10 @@ import { DisplayedColumnsTableComponent } from './displayedcolumns-table/display
 import { DisplayedColumnSortingComponent } from './displayedcolumn-sorting/displayedcolumn-sorting.component'
 import { DisplayedColumnDetailComponent } from './displayedcolumn-detail/displayedcolumn-detail.component'
 
+import { FormDivsTableComponent } from './formdivs-table/formdivs-table.component'
+import { FormDivSortingComponent } from './formdiv-sorting/formdiv-sorting.component'
+import { FormDivDetailComponent } from './formdiv-detail/formdiv-detail.component'
+
 import { FormFieldsTableComponent } from './formfields-table/formfields-table.component'
 import { FormFieldSortingComponent } from './formfield-sorting/formfield-sorting.component'
 import { FormFieldDetailComponent } from './formfield-detail/formfield-detail.component'
@@ -130,6 +134,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		DisplayedColumnsTableComponent,
 		DisplayedColumnSortingComponent,
 		DisplayedColumnDetailComponent,
+
+		FormDivsTableComponent,
+		FormDivSortingComponent,
+		FormDivDetailComponent,
 
 		FormFieldsTableComponent,
 		FormFieldSortingComponent,
@@ -229,6 +237,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		DisplayedColumnsTableComponent,
 		DisplayedColumnSortingComponent,
 		DisplayedColumnDetailComponent,
+
+		FormDivsTableComponent,
+		FormDivSortingComponent,
+		FormDivDetailComponent,
 
 		FormFieldsTableComponent,
 		FormFieldSortingComponent,

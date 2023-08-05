@@ -14,8 +14,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 const allowMultiSelect = true;
 
 import { ActivatedRoute, Router, RouterState } from '@angular/router';
-import { FormFieldDB } from '../formfield-db'
-import { FormFieldService } from '../formfield.service'
+import { FormDivDB } from '../formdiv-db'
+import { FormDivService } from '../formdiv.service'
 
 // insertion point for additional imports
 
@@ -31,26 +31,26 @@ enum TableComponentMode {
 
 // generated table component
 @Component({
-  selector: 'app-formfieldstable',
-  templateUrl: './formfields-table.component.html',
-  styleUrls: ['./formfields-table.component.css'],
+  selector: 'app-formdivstable',
+  templateUrl: './formdivs-table.component.html',
+  styleUrls: ['./formdivs-table.component.css'],
 })
-export class FormFieldsTableComponent implements OnInit {
+export class FormDivsTableComponent implements OnInit {
 
   @Input() GONG__StackPath: string = ""
 
   // mode at invocation
   mode: TableComponentMode = TableComponentMode.DISPLAY_MODE
 
-  // used if the component is called as a selection component of FormField instances
-  selection: SelectionModel<FormFieldDB> = new (SelectionModel)
-  initialSelection = new Array<FormFieldDB>()
+  // used if the component is called as a selection component of FormDiv instances
+  selection: SelectionModel<FormDivDB> = new (SelectionModel)
+  initialSelection = new Array<FormDivDB>()
 
   // the data source for the table
-  formfields: FormFieldDB[] = []
-  matTableDataSource: MatTableDataSource<FormFieldDB> = new (MatTableDataSource)
+  formdivs: FormDivDB[] = []
+  matTableDataSource: MatTableDataSource<FormDivDB> = new (MatTableDataSource)
 
-  // front repo, that will be referenced by this.formfields
+  // front repo, that will be referenced by this.formdivs
   frontRepo: FrontRepo = new (FrontRepo)
 
   // displayedColumns is referenced by the MatTable component for specify what columns
@@ -66,30 +66,18 @@ export class FormFieldsTableComponent implements OnInit {
   ngAfterViewInit() {
 
     // enable sorting on all fields (including pointers and reverse pointer)
-    this.matTableDataSource.sortingDataAccessor = (formfieldDB: FormFieldDB, property: string) => {
+    this.matTableDataSource.sortingDataAccessor = (formdivDB: FormDivDB, property: string) => {
       switch (property) {
         case 'ID':
-          return formfieldDB.ID
+          return formdivDB.ID
 
         // insertion point for specific sorting accessor
         case 'Name':
-          return formfieldDB.Name;
+          return formdivDB.Name;
 
-        case 'FormFieldString':
-          return (formfieldDB.FormFieldString ? formfieldDB.FormFieldString.Name : '');
-
-        case 'FormFieldFloat64':
-          return (formfieldDB.FormFieldFloat64 ? formfieldDB.FormFieldFloat64.Name : '');
-
-        case 'FormFieldInt':
-          return (formfieldDB.FormFieldInt ? formfieldDB.FormFieldInt.Name : '');
-
-        case 'FormFieldBool':
-          return (formfieldDB.FormFieldBool ? formfieldDB.FormFieldBool.Name : '');
-
-        case 'FormDiv_FormFields':
-          if (this.frontRepo.FormDivs.get(formfieldDB.FormDiv_FormFieldsDBID.Int64) != undefined) {
-            return this.frontRepo.FormDivs.get(formfieldDB.FormDiv_FormFieldsDBID.Int64)!.Name
+        case 'FormGroup_FormDivs':
+          if (this.frontRepo.FormGroups.get(formdivDB.FormGroup_FormDivsDBID.Int64) != undefined) {
+            return this.frontRepo.FormGroups.get(formdivDB.FormGroup_FormDivsDBID.Int64)!.Name
           } else {
             return ""
           }
@@ -101,28 +89,16 @@ export class FormFieldsTableComponent implements OnInit {
     };
 
     // enable filtering on all fields (including pointers and reverse pointer, which is not done by default)
-    this.matTableDataSource.filterPredicate = (formfieldDB: FormFieldDB, filter: string) => {
+    this.matTableDataSource.filterPredicate = (formdivDB: FormDivDB, filter: string) => {
 
       // filtering is based on finding a lower case filter into a concatenated string
-      // the formfieldDB properties
+      // the formdivDB properties
       let mergedContent = ""
 
       // insertion point for merging of fields
-      mergedContent += formfieldDB.Name.toLowerCase()
-      if (formfieldDB.FormFieldString) {
-        mergedContent += formfieldDB.FormFieldString.Name.toLowerCase()
-      }
-      if (formfieldDB.FormFieldFloat64) {
-        mergedContent += formfieldDB.FormFieldFloat64.Name.toLowerCase()
-      }
-      if (formfieldDB.FormFieldInt) {
-        mergedContent += formfieldDB.FormFieldInt.Name.toLowerCase()
-      }
-      if (formfieldDB.FormFieldBool) {
-        mergedContent += formfieldDB.FormFieldBool.Name.toLowerCase()
-      }
-      if (formfieldDB.FormDiv_FormFieldsDBID.Int64 != 0) {
-        mergedContent += this.frontRepo.FormDivs.get(formfieldDB.FormDiv_FormFieldsDBID.Int64)!.Name.toLowerCase()
+      mergedContent += formdivDB.Name.toLowerCase()
+      if (formdivDB.FormGroup_FormDivsDBID.Int64 != 0) {
+        mergedContent += this.frontRepo.FormGroups.get(formdivDB.FormGroup_FormDivsDBID.Int64)!.Name.toLowerCase()
       }
 
 
@@ -140,11 +116,11 @@ export class FormFieldsTableComponent implements OnInit {
   }
 
   constructor(
-    private formfieldService: FormFieldService,
+    private formdivService: FormDivService,
     private frontRepoService: FrontRepoService,
 
-    // not null if the component is called as a selection component of formfield instances
-    public dialogRef: MatDialogRef<FormFieldsTableComponent>,
+    // not null if the component is called as a selection component of formdiv instances
+    public dialogRef: MatDialogRef<FormDivsTableComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: DialogData,
 
     private router: Router,
@@ -170,32 +146,24 @@ export class FormFieldsTableComponent implements OnInit {
     }
 
     // observable for changes in structs
-    this.formfieldService.FormFieldServiceChanged.subscribe(
+    this.formdivService.FormDivServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
-          this.getFormFields()
+          this.getFormDivs()
         }
       }
     )
     if (this.mode == TableComponentMode.DISPLAY_MODE) {
       this.displayedColumns = ['ID', 'Delete', // insertion point for columns to display
         "Name",
-        "FormFieldString",
-        "FormFieldFloat64",
-        "FormFieldInt",
-        "FormFieldBool",
-        "FormDiv_FormFields",
+        "FormGroup_FormDivs",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
-        "FormFieldString",
-        "FormFieldFloat64",
-        "FormFieldInt",
-        "FormFieldBool",
-        "FormDiv_FormFields",
+        "FormGroup_FormDivs",
       ]
-      this.selection = new SelectionModel<FormFieldDB>(allowMultiSelect, this.initialSelection);
+      this.selection = new SelectionModel<FormDivDB>(allowMultiSelect, this.initialSelection);
     }
 
   }
@@ -206,84 +174,84 @@ export class FormFieldsTableComponent implements OnInit {
       this.GONG__StackPath = stackPath
     }
 
-    this.getFormFields()
+    this.getFormDivs()
 
-    this.matTableDataSource = new MatTableDataSource(this.formfields)
+    this.matTableDataSource = new MatTableDataSource(this.formdivs)
   }
 
-  getFormFields(): void {
+  getFormDivs(): void {
     this.frontRepoService.pull(this.GONG__StackPath).subscribe(
       frontRepo => {
         this.frontRepo = frontRepo
 
-        this.formfields = this.frontRepo.FormFields_array;
+        this.formdivs = this.frontRepo.FormDivs_array;
 
         // insertion point for time duration Recoveries
         // insertion point for enum int Recoveries
 
         // in case the component is called as a selection component
         if (this.mode == TableComponentMode.ONE_MANY_ASSOCIATION_MODE) {
-          for (let formfield of this.formfields) {
+          for (let formdiv of this.formdivs) {
             let ID = this.dialogData.ID
-            let revPointer = formfield[this.dialogData.ReversePointer as keyof FormFieldDB] as unknown as NullInt64
+            let revPointer = formdiv[this.dialogData.ReversePointer as keyof FormDivDB] as unknown as NullInt64
             if (revPointer.Int64 == ID) {
-              this.initialSelection.push(formfield)
+              this.initialSelection.push(formdiv)
             }
-            this.selection = new SelectionModel<FormFieldDB>(allowMultiSelect, this.initialSelection);
+            this.selection = new SelectionModel<FormDivDB>(allowMultiSelect, this.initialSelection);
           }
         }
 
         if (this.mode == TableComponentMode.MANY_MANY_ASSOCIATION_MODE) {
 
-          let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormFieldDB>
+          let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormDivDB>
           let sourceInstance = mapOfSourceInstances.get(this.dialogData.ID)!
 
-          // we associates on sourceInstance of type SourceStruct with a MANY MANY associations to FormFieldDB
+          // we associates on sourceInstance of type SourceStruct with a MANY MANY associations to FormDivDB
           // the field name is sourceField
-          let sourceFieldArray = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]! as unknown as FormFieldDB[]
+          let sourceFieldArray = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]! as unknown as FormDivDB[]
           if (sourceFieldArray != null) {
             for (let associationInstance of sourceFieldArray) {
-              let formfield = associationInstance[this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormFieldDB
-              this.initialSelection.push(formfield)
+              let formdiv = associationInstance[this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormDivDB
+              this.initialSelection.push(formdiv)
             }
           }
 
-          this.selection = new SelectionModel<FormFieldDB>(allowMultiSelect, this.initialSelection);
+          this.selection = new SelectionModel<FormDivDB>(allowMultiSelect, this.initialSelection);
         }
 
         // update the mat table data source
-        this.matTableDataSource.data = this.formfields
+        this.matTableDataSource.data = this.formdivs
       }
     )
   }
 
-  // newFormField initiate a new formfield
-  // create a new FormField objet
-  newFormField() {
+  // newFormDiv initiate a new formdiv
+  // create a new FormDiv objet
+  newFormDiv() {
   }
 
-  deleteFormField(formfieldID: number, formfield: FormFieldDB) {
-    // list of formfields is truncated of formfield before the delete
-    this.formfields = this.formfields.filter(h => h !== formfield);
+  deleteFormDiv(formdivID: number, formdiv: FormDivDB) {
+    // list of formdivs is truncated of formdiv before the delete
+    this.formdivs = this.formdivs.filter(h => h !== formdiv);
 
-    this.formfieldService.deleteFormField(formfieldID, this.GONG__StackPath).subscribe(
-      formfield => {
-        this.formfieldService.FormFieldServiceChanged.next("delete")
+    this.formdivService.deleteFormDiv(formdivID, this.GONG__StackPath).subscribe(
+      formdiv => {
+        this.formdivService.FormDivServiceChanged.next("delete")
       }
     );
   }
 
-  editFormField(formfieldID: number, formfield: FormFieldDB) {
+  editFormDiv(formdivID: number, formdiv: FormDivDB) {
 
   }
 
   // set editor outlet
-  setEditorRouterOutlet(formfieldID: number) {
+  setEditorRouterOutlet(formdivID: number) {
     let outletName = this.routeService.getEditorOutlet(this.GONG__StackPath)
-    let fullPath = this.routeService.getPathRoot() + "-" + "formfield" + "-detail"
+    let fullPath = this.routeService.getPathRoot() + "-" + "formdiv" + "-detail"
 
     let outletConf: any = {}
-    outletConf[outletName] = [fullPath, formfieldID, this.GONG__StackPath]
+    outletConf[outletName] = [fullPath, formdivID, this.GONG__StackPath]
 
     this.router.navigate([{ outlets: outletConf }])
   }
@@ -291,7 +259,7 @@ export class FormFieldsTableComponent implements OnInit {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.formfields.length;
+    const numRows = this.formdivs.length;
     return numSelected === numRows;
   }
 
@@ -299,39 +267,39 @@ export class FormFieldsTableComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.formfields.forEach(row => this.selection.select(row));
+      this.formdivs.forEach(row => this.selection.select(row));
   }
 
   save() {
 
     if (this.mode == TableComponentMode.ONE_MANY_ASSOCIATION_MODE) {
 
-      let toUpdate = new Set<FormFieldDB>()
+      let toUpdate = new Set<FormDivDB>()
 
-      // reset all initial selection of formfield that belong to formfield
-      for (let formfield of this.initialSelection) {
-        let index = formfield[this.dialogData.ReversePointer as keyof FormFieldDB] as unknown as NullInt64
+      // reset all initial selection of formdiv that belong to formdiv
+      for (let formdiv of this.initialSelection) {
+        let index = formdiv[this.dialogData.ReversePointer as keyof FormDivDB] as unknown as NullInt64
         index.Int64 = 0
         index.Valid = true
-        toUpdate.add(formfield)
+        toUpdate.add(formdiv)
 
       }
 
-      // from selection, set formfield that belong to formfield
-      for (let formfield of this.selection.selected) {
+      // from selection, set formdiv that belong to formdiv
+      for (let formdiv of this.selection.selected) {
         let ID = this.dialogData.ID as number
-        let reversePointer = formfield[this.dialogData.ReversePointer as keyof FormFieldDB] as unknown as NullInt64
+        let reversePointer = formdiv[this.dialogData.ReversePointer as keyof FormDivDB] as unknown as NullInt64
         reversePointer.Int64 = ID
         reversePointer.Valid = true
-        toUpdate.add(formfield)
+        toUpdate.add(formdiv)
       }
 
 
-      // update all formfield (only update selection & initial selection)
-      for (let formfield of toUpdate) {
-        this.formfieldService.updateFormField(formfield, this.GONG__StackPath)
-          .subscribe(formfield => {
-            this.formfieldService.FormFieldServiceChanged.next("update")
+      // update all formdiv (only update selection & initial selection)
+      for (let formdiv of toUpdate) {
+        this.formdivService.updateFormDiv(formdiv, this.GONG__StackPath)
+          .subscribe(formdiv => {
+            this.formdivService.FormDivServiceChanged.next("update")
           });
       }
     }
@@ -339,26 +307,26 @@ export class FormFieldsTableComponent implements OnInit {
     if (this.mode == TableComponentMode.MANY_MANY_ASSOCIATION_MODE) {
 
       // get the source instance via the map of instances in the front repo
-      let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormFieldDB>
+      let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormDivDB>
       let sourceInstance = mapOfSourceInstances.get(this.dialogData.ID)!
 
       // First, parse all instance of the association struct and remove the instance
       // that have unselect
-      let unselectedFormField = new Set<number>()
-      for (let formfield of this.initialSelection) {
-        if (this.selection.selected.includes(formfield)) {
-          // console.log("formfield " + formfield.Name + " is still selected")
+      let unselectedFormDiv = new Set<number>()
+      for (let formdiv of this.initialSelection) {
+        if (this.selection.selected.includes(formdiv)) {
+          // console.log("formdiv " + formdiv.Name + " is still selected")
         } else {
-          console.log("formfield " + formfield.Name + " has been unselected")
-          unselectedFormField.add(formfield.ID)
-          console.log("is unselected " + unselectedFormField.has(formfield.ID))
+          console.log("formdiv " + formdiv.Name + " has been unselected")
+          unselectedFormDiv.add(formdiv.ID)
+          console.log("is unselected " + unselectedFormDiv.has(formdiv.ID))
         }
       }
 
       // delete the association instance
       let associationInstance = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]
-      let formfield = associationInstance![this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormFieldDB
-      if (unselectedFormField.has(formfield.ID)) {
+      let formdiv = associationInstance![this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormDivDB
+      if (unselectedFormDiv.has(formdiv.ID)) {
         this.frontRepoService.deleteService(this.dialogData.IntermediateStruct, associationInstance)
 
 
@@ -366,38 +334,38 @@ export class FormFieldsTableComponent implements OnInit {
 
       // is the source array is empty create it
       if (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] == undefined) {
-        (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] as unknown as Array<FormFieldDB>) = new Array<FormFieldDB>()
+        (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] as unknown as Array<FormDivDB>) = new Array<FormDivDB>()
       }
 
       // second, parse all instance of the selected
       if (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]) {
         this.selection.selected.forEach(
-          formfield => {
-            if (!this.initialSelection.includes(formfield)) {
-              // console.log("formfield " + formfield.Name + " has been added to the selection")
+          formdiv => {
+            if (!this.initialSelection.includes(formdiv)) {
+              // console.log("formdiv " + formdiv.Name + " has been added to the selection")
 
               let associationInstance = {
-                Name: sourceInstance["Name"] + "-" + formfield.Name,
+                Name: sourceInstance["Name"] + "-" + formdiv.Name,
               }
 
               let index = associationInstance[this.dialogData.IntermediateStructField + "ID" as keyof typeof associationInstance] as unknown as NullInt64
-              index.Int64 = formfield.ID
+              index.Int64 = formdiv.ID
               index.Valid = true
 
               let indexDB = associationInstance[this.dialogData.IntermediateStructField + "DBID" as keyof typeof associationInstance] as unknown as NullInt64
-              indexDB.Int64 = formfield.ID
+              indexDB.Int64 = formdiv.ID
               index.Valid = true
 
               this.frontRepoService.postService(this.dialogData.IntermediateStruct, associationInstance)
 
             } else {
-              // console.log("formfield " + formfield.Name + " is still selected")
+              // console.log("formdiv " + formdiv.Name + " is still selected")
             }
           }
         )
       }
 
-      // this.selection = new SelectionModel<FormFieldDB>(allowMultiSelect, this.initialSelection);
+      // this.selection = new SelectionModel<FormDivDB>(allowMultiSelect, this.initialSelection);
     }
 
     // why pizza ?

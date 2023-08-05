@@ -77,7 +77,7 @@ var map_DocLink_Identifier_Table map[string]any = map[string]any{
 
 	"ref_models.Form": &(ref_models.FormGroup{}),
 
-	"ref_models.Form.FormCells": (ref_models.FormGroup{}).FormFields,
+	"ref_models.Form.FormCells": (ref_models.FormGroup{}).FormDivs,
 
 	"ref_models.Form.Name": (ref_models.FormGroup{}).Name,
 

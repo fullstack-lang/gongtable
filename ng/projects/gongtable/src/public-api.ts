@@ -58,6 +58,12 @@ export * from './lib/displayedcolumns-table/displayedcolumns-table.component'
 export * from './lib/displayedcolumn-db'
 export * from './lib/displayedcolumn.service'
 
+export * from './lib/formdiv-detail/formdiv-detail.component'
+export * from './lib/formdiv-sorting/formdiv-sorting.component'
+export * from './lib/formdivs-table/formdivs-table.component'
+export * from './lib/formdiv-db'
+export * from './lib/formdiv.service'
+
 export * from './lib/formfield-detail/formfield-detail.component'
 export * from './lib/formfield-sorting/formfield-sorting.component'
 export * from './lib/formfields-table/formfields-table.component'

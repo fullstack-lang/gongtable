@@ -25,6 +25,9 @@ import { CellStringService } from './cellstring.service'
 import { DisplayedColumnDB } from './displayedcolumn-db'
 import { DisplayedColumnService } from './displayedcolumn.service'
 
+import { FormDivDB } from './formdiv-db'
+import { FormDivService } from './formdiv.service'
+
 import { FormFieldDB } from './formfield-db'
 import { FormFieldService } from './formfield.service'
 
@@ -73,6 +76,9 @@ export class FrontRepo { // insertion point sub template
   DisplayedColumns_array = new Array<DisplayedColumnDB>(); // array of repo instances
   DisplayedColumns = new Map<number, DisplayedColumnDB>(); // map of repo instances
   DisplayedColumns_batch = new Map<number, DisplayedColumnDB>(); // same but only in last GET (for finding repo instances to delete)
+  FormDivs_array = new Array<FormDivDB>(); // array of repo instances
+  FormDivs = new Map<number, FormDivDB>(); // map of repo instances
+  FormDivs_batch = new Map<number, FormDivDB>(); // same but only in last GET (for finding repo instances to delete)
   FormFields_array = new Array<FormFieldDB>(); // array of repo instances
   FormFields = new Map<number, FormFieldDB>(); // map of repo instances
   FormFields_batch = new Map<number, FormFieldDB>(); // same but only in last GET (for finding repo instances to delete)
@@ -166,6 +172,7 @@ export class FrontRepoService {
     private cellintService: CellIntService,
     private cellstringService: CellStringService,
     private displayedcolumnService: DisplayedColumnService,
+    private formdivService: FormDivService,
     private formfieldService: FormFieldService,
     private formfieldbooleanService: FormFieldBooleanService,
     private formfieldfloat64Service: FormFieldFloat64Service,
@@ -211,6 +218,7 @@ export class FrontRepoService {
     Observable<CellIntDB[]>,
     Observable<CellStringDB[]>,
     Observable<DisplayedColumnDB[]>,
+    Observable<FormDivDB[]>,
     Observable<FormFieldDB[]>,
     Observable<FormFieldBooleanDB[]>,
     Observable<FormFieldFloat64DB[]>,
@@ -227,6 +235,7 @@ export class FrontRepoService {
       this.cellintService.getCellInts(this.GONG__StackPath),
       this.cellstringService.getCellStrings(this.GONG__StackPath),
       this.displayedcolumnService.getDisplayedColumns(this.GONG__StackPath),
+      this.formdivService.getFormDivs(this.GONG__StackPath),
       this.formfieldService.getFormFields(this.GONG__StackPath),
       this.formfieldbooleanService.getFormFieldBooleans(this.GONG__StackPath),
       this.formfieldfloat64Service.getFormFieldFloat64s(this.GONG__StackPath),
@@ -255,6 +264,7 @@ export class FrontRepoService {
       this.cellintService.getCellInts(this.GONG__StackPath),
       this.cellstringService.getCellStrings(this.GONG__StackPath),
       this.displayedcolumnService.getDisplayedColumns(this.GONG__StackPath),
+      this.formdivService.getFormDivs(this.GONG__StackPath),
       this.formfieldService.getFormFields(this.GONG__StackPath),
       this.formfieldbooleanService.getFormFieldBooleans(this.GONG__StackPath),
       this.formfieldfloat64Service.getFormFieldFloat64s(this.GONG__StackPath),
@@ -278,6 +288,7 @@ export class FrontRepoService {
             cellints_,
             cellstrings_,
             displayedcolumns_,
+            formdivs_,
             formfields_,
             formfieldbooleans_,
             formfieldfloat64s_,
@@ -303,6 +314,8 @@ export class FrontRepoService {
             cellstrings = cellstrings_ as CellStringDB[]
             var displayedcolumns: DisplayedColumnDB[]
             displayedcolumns = displayedcolumns_ as DisplayedColumnDB[]
+            var formdivs: FormDivDB[]
+            formdivs = formdivs_ as FormDivDB[]
             var formfields: FormFieldDB[]
             formfields = formfields_ as FormFieldDB[]
             var formfieldbooleans: FormFieldBooleanDB[]
@@ -545,6 +558,39 @@ export class FrontRepoService {
 
             // sort DisplayedColumns_array array
             this.frontRepo.DisplayedColumns_array.sort((t1, t2) => {
+              if (t1.Name > t2.Name) {
+                return 1;
+              }
+              if (t1.Name < t2.Name) {
+                return -1;
+              }
+              return 0;
+            });
+
+            // init the array
+            this.frontRepo.FormDivs_array = formdivs
+
+            // clear the map that counts FormDiv in the GET
+            this.frontRepo.FormDivs_batch.clear()
+
+            formdivs.forEach(
+              formdiv => {
+                this.frontRepo.FormDivs.set(formdiv.ID, formdiv)
+                this.frontRepo.FormDivs_batch.set(formdiv.ID, formdiv)
+              }
+            )
+
+            // clear formdivs that are absent from the batch
+            this.frontRepo.FormDivs.forEach(
+              formdiv => {
+                if (this.frontRepo.FormDivs_batch.get(formdiv.ID) == undefined) {
+                  this.frontRepo.FormDivs.delete(formdiv.ID)
+                }
+              }
+            )
+
+            // sort FormDivs_array array
+            this.frontRepo.FormDivs_array.sort((t1, t2) => {
               if (t1.Name > t2.Name) {
                 return 1;
               }
@@ -932,6 +978,26 @@ export class FrontRepoService {
                 }
               }
             )
+            formdivs.forEach(
+              formdiv => {
+                // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
+
+                // insertion point for redeeming ONE-MANY associations
+                // insertion point for slice of pointer field FormGroup.FormDivs redeeming
+                {
+                  let _formgroup = this.frontRepo.FormGroups.get(formdiv.FormGroup_FormDivsDBID.Int64)
+                  if (_formgroup) {
+                    if (_formgroup.FormDivs == undefined) {
+                      _formgroup.FormDivs = new Array<FormDivDB>()
+                    }
+                    _formgroup.FormDivs.push(formdiv)
+                    if (formdiv.FormGroup_FormDivs_reverse == undefined) {
+                      formdiv.FormGroup_FormDivs_reverse = _formgroup
+                    }
+                  }
+                }
+              }
+            )
             formfields.forEach(
               formfield => {
                 // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
@@ -965,16 +1031,16 @@ export class FrontRepoService {
                 }
 
                 // insertion point for redeeming ONE-MANY associations
-                // insertion point for slice of pointer field FormGroup.FormFields redeeming
+                // insertion point for slice of pointer field FormDiv.FormFields redeeming
                 {
-                  let _formgroup = this.frontRepo.FormGroups.get(formfield.FormGroup_FormFieldsDBID.Int64)
-                  if (_formgroup) {
-                    if (_formgroup.FormFields == undefined) {
-                      _formgroup.FormFields = new Array<FormFieldDB>()
+                  let _formdiv = this.frontRepo.FormDivs.get(formfield.FormDiv_FormFieldsDBID.Int64)
+                  if (_formdiv) {
+                    if (_formdiv.FormFields == undefined) {
+                      _formdiv.FormFields = new Array<FormFieldDB>()
                     }
-                    _formgroup.FormFields.push(formfield)
-                    if (formfield.FormGroup_FormFields_reverse == undefined) {
-                      formfield.FormGroup_FormFields_reverse = _formgroup
+                    _formdiv.FormFields.push(formfield)
+                    if (formfield.FormDiv_FormFields_reverse == undefined) {
+                      formfield.FormDiv_FormFields_reverse = _formdiv
                     }
                   }
                 }
@@ -1471,6 +1537,70 @@ export class FrontRepoService {
     )
   }
 
+  // FormDivPull performs a GET on FormDiv of the stack and redeem association pointers 
+  FormDivPull(): Observable<FrontRepo> {
+    return new Observable<FrontRepo>(
+      (observer) => {
+        combineLatest([
+          this.formdivService.getFormDivs(this.GONG__StackPath)
+        ]).subscribe(
+          ([ // insertion point sub template 
+            formdivs,
+          ]) => {
+            // init the array
+            this.frontRepo.FormDivs_array = formdivs
+
+            // clear the map that counts FormDiv in the GET
+            this.frontRepo.FormDivs_batch.clear()
+
+            // 
+            // First Step: init map of instances
+            // insertion point sub template 
+            formdivs.forEach(
+              formdiv => {
+                this.frontRepo.FormDivs.set(formdiv.ID, formdiv)
+                this.frontRepo.FormDivs_batch.set(formdiv.ID, formdiv)
+
+                // insertion point for redeeming ONE/ZERO-ONE associations
+
+                // insertion point for redeeming ONE-MANY associations
+                // insertion point for slice of pointer field FormGroup.FormDivs redeeming
+                {
+                  let _formgroup = this.frontRepo.FormGroups.get(formdiv.FormGroup_FormDivsDBID.Int64)
+                  if (_formgroup) {
+                    if (_formgroup.FormDivs == undefined) {
+                      _formgroup.FormDivs = new Array<FormDivDB>()
+                    }
+                    _formgroup.FormDivs.push(formdiv)
+                    if (formdiv.FormGroup_FormDivs_reverse == undefined) {
+                      formdiv.FormGroup_FormDivs_reverse = _formgroup
+                    }
+                  }
+                }
+              }
+            )
+
+            // clear formdivs that are absent from the GET
+            this.frontRepo.FormDivs.forEach(
+              formdiv => {
+                if (this.frontRepo.FormDivs_batch.get(formdiv.ID) == undefined) {
+                  this.frontRepo.FormDivs.delete(formdiv.ID)
+                }
+              }
+            )
+
+            // 
+            // Second Step: redeem pointers between instances (thanks to maps in the First Step)
+            // insertion point sub template 
+
+            // hand over control flow to observer
+            observer.next(this.frontRepo)
+          }
+        )
+      }
+    )
+  }
+
   // FormFieldPull performs a GET on FormField of the stack and redeem association pointers 
   FormFieldPull(): Observable<FrontRepo> {
     return new Observable<FrontRepo>(
@@ -1526,16 +1656,16 @@ export class FrontRepoService {
                 }
 
                 // insertion point for redeeming ONE-MANY associations
-                // insertion point for slice of pointer field FormGroup.FormFields redeeming
+                // insertion point for slice of pointer field FormDiv.FormFields redeeming
                 {
-                  let _formgroup = this.frontRepo.FormGroups.get(formfield.FormGroup_FormFieldsDBID.Int64)
-                  if (_formgroup) {
-                    if (_formgroup.FormFields == undefined) {
-                      _formgroup.FormFields = new Array<FormFieldDB>()
+                  let _formdiv = this.frontRepo.FormDivs.get(formfield.FormDiv_FormFieldsDBID.Int64)
+                  if (_formdiv) {
+                    if (_formdiv.FormFields == undefined) {
+                      _formdiv.FormFields = new Array<FormFieldDB>()
                     }
-                    _formgroup.FormFields.push(formfield)
-                    if (formfield.FormGroup_FormFields_reverse == undefined) {
-                      formfield.FormGroup_FormFields_reverse = _formgroup
+                    _formdiv.FormFields.push(formfield)
+                    if (formfield.FormDiv_FormFields_reverse == undefined) {
+                      formfield.FormDiv_FormFields_reverse = _formdiv
                     }
                   }
                 }
@@ -1956,27 +2086,30 @@ export function getCellStringUniqueID(id: number): number {
 export function getDisplayedColumnUniqueID(id: number): number {
   return 59 * id
 }
-export function getFormFieldUniqueID(id: number): number {
+export function getFormDivUniqueID(id: number): number {
   return 61 * id
 }
-export function getFormFieldBooleanUniqueID(id: number): number {
+export function getFormFieldUniqueID(id: number): number {
   return 67 * id
 }
-export function getFormFieldFloat64UniqueID(id: number): number {
+export function getFormFieldBooleanUniqueID(id: number): number {
   return 71 * id
 }
-export function getFormFieldIntUniqueID(id: number): number {
+export function getFormFieldFloat64UniqueID(id: number): number {
   return 73 * id
 }
-export function getFormFieldStringUniqueID(id: number): number {
+export function getFormFieldIntUniqueID(id: number): number {
   return 79 * id
 }
-export function getFormGroupUniqueID(id: number): number {
+export function getFormFieldStringUniqueID(id: number): number {
   return 83 * id
 }
-export function getRowUniqueID(id: number): number {
+export function getFormGroupUniqueID(id: number): number {
   return 89 * id
 }
-export function getTableUniqueID(id: number): number {
+export function getRowUniqueID(id: number): number {
   return 97 * id
+}
+export function getTableUniqueID(id: number): number {
+  return 101 * id
 }

@@ -2,15 +2,15 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 
-import { FormFieldDB } from '../formfield-db'
-import { FormFieldService } from '../formfield.service'
+import { FormDivDB } from '../formdiv-db'
+import { FormDivService } from '../formdiv.service'
 
 import { FrontRepoService, FrontRepo, SelectionMode, DialogData } from '../front-repo.service'
 import { MapOfComponents } from '../map-components'
 import { MapOfSortingComponents } from '../map-components'
 
 // insertion point for imports
-import { FormDivDB } from '../formdiv-db'
+import { FormGroupDB } from '../formgroup-db'
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -18,26 +18,26 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angu
 
 import { NullInt64 } from '../null-int64'
 
-// FormFieldDetailComponent is initilizaed from different routes
-// FormFieldDetailComponentState detail different cases 
-enum FormFieldDetailComponentState {
+// FormDivDetailComponent is initilizaed from different routes
+// FormDivDetailComponentState detail different cases 
+enum FormDivDetailComponentState {
 	CREATE_INSTANCE,
 	UPDATE_INSTANCE,
 	// insertion point for declarations of enum values of state
-	CREATE_INSTANCE_WITH_ASSOCIATION_FormDiv_FormFields_SET,
+	CREATE_INSTANCE_WITH_ASSOCIATION_FormGroup_FormDivs_SET,
 }
 
 @Component({
-	selector: 'app-formfield-detail',
-	templateUrl: './formfield-detail.component.html',
-	styleUrls: ['./formfield-detail.component.css'],
+	selector: 'app-formdiv-detail',
+	templateUrl: './formdiv-detail.component.html',
+	styleUrls: ['./formdiv-detail.component.css'],
 })
-export class FormFieldDetailComponent implements OnInit {
+export class FormDivDetailComponent implements OnInit {
 
 	// insertion point for declarations
 
-	// the FormFieldDB of interest
-	formfield: FormFieldDB = new FormFieldDB
+	// the FormDivDB of interest
+	formdiv: FormDivDB = new FormDivDB
 
 	// front repo
 	frontRepo: FrontRepo = new FrontRepo
@@ -48,7 +48,7 @@ export class FormFieldDetailComponent implements OnInit {
 	mapFields_displayAsTextArea = new Map<string, boolean>()
 
 	// the state at initialization (CREATION, UPDATE or CREATE with one association set)
-	state: FormFieldDetailComponentState = FormFieldDetailComponentState.CREATE_INSTANCE
+	state: FormDivDetailComponentState = FormDivDetailComponentState.CREATE_INSTANCE
 
 	// in UDPATE state, if is the id of the instance to update
 	// in CREATE state with one association set, this is the id of the associated instance
@@ -61,7 +61,7 @@ export class FormFieldDetailComponent implements OnInit {
 	GONG__StackPath: string = ""
 
 	constructor(
-		private formfieldService: FormFieldService,
+		private formdivService: FormDivService,
 		private frontRepoService: FrontRepoService,
 		public dialog: MatDialog,
 		private activatedRoute: ActivatedRoute,
@@ -87,16 +87,16 @@ export class FormFieldDetailComponent implements OnInit {
 
 		const association = this.activatedRoute.snapshot.paramMap.get('association');
 		if (this.id == 0) {
-			this.state = FormFieldDetailComponentState.CREATE_INSTANCE
+			this.state = FormDivDetailComponentState.CREATE_INSTANCE
 		} else {
 			if (this.originStruct == undefined) {
-				this.state = FormFieldDetailComponentState.UPDATE_INSTANCE
+				this.state = FormDivDetailComponentState.UPDATE_INSTANCE
 			} else {
 				switch (this.originStructFieldName) {
 					// insertion point for state computation
-					case "FormFields":
-						// console.log("FormField" + " is instanciated with back pointer to instance " + this.id + " FormDiv association FormFields")
-						this.state = FormFieldDetailComponentState.CREATE_INSTANCE_WITH_ASSOCIATION_FormDiv_FormFields_SET
+					case "FormDivs":
+						// console.log("FormDiv" + " is instanciated with back pointer to instance " + this.id + " FormGroup association FormDivs")
+						this.state = FormDivDetailComponentState.CREATE_INSTANCE_WITH_ASSOCIATION_FormGroup_FormDivs_SET
 						break;
 					default:
 						console.log(this.originStructFieldName + " is unkown association")
@@ -104,13 +104,13 @@ export class FormFieldDetailComponent implements OnInit {
 			}
 		}
 
-		this.getFormField()
+		this.getFormDiv()
 
 		// observable for changes in structs
-		this.formfieldService.FormFieldServiceChanged.subscribe(
+		this.formdivService.FormDivServiceChanged.subscribe(
 			message => {
 				if (message == "post" || message == "update" || message == "delete") {
-					this.getFormField()
+					this.getFormDiv()
 				}
 			}
 		)
@@ -118,25 +118,25 @@ export class FormFieldDetailComponent implements OnInit {
 		// insertion point for initialisation of enums list
 	}
 
-	getFormField(): void {
+	getFormDiv(): void {
 
 		this.frontRepoService.pull(this.GONG__StackPath).subscribe(
 			frontRepo => {
 				this.frontRepo = frontRepo
 
 				switch (this.state) {
-					case FormFieldDetailComponentState.CREATE_INSTANCE:
-						this.formfield = new (FormFieldDB)
+					case FormDivDetailComponentState.CREATE_INSTANCE:
+						this.formdiv = new (FormDivDB)
 						break;
-					case FormFieldDetailComponentState.UPDATE_INSTANCE:
-						let formfield = frontRepo.FormFields.get(this.id)
-						console.assert(formfield != undefined, "missing formfield with id:" + this.id)
-						this.formfield = formfield!
+					case FormDivDetailComponentState.UPDATE_INSTANCE:
+						let formdiv = frontRepo.FormDivs.get(this.id)
+						console.assert(formdiv != undefined, "missing formdiv with id:" + this.id)
+						this.formdiv = formdiv!
 						break;
 					// insertion point for init of association field
-					case FormFieldDetailComponentState.CREATE_INSTANCE_WITH_ASSOCIATION_FormDiv_FormFields_SET:
-						this.formfield = new (FormFieldDB)
-						this.formfield.FormDiv_FormFields_reverse = frontRepo.FormDivs.get(this.id)!
+					case FormDivDetailComponentState.CREATE_INSTANCE_WITH_ASSOCIATION_FormGroup_FormDivs_SET:
+						this.formdiv = new (FormDivDB)
+						this.formdiv.FormGroup_FormDivs_reverse = frontRepo.FormGroups.get(this.id)!
 						break;
 					default:
 						console.log(this.state + " is unkown state")
@@ -155,74 +155,34 @@ export class FormFieldDetailComponent implements OnInit {
 		// pointers fields, after the translation, are nulled in order to perform serialization
 
 		// insertion point for translation/nullation of each field
-		if (this.formfield.FormFieldStringID == undefined) {
-			this.formfield.FormFieldStringID = new NullInt64
-		}
-		if (this.formfield.FormFieldString != undefined) {
-			this.formfield.FormFieldStringID.Int64 = this.formfield.FormFieldString.ID
-			this.formfield.FormFieldStringID.Valid = true
-		} else {
-			this.formfield.FormFieldStringID.Int64 = 0
-			this.formfield.FormFieldStringID.Valid = true
-		}
-		if (this.formfield.FormFieldFloat64ID == undefined) {
-			this.formfield.FormFieldFloat64ID = new NullInt64
-		}
-		if (this.formfield.FormFieldFloat64 != undefined) {
-			this.formfield.FormFieldFloat64ID.Int64 = this.formfield.FormFieldFloat64.ID
-			this.formfield.FormFieldFloat64ID.Valid = true
-		} else {
-			this.formfield.FormFieldFloat64ID.Int64 = 0
-			this.formfield.FormFieldFloat64ID.Valid = true
-		}
-		if (this.formfield.FormFieldIntID == undefined) {
-			this.formfield.FormFieldIntID = new NullInt64
-		}
-		if (this.formfield.FormFieldInt != undefined) {
-			this.formfield.FormFieldIntID.Int64 = this.formfield.FormFieldInt.ID
-			this.formfield.FormFieldIntID.Valid = true
-		} else {
-			this.formfield.FormFieldIntID.Int64 = 0
-			this.formfield.FormFieldIntID.Valid = true
-		}
-		if (this.formfield.FormFieldBoolID == undefined) {
-			this.formfield.FormFieldBoolID = new NullInt64
-		}
-		if (this.formfield.FormFieldBool != undefined) {
-			this.formfield.FormFieldBoolID.Int64 = this.formfield.FormFieldBool.ID
-			this.formfield.FormFieldBoolID.Valid = true
-		} else {
-			this.formfield.FormFieldBoolID.Int64 = 0
-			this.formfield.FormFieldBoolID.Valid = true
-		}
 
 		// save from the front pointer space to the non pointer space for serialization
 
 		// insertion point for translation/nullation of each pointers
-		if (this.formfield.FormDiv_FormFields_reverse != undefined) {
-			if (this.formfield.FormDiv_FormFieldsDBID == undefined) {
-				this.formfield.FormDiv_FormFieldsDBID = new NullInt64
+		if (this.formdiv.FormGroup_FormDivs_reverse != undefined) {
+			if (this.formdiv.FormGroup_FormDivsDBID == undefined) {
+				this.formdiv.FormGroup_FormDivsDBID = new NullInt64
 			}
-			this.formfield.FormDiv_FormFieldsDBID.Int64 = this.formfield.FormDiv_FormFields_reverse.ID
-			this.formfield.FormDiv_FormFieldsDBID.Valid = true
-			if (this.formfield.FormDiv_FormFieldsDBID_Index == undefined) {
-				this.formfield.FormDiv_FormFieldsDBID_Index = new NullInt64
+			this.formdiv.FormGroup_FormDivsDBID.Int64 = this.formdiv.FormGroup_FormDivs_reverse.ID
+			this.formdiv.FormGroup_FormDivsDBID.Valid = true
+			if (this.formdiv.FormGroup_FormDivsDBID_Index == undefined) {
+				this.formdiv.FormGroup_FormDivsDBID_Index = new NullInt64
 			}
-			this.formfield.FormDiv_FormFieldsDBID_Index.Valid = true
-			this.formfield.FormDiv_FormFields_reverse = new FormDivDB // very important, otherwise, circular JSON
+			this.formdiv.FormGroup_FormDivsDBID_Index.Valid = true
+			this.formdiv.FormGroup_FormDivs_reverse = new FormGroupDB // very important, otherwise, circular JSON
 		}
 
 		switch (this.state) {
-			case FormFieldDetailComponentState.UPDATE_INSTANCE:
-				this.formfieldService.updateFormField(this.formfield, this.GONG__StackPath)
-					.subscribe(formfield => {
-						this.formfieldService.FormFieldServiceChanged.next("update")
+			case FormDivDetailComponentState.UPDATE_INSTANCE:
+				this.formdivService.updateFormDiv(this.formdiv, this.GONG__StackPath)
+					.subscribe(formdiv => {
+						this.formdivService.FormDivServiceChanged.next("update")
 					});
 				break;
 			default:
-				this.formfieldService.postFormField(this.formfield, this.GONG__StackPath).subscribe(formfield => {
-					this.formfieldService.FormFieldServiceChanged.next("post")
-					this.formfield = new (FormFieldDB) // reset fields
+				this.formdivService.postFormDiv(this.formdiv, this.GONG__StackPath).subscribe(formdiv => {
+					this.formdivService.FormDivServiceChanged.next("post")
+					this.formdiv = new (FormDivDB) // reset fields
 				});
 		}
 	}
@@ -245,7 +205,7 @@ export class FormFieldDetailComponent implements OnInit {
 		dialogConfig.height = "50%"
 		if (selectionMode == SelectionMode.ONE_MANY_ASSOCIATION_MODE) {
 
-			dialogData.ID = this.formfield.ID!
+			dialogData.ID = this.formdiv.ID!
 			dialogData.ReversePointer = reverseField
 			dialogData.OrderingMode = false
 			dialogData.SelectionMode = selectionMode
@@ -262,14 +222,14 @@ export class FormFieldDetailComponent implements OnInit {
 			});
 		}
 		if (selectionMode == SelectionMode.MANY_MANY_ASSOCIATION_MODE) {
-			dialogData.ID = this.formfield.ID!
+			dialogData.ID = this.formdiv.ID!
 			dialogData.ReversePointer = reverseField
 			dialogData.OrderingMode = false
 			dialogData.SelectionMode = selectionMode
 			dialogData.GONG__StackPath = this.GONG__StackPath
 
 			// set up the source
-			dialogData.SourceStruct = "FormField"
+			dialogData.SourceStruct = "FormDiv"
 			dialogData.SourceField = sourceField
 
 			// set up the intermediate struct
@@ -299,7 +259,7 @@ export class FormFieldDetailComponent implements OnInit {
 		// dialogConfig.disableClose = true;
 		dialogConfig.autoFocus = true;
 		dialogConfig.data = {
-			ID: this.formfield.ID,
+			ID: this.formdiv.ID,
 			ReversePointer: reverseField,
 			OrderingMode: true,
 			GONG__StackPath: this.GONG__StackPath,
@@ -316,8 +276,8 @@ export class FormFieldDetailComponent implements OnInit {
 	}
 
 	fillUpNameIfEmpty(event: { value: { Name: string; }; }) {
-		if (this.formfield.Name == "") {
-			this.formfield.Name = event.value.Name
+		if (this.formdiv.Name == "") {
+			this.formdiv.Name = event.value.Name
 		}
 	}
 

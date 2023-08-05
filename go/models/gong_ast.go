@@ -310,6 +310,7 @@ var __gong__map_CellIcon = make(map[string]*CellIcon)
 var __gong__map_CellInt = make(map[string]*CellInt)
 var __gong__map_CellString = make(map[string]*CellString)
 var __gong__map_DisplayedColumn = make(map[string]*DisplayedColumn)
+var __gong__map_FormDiv = make(map[string]*FormDiv)
 var __gong__map_FormField = make(map[string]*FormField)
 var __gong__map_FormFieldBoolean = make(map[string]*FormFieldBoolean)
 var __gong__map_FormFieldFloat64 = make(map[string]*FormFieldFloat64)
@@ -518,6 +519,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 										instanceDisplayedColumn := (&DisplayedColumn{Name: instanceName}).Stage(stage)
 										instance = any(instanceDisplayedColumn)
 										__gong__map_DisplayedColumn[identifier] = instanceDisplayedColumn
+									case "FormDiv":
+										instanceFormDiv := (&FormDiv{Name: instanceName}).Stage(stage)
+										instance = any(instanceFormDiv)
+										__gong__map_FormDiv[identifier] = instanceFormDiv
 									case "FormField":
 										instanceFormField := (&FormField{Name: instanceName}).Stage(stage)
 										instance = any(instanceFormField)
@@ -614,6 +619,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 							switch fieldName {
 							// insertion point for date assign code
 							}
+						case "FormDiv":
+							switch fieldName {
+							// insertion point for date assign code
+							}
 						case "FormField":
 							switch fieldName {
 							// insertion point for date assign code
@@ -699,6 +708,16 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 						switch fieldName {
 						// insertion point for slice of pointers assign code
 						}
+					case "FormDiv":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						case "FormFields":
+							// remove first and last char
+							targetIdentifier := ident.Name
+							target := __gong__map_FormField[targetIdentifier]
+							__gong__map_FormDiv[identifier].FormFields =
+								append(__gong__map_FormDiv[identifier].FormFields, target)
+						}
 					case "FormField":
 						switch fieldName {
 						// insertion point for slice of pointers assign code
@@ -722,12 +741,12 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					case "FormGroup":
 						switch fieldName {
 						// insertion point for slice of pointers assign code
-						case "FormFields":
+						case "FormDivs":
 							// remove first and last char
 							targetIdentifier := ident.Name
-							target := __gong__map_FormField[targetIdentifier]
-							__gong__map_FormGroup[identifier].FormFields =
-								append(__gong__map_FormGroup[identifier].FormFields, target)
+							target := __gong__map_FormDiv[targetIdentifier]
+							__gong__map_FormGroup[identifier].FormDivs =
+								append(__gong__map_FormGroup[identifier].FormDivs, target)
 						}
 					case "Row":
 						switch fieldName {
@@ -882,6 +901,14 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_DisplayedColumn[identifier].Name = fielValue
 				}
+			case "FormDiv":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormDiv[identifier].Name = fielValue
+				}
 			case "FormField":
 				switch fieldName {
 				// insertion point for field dependant code
@@ -1025,6 +1052,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				// insertion point for field dependant code
 				}
 			case "DisplayedColumn":
+				switch fieldName {
+				// insertion point for field dependant code
+				}
+			case "FormDiv":
 				switch fieldName {
 				// insertion point for field dependant code
 				}
@@ -1181,6 +1212,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// insertion point for enum assign code
 					}
 				case "DisplayedColumn":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "FormDiv":
 					switch fieldName {
 					// insertion point for enum assign code
 					}

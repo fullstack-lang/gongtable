@@ -25,6 +25,8 @@ import { CellStringService } from '../cellstring.service'
 import { getCellStringUniqueID } from '../front-repo.service'
 import { DisplayedColumnService } from '../displayedcolumn.service'
 import { getDisplayedColumnUniqueID } from '../front-repo.service'
+import { FormDivService } from '../formdiv.service'
+import { getFormDivUniqueID } from '../front-repo.service'
 import { FormFieldService } from '../formfield.service'
 import { getFormFieldUniqueID } from '../front-repo.service'
 import { FormFieldBooleanService } from '../formfieldboolean.service'
@@ -193,6 +195,7 @@ export class SidebarComponent implements OnInit {
     private cellintService: CellIntService,
     private cellstringService: CellStringService,
     private displayedcolumnService: DisplayedColumnService,
+    private formdivService: FormDivService,
     private formfieldService: FormFieldService,
     private formfieldbooleanService: FormFieldBooleanService,
     private formfieldfloat64Service: FormFieldFloat64Service,
@@ -286,6 +289,14 @@ export class SidebarComponent implements OnInit {
     )
     // observable for changes in structs
     this.displayedcolumnService.DisplayedColumnServiceChanged.subscribe(
+      message => {
+        if (message == "post" || message == "update" || message == "delete") {
+          this.refresh()
+        }
+      }
+    )
+    // observable for changes in structs
+    this.formdivService.FormDivServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
           this.refresh()
@@ -864,6 +875,82 @@ export class SidebarComponent implements OnInit {
       )
 
       /**
+      * fill up the FormDiv part of the mat tree
+      */
+      let formdivGongNodeStruct: GongNode = {
+        name: "FormDiv",
+        type: GongNodeType.STRUCT,
+        id: 0,
+        uniqueIdPerStack: 13 * nonInstanceNodeId,
+        structName: "FormDiv",
+        associationField: "",
+        associatedStructName: "",
+        children: new Array<GongNode>()
+      }
+      nonInstanceNodeId = nonInstanceNodeId + 1
+      this.gongNodeTree.push(formdivGongNodeStruct)
+
+      this.frontRepo.FormDivs_array.sort((t1, t2) => {
+        if (t1.Name > t2.Name) {
+          return 1;
+        }
+        if (t1.Name < t2.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      this.frontRepo.FormDivs_array.forEach(
+        formdivDB => {
+          let formdivGongNodeInstance: GongNode = {
+            name: formdivDB.Name,
+            type: GongNodeType.INSTANCE,
+            id: formdivDB.ID,
+            uniqueIdPerStack: getFormDivUniqueID(formdivDB.ID),
+            structName: "FormDiv",
+            associationField: "",
+            associatedStructName: "",
+            children: new Array<GongNode>()
+          }
+          formdivGongNodeStruct.children!.push(formdivGongNodeInstance)
+
+          // insertion point for per field code
+          /**
+          * let append a node for the slide of pointer FormFields
+          */
+          let FormFieldsGongNodeAssociation: GongNode = {
+            name: "(FormField) FormFields",
+            type: GongNodeType.ONE__ZERO_MANY_ASSOCIATION,
+            id: formdivDB.ID,
+            uniqueIdPerStack: 19 * nonInstanceNodeId,
+            structName: "FormDiv",
+            associationField: "FormFields",
+            associatedStructName: "FormField",
+            children: new Array<GongNode>()
+          }
+          nonInstanceNodeId = nonInstanceNodeId + 1
+          formdivGongNodeInstance.children.push(FormFieldsGongNodeAssociation)
+
+          formdivDB.FormFields?.forEach(formfieldDB => {
+            let formfieldNode: GongNode = {
+              name: formfieldDB.Name,
+              type: GongNodeType.INSTANCE,
+              id: formfieldDB.ID,
+              uniqueIdPerStack: // godel numbering (thank you kurt)
+                7 * getFormDivUniqueID(formdivDB.ID)
+                + 11 * getFormFieldUniqueID(formfieldDB.ID),
+              structName: "FormField",
+              associationField: "",
+              associatedStructName: "",
+              children: new Array<GongNode>()
+            }
+            FormFieldsGongNodeAssociation.children.push(formfieldNode)
+          })
+
+        }
+      )
+
+      /**
       * fill up the FormField part of the mat tree
       */
       let formfieldGongNodeStruct: GongNode = {
@@ -1265,35 +1352,35 @@ export class SidebarComponent implements OnInit {
 
           // insertion point for per field code
           /**
-          * let append a node for the slide of pointer FormFields
+          * let append a node for the slide of pointer FormDivs
           */
-          let FormFieldsGongNodeAssociation: GongNode = {
-            name: "(FormField) FormFields",
+          let FormDivsGongNodeAssociation: GongNode = {
+            name: "(FormDiv) FormDivs",
             type: GongNodeType.ONE__ZERO_MANY_ASSOCIATION,
             id: formgroupDB.ID,
             uniqueIdPerStack: 19 * nonInstanceNodeId,
             structName: "FormGroup",
-            associationField: "FormFields",
-            associatedStructName: "FormField",
+            associationField: "FormDivs",
+            associatedStructName: "FormDiv",
             children: new Array<GongNode>()
           }
           nonInstanceNodeId = nonInstanceNodeId + 1
-          formgroupGongNodeInstance.children.push(FormFieldsGongNodeAssociation)
+          formgroupGongNodeInstance.children.push(FormDivsGongNodeAssociation)
 
-          formgroupDB.FormFields?.forEach(formfieldDB => {
-            let formfieldNode: GongNode = {
-              name: formfieldDB.Name,
+          formgroupDB.FormDivs?.forEach(formdivDB => {
+            let formdivNode: GongNode = {
+              name: formdivDB.Name,
               type: GongNodeType.INSTANCE,
-              id: formfieldDB.ID,
+              id: formdivDB.ID,
               uniqueIdPerStack: // godel numbering (thank you kurt)
                 7 * getFormGroupUniqueID(formgroupDB.ID)
-                + 11 * getFormFieldUniqueID(formfieldDB.ID),
-              structName: "FormField",
+                + 11 * getFormDivUniqueID(formdivDB.ID),
+              structName: "FormDiv",
               associationField: "",
               associatedStructName: "",
               children: new Array<GongNode>()
             }
-            FormFieldsGongNodeAssociation.children.push(formfieldNode)
+            FormDivsGongNodeAssociation.children.push(formdivNode)
           })
 
         }

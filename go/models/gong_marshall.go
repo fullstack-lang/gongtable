@@ -364,6 +364,38 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 
 	}
 
+	map_FormDiv_Identifiers := make(map[*FormDiv]string)
+	_ = map_FormDiv_Identifiers
+
+	formdivOrdered := []*FormDiv{}
+	for formdiv := range stage.FormDivs {
+		formdivOrdered = append(formdivOrdered, formdiv)
+	}
+	sort.Slice(formdivOrdered[:], func(i, j int) bool {
+		return formdivOrdered[i].Name < formdivOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of FormDiv"
+	for idx, formdiv := range formdivOrdered {
+
+		id = generatesIdentifier("FormDiv", idx, formdiv.Name)
+		map_FormDiv_Identifiers[formdiv] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "FormDiv")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", formdiv.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// FormDiv values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formdiv.Name))
+		initializerStatements += setValueField
+
+	}
+
 	map_FormField_Identifiers := make(map[*FormField]string)
 	_ = map_FormField_Identifiers
 
@@ -797,6 +829,24 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 		// Initialisation of values
 	}
 
+	for idx, formdiv := range formdivOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("FormDiv", idx, formdiv.Name)
+		map_FormDiv_Identifiers[formdiv] = id
+
+		// Initialisation of values
+		for _, _formfield := range formdiv.FormFields {
+			setPointerField = SliceOfPointersFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormFields")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormField_Identifiers[_formfield])
+			pointersInitializesStatements += setPointerField
+		}
+
+	}
+
 	for idx, formfield := range formfieldOrdered {
 		var setPointerField string
 		_ = setPointerField
@@ -887,11 +937,11 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 		map_FormGroup_Identifiers[formgroup] = id
 
 		// Initialisation of values
-		for _, _formfield := range formgroup.FormFields {
+		for _, _formdiv := range formgroup.FormDivs {
 			setPointerField = SliceOfPointersFieldInitStatement
 			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
-			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormFields")
-			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormField_Identifiers[_formfield])
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormDivs")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormDiv_Identifiers[_formdiv])
 			pointersInitializesStatements += setPointerField
 		}
 

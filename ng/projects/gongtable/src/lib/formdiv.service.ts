@@ -11,20 +11,21 @@ import { BehaviorSubject } from 'rxjs';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { FormGroupDB } from './formgroup-db';
+import { FormDivDB } from './formdiv-db';
 
 // insertion point for imports
+import { FormGroupDB } from './formgroup-db'
 
 @Injectable({
   providedIn: 'root'
 })
-export class FormGroupService {
+export class FormDivService {
 
   // Kamar Raïmo: Adding a way to communicate between components that share information
   // so that they are notified of a change.
-  FormGroupServiceChanged: BehaviorSubject<string> = new BehaviorSubject("");
+  FormDivServiceChanged: BehaviorSubject<string> = new BehaviorSubject("");
 
-  private formgroupsUrl: string
+  private formdivsUrl: string
 
   constructor(
     private http: HttpClient,
@@ -38,39 +39,41 @@ export class FormGroupService {
     origin = origin.replace("4200", "8080")
 
     // compute path to the service
-    this.formgroupsUrl = origin + '/api/github.com/fullstack-lang/gongtable/go/v1/formgroups';
+    this.formdivsUrl = origin + '/api/github.com/fullstack-lang/gongtable/go/v1/formdivs';
   }
 
-  /** GET formgroups from the server */
-  getFormGroups(GONG__StackPath: string): Observable<FormGroupDB[]> {
+  /** GET formdivs from the server */
+  getFormDivs(GONG__StackPath: string): Observable<FormDivDB[]> {
 
     let params = new HttpParams().set("GONG__StackPath", GONG__StackPath)
 
-    return this.http.get<FormGroupDB[]>(this.formgroupsUrl, { params: params })
+    return this.http.get<FormDivDB[]>(this.formdivsUrl, { params: params })
       .pipe(
         tap(),
-		// tap(_ => this.log('fetched formgroups')),
-        catchError(this.handleError<FormGroupDB[]>('getFormGroups', []))
+		// tap(_ => this.log('fetched formdivs')),
+        catchError(this.handleError<FormDivDB[]>('getFormDivs', []))
       );
   }
 
-  /** GET formgroup by id. Will 404 if id not found */
-  getFormGroup(id: number, GONG__StackPath: string): Observable<FormGroupDB> {
+  /** GET formdiv by id. Will 404 if id not found */
+  getFormDiv(id: number, GONG__StackPath: string): Observable<FormDivDB> {
 
     let params = new HttpParams().set("GONG__StackPath", GONG__StackPath)
 
-    const url = `${this.formgroupsUrl}/${id}`;
-    return this.http.get<FormGroupDB>(url, { params: params }).pipe(
-      // tap(_ => this.log(`fetched formgroup id=${id}`)),
-      catchError(this.handleError<FormGroupDB>(`getFormGroup id=${id}`))
+    const url = `${this.formdivsUrl}/${id}`;
+    return this.http.get<FormDivDB>(url, { params: params }).pipe(
+      // tap(_ => this.log(`fetched formdiv id=${id}`)),
+      catchError(this.handleError<FormDivDB>(`getFormDiv id=${id}`))
     );
   }
 
-  /** POST: add a new formgroup to the server */
-  postFormGroup(formgroupdb: FormGroupDB, GONG__StackPath: string): Observable<FormGroupDB> {
+  /** POST: add a new formdiv to the server */
+  postFormDiv(formdivdb: FormDivDB, GONG__StackPath: string): Observable<FormDivDB> {
 
     // insertion point for reset of pointers and reverse pointers (to avoid circular JSON)
-    formgroupdb.FormDivs = []
+    formdivdb.FormFields = []
+    let _FormGroup_FormDivs_reverse = formdivdb.FormGroup_FormDivs_reverse
+    formdivdb.FormGroup_FormDivs_reverse = new FormGroupDB
 
     let params = new HttpParams().set("GONG__StackPath", GONG__StackPath)
     let httpOptions = {
@@ -78,19 +81,20 @@ export class FormGroupService {
       params: params
     }
 
-    return this.http.post<FormGroupDB>(this.formgroupsUrl, formgroupdb, httpOptions).pipe(
+    return this.http.post<FormDivDB>(this.formdivsUrl, formdivdb, httpOptions).pipe(
       tap(_ => {
         // insertion point for restoration of reverse pointers
-        // this.log(`posted formgroupdb id=${formgroupdb.ID}`)
+        formdivdb.FormGroup_FormDivs_reverse = _FormGroup_FormDivs_reverse
+        // this.log(`posted formdivdb id=${formdivdb.ID}`)
       }),
-      catchError(this.handleError<FormGroupDB>('postFormGroup'))
+      catchError(this.handleError<FormDivDB>('postFormDiv'))
     );
   }
 
-  /** DELETE: delete the formgroupdb from the server */
-  deleteFormGroup(formgroupdb: FormGroupDB | number, GONG__StackPath: string): Observable<FormGroupDB> {
-    const id = typeof formgroupdb === 'number' ? formgroupdb : formgroupdb.ID;
-    const url = `${this.formgroupsUrl}/${id}`;
+  /** DELETE: delete the formdivdb from the server */
+  deleteFormDiv(formdivdb: FormDivDB | number, GONG__StackPath: string): Observable<FormDivDB> {
+    const id = typeof formdivdb === 'number' ? formdivdb : formdivdb.ID;
+    const url = `${this.formdivsUrl}/${id}`;
 
     let params = new HttpParams().set("GONG__StackPath", GONG__StackPath)
     let httpOptions = {
@@ -98,19 +102,21 @@ export class FormGroupService {
       params: params
     };
 
-    return this.http.delete<FormGroupDB>(url, httpOptions).pipe(
-      tap(_ => this.log(`deleted formgroupdb id=${id}`)),
-      catchError(this.handleError<FormGroupDB>('deleteFormGroup'))
+    return this.http.delete<FormDivDB>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted formdivdb id=${id}`)),
+      catchError(this.handleError<FormDivDB>('deleteFormDiv'))
     );
   }
 
-  /** PUT: update the formgroupdb on the server */
-  updateFormGroup(formgroupdb: FormGroupDB, GONG__StackPath: string): Observable<FormGroupDB> {
-    const id = typeof formgroupdb === 'number' ? formgroupdb : formgroupdb.ID;
-    const url = `${this.formgroupsUrl}/${id}`;
+  /** PUT: update the formdivdb on the server */
+  updateFormDiv(formdivdb: FormDivDB, GONG__StackPath: string): Observable<FormDivDB> {
+    const id = typeof formdivdb === 'number' ? formdivdb : formdivdb.ID;
+    const url = `${this.formdivsUrl}/${id}`;
 
     // insertion point for reset of pointers and reverse pointers (to avoid circular JSON)
-    formgroupdb.FormDivs = []
+    formdivdb.FormFields = []
+    let _FormGroup_FormDivs_reverse = formdivdb.FormGroup_FormDivs_reverse
+    formdivdb.FormGroup_FormDivs_reverse = new FormGroupDB
 
     let params = new HttpParams().set("GONG__StackPath", GONG__StackPath)
     let httpOptions = {
@@ -118,12 +124,13 @@ export class FormGroupService {
       params: params
     };
 
-    return this.http.put<FormGroupDB>(url, formgroupdb, httpOptions).pipe(
+    return this.http.put<FormDivDB>(url, formdivdb, httpOptions).pipe(
       tap(_ => {
         // insertion point for restoration of reverse pointers
-        // this.log(`updated formgroupdb id=${formgroupdb.ID}`)
+        formdivdb.FormGroup_FormDivs_reverse = _FormGroup_FormDivs_reverse
+        // this.log(`updated formdivdb id=${formdivdb.ID}`)
       }),
-      catchError(this.handleError<FormGroupDB>('updateFormGroup'))
+      catchError(this.handleError<FormDivDB>('updateFormDiv'))
     );
   }
 
@@ -133,11 +140,11 @@ export class FormGroupService {
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-  private handleError<T>(operation = 'operation in FormGroupService', result?: T) {
+  private handleError<T>(operation = 'operation in FormDivService', result?: T) {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure
-      console.error("FormGroupService" + error); // log to console instead
+      console.error("FormDivService" + error); // log to console instead
 
       // TODO: better job of transforming error for user consumption
       this.log(`${operation} failed: ${error.message}`);

@@ -90,6 +90,13 @@ func registerControllers(r *gin.Engine) {
 		v1.PUT("/v1/displayedcolumns/:id", GetController().UpdateDisplayedColumn)
 		v1.DELETE("/v1/displayedcolumns/:id", GetController().DeleteDisplayedColumn)
 
+		v1.GET("/v1/formdivs", GetController().GetFormDivs)
+		v1.GET("/v1/formdivs/:id", GetController().GetFormDiv)
+		v1.POST("/v1/formdivs", GetController().PostFormDiv)
+		v1.PATCH("/v1/formdivs/:id", GetController().UpdateFormDiv)
+		v1.PUT("/v1/formdivs/:id", GetController().UpdateFormDiv)
+		v1.DELETE("/v1/formdivs/:id", GetController().DeleteFormDiv)
+
 		v1.GET("/v1/formfields", GetController().GetFormFields)
 		v1.GET("/v1/formfields/:id", GetController().GetFormField)
 		v1.POST("/v1/formfields", GetController().PostFormField)
