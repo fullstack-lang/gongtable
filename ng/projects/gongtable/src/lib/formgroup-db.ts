@@ -4,9 +4,9 @@ import { FormFieldDB } from './formfield-db'
 // usefull for managing pointer ID values that can be nullable
 import { NullInt64 } from './null-int64'
 
-export class FormDB {
+export class FormGroupDB {
 
-	static GONGSTRUCT_NAME = "Form"
+	static GONGSTRUCT_NAME = "FormGroup"
 
 	CreatedAt?: string
 	DeletedAt?: string
@@ -16,5 +16,5 @@ export class FormDB {
 	Name: string = ""
 
 	// insertion point for other declarations
-	FormCells?: Array<FormFieldDB>
+	FormFields?: Array<FormFieldDB>
 }

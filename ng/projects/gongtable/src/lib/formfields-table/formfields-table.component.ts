@@ -87,9 +87,9 @@ export class FormFieldsTableComponent implements OnInit {
         case 'FormFieldBool':
           return (formfieldDB.FormFieldBool ? formfieldDB.FormFieldBool.Name : '');
 
-        case 'Form_FormCells':
-          if (this.frontRepo.Forms.get(formfieldDB.Form_FormCellsDBID.Int64) != undefined) {
-            return this.frontRepo.Forms.get(formfieldDB.Form_FormCellsDBID.Int64)!.Name
+        case 'FormGroup_FormFields':
+          if (this.frontRepo.FormGroups.get(formfieldDB.FormGroup_FormFieldsDBID.Int64) != undefined) {
+            return this.frontRepo.FormGroups.get(formfieldDB.FormGroup_FormFieldsDBID.Int64)!.Name
           } else {
             return ""
           }
@@ -121,8 +121,8 @@ export class FormFieldsTableComponent implements OnInit {
       if (formfieldDB.FormFieldBool) {
         mergedContent += formfieldDB.FormFieldBool.Name.toLowerCase()
       }
-      if (formfieldDB.Form_FormCellsDBID.Int64 != 0) {
-        mergedContent += this.frontRepo.Forms.get(formfieldDB.Form_FormCellsDBID.Int64)!.Name.toLowerCase()
+      if (formfieldDB.FormGroup_FormFieldsDBID.Int64 != 0) {
+        mergedContent += this.frontRepo.FormGroups.get(formfieldDB.FormGroup_FormFieldsDBID.Int64)!.Name.toLowerCase()
       }
 
 
@@ -184,7 +184,7 @@ export class FormFieldsTableComponent implements OnInit {
         "FormFieldFloat64",
         "FormFieldInt",
         "FormFieldBool",
-        "Form_FormCells",
+        "FormGroup_FormFields",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
@@ -193,7 +193,7 @@ export class FormFieldsTableComponent implements OnInit {
         "FormFieldFloat64",
         "FormFieldInt",
         "FormFieldBool",
-        "Form_FormCells",
+        "FormGroup_FormFields",
       ]
       this.selection = new SelectionModel<FormFieldDB>(allowMultiSelect, this.initialSelection);
     }

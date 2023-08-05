@@ -62,11 +62,11 @@ type FormFieldPointersEnconding struct {
 	// This field is generated into another field to enable AS ONE association
 	FormFieldBoolID sql.NullInt64
 
-	// Implementation of a reverse ID for field Form{}.FormCells []*FormField
-	Form_FormCellsDBID sql.NullInt64
+	// Implementation of a reverse ID for field FormGroup{}.FormFields []*FormField
+	FormGroup_FormFieldsDBID sql.NullInt64
 
 	// implementation of the index of the withing the slice
-	Form_FormCellsDBID_Index sql.NullInt64
+	FormGroup_FormFieldsDBID_Index sql.NullInt64
 }
 
 // FormFieldDB describes a formfield in the database
@@ -631,10 +631,10 @@ func (backRepoFormField *BackRepoFormFieldStruct) RestorePhaseTwo() {
 			formfieldDB.FormFieldBoolID.Valid = true
 		}
 
-		// This reindex formfield.FormCells
-		if formfieldDB.Form_FormCellsDBID.Int64 != 0 {
-			formfieldDB.Form_FormCellsDBID.Int64 =
-				int64(BackRepoFormid_atBckpTime_newID[uint(formfieldDB.Form_FormCellsDBID.Int64)])
+		// This reindex formfield.FormFields
+		if formfieldDB.FormGroup_FormFieldsDBID.Int64 != 0 {
+			formfieldDB.FormGroup_FormFieldsDBID.Int64 =
+				int64(BackRepoFormGroupid_atBckpTime_newID[uint(formfieldDB.FormGroup_FormFieldsDBID.Int64)])
 		}
 
 		// update databse with new index encoding

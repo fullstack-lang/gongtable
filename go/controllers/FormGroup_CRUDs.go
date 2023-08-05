@@ -14,16 +14,16 @@ import (
 )
 
 // declaration in order to justify use of the models import
-var __Form__dummysDeclaration__ models.Form
-var __Form_time__dummyDeclaration time.Duration
+var __FormGroup__dummysDeclaration__ models.FormGroup
+var __FormGroup_time__dummyDeclaration time.Duration
 
-var mutexForm sync.Mutex
+var mutexFormGroup sync.Mutex
 
-// An FormID parameter model.
+// An FormGroupID parameter model.
 //
 // This is used for operations that want the ID of an order in the path
-// swagger:parameters getForm updateForm deleteForm
-type FormID struct {
+// swagger:parameters getFormGroup updateFormGroup deleteFormGroup
+type FormGroupID struct {
 	// The ID of the order
 	//
 	// in: path
@@ -31,29 +31,29 @@ type FormID struct {
 	ID int64
 }
 
-// FormInput is a schema that can validate the user’s
+// FormGroupInput is a schema that can validate the user’s
 // input to prevent us from getting invalid data
-// swagger:parameters postForm updateForm
-type FormInput struct {
-	// The Form to submit or modify
+// swagger:parameters postFormGroup updateFormGroup
+type FormGroupInput struct {
+	// The FormGroup to submit or modify
 	// in: body
-	Form *orm.FormAPI
+	FormGroup *orm.FormGroupAPI
 }
 
-// GetForms
+// GetFormGroups
 //
-// swagger:route GET /forms forms getForms
+// swagger:route GET /formgroups formgroups getFormGroups
 //
-// # Get all forms
+// # Get all formgroups
 //
 // Responses:
 // default: genericError
 //
-//	200: formDBResponse
-func (controller *Controller) GetForms(c *gin.Context) {
+//	200: formgroupDBResponse
+func (controller *Controller) GetFormGroups(c *gin.Context) {
 
 	// source slice
-	var formDBs []orm.FormDB
+	var formgroupDBs []orm.FormGroupDB
 
 	values := c.Request.URL.Query()
 	stackPath := ""
@@ -61,13 +61,13 @@ func (controller *Controller) GetForms(c *gin.Context) {
 		value := values["GONG__StackPath"]
 		if len(value) == 1 {
 			stackPath = value[0]
-			// log.Println("GetForms", "GONG__StackPath", stackPath)
+			// log.Println("GetFormGroups", "GONG__StackPath", stackPath)
 		}
 	}
 	backRepo := controller.Map_BackRepos[stackPath]
-	db := backRepo.BackRepoForm.GetDB()
+	db := backRepo.BackRepoFormGroup.GetDB()
 
-	query := db.Find(&formDBs)
+	query := db.Find(&formgroupDBs)
 	if query.Error != nil {
 		var returnError GenericError
 		returnError.Body.Code = http.StatusBadRequest
@@ -78,29 +78,29 @@ func (controller *Controller) GetForms(c *gin.Context) {
 	}
 
 	// slice that will be transmitted to the front
-	formAPIs := make([]orm.FormAPI, 0)
+	formgroupAPIs := make([]orm.FormGroupAPI, 0)
 
-	// for each form, update fields from the database nullable fields
-	for idx := range formDBs {
-		formDB := &formDBs[idx]
-		_ = formDB
-		var formAPI orm.FormAPI
+	// for each formgroup, update fields from the database nullable fields
+	for idx := range formgroupDBs {
+		formgroupDB := &formgroupDBs[idx]
+		_ = formgroupDB
+		var formgroupAPI orm.FormGroupAPI
 
 		// insertion point for updating fields
-		formAPI.ID = formDB.ID
-		formDB.CopyBasicFieldsToForm(&formAPI.Form)
-		formAPI.FormPointersEnconding = formDB.FormPointersEnconding
-		formAPIs = append(formAPIs, formAPI)
+		formgroupAPI.ID = formgroupDB.ID
+		formgroupDB.CopyBasicFieldsToFormGroup(&formgroupAPI.FormGroup)
+		formgroupAPI.FormGroupPointersEnconding = formgroupDB.FormGroupPointersEnconding
+		formgroupAPIs = append(formgroupAPIs, formgroupAPI)
 	}
 
-	c.JSON(http.StatusOK, formAPIs)
+	c.JSON(http.StatusOK, formgroupAPIs)
 }
 
-// PostForm
+// PostFormGroup
 //
-// swagger:route POST /forms forms postForm
+// swagger:route POST /formgroups formgroups postFormGroup
 //
-// Creates a form
+// Creates a formgroup
 //
 //	Consumes:
 //	- application/json
@@ -110,9 +110,9 @@ func (controller *Controller) GetForms(c *gin.Context) {
 //
 //	Responses:
 //	  200: nodeDBResponse
-func (controller *Controller) PostForm(c *gin.Context) {
+func (controller *Controller) PostFormGroup(c *gin.Context) {
 
-	mutexForm.Lock()
+	mutexFormGroup.Lock()
 
 	values := c.Request.URL.Query()
 	stackPath := ""
@@ -120,14 +120,14 @@ func (controller *Controller) PostForm(c *gin.Context) {
 		value := values["GONG__StackPath"]
 		if len(value) == 1 {
 			stackPath = value[0]
-			// log.Println("PostForms", "GONG__StackPath", stackPath)
+			// log.Println("PostFormGroups", "GONG__StackPath", stackPath)
 		}
 	}
 	backRepo := controller.Map_BackRepos[stackPath]
-	db := backRepo.BackRepoForm.GetDB()
+	db := backRepo.BackRepoFormGroup.GetDB()
 
 	// Validate input
-	var input orm.FormAPI
+	var input orm.FormGroupAPI
 
 	err := c.ShouldBindJSON(&input)
 	if err != nil {
@@ -139,12 +139,12 @@ func (controller *Controller) PostForm(c *gin.Context) {
 		return
 	}
 
-	// Create form
-	formDB := orm.FormDB{}
-	formDB.FormPointersEnconding = input.FormPointersEnconding
-	formDB.CopyBasicFieldsFromForm(&input.Form)
+	// Create formgroup
+	formgroupDB := orm.FormGroupDB{}
+	formgroupDB.FormGroupPointersEnconding = input.FormGroupPointersEnconding
+	formgroupDB.CopyBasicFieldsFromFormGroup(&input.FormGroup)
 
-	query := db.Create(&formDB)
+	query := db.Create(&formgroupDB)
 	if query.Error != nil {
 		var returnError GenericError
 		returnError.Body.Code = http.StatusBadRequest
@@ -155,33 +155,33 @@ func (controller *Controller) PostForm(c *gin.Context) {
 	}
 
 	// get an instance (not staged) from DB instance, and call callback function
-	backRepo.BackRepoForm.CheckoutPhaseOneInstance(&formDB)
-	form := backRepo.BackRepoForm.Map_FormDBID_FormPtr[formDB.ID]
+	backRepo.BackRepoFormGroup.CheckoutPhaseOneInstance(&formgroupDB)
+	formgroup := backRepo.BackRepoFormGroup.Map_FormGroupDBID_FormGroupPtr[formgroupDB.ID]
 
-	if form != nil {
-		models.AfterCreateFromFront(backRepo.GetStage(), form)
+	if formgroup != nil {
+		models.AfterCreateFromFront(backRepo.GetStage(), formgroup)
 	}
 
 	// a POST is equivalent to a back repo commit increase
 	// (this will be improved with implementation of unit of work design pattern)
 	backRepo.IncrementPushFromFrontNb()
 
-	c.JSON(http.StatusOK, formDB)
+	c.JSON(http.StatusOK, formgroupDB)
 
-	mutexForm.Unlock()
+	mutexFormGroup.Unlock()
 }
 
-// GetForm
+// GetFormGroup
 //
-// swagger:route GET /forms/{ID} forms getForm
+// swagger:route GET /formgroups/{ID} formgroups getFormGroup
 //
-// Gets the details for a form.
+// Gets the details for a formgroup.
 //
 // Responses:
 // default: genericError
 //
-//	200: formDBResponse
-func (controller *Controller) GetForm(c *gin.Context) {
+//	200: formgroupDBResponse
+func (controller *Controller) GetFormGroup(c *gin.Context) {
 
 	values := c.Request.URL.Query()
 	stackPath := ""
@@ -189,15 +189,15 @@ func (controller *Controller) GetForm(c *gin.Context) {
 		value := values["GONG__StackPath"]
 		if len(value) == 1 {
 			stackPath = value[0]
-			// log.Println("GetForm", "GONG__StackPath", stackPath)
+			// log.Println("GetFormGroup", "GONG__StackPath", stackPath)
 		}
 	}
 	backRepo := controller.Map_BackRepos[stackPath]
-	db := backRepo.BackRepoForm.GetDB()
+	db := backRepo.BackRepoFormGroup.GetDB()
 
-	// Get formDB in DB
-	var formDB orm.FormDB
-	if err := db.First(&formDB, c.Param("id")).Error; err != nil {
+	// Get formgroupDB in DB
+	var formgroupDB orm.FormGroupDB
+	if err := db.First(&formgroupDB, c.Param("id")).Error; err != nil {
 		var returnError GenericError
 		returnError.Body.Code = http.StatusBadRequest
 		returnError.Body.Message = err.Error()
@@ -206,27 +206,27 @@ func (controller *Controller) GetForm(c *gin.Context) {
 		return
 	}
 
-	var formAPI orm.FormAPI
-	formAPI.ID = formDB.ID
-	formAPI.FormPointersEnconding = formDB.FormPointersEnconding
-	formDB.CopyBasicFieldsToForm(&formAPI.Form)
+	var formgroupAPI orm.FormGroupAPI
+	formgroupAPI.ID = formgroupDB.ID
+	formgroupAPI.FormGroupPointersEnconding = formgroupDB.FormGroupPointersEnconding
+	formgroupDB.CopyBasicFieldsToFormGroup(&formgroupAPI.FormGroup)
 
-	c.JSON(http.StatusOK, formAPI)
+	c.JSON(http.StatusOK, formgroupAPI)
 }
 
-// UpdateForm
+// UpdateFormGroup
 //
-// swagger:route PATCH /forms/{ID} forms updateForm
+// swagger:route PATCH /formgroups/{ID} formgroups updateFormGroup
 //
-// # Update a form
+// # Update a formgroup
 //
 // Responses:
 // default: genericError
 //
-//	200: formDBResponse
-func (controller *Controller) UpdateForm(c *gin.Context) {
+//	200: formgroupDBResponse
+func (controller *Controller) UpdateFormGroup(c *gin.Context) {
 
-	mutexForm.Lock()
+	mutexFormGroup.Lock()
 
 	values := c.Request.URL.Query()
 	stackPath := ""
@@ -234,14 +234,14 @@ func (controller *Controller) UpdateForm(c *gin.Context) {
 		value := values["GONG__StackPath"]
 		if len(value) == 1 {
 			stackPath = value[0]
-			// log.Println("UpdateForm", "GONG__StackPath", stackPath)
+			// log.Println("UpdateFormGroup", "GONG__StackPath", stackPath)
 		}
 	}
 	backRepo := controller.Map_BackRepos[stackPath]
-	db := backRepo.BackRepoForm.GetDB()
+	db := backRepo.BackRepoFormGroup.GetDB()
 
 	// Validate input
-	var input orm.FormAPI
+	var input orm.FormGroupAPI
 	if err := c.ShouldBindJSON(&input); err != nil {
 		log.Println(err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -249,10 +249,10 @@ func (controller *Controller) UpdateForm(c *gin.Context) {
 	}
 
 	// Get model if exist
-	var formDB orm.FormDB
+	var formgroupDB orm.FormGroupDB
 
-	// fetch the form
-	query := db.First(&formDB, c.Param("id"))
+	// fetch the formgroup
+	query := db.First(&formgroupDB, c.Param("id"))
 
 	if query.Error != nil {
 		var returnError GenericError
@@ -264,10 +264,10 @@ func (controller *Controller) UpdateForm(c *gin.Context) {
 	}
 
 	// update
-	formDB.CopyBasicFieldsFromForm(&input.Form)
-	formDB.FormPointersEnconding = input.FormPointersEnconding
+	formgroupDB.CopyBasicFieldsFromFormGroup(&input.FormGroup)
+	formgroupDB.FormGroupPointersEnconding = input.FormGroupPointersEnconding
 
-	query = db.Model(&formDB).Updates(formDB)
+	query = db.Model(&formgroupDB).Updates(formgroupDB)
 	if query.Error != nil {
 		var returnError GenericError
 		returnError.Body.Code = http.StatusBadRequest
@@ -278,13 +278,13 @@ func (controller *Controller) UpdateForm(c *gin.Context) {
 	}
 
 	// get an instance (not staged) from DB instance, and call callback function
-	formNew := new(models.Form)
-	formDB.CopyBasicFieldsToForm(formNew)
+	formgroupNew := new(models.FormGroup)
+	formgroupDB.CopyBasicFieldsToFormGroup(formgroupNew)
 
 	// get stage instance from DB instance, and call callback function
-	formOld := backRepo.BackRepoForm.Map_FormDBID_FormPtr[formDB.ID]
-	if formOld != nil {
-		models.AfterUpdateFromFront(backRepo.GetStage(), formOld, formNew)
+	formgroupOld := backRepo.BackRepoFormGroup.Map_FormGroupDBID_FormGroupPtr[formgroupDB.ID]
+	if formgroupOld != nil {
+		models.AfterUpdateFromFront(backRepo.GetStage(), formgroupOld, formgroupNew)
 	}
 
 	// an UPDATE generates a back repo commit increase
@@ -293,24 +293,24 @@ func (controller *Controller) UpdateForm(c *gin.Context) {
 	// generates a checkout
 	backRepo.IncrementPushFromFrontNb()
 
-	// return status OK with the marshalling of the the formDB
-	c.JSON(http.StatusOK, formDB)
+	// return status OK with the marshalling of the the formgroupDB
+	c.JSON(http.StatusOK, formgroupDB)
 
-	mutexForm.Unlock()
+	mutexFormGroup.Unlock()
 }
 
-// DeleteForm
+// DeleteFormGroup
 //
-// swagger:route DELETE /forms/{ID} forms deleteForm
+// swagger:route DELETE /formgroups/{ID} formgroups deleteFormGroup
 //
-// # Delete a form
+// # Delete a formgroup
 //
 // default: genericError
 //
-//	200: formDBResponse
-func (controller *Controller) DeleteForm(c *gin.Context) {
+//	200: formgroupDBResponse
+func (controller *Controller) DeleteFormGroup(c *gin.Context) {
 
-	mutexForm.Lock()
+	mutexFormGroup.Lock()
 
 	values := c.Request.URL.Query()
 	stackPath := ""
@@ -318,15 +318,15 @@ func (controller *Controller) DeleteForm(c *gin.Context) {
 		value := values["GONG__StackPath"]
 		if len(value) == 1 {
 			stackPath = value[0]
-			// log.Println("DeleteForm", "GONG__StackPath", stackPath)
+			// log.Println("DeleteFormGroup", "GONG__StackPath", stackPath)
 		}
 	}
 	backRepo := controller.Map_BackRepos[stackPath]
-	db := backRepo.BackRepoForm.GetDB()
+	db := backRepo.BackRepoFormGroup.GetDB()
 
 	// Get model if exist
-	var formDB orm.FormDB
-	if err := db.First(&formDB, c.Param("id")).Error; err != nil {
+	var formgroupDB orm.FormGroupDB
+	if err := db.First(&formgroupDB, c.Param("id")).Error; err != nil {
 		var returnError GenericError
 		returnError.Body.Code = http.StatusBadRequest
 		returnError.Body.Message = err.Error()
@@ -336,16 +336,16 @@ func (controller *Controller) DeleteForm(c *gin.Context) {
 	}
 
 	// with gorm.Model field, default delete is a soft delete. Unscoped() force delete
-	db.Unscoped().Delete(&formDB)
+	db.Unscoped().Delete(&formgroupDB)
 
 	// get an instance (not staged) from DB instance, and call callback function
-	formDeleted := new(models.Form)
-	formDB.CopyBasicFieldsToForm(formDeleted)
+	formgroupDeleted := new(models.FormGroup)
+	formgroupDB.CopyBasicFieldsToFormGroup(formgroupDeleted)
 
 	// get stage instance from DB instance, and call callback function
-	formStaged := backRepo.BackRepoForm.Map_FormDBID_FormPtr[formDB.ID]
-	if formStaged != nil {
-		models.AfterDeleteFromFront(backRepo.GetStage(), formStaged, formDeleted)
+	formgroupStaged := backRepo.BackRepoFormGroup.Map_FormGroupDBID_FormGroupPtr[formgroupDB.ID]
+	if formgroupStaged != nil {
+		models.AfterDeleteFromFront(backRepo.GetStage(), formgroupStaged, formgroupDeleted)
 	}
 
 	// a DELETE generates a back repo commit increase
@@ -354,5 +354,5 @@ func (controller *Controller) DeleteForm(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"data": true})
 
-	mutexForm.Unlock()
+	mutexFormGroup.Unlock()
 }

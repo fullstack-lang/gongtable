@@ -2,8 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 
-import { FormDB } from '../form-db'
-import { FormService } from '../form.service'
+import { FormGroupDB } from '../formgroup-db'
+import { FormGroupService } from '../formgroup.service'
 
 import { FrontRepoService, FrontRepo, SelectionMode, DialogData } from '../front-repo.service'
 import { MapOfComponents } from '../map-components'
@@ -17,25 +17,25 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angu
 
 import { NullInt64 } from '../null-int64'
 
-// FormDetailComponent is initilizaed from different routes
-// FormDetailComponentState detail different cases 
-enum FormDetailComponentState {
+// FormGroupDetailComponent is initilizaed from different routes
+// FormGroupDetailComponentState detail different cases 
+enum FormGroupDetailComponentState {
 	CREATE_INSTANCE,
 	UPDATE_INSTANCE,
 	// insertion point for declarations of enum values of state
 }
 
 @Component({
-	selector: 'app-form-detail',
-	templateUrl: './form-detail.component.html',
-	styleUrls: ['./form-detail.component.css'],
+	selector: 'app-formgroup-detail',
+	templateUrl: './formgroup-detail.component.html',
+	styleUrls: ['./formgroup-detail.component.css'],
 })
-export class FormDetailComponent implements OnInit {
+export class FormGroupDetailComponent implements OnInit {
 
 	// insertion point for declarations
 
-	// the FormDB of interest
-	form: FormDB = new FormDB
+	// the FormGroupDB of interest
+	formgroup: FormGroupDB = new FormGroupDB
 
 	// front repo
 	frontRepo: FrontRepo = new FrontRepo
@@ -46,7 +46,7 @@ export class FormDetailComponent implements OnInit {
 	mapFields_displayAsTextArea = new Map<string, boolean>()
 
 	// the state at initialization (CREATION, UPDATE or CREATE with one association set)
-	state: FormDetailComponentState = FormDetailComponentState.CREATE_INSTANCE
+	state: FormGroupDetailComponentState = FormGroupDetailComponentState.CREATE_INSTANCE
 
 	// in UDPATE state, if is the id of the instance to update
 	// in CREATE state with one association set, this is the id of the associated instance
@@ -59,7 +59,7 @@ export class FormDetailComponent implements OnInit {
 	GONG__StackPath: string = ""
 
 	constructor(
-		private formService: FormService,
+		private formgroupService: FormGroupService,
 		private frontRepoService: FrontRepoService,
 		public dialog: MatDialog,
 		private activatedRoute: ActivatedRoute,
@@ -85,10 +85,10 @@ export class FormDetailComponent implements OnInit {
 
 		const association = this.activatedRoute.snapshot.paramMap.get('association');
 		if (this.id == 0) {
-			this.state = FormDetailComponentState.CREATE_INSTANCE
+			this.state = FormGroupDetailComponentState.CREATE_INSTANCE
 		} else {
 			if (this.originStruct == undefined) {
-				this.state = FormDetailComponentState.UPDATE_INSTANCE
+				this.state = FormGroupDetailComponentState.UPDATE_INSTANCE
 			} else {
 				switch (this.originStructFieldName) {
 					// insertion point for state computation
@@ -98,13 +98,13 @@ export class FormDetailComponent implements OnInit {
 			}
 		}
 
-		this.getForm()
+		this.getFormGroup()
 
 		// observable for changes in structs
-		this.formService.FormServiceChanged.subscribe(
+		this.formgroupService.FormGroupServiceChanged.subscribe(
 			message => {
 				if (message == "post" || message == "update" || message == "delete") {
-					this.getForm()
+					this.getFormGroup()
 				}
 			}
 		)
@@ -112,20 +112,20 @@ export class FormDetailComponent implements OnInit {
 		// insertion point for initialisation of enums list
 	}
 
-	getForm(): void {
+	getFormGroup(): void {
 
 		this.frontRepoService.pull(this.GONG__StackPath).subscribe(
 			frontRepo => {
 				this.frontRepo = frontRepo
 
 				switch (this.state) {
-					case FormDetailComponentState.CREATE_INSTANCE:
-						this.form = new (FormDB)
+					case FormGroupDetailComponentState.CREATE_INSTANCE:
+						this.formgroup = new (FormGroupDB)
 						break;
-					case FormDetailComponentState.UPDATE_INSTANCE:
-						let form = frontRepo.Forms.get(this.id)
-						console.assert(form != undefined, "missing form with id:" + this.id)
-						this.form = form!
+					case FormGroupDetailComponentState.UPDATE_INSTANCE:
+						let formgroup = frontRepo.FormGroups.get(this.id)
+						console.assert(formgroup != undefined, "missing formgroup with id:" + this.id)
+						this.formgroup = formgroup!
 						break;
 					// insertion point for init of association field
 					default:
@@ -151,16 +151,16 @@ export class FormDetailComponent implements OnInit {
 		// insertion point for translation/nullation of each pointers
 
 		switch (this.state) {
-			case FormDetailComponentState.UPDATE_INSTANCE:
-				this.formService.updateForm(this.form, this.GONG__StackPath)
-					.subscribe(form => {
-						this.formService.FormServiceChanged.next("update")
+			case FormGroupDetailComponentState.UPDATE_INSTANCE:
+				this.formgroupService.updateFormGroup(this.formgroup, this.GONG__StackPath)
+					.subscribe(formgroup => {
+						this.formgroupService.FormGroupServiceChanged.next("update")
 					});
 				break;
 			default:
-				this.formService.postForm(this.form, this.GONG__StackPath).subscribe(form => {
-					this.formService.FormServiceChanged.next("post")
-					this.form = new (FormDB) // reset fields
+				this.formgroupService.postFormGroup(this.formgroup, this.GONG__StackPath).subscribe(formgroup => {
+					this.formgroupService.FormGroupServiceChanged.next("post")
+					this.formgroup = new (FormGroupDB) // reset fields
 				});
 		}
 	}
@@ -183,7 +183,7 @@ export class FormDetailComponent implements OnInit {
 		dialogConfig.height = "50%"
 		if (selectionMode == SelectionMode.ONE_MANY_ASSOCIATION_MODE) {
 
-			dialogData.ID = this.form.ID!
+			dialogData.ID = this.formgroup.ID!
 			dialogData.ReversePointer = reverseField
 			dialogData.OrderingMode = false
 			dialogData.SelectionMode = selectionMode
@@ -200,14 +200,14 @@ export class FormDetailComponent implements OnInit {
 			});
 		}
 		if (selectionMode == SelectionMode.MANY_MANY_ASSOCIATION_MODE) {
-			dialogData.ID = this.form.ID!
+			dialogData.ID = this.formgroup.ID!
 			dialogData.ReversePointer = reverseField
 			dialogData.OrderingMode = false
 			dialogData.SelectionMode = selectionMode
 			dialogData.GONG__StackPath = this.GONG__StackPath
 
 			// set up the source
-			dialogData.SourceStruct = "Form"
+			dialogData.SourceStruct = "FormGroup"
 			dialogData.SourceField = sourceField
 
 			// set up the intermediate struct
@@ -237,7 +237,7 @@ export class FormDetailComponent implements OnInit {
 		// dialogConfig.disableClose = true;
 		dialogConfig.autoFocus = true;
 		dialogConfig.data = {
-			ID: this.form.ID,
+			ID: this.formgroup.ID,
 			ReversePointer: reverseField,
 			OrderingMode: true,
 			GONG__StackPath: this.GONG__StackPath,
@@ -254,8 +254,8 @@ export class FormDetailComponent implements OnInit {
 	}
 
 	fillUpNameIfEmpty(event: { value: { Name: string; }; }) {
-		if (this.form.Name == "") {
-			this.form.Name = event.value.Name
+		if (this.formgroup.Name == "") {
+			this.formgroup.Name = event.value.Name
 		}
 	}
 

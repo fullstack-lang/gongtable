@@ -90,13 +90,6 @@ func registerControllers(r *gin.Engine) {
 		v1.PUT("/v1/displayedcolumns/:id", GetController().UpdateDisplayedColumn)
 		v1.DELETE("/v1/displayedcolumns/:id", GetController().DeleteDisplayedColumn)
 
-		v1.GET("/v1/forms", GetController().GetForms)
-		v1.GET("/v1/forms/:id", GetController().GetForm)
-		v1.POST("/v1/forms", GetController().PostForm)
-		v1.PATCH("/v1/forms/:id", GetController().UpdateForm)
-		v1.PUT("/v1/forms/:id", GetController().UpdateForm)
-		v1.DELETE("/v1/forms/:id", GetController().DeleteForm)
-
 		v1.GET("/v1/formfields", GetController().GetFormFields)
 		v1.GET("/v1/formfields/:id", GetController().GetFormField)
 		v1.POST("/v1/formfields", GetController().PostFormField)
@@ -131,6 +124,13 @@ func registerControllers(r *gin.Engine) {
 		v1.PATCH("/v1/formfieldstrings/:id", GetController().UpdateFormFieldString)
 		v1.PUT("/v1/formfieldstrings/:id", GetController().UpdateFormFieldString)
 		v1.DELETE("/v1/formfieldstrings/:id", GetController().DeleteFormFieldString)
+
+		v1.GET("/v1/formgroups", GetController().GetFormGroups)
+		v1.GET("/v1/formgroups/:id", GetController().GetFormGroup)
+		v1.POST("/v1/formgroups", GetController().PostFormGroup)
+		v1.PATCH("/v1/formgroups/:id", GetController().UpdateFormGroup)
+		v1.PUT("/v1/formgroups/:id", GetController().UpdateFormGroup)
+		v1.DELETE("/v1/formgroups/:id", GetController().DeleteFormGroup)
 
 		v1.GET("/v1/rows", GetController().GetRows)
 		v1.GET("/v1/rows/:id", GetController().GetRow)

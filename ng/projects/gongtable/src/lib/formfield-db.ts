@@ -3,7 +3,7 @@ import { FormFieldStringDB } from './formfieldstring-db'
 import { FormFieldFloat64DB } from './formfieldfloat64-db'
 import { FormFieldIntDB } from './formfieldint-db'
 import { FormFieldBooleanDB } from './formfieldboolean-db'
-import { FormDB } from './form-db'
+import { FormGroupDB } from './formgroup-db'
 
 // usefull for managing pointer ID values that can be nullable
 import { NullInt64 } from './null-int64'
@@ -32,8 +32,8 @@ export class FormFieldDB {
 	FormFieldBool?: FormFieldBooleanDB
 	FormFieldBoolID: NullInt64 = new NullInt64 // if pointer is null, FormFieldBool.ID = 0
 
-	Form_FormCellsDBID: NullInt64 = new NullInt64
-	Form_FormCellsDBID_Index: NullInt64  = new NullInt64 // store the index of the formfield instance in Form.FormCells
-	Form_FormCells_reverse?: FormDB 
+	FormGroup_FormFieldsDBID: NullInt64 = new NullInt64
+	FormGroup_FormFieldsDBID_Index: NullInt64  = new NullInt64 // store the index of the formfield instance in FormGroup.FormFields
+	FormGroup_FormFields_reverse?: FormGroupDB 
 
 }

@@ -310,12 +310,12 @@ var __gong__map_CellIcon = make(map[string]*CellIcon)
 var __gong__map_CellInt = make(map[string]*CellInt)
 var __gong__map_CellString = make(map[string]*CellString)
 var __gong__map_DisplayedColumn = make(map[string]*DisplayedColumn)
-var __gong__map_Form = make(map[string]*Form)
 var __gong__map_FormField = make(map[string]*FormField)
 var __gong__map_FormFieldBoolean = make(map[string]*FormFieldBoolean)
 var __gong__map_FormFieldFloat64 = make(map[string]*FormFieldFloat64)
 var __gong__map_FormFieldInt = make(map[string]*FormFieldInt)
 var __gong__map_FormFieldString = make(map[string]*FormFieldString)
+var __gong__map_FormGroup = make(map[string]*FormGroup)
 var __gong__map_Row = make(map[string]*Row)
 var __gong__map_Table = make(map[string]*Table)
 
@@ -518,10 +518,6 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 										instanceDisplayedColumn := (&DisplayedColumn{Name: instanceName}).Stage(stage)
 										instance = any(instanceDisplayedColumn)
 										__gong__map_DisplayedColumn[identifier] = instanceDisplayedColumn
-									case "Form":
-										instanceForm := (&Form{Name: instanceName}).Stage(stage)
-										instance = any(instanceForm)
-										__gong__map_Form[identifier] = instanceForm
 									case "FormField":
 										instanceFormField := (&FormField{Name: instanceName}).Stage(stage)
 										instance = any(instanceFormField)
@@ -542,6 +538,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 										instanceFormFieldString := (&FormFieldString{Name: instanceName}).Stage(stage)
 										instance = any(instanceFormFieldString)
 										__gong__map_FormFieldString[identifier] = instanceFormFieldString
+									case "FormGroup":
+										instanceFormGroup := (&FormGroup{Name: instanceName}).Stage(stage)
+										instance = any(instanceFormGroup)
+										__gong__map_FormGroup[identifier] = instanceFormGroup
 									case "Row":
 										instanceRow := (&Row{Name: instanceName}).Stage(stage)
 										instance = any(instanceRow)
@@ -614,10 +614,6 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 							switch fieldName {
 							// insertion point for date assign code
 							}
-						case "Form":
-							switch fieldName {
-							// insertion point for date assign code
-							}
 						case "FormField":
 							switch fieldName {
 							// insertion point for date assign code
@@ -635,6 +631,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 							// insertion point for date assign code
 							}
 						case "FormFieldString":
+							switch fieldName {
+							// insertion point for date assign code
+							}
+						case "FormGroup":
 							switch fieldName {
 							// insertion point for date assign code
 							}
@@ -699,16 +699,6 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 						switch fieldName {
 						// insertion point for slice of pointers assign code
 						}
-					case "Form":
-						switch fieldName {
-						// insertion point for slice of pointers assign code
-						case "FormCells":
-							// remove first and last char
-							targetIdentifier := ident.Name
-							target := __gong__map_FormField[targetIdentifier]
-							__gong__map_Form[identifier].FormCells =
-								append(__gong__map_Form[identifier].FormCells, target)
-						}
 					case "FormField":
 						switch fieldName {
 						// insertion point for slice of pointers assign code
@@ -728,6 +718,16 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					case "FormFieldString":
 						switch fieldName {
 						// insertion point for slice of pointers assign code
+						}
+					case "FormGroup":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						case "FormFields":
+							// remove first and last char
+							targetIdentifier := ident.Name
+							target := __gong__map_FormField[targetIdentifier]
+							__gong__map_FormGroup[identifier].FormFields =
+								append(__gong__map_FormGroup[identifier].FormFields, target)
 						}
 					case "Row":
 						switch fieldName {
@@ -882,14 +882,6 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_DisplayedColumn[identifier].Name = fielValue
 				}
-			case "Form":
-				switch fieldName {
-				// insertion point for field dependant code
-				case "Name":
-					// remove first and last char
-					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
-					__gong__map_Form[identifier].Name = fielValue
-				}
 			case "FormField":
 				switch fieldName {
 				// insertion point for field dependant code
@@ -947,6 +939,14 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// remove first and last char
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_FormFieldString[identifier].Value = fielValue
+				}
+			case "FormGroup":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormGroup[identifier].Name = fielValue
 				}
 			case "Row":
 				switch fieldName {
@@ -1028,10 +1028,6 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				switch fieldName {
 				// insertion point for field dependant code
 				}
-			case "Form":
-				switch fieldName {
-				// insertion point for field dependant code
-				}
 			case "FormField":
 				switch fieldName {
 				// insertion point for field dependant code
@@ -1068,6 +1064,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				// insertion point for field dependant code
 				}
 			case "FormFieldString":
+				switch fieldName {
+				// insertion point for field dependant code
+				}
+			case "FormGroup":
 				switch fieldName {
 				// insertion point for field dependant code
 				}
@@ -1184,10 +1184,6 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					switch fieldName {
 					// insertion point for enum assign code
 					}
-				case "Form":
-					switch fieldName {
-					// insertion point for enum assign code
-					}
 				case "FormField":
 					switch fieldName {
 					// insertion point for enum assign code
@@ -1205,6 +1201,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// insertion point for enum assign code
 					}
 				case "FormFieldString":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "FormGroup":
 					switch fieldName {
 					// insertion point for enum assign code
 					}

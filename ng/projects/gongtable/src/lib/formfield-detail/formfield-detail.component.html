@@ -62,11 +62,11 @@
     </mat-form-field>
 
     <mat-form-field class="detail-full-width">
-        <mat-label>(Form) FormCells</mat-label>
-        <mat-select [compareWith]="compareObjects" [(ngModel)]="formfield.Form_FormCells_reverse" [ngModelOptions]="{standalone: true}">
+        <mat-label>(FormGroup) FormFields</mat-label>
+        <mat-select [compareWith]="compareObjects" [(ngModel)]="formfield.FormGroup_FormFields_reverse" [ngModelOptions]="{standalone: true}">
             <mat-option>None</mat-option>
-            <mat-option *ngFor="let form of frontRepo.Forms_array" [value]="form">
-                {{form.Name}}
+            <mat-option *ngFor="let formgroup of frontRepo.FormGroups_array" [value]="formgroup">
+                {{formgroup.Name}}
             </mat-option>
         </mat-select>
     </mat-form-field>

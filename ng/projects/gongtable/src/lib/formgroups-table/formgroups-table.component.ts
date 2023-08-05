@@ -14,8 +14,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 const allowMultiSelect = true;
 
 import { ActivatedRoute, Router, RouterState } from '@angular/router';
-import { FormDB } from '../form-db'
-import { FormService } from '../form.service'
+import { FormGroupDB } from '../formgroup-db'
+import { FormGroupService } from '../formgroup.service'
 
 // insertion point for additional imports
 
@@ -31,26 +31,26 @@ enum TableComponentMode {
 
 // generated table component
 @Component({
-  selector: 'app-formstable',
-  templateUrl: './forms-table.component.html',
-  styleUrls: ['./forms-table.component.css'],
+  selector: 'app-formgroupstable',
+  templateUrl: './formgroups-table.component.html',
+  styleUrls: ['./formgroups-table.component.css'],
 })
-export class FormsTableComponent implements OnInit {
+export class FormGroupsTableComponent implements OnInit {
 
   @Input() GONG__StackPath: string = ""
 
   // mode at invocation
   mode: TableComponentMode = TableComponentMode.DISPLAY_MODE
 
-  // used if the component is called as a selection component of Form instances
-  selection: SelectionModel<FormDB> = new (SelectionModel)
-  initialSelection = new Array<FormDB>()
+  // used if the component is called as a selection component of FormGroup instances
+  selection: SelectionModel<FormGroupDB> = new (SelectionModel)
+  initialSelection = new Array<FormGroupDB>()
 
   // the data source for the table
-  forms: FormDB[] = []
-  matTableDataSource: MatTableDataSource<FormDB> = new (MatTableDataSource)
+  formgroups: FormGroupDB[] = []
+  matTableDataSource: MatTableDataSource<FormGroupDB> = new (MatTableDataSource)
 
-  // front repo, that will be referenced by this.forms
+  // front repo, that will be referenced by this.formgroups
   frontRepo: FrontRepo = new (FrontRepo)
 
   // displayedColumns is referenced by the MatTable component for specify what columns
@@ -66,14 +66,14 @@ export class FormsTableComponent implements OnInit {
   ngAfterViewInit() {
 
     // enable sorting on all fields (including pointers and reverse pointer)
-    this.matTableDataSource.sortingDataAccessor = (formDB: FormDB, property: string) => {
+    this.matTableDataSource.sortingDataAccessor = (formgroupDB: FormGroupDB, property: string) => {
       switch (property) {
         case 'ID':
-          return formDB.ID
+          return formgroupDB.ID
 
         // insertion point for specific sorting accessor
         case 'Name':
-          return formDB.Name;
+          return formgroupDB.Name;
 
         default:
           console.assert(false, "Unknown field")
@@ -82,14 +82,14 @@ export class FormsTableComponent implements OnInit {
     };
 
     // enable filtering on all fields (including pointers and reverse pointer, which is not done by default)
-    this.matTableDataSource.filterPredicate = (formDB: FormDB, filter: string) => {
+    this.matTableDataSource.filterPredicate = (formgroupDB: FormGroupDB, filter: string) => {
 
       // filtering is based on finding a lower case filter into a concatenated string
-      // the formDB properties
+      // the formgroupDB properties
       let mergedContent = ""
 
       // insertion point for merging of fields
-      mergedContent += formDB.Name.toLowerCase()
+      mergedContent += formgroupDB.Name.toLowerCase()
 
       let isSelected = mergedContent.includes(filter.toLowerCase())
       return isSelected
@@ -105,11 +105,11 @@ export class FormsTableComponent implements OnInit {
   }
 
   constructor(
-    private formService: FormService,
+    private formgroupService: FormGroupService,
     private frontRepoService: FrontRepoService,
 
-    // not null if the component is called as a selection component of form instances
-    public dialogRef: MatDialogRef<FormsTableComponent>,
+    // not null if the component is called as a selection component of formgroup instances
+    public dialogRef: MatDialogRef<FormGroupsTableComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: DialogData,
 
     private router: Router,
@@ -135,10 +135,10 @@ export class FormsTableComponent implements OnInit {
     }
 
     // observable for changes in structs
-    this.formService.FormServiceChanged.subscribe(
+    this.formgroupService.FormGroupServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
-          this.getForms()
+          this.getFormGroups()
         }
       }
     )
@@ -150,7 +150,7 @@ export class FormsTableComponent implements OnInit {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
       ]
-      this.selection = new SelectionModel<FormDB>(allowMultiSelect, this.initialSelection);
+      this.selection = new SelectionModel<FormGroupDB>(allowMultiSelect, this.initialSelection);
     }
 
   }
@@ -161,84 +161,84 @@ export class FormsTableComponent implements OnInit {
       this.GONG__StackPath = stackPath
     }
 
-    this.getForms()
+    this.getFormGroups()
 
-    this.matTableDataSource = new MatTableDataSource(this.forms)
+    this.matTableDataSource = new MatTableDataSource(this.formgroups)
   }
 
-  getForms(): void {
+  getFormGroups(): void {
     this.frontRepoService.pull(this.GONG__StackPath).subscribe(
       frontRepo => {
         this.frontRepo = frontRepo
 
-        this.forms = this.frontRepo.Forms_array;
+        this.formgroups = this.frontRepo.FormGroups_array;
 
         // insertion point for time duration Recoveries
         // insertion point for enum int Recoveries
 
         // in case the component is called as a selection component
         if (this.mode == TableComponentMode.ONE_MANY_ASSOCIATION_MODE) {
-          for (let form of this.forms) {
+          for (let formgroup of this.formgroups) {
             let ID = this.dialogData.ID
-            let revPointer = form[this.dialogData.ReversePointer as keyof FormDB] as unknown as NullInt64
+            let revPointer = formgroup[this.dialogData.ReversePointer as keyof FormGroupDB] as unknown as NullInt64
             if (revPointer.Int64 == ID) {
-              this.initialSelection.push(form)
+              this.initialSelection.push(formgroup)
             }
-            this.selection = new SelectionModel<FormDB>(allowMultiSelect, this.initialSelection);
+            this.selection = new SelectionModel<FormGroupDB>(allowMultiSelect, this.initialSelection);
           }
         }
 
         if (this.mode == TableComponentMode.MANY_MANY_ASSOCIATION_MODE) {
 
-          let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormDB>
+          let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormGroupDB>
           let sourceInstance = mapOfSourceInstances.get(this.dialogData.ID)!
 
-          // we associates on sourceInstance of type SourceStruct with a MANY MANY associations to FormDB
+          // we associates on sourceInstance of type SourceStruct with a MANY MANY associations to FormGroupDB
           // the field name is sourceField
-          let sourceFieldArray = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]! as unknown as FormDB[]
+          let sourceFieldArray = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]! as unknown as FormGroupDB[]
           if (sourceFieldArray != null) {
             for (let associationInstance of sourceFieldArray) {
-              let form = associationInstance[this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormDB
-              this.initialSelection.push(form)
+              let formgroup = associationInstance[this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormGroupDB
+              this.initialSelection.push(formgroup)
             }
           }
 
-          this.selection = new SelectionModel<FormDB>(allowMultiSelect, this.initialSelection);
+          this.selection = new SelectionModel<FormGroupDB>(allowMultiSelect, this.initialSelection);
         }
 
         // update the mat table data source
-        this.matTableDataSource.data = this.forms
+        this.matTableDataSource.data = this.formgroups
       }
     )
   }
 
-  // newForm initiate a new form
-  // create a new Form objet
-  newForm() {
+  // newFormGroup initiate a new formgroup
+  // create a new FormGroup objet
+  newFormGroup() {
   }
 
-  deleteForm(formID: number, form: FormDB) {
-    // list of forms is truncated of form before the delete
-    this.forms = this.forms.filter(h => h !== form);
+  deleteFormGroup(formgroupID: number, formgroup: FormGroupDB) {
+    // list of formgroups is truncated of formgroup before the delete
+    this.formgroups = this.formgroups.filter(h => h !== formgroup);
 
-    this.formService.deleteForm(formID, this.GONG__StackPath).subscribe(
-      form => {
-        this.formService.FormServiceChanged.next("delete")
+    this.formgroupService.deleteFormGroup(formgroupID, this.GONG__StackPath).subscribe(
+      formgroup => {
+        this.formgroupService.FormGroupServiceChanged.next("delete")
       }
     );
   }
 
-  editForm(formID: number, form: FormDB) {
+  editFormGroup(formgroupID: number, formgroup: FormGroupDB) {
 
   }
 
   // set editor outlet
-  setEditorRouterOutlet(formID: number) {
+  setEditorRouterOutlet(formgroupID: number) {
     let outletName = this.routeService.getEditorOutlet(this.GONG__StackPath)
-    let fullPath = this.routeService.getPathRoot() + "-" + "form" + "-detail"
+    let fullPath = this.routeService.getPathRoot() + "-" + "formgroup" + "-detail"
 
     let outletConf: any = {}
-    outletConf[outletName] = [fullPath, formID, this.GONG__StackPath]
+    outletConf[outletName] = [fullPath, formgroupID, this.GONG__StackPath]
 
     this.router.navigate([{ outlets: outletConf }])
   }
@@ -246,7 +246,7 @@ export class FormsTableComponent implements OnInit {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.forms.length;
+    const numRows = this.formgroups.length;
     return numSelected === numRows;
   }
 
@@ -254,39 +254,39 @@ export class FormsTableComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.forms.forEach(row => this.selection.select(row));
+      this.formgroups.forEach(row => this.selection.select(row));
   }
 
   save() {
 
     if (this.mode == TableComponentMode.ONE_MANY_ASSOCIATION_MODE) {
 
-      let toUpdate = new Set<FormDB>()
+      let toUpdate = new Set<FormGroupDB>()
 
-      // reset all initial selection of form that belong to form
-      for (let form of this.initialSelection) {
-        let index = form[this.dialogData.ReversePointer as keyof FormDB] as unknown as NullInt64
+      // reset all initial selection of formgroup that belong to formgroup
+      for (let formgroup of this.initialSelection) {
+        let index = formgroup[this.dialogData.ReversePointer as keyof FormGroupDB] as unknown as NullInt64
         index.Int64 = 0
         index.Valid = true
-        toUpdate.add(form)
+        toUpdate.add(formgroup)
 
       }
 
-      // from selection, set form that belong to form
-      for (let form of this.selection.selected) {
+      // from selection, set formgroup that belong to formgroup
+      for (let formgroup of this.selection.selected) {
         let ID = this.dialogData.ID as number
-        let reversePointer = form[this.dialogData.ReversePointer as keyof FormDB] as unknown as NullInt64
+        let reversePointer = formgroup[this.dialogData.ReversePointer as keyof FormGroupDB] as unknown as NullInt64
         reversePointer.Int64 = ID
         reversePointer.Valid = true
-        toUpdate.add(form)
+        toUpdate.add(formgroup)
       }
 
 
-      // update all form (only update selection & initial selection)
-      for (let form of toUpdate) {
-        this.formService.updateForm(form, this.GONG__StackPath)
-          .subscribe(form => {
-            this.formService.FormServiceChanged.next("update")
+      // update all formgroup (only update selection & initial selection)
+      for (let formgroup of toUpdate) {
+        this.formgroupService.updateFormGroup(formgroup, this.GONG__StackPath)
+          .subscribe(formgroup => {
+            this.formgroupService.FormGroupServiceChanged.next("update")
           });
       }
     }
@@ -294,26 +294,26 @@ export class FormsTableComponent implements OnInit {
     if (this.mode == TableComponentMode.MANY_MANY_ASSOCIATION_MODE) {
 
       // get the source instance via the map of instances in the front repo
-      let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormDB>
+      let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormGroupDB>
       let sourceInstance = mapOfSourceInstances.get(this.dialogData.ID)!
 
       // First, parse all instance of the association struct and remove the instance
       // that have unselect
-      let unselectedForm = new Set<number>()
-      for (let form of this.initialSelection) {
-        if (this.selection.selected.includes(form)) {
-          // console.log("form " + form.Name + " is still selected")
+      let unselectedFormGroup = new Set<number>()
+      for (let formgroup of this.initialSelection) {
+        if (this.selection.selected.includes(formgroup)) {
+          // console.log("formgroup " + formgroup.Name + " is still selected")
         } else {
-          console.log("form " + form.Name + " has been unselected")
-          unselectedForm.add(form.ID)
-          console.log("is unselected " + unselectedForm.has(form.ID))
+          console.log("formgroup " + formgroup.Name + " has been unselected")
+          unselectedFormGroup.add(formgroup.ID)
+          console.log("is unselected " + unselectedFormGroup.has(formgroup.ID))
         }
       }
 
       // delete the association instance
       let associationInstance = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]
-      let form = associationInstance![this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormDB
-      if (unselectedForm.has(form.ID)) {
+      let formgroup = associationInstance![this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormGroupDB
+      if (unselectedFormGroup.has(formgroup.ID)) {
         this.frontRepoService.deleteService(this.dialogData.IntermediateStruct, associationInstance)
 
 
@@ -321,38 +321,38 @@ export class FormsTableComponent implements OnInit {
 
       // is the source array is empty create it
       if (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] == undefined) {
-        (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] as unknown as Array<FormDB>) = new Array<FormDB>()
+        (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] as unknown as Array<FormGroupDB>) = new Array<FormGroupDB>()
       }
 
       // second, parse all instance of the selected
       if (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]) {
         this.selection.selected.forEach(
-          form => {
-            if (!this.initialSelection.includes(form)) {
-              // console.log("form " + form.Name + " has been added to the selection")
+          formgroup => {
+            if (!this.initialSelection.includes(formgroup)) {
+              // console.log("formgroup " + formgroup.Name + " has been added to the selection")
 
               let associationInstance = {
-                Name: sourceInstance["Name"] + "-" + form.Name,
+                Name: sourceInstance["Name"] + "-" + formgroup.Name,
               }
 
               let index = associationInstance[this.dialogData.IntermediateStructField + "ID" as keyof typeof associationInstance] as unknown as NullInt64
-              index.Int64 = form.ID
+              index.Int64 = formgroup.ID
               index.Valid = true
 
               let indexDB = associationInstance[this.dialogData.IntermediateStructField + "DBID" as keyof typeof associationInstance] as unknown as NullInt64
-              indexDB.Int64 = form.ID
+              indexDB.Int64 = formgroup.ID
               index.Valid = true
 
               this.frontRepoService.postService(this.dialogData.IntermediateStruct, associationInstance)
 
             } else {
-              // console.log("form " + form.Name + " is still selected")
+              // console.log("formgroup " + formgroup.Name + " is still selected")
             }
           }
         )
       }
 
-      // this.selection = new SelectionModel<FormDB>(allowMultiSelect, this.initialSelection);
+      // this.selection = new SelectionModel<FormGroupDB>(allowMultiSelect, this.initialSelection);
     }
 
     // why pizza ?

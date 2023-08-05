@@ -10,7 +10,7 @@ import { MapOfComponents } from '../map-components'
 import { MapOfSortingComponents } from '../map-components'
 
 // insertion point for imports
-import { FormDB } from '../form-db'
+import { FormGroupDB } from '../formgroup-db'
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -24,7 +24,7 @@ enum FormFieldDetailComponentState {
 	CREATE_INSTANCE,
 	UPDATE_INSTANCE,
 	// insertion point for declarations of enum values of state
-	CREATE_INSTANCE_WITH_ASSOCIATION_Form_FormCells_SET,
+	CREATE_INSTANCE_WITH_ASSOCIATION_FormGroup_FormFields_SET,
 }
 
 @Component({
@@ -94,9 +94,9 @@ export class FormFieldDetailComponent implements OnInit {
 			} else {
 				switch (this.originStructFieldName) {
 					// insertion point for state computation
-					case "FormCells":
-						// console.log("FormField" + " is instanciated with back pointer to instance " + this.id + " Form association FormCells")
-						this.state = FormFieldDetailComponentState.CREATE_INSTANCE_WITH_ASSOCIATION_Form_FormCells_SET
+					case "FormFields":
+						// console.log("FormField" + " is instanciated with back pointer to instance " + this.id + " FormGroup association FormFields")
+						this.state = FormFieldDetailComponentState.CREATE_INSTANCE_WITH_ASSOCIATION_FormGroup_FormFields_SET
 						break;
 					default:
 						console.log(this.originStructFieldName + " is unkown association")
@@ -134,9 +134,9 @@ export class FormFieldDetailComponent implements OnInit {
 						this.formfield = formfield!
 						break;
 					// insertion point for init of association field
-					case FormFieldDetailComponentState.CREATE_INSTANCE_WITH_ASSOCIATION_Form_FormCells_SET:
+					case FormFieldDetailComponentState.CREATE_INSTANCE_WITH_ASSOCIATION_FormGroup_FormFields_SET:
 						this.formfield = new (FormFieldDB)
-						this.formfield.Form_FormCells_reverse = frontRepo.Forms.get(this.id)!
+						this.formfield.FormGroup_FormFields_reverse = frontRepo.FormGroups.get(this.id)!
 						break;
 					default:
 						console.log(this.state + " is unkown state")
@@ -199,17 +199,17 @@ export class FormFieldDetailComponent implements OnInit {
 		// save from the front pointer space to the non pointer space for serialization
 
 		// insertion point for translation/nullation of each pointers
-		if (this.formfield.Form_FormCells_reverse != undefined) {
-			if (this.formfield.Form_FormCellsDBID == undefined) {
-				this.formfield.Form_FormCellsDBID = new NullInt64
+		if (this.formfield.FormGroup_FormFields_reverse != undefined) {
+			if (this.formfield.FormGroup_FormFieldsDBID == undefined) {
+				this.formfield.FormGroup_FormFieldsDBID = new NullInt64
 			}
-			this.formfield.Form_FormCellsDBID.Int64 = this.formfield.Form_FormCells_reverse.ID
-			this.formfield.Form_FormCellsDBID.Valid = true
-			if (this.formfield.Form_FormCellsDBID_Index == undefined) {
-				this.formfield.Form_FormCellsDBID_Index = new NullInt64
+			this.formfield.FormGroup_FormFieldsDBID.Int64 = this.formfield.FormGroup_FormFields_reverse.ID
+			this.formfield.FormGroup_FormFieldsDBID.Valid = true
+			if (this.formfield.FormGroup_FormFieldsDBID_Index == undefined) {
+				this.formfield.FormGroup_FormFieldsDBID_Index = new NullInt64
 			}
-			this.formfield.Form_FormCellsDBID_Index.Valid = true
-			this.formfield.Form_FormCells_reverse = new FormDB // very important, otherwise, circular JSON
+			this.formfield.FormGroup_FormFieldsDBID_Index.Valid = true
+			this.formfield.FormGroup_FormFields_reverse = new FormGroupDB // very important, otherwise, circular JSON
 		}
 
 		switch (this.state) {

@@ -23,9 +23,6 @@ import { CellStringDetailComponent } from './cellstring-detail/cellstring-detail
 import { DisplayedColumnsTableComponent } from './displayedcolumns-table/displayedcolumns-table.component'
 import { DisplayedColumnDetailComponent } from './displayedcolumn-detail/displayedcolumn-detail.component'
 
-import { FormsTableComponent } from './forms-table/forms-table.component'
-import { FormDetailComponent } from './form-detail/form-detail.component'
-
 import { FormFieldsTableComponent } from './formfields-table/formfields-table.component'
 import { FormFieldDetailComponent } from './formfield-detail/formfield-detail.component'
 
@@ -40,6 +37,9 @@ import { FormFieldIntDetailComponent } from './formfieldint-detail/formfieldint-
 
 import { FormFieldStringsTableComponent } from './formfieldstrings-table/formfieldstrings-table.component'
 import { FormFieldStringDetailComponent } from './formfieldstring-detail/formfieldstring-detail.component'
+
+import { FormGroupsTableComponent } from './formgroups-table/formgroups-table.component'
+import { FormGroupDetailComponent } from './formgroup-detail/formgroup-detail.component'
 
 import { RowsTableComponent } from './rows-table/rows-table.component'
 import { RowDetailComponent } from './row-detail/row-detail.component'
@@ -309,39 +309,6 @@ export class RouteService {
         return route
     }
 
-    getFormTablePath(): string {
-        return this.getPathRoot() + '-forms/:GONG__StackPath'
-    }
-    getFormTableRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormTablePath(), component: FormsTableComponent, outlet: this.getTableOutlet(stackPath) }
-        return route
-    }
-    getFormAdderPath(): string {
-        return this.getPathRoot() + '-form-adder/:GONG__StackPath'
-    }
-    getFormAdderRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormAdderPath(), component: FormDetailComponent, outlet: this.getEditorOutlet(stackPath) }
-        return route
-    }
-    getFormAdderForUsePath(): string {
-        return this.getPathRoot() + '-form-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
-    }
-    getFormAdderForUseRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormAdderForUsePath(), component: FormDetailComponent, outlet: this.getEditorOutlet(stackPath) }
-        return route
-    }
-    getFormDetailPath(): string {
-        return this.getPathRoot() + '-form-detail/:id/:GONG__StackPath'
-    }
-    getFormDetailRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormDetailPath(), component: FormDetailComponent, outlet: this.getEditorOutlet(stackPath) }
-        return route
-    }
-
     getFormFieldTablePath(): string {
         return this.getPathRoot() + '-formfields/:GONG__StackPath'
     }
@@ -507,6 +474,39 @@ export class RouteService {
         return route
     }
 
+    getFormGroupTablePath(): string {
+        return this.getPathRoot() + '-formgroups/:GONG__StackPath'
+    }
+    getFormGroupTableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormGroupTablePath(), component: FormGroupsTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getFormGroupAdderPath(): string {
+        return this.getPathRoot() + '-formgroup-adder/:GONG__StackPath'
+    }
+    getFormGroupAdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormGroupAdderPath(), component: FormGroupDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormGroupAdderForUsePath(): string {
+        return this.getPathRoot() + '-formgroup-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getFormGroupAdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormGroupAdderForUsePath(), component: FormGroupDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormGroupDetailPath(): string {
+        return this.getPathRoot() + '-formgroup-detail/:id/:GONG__StackPath'
+    }
+    getFormGroupDetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormGroupDetailPath(), component: FormGroupDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
     getRowTablePath(): string {
         return this.getPathRoot() + '-rows/:GONG__StackPath'
     }
@@ -614,11 +614,6 @@ export class RouteService {
             this.getDisplayedColumnAdderForUseRoute(stackPath),
             this.getDisplayedColumnDetailRoute(stackPath),
 
-            this.getFormTableRoute(stackPath),
-            this.getFormAdderRoute(stackPath),
-            this.getFormAdderForUseRoute(stackPath),
-            this.getFormDetailRoute(stackPath),
-
             this.getFormFieldTableRoute(stackPath),
             this.getFormFieldAdderRoute(stackPath),
             this.getFormFieldAdderForUseRoute(stackPath),
@@ -643,6 +638,11 @@ export class RouteService {
             this.getFormFieldStringAdderRoute(stackPath),
             this.getFormFieldStringAdderForUseRoute(stackPath),
             this.getFormFieldStringDetailRoute(stackPath),
+
+            this.getFormGroupTableRoute(stackPath),
+            this.getFormGroupAdderRoute(stackPath),
+            this.getFormGroupAdderForUseRoute(stackPath),
+            this.getFormGroupDetailRoute(stackPath),
 
             this.getRowTableRoute(stackPath),
             this.getRowAdderRoute(stackPath),

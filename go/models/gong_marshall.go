@@ -364,38 +364,6 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 
 	}
 
-	map_Form_Identifiers := make(map[*Form]string)
-	_ = map_Form_Identifiers
-
-	formOrdered := []*Form{}
-	for form := range stage.Forms {
-		formOrdered = append(formOrdered, form)
-	}
-	sort.Slice(formOrdered[:], func(i, j int) bool {
-		return formOrdered[i].Name < formOrdered[j].Name
-	})
-	identifiersDecl += "\n\n	// Declarations of staged instances of Form"
-	for idx, form := range formOrdered {
-
-		id = generatesIdentifier("Form", idx, form.Name)
-		map_Form_Identifiers[form] = id
-
-		decl = IdentifiersDecls
-		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
-		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "Form")
-		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", form.Name)
-		identifiersDecl += decl
-
-		initializerStatements += "\n\n	// Form values setup"
-		// Initialisation of values
-		setValueField = StringInitStatement
-		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
-		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
-		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(form.Name))
-		initializerStatements += setValueField
-
-	}
-
 	map_FormField_Identifiers := make(map[*FormField]string)
 	_ = map_FormField_Identifiers
 
@@ -576,6 +544,38 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
 		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Value")
 		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formfieldstring.Value))
+		initializerStatements += setValueField
+
+	}
+
+	map_FormGroup_Identifiers := make(map[*FormGroup]string)
+	_ = map_FormGroup_Identifiers
+
+	formgroupOrdered := []*FormGroup{}
+	for formgroup := range stage.FormGroups {
+		formgroupOrdered = append(formgroupOrdered, formgroup)
+	}
+	sort.Slice(formgroupOrdered[:], func(i, j int) bool {
+		return formgroupOrdered[i].Name < formgroupOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of FormGroup"
+	for idx, formgroup := range formgroupOrdered {
+
+		id = generatesIdentifier("FormGroup", idx, formgroup.Name)
+		map_FormGroup_Identifiers[formgroup] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "FormGroup")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", formgroup.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// FormGroup values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formgroup.Name))
 		initializerStatements += setValueField
 
 	}
@@ -797,24 +797,6 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 		// Initialisation of values
 	}
 
-	for idx, form := range formOrdered {
-		var setPointerField string
-		_ = setPointerField
-
-		id = generatesIdentifier("Form", idx, form.Name)
-		map_Form_Identifiers[form] = id
-
-		// Initialisation of values
-		for _, _formfield := range form.FormCells {
-			setPointerField = SliceOfPointersFieldInitStatement
-			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
-			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormCells")
-			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormField_Identifiers[_formfield])
-			pointersInitializesStatements += setPointerField
-		}
-
-	}
-
 	for idx, formfield := range formfieldOrdered {
 		var setPointerField string
 		_ = setPointerField
@@ -895,6 +877,24 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 		map_FormFieldString_Identifiers[formfieldstring] = id
 
 		// Initialisation of values
+	}
+
+	for idx, formgroup := range formgroupOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("FormGroup", idx, formgroup.Name)
+		map_FormGroup_Identifiers[formgroup] = id
+
+		// Initialisation of values
+		for _, _formfield := range formgroup.FormFields {
+			setPointerField = SliceOfPointersFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormFields")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormField_Identifiers[_formfield])
+			pointersInitializesStatements += setPointerField
+		}
+
 	}
 
 	for idx, row := range rowOrdered {

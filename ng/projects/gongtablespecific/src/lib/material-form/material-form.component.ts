@@ -30,7 +30,7 @@ export class MaterialFormComponent implements OnInit {
   public gongtableFrontRepo?: gongtable.FrontRepo
 
   // for selection
-  selectedForm: gongtable.FormDB | undefined = undefined;
+  selectedForm: gongtable.FormGroupDB | undefined = undefined;
 
   // angular stuff
   myForm: FormGroup | undefined
@@ -84,7 +84,7 @@ export class MaterialFormComponent implements OnInit {
 
         this.selectedForm = undefined
 
-        for (let form of this.gongtableFrontRepo.Forms_array) {
+        for (let form of this.gongtableFrontRepo.FormGroups_array) {
           if (form.Name == this.FormName) {
             this.selectedForm = form
           }

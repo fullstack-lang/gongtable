@@ -52,20 +52,18 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// Declarations of staged instances of DisplayedColumn
 
-	// Declarations of staged instances of Form
-	__Form__000000_Form_1 := (&models.Form{Name: `Form 1`}).Stage(stage)
-
 	// Declarations of staged instances of FormField
-	__FormField__000000_Form_Cell_Int := (&models.FormField{Name: `Form Cell Int`}).Stage(stage)
 
 	// Declarations of staged instances of FormFieldBoolean
 
 	// Declarations of staged instances of FormFieldFloat64
 
 	// Declarations of staged instances of FormFieldInt
-	__FormFieldInt__000000_Form_Cell_Int := (&models.FormFieldInt{Name: `Form Cell Int`}).Stage(stage)
 
 	// Declarations of staged instances of FormFieldString
+
+	// Declarations of staged instances of FormGroup
+	__FormGroup__000000_Form_1 := (&models.FormGroup{Name: `Form 1`}).Stage(stage)
 
 	// Declarations of staged instances of Row
 
@@ -73,19 +71,10 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// Setup of values
 
-	// Form values setup
-	__Form__000000_Form_1.Name = `Form 1`
-
-	// FormField values setup
-	__FormField__000000_Form_Cell_Int.Name = `Form Cell Int`
-
-	// FormFieldInt values setup
-	__FormFieldInt__000000_Form_Cell_Int.Name = `Form Cell Int`
-	__FormFieldInt__000000_Form_Cell_Int.Value = 12
+	// FormGroup values setup
+	__FormGroup__000000_Form_1.Name = `Form 1`
 
 	// Setup of pointers
-	__Form__000000_Form_1.FormCells = append(__Form__000000_Form_1.FormCells, __FormField__000000_Form_Cell_Int)
-	__FormField__000000_Form_Cell_Int.FormFieldInt = __FormFieldInt__000000_Form_Cell_Int
 }
 
 
