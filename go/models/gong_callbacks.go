@@ -45,6 +45,10 @@ func AfterCreateFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterFormFieldBooleanCreateCallback != nil {
 			stage.OnAfterFormFieldBooleanCreateCallback.OnAfterCreate(stage, target)
 		}
+	case *FormFieldDate:
+		if stage.OnAfterFormFieldDateCreateCallback != nil {
+			stage.OnAfterFormFieldDateCreateCallback.OnAfterCreate(stage, target)
+		}
 	case *FormFieldFloat64:
 		if stage.OnAfterFormFieldFloat64CreateCallback != nil {
 			stage.OnAfterFormFieldFloat64CreateCallback.OnAfterCreate(stage, target)
@@ -56,6 +60,10 @@ func AfterCreateFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *FormFieldString:
 		if stage.OnAfterFormFieldStringCreateCallback != nil {
 			stage.OnAfterFormFieldStringCreateCallback.OnAfterCreate(stage, target)
+		}
+	case *FormFieldTime:
+		if stage.OnAfterFormFieldTimeCreateCallback != nil {
+			stage.OnAfterFormFieldTimeCreateCallback.OnAfterCreate(stage, target)
 		}
 	case *FormGroup:
 		if stage.OnAfterFormGroupCreateCallback != nil {
@@ -129,6 +137,11 @@ func AfterUpdateFromFront[Type Gongstruct](stage *StageStruct, old, new *Type) {
 		if stage.OnAfterFormFieldBooleanUpdateCallback != nil {
 			stage.OnAfterFormFieldBooleanUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
+	case *FormFieldDate:
+		newTarget := any(new).(*FormFieldDate)
+		if stage.OnAfterFormFieldDateUpdateCallback != nil {
+			stage.OnAfterFormFieldDateUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
+		}
 	case *FormFieldFloat64:
 		newTarget := any(new).(*FormFieldFloat64)
 		if stage.OnAfterFormFieldFloat64UpdateCallback != nil {
@@ -143,6 +156,11 @@ func AfterUpdateFromFront[Type Gongstruct](stage *StageStruct, old, new *Type) {
 		newTarget := any(new).(*FormFieldString)
 		if stage.OnAfterFormFieldStringUpdateCallback != nil {
 			stage.OnAfterFormFieldStringUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
+		}
+	case *FormFieldTime:
+		newTarget := any(new).(*FormFieldTime)
+		if stage.OnAfterFormFieldTimeUpdateCallback != nil {
+			stage.OnAfterFormFieldTimeUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
 	case *FormGroup:
 		newTarget := any(new).(*FormGroup)
@@ -219,6 +237,11 @@ func AfterDeleteFromFront[Type Gongstruct](stage *StageStruct, staged, front *Ty
 			staged := any(staged).(*FormFieldBoolean)
 			stage.OnAfterFormFieldBooleanDeleteCallback.OnAfterDelete(stage, staged, front)
 		}
+	case *FormFieldDate:
+		if stage.OnAfterFormFieldDateDeleteCallback != nil {
+			staged := any(staged).(*FormFieldDate)
+			stage.OnAfterFormFieldDateDeleteCallback.OnAfterDelete(stage, staged, front)
+		}
 	case *FormFieldFloat64:
 		if stage.OnAfterFormFieldFloat64DeleteCallback != nil {
 			staged := any(staged).(*FormFieldFloat64)
@@ -233,6 +256,11 @@ func AfterDeleteFromFront[Type Gongstruct](stage *StageStruct, staged, front *Ty
 		if stage.OnAfterFormFieldStringDeleteCallback != nil {
 			staged := any(staged).(*FormFieldString)
 			stage.OnAfterFormFieldStringDeleteCallback.OnAfterDelete(stage, staged, front)
+		}
+	case *FormFieldTime:
+		if stage.OnAfterFormFieldTimeDeleteCallback != nil {
+			staged := any(staged).(*FormFieldTime)
+			stage.OnAfterFormFieldTimeDeleteCallback.OnAfterDelete(stage, staged, front)
 		}
 	case *FormGroup:
 		if stage.OnAfterFormGroupDeleteCallback != nil {
@@ -299,6 +327,10 @@ func AfterReadFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterFormFieldBooleanReadCallback != nil {
 			stage.OnAfterFormFieldBooleanReadCallback.OnAfterRead(stage, target)
 		}
+	case *FormFieldDate:
+		if stage.OnAfterFormFieldDateReadCallback != nil {
+			stage.OnAfterFormFieldDateReadCallback.OnAfterRead(stage, target)
+		}
 	case *FormFieldFloat64:
 		if stage.OnAfterFormFieldFloat64ReadCallback != nil {
 			stage.OnAfterFormFieldFloat64ReadCallback.OnAfterRead(stage, target)
@@ -310,6 +342,10 @@ func AfterReadFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *FormFieldString:
 		if stage.OnAfterFormFieldStringReadCallback != nil {
 			stage.OnAfterFormFieldStringReadCallback.OnAfterRead(stage, target)
+		}
+	case *FormFieldTime:
+		if stage.OnAfterFormFieldTimeReadCallback != nil {
+			stage.OnAfterFormFieldTimeReadCallback.OnAfterRead(stage, target)
 		}
 	case *FormGroup:
 		if stage.OnAfterFormGroupReadCallback != nil {
@@ -364,6 +400,9 @@ func SetCallbackAfterUpdateFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *FormFieldBoolean:
 		stage.OnAfterFormFieldBooleanUpdateCallback = any(callback).(OnAfterUpdateInterface[FormFieldBoolean])
 	
+	case *FormFieldDate:
+		stage.OnAfterFormFieldDateUpdateCallback = any(callback).(OnAfterUpdateInterface[FormFieldDate])
+	
 	case *FormFieldFloat64:
 		stage.OnAfterFormFieldFloat64UpdateCallback = any(callback).(OnAfterUpdateInterface[FormFieldFloat64])
 	
@@ -372,6 +411,9 @@ func SetCallbackAfterUpdateFromFront[Type Gongstruct](stage *StageStruct, callba
 	
 	case *FormFieldString:
 		stage.OnAfterFormFieldStringUpdateCallback = any(callback).(OnAfterUpdateInterface[FormFieldString])
+	
+	case *FormFieldTime:
+		stage.OnAfterFormFieldTimeUpdateCallback = any(callback).(OnAfterUpdateInterface[FormFieldTime])
 	
 	case *FormGroup:
 		stage.OnAfterFormGroupUpdateCallback = any(callback).(OnAfterUpdateInterface[FormGroup])
@@ -419,6 +461,9 @@ func SetCallbackAfterCreateFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *FormFieldBoolean:
 		stage.OnAfterFormFieldBooleanCreateCallback = any(callback).(OnAfterCreateInterface[FormFieldBoolean])
 	
+	case *FormFieldDate:
+		stage.OnAfterFormFieldDateCreateCallback = any(callback).(OnAfterCreateInterface[FormFieldDate])
+	
 	case *FormFieldFloat64:
 		stage.OnAfterFormFieldFloat64CreateCallback = any(callback).(OnAfterCreateInterface[FormFieldFloat64])
 	
@@ -427,6 +472,9 @@ func SetCallbackAfterCreateFromFront[Type Gongstruct](stage *StageStruct, callba
 	
 	case *FormFieldString:
 		stage.OnAfterFormFieldStringCreateCallback = any(callback).(OnAfterCreateInterface[FormFieldString])
+	
+	case *FormFieldTime:
+		stage.OnAfterFormFieldTimeCreateCallback = any(callback).(OnAfterCreateInterface[FormFieldTime])
 	
 	case *FormGroup:
 		stage.OnAfterFormGroupCreateCallback = any(callback).(OnAfterCreateInterface[FormGroup])
@@ -474,6 +522,9 @@ func SetCallbackAfterDeleteFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *FormFieldBoolean:
 		stage.OnAfterFormFieldBooleanDeleteCallback = any(callback).(OnAfterDeleteInterface[FormFieldBoolean])
 	
+	case *FormFieldDate:
+		stage.OnAfterFormFieldDateDeleteCallback = any(callback).(OnAfterDeleteInterface[FormFieldDate])
+	
 	case *FormFieldFloat64:
 		stage.OnAfterFormFieldFloat64DeleteCallback = any(callback).(OnAfterDeleteInterface[FormFieldFloat64])
 	
@@ -482,6 +533,9 @@ func SetCallbackAfterDeleteFromFront[Type Gongstruct](stage *StageStruct, callba
 	
 	case *FormFieldString:
 		stage.OnAfterFormFieldStringDeleteCallback = any(callback).(OnAfterDeleteInterface[FormFieldString])
+	
+	case *FormFieldTime:
+		stage.OnAfterFormFieldTimeDeleteCallback = any(callback).(OnAfterDeleteInterface[FormFieldTime])
 	
 	case *FormGroup:
 		stage.OnAfterFormGroupDeleteCallback = any(callback).(OnAfterDeleteInterface[FormGroup])
@@ -529,6 +583,9 @@ func SetCallbackAfterReadFromFront[Type Gongstruct](stage *StageStruct, callback
 	case *FormFieldBoolean:
 		stage.OnAfterFormFieldBooleanReadCallback = any(callback).(OnAfterReadInterface[FormFieldBoolean])
 	
+	case *FormFieldDate:
+		stage.OnAfterFormFieldDateReadCallback = any(callback).(OnAfterReadInterface[FormFieldDate])
+	
 	case *FormFieldFloat64:
 		stage.OnAfterFormFieldFloat64ReadCallback = any(callback).(OnAfterReadInterface[FormFieldFloat64])
 	
@@ -537,6 +594,9 @@ func SetCallbackAfterReadFromFront[Type Gongstruct](stage *StageStruct, callback
 	
 	case *FormFieldString:
 		stage.OnAfterFormFieldStringReadCallback = any(callback).(OnAfterReadInterface[FormFieldString])
+	
+	case *FormFieldTime:
+		stage.OnAfterFormFieldTimeReadCallback = any(callback).(OnAfterReadInterface[FormFieldTime])
 	
 	case *FormGroup:
 		stage.OnAfterFormGroupReadCallback = any(callback).(OnAfterReadInterface[FormGroup])

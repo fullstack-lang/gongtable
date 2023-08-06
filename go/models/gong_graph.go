@@ -35,6 +35,9 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 	case *FormFieldBoolean:
 		ok = stage.IsStagedFormFieldBoolean(target)
 
+	case *FormFieldDate:
+		ok = stage.IsStagedFormFieldDate(target)
+
 	case *FormFieldFloat64:
 		ok = stage.IsStagedFormFieldFloat64(target)
 
@@ -43,6 +46,9 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 
 	case *FormFieldString:
 		ok = stage.IsStagedFormFieldString(target)
+
+	case *FormFieldTime:
+		ok = stage.IsStagedFormFieldTime(target)
 
 	case *FormGroup:
 		ok = stage.IsStagedFormGroup(target)
@@ -130,6 +136,13 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 		return
 	}
 
+	func (stage *StageStruct) IsStagedFormFieldDate(formfielddate *FormFieldDate) (ok bool) {
+
+		_, ok = stage.FormFieldDates[formfielddate]
+	
+		return
+	}
+
 	func (stage *StageStruct) IsStagedFormFieldFloat64(formfieldfloat64 *FormFieldFloat64) (ok bool) {
 
 		_, ok = stage.FormFieldFloat64s[formfieldfloat64]
@@ -147,6 +160,13 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 	func (stage *StageStruct) IsStagedFormFieldString(formfieldstring *FormFieldString) (ok bool) {
 
 		_, ok = stage.FormFieldStrings[formfieldstring]
+	
+		return
+	}
+
+	func (stage *StageStruct) IsStagedFormFieldTime(formfieldtime *FormFieldTime) (ok bool) {
+
+		_, ok = stage.FormFieldTimes[formfieldtime]
 	
 		return
 	}
@@ -211,6 +231,9 @@ func StageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *FormFieldBoolean:
 		stage.StageBranchFormFieldBoolean(target)
 
+	case *FormFieldDate:
+		stage.StageBranchFormFieldDate(target)
+
 	case *FormFieldFloat64:
 		stage.StageBranchFormFieldFloat64(target)
 
@@ -219,6 +242,9 @@ func StageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 
 	case *FormFieldString:
 		stage.StageBranchFormFieldString(target)
+
+	case *FormFieldTime:
+		stage.StageBranchFormFieldTime(target)
 
 	case *FormGroup:
 		stage.StageBranchFormGroup(target)
@@ -395,6 +421,12 @@ func (stage *StageStruct) StageBranchFormField(formfield *FormField) {
 	if formfield.FormFieldBool != nil {
 		StageBranch(stage, formfield.FormFieldBool)
 	}
+	if formfield.FormFieldDate != nil {
+		StageBranch(stage, formfield.FormFieldDate)
+	}
+	if formfield.FormFieldTime != nil {
+		StageBranch(stage, formfield.FormFieldTime)
+	}
 
 	//insertion point for the staging of instances referenced by slice of pointers
 
@@ -408,6 +440,21 @@ func (stage *StageStruct) StageBranchFormFieldBoolean(formfieldboolean *FormFiel
 	}
 
 	formfieldboolean.Stage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
+
+}
+
+func (stage *StageStruct) StageBranchFormFieldDate(formfielddate *FormFieldDate) {
+
+	// check if instance is already staged
+	if IsStaged(stage, formfielddate) {
+		return
+	}
+
+	formfielddate.Stage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
 
@@ -453,6 +500,21 @@ func (stage *StageStruct) StageBranchFormFieldString(formfieldstring *FormFieldS
 	}
 
 	formfieldstring.Stage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
+
+}
+
+func (stage *StageStruct) StageBranchFormFieldTime(formfieldtime *FormFieldTime) {
+
+	// check if instance is already staged
+	if IsStaged(stage, formfieldtime) {
+		return
+	}
+
+	formfieldtime.Stage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
 
@@ -556,6 +618,9 @@ func UnstageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *FormFieldBoolean:
 		stage.UnstageBranchFormFieldBoolean(target)
 
+	case *FormFieldDate:
+		stage.UnstageBranchFormFieldDate(target)
+
 	case *FormFieldFloat64:
 		stage.UnstageBranchFormFieldFloat64(target)
 
@@ -564,6 +629,9 @@ func UnstageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 
 	case *FormFieldString:
 		stage.UnstageBranchFormFieldString(target)
+
+	case *FormFieldTime:
+		stage.UnstageBranchFormFieldTime(target)
 
 	case *FormGroup:
 		stage.UnstageBranchFormGroup(target)
@@ -740,6 +808,12 @@ func (stage *StageStruct) UnstageBranchFormField(formfield *FormField) {
 	if formfield.FormFieldBool != nil {
 		UnstageBranch(stage, formfield.FormFieldBool)
 	}
+	if formfield.FormFieldDate != nil {
+		UnstageBranch(stage, formfield.FormFieldDate)
+	}
+	if formfield.FormFieldTime != nil {
+		UnstageBranch(stage, formfield.FormFieldTime)
+	}
 
 	//insertion point for the staging of instances referenced by slice of pointers
 
@@ -753,6 +827,21 @@ func (stage *StageStruct) UnstageBranchFormFieldBoolean(formfieldboolean *FormFi
 	}
 
 	formfieldboolean.Unstage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
+
+}
+
+func (stage *StageStruct) UnstageBranchFormFieldDate(formfielddate *FormFieldDate) {
+
+	// check if instance is already staged
+	if ! IsStaged(stage, formfielddate) {
+		return
+	}
+
+	formfielddate.Unstage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
 
@@ -798,6 +887,21 @@ func (stage *StageStruct) UnstageBranchFormFieldString(formfieldstring *FormFiel
 	}
 
 	formfieldstring.Unstage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
+
+}
+
+func (stage *StageStruct) UnstageBranchFormFieldTime(formfieldtime *FormFieldTime) {
+
+	// check if instance is already staged
+	if ! IsStaged(stage, formfieldtime) {
+		return
+	}
+
+	formfieldtime.Unstage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
 

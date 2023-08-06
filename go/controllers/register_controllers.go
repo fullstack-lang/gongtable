@@ -111,6 +111,13 @@ func registerControllers(r *gin.Engine) {
 		v1.PUT("/v1/formfieldbooleans/:id", GetController().UpdateFormFieldBoolean)
 		v1.DELETE("/v1/formfieldbooleans/:id", GetController().DeleteFormFieldBoolean)
 
+		v1.GET("/v1/formfielddates", GetController().GetFormFieldDates)
+		v1.GET("/v1/formfielddates/:id", GetController().GetFormFieldDate)
+		v1.POST("/v1/formfielddates", GetController().PostFormFieldDate)
+		v1.PATCH("/v1/formfielddates/:id", GetController().UpdateFormFieldDate)
+		v1.PUT("/v1/formfielddates/:id", GetController().UpdateFormFieldDate)
+		v1.DELETE("/v1/formfielddates/:id", GetController().DeleteFormFieldDate)
+
 		v1.GET("/v1/formfieldfloat64s", GetController().GetFormFieldFloat64s)
 		v1.GET("/v1/formfieldfloat64s/:id", GetController().GetFormFieldFloat64)
 		v1.POST("/v1/formfieldfloat64s", GetController().PostFormFieldFloat64)
@@ -131,6 +138,13 @@ func registerControllers(r *gin.Engine) {
 		v1.PATCH("/v1/formfieldstrings/:id", GetController().UpdateFormFieldString)
 		v1.PUT("/v1/formfieldstrings/:id", GetController().UpdateFormFieldString)
 		v1.DELETE("/v1/formfieldstrings/:id", GetController().DeleteFormFieldString)
+
+		v1.GET("/v1/formfieldtimes", GetController().GetFormFieldTimes)
+		v1.GET("/v1/formfieldtimes/:id", GetController().GetFormFieldTime)
+		v1.POST("/v1/formfieldtimes", GetController().PostFormFieldTime)
+		v1.PATCH("/v1/formfieldtimes/:id", GetController().UpdateFormFieldTime)
+		v1.PUT("/v1/formfieldtimes/:id", GetController().UpdateFormFieldTime)
+		v1.DELETE("/v1/formfieldtimes/:id", GetController().DeleteFormFieldTime)
 
 		v1.GET("/v1/formgroups", GetController().GetFormGroups)
 		v1.GET("/v1/formgroups/:id", GetController().GetFormGroup)

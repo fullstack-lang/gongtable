@@ -32,6 +32,9 @@ import { FormFieldDetailComponent } from './formfield-detail/formfield-detail.co
 import { FormFieldBooleansTableComponent } from './formfieldbooleans-table/formfieldbooleans-table.component'
 import { FormFieldBooleanDetailComponent } from './formfieldboolean-detail/formfieldboolean-detail.component'
 
+import { FormFieldDatesTableComponent } from './formfielddates-table/formfielddates-table.component'
+import { FormFieldDateDetailComponent } from './formfielddate-detail/formfielddate-detail.component'
+
 import { FormFieldFloat64sTableComponent } from './formfieldfloat64s-table/formfieldfloat64s-table.component'
 import { FormFieldFloat64DetailComponent } from './formfieldfloat64-detail/formfieldfloat64-detail.component'
 
@@ -40,6 +43,9 @@ import { FormFieldIntDetailComponent } from './formfieldint-detail/formfieldint-
 
 import { FormFieldStringsTableComponent } from './formfieldstrings-table/formfieldstrings-table.component'
 import { FormFieldStringDetailComponent } from './formfieldstring-detail/formfieldstring-detail.component'
+
+import { FormFieldTimesTableComponent } from './formfieldtimes-table/formfieldtimes-table.component'
+import { FormFieldTimeDetailComponent } from './formfieldtime-detail/formfieldtime-detail.component'
 
 import { FormGroupsTableComponent } from './formgroups-table/formgroups-table.component'
 import { FormGroupDetailComponent } from './formgroup-detail/formgroup-detail.component'
@@ -411,6 +417,39 @@ export class RouteService {
         return route
     }
 
+    getFormFieldDateTablePath(): string {
+        return this.getPathRoot() + '-formfielddates/:GONG__StackPath'
+    }
+    getFormFieldDateTableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldDateTablePath(), component: FormFieldDatesTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getFormFieldDateAdderPath(): string {
+        return this.getPathRoot() + '-formfielddate-adder/:GONG__StackPath'
+    }
+    getFormFieldDateAdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldDateAdderPath(), component: FormFieldDateDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormFieldDateAdderForUsePath(): string {
+        return this.getPathRoot() + '-formfielddate-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getFormFieldDateAdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldDateAdderForUsePath(), component: FormFieldDateDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormFieldDateDetailPath(): string {
+        return this.getPathRoot() + '-formfielddate-detail/:id/:GONG__StackPath'
+    }
+    getFormFieldDateDetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldDateDetailPath(), component: FormFieldDateDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
     getFormFieldFloat64TablePath(): string {
         return this.getPathRoot() + '-formfieldfloat64s/:GONG__StackPath'
     }
@@ -507,6 +546,39 @@ export class RouteService {
     getFormFieldStringDetailRoute(stackPath: string): Route {
         let route: Route =
             { path: this.getFormFieldStringDetailPath(), component: FormFieldStringDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
+    getFormFieldTimeTablePath(): string {
+        return this.getPathRoot() + '-formfieldtimes/:GONG__StackPath'
+    }
+    getFormFieldTimeTableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldTimeTablePath(), component: FormFieldTimesTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getFormFieldTimeAdderPath(): string {
+        return this.getPathRoot() + '-formfieldtime-adder/:GONG__StackPath'
+    }
+    getFormFieldTimeAdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldTimeAdderPath(), component: FormFieldTimeDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormFieldTimeAdderForUsePath(): string {
+        return this.getPathRoot() + '-formfieldtime-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getFormFieldTimeAdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldTimeAdderForUsePath(), component: FormFieldTimeDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormFieldTimeDetailPath(): string {
+        return this.getPathRoot() + '-formfieldtime-detail/:id/:GONG__StackPath'
+    }
+    getFormFieldTimeDetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldTimeDetailPath(), component: FormFieldTimeDetailComponent, outlet: this.getEditorOutlet(stackPath) }
         return route
     }
 
@@ -665,6 +737,11 @@ export class RouteService {
             this.getFormFieldBooleanAdderForUseRoute(stackPath),
             this.getFormFieldBooleanDetailRoute(stackPath),
 
+            this.getFormFieldDateTableRoute(stackPath),
+            this.getFormFieldDateAdderRoute(stackPath),
+            this.getFormFieldDateAdderForUseRoute(stackPath),
+            this.getFormFieldDateDetailRoute(stackPath),
+
             this.getFormFieldFloat64TableRoute(stackPath),
             this.getFormFieldFloat64AdderRoute(stackPath),
             this.getFormFieldFloat64AdderForUseRoute(stackPath),
@@ -679,6 +756,11 @@ export class RouteService {
             this.getFormFieldStringAdderRoute(stackPath),
             this.getFormFieldStringAdderForUseRoute(stackPath),
             this.getFormFieldStringDetailRoute(stackPath),
+
+            this.getFormFieldTimeTableRoute(stackPath),
+            this.getFormFieldTimeAdderRoute(stackPath),
+            this.getFormFieldTimeAdderForUseRoute(stackPath),
+            this.getFormFieldTimeDetailRoute(stackPath),
 
             this.getFormGroupTableRoute(stackPath),
             this.getFormGroupAdderRoute(stackPath),

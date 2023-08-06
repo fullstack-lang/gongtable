@@ -486,6 +486,44 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 
 	}
 
+	map_FormFieldDate_Identifiers := make(map[*FormFieldDate]string)
+	_ = map_FormFieldDate_Identifiers
+
+	formfielddateOrdered := []*FormFieldDate{}
+	for formfielddate := range stage.FormFieldDates {
+		formfielddateOrdered = append(formfielddateOrdered, formfielddate)
+	}
+	sort.Slice(formfielddateOrdered[:], func(i, j int) bool {
+		return formfielddateOrdered[i].Name < formfielddateOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of FormFieldDate"
+	for idx, formfielddate := range formfielddateOrdered {
+
+		id = generatesIdentifier("FormFieldDate", idx, formfielddate.Name)
+		map_FormFieldDate_Identifiers[formfielddate] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "FormFieldDate")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", formfielddate.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// FormFieldDate values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formfielddate.Name))
+		initializerStatements += setValueField
+
+		setValueField = TimeInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Value")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", formfielddate.Value.String())
+		initializerStatements += setValueField
+
+	}
+
 	map_FormFieldFloat64_Identifiers := make(map[*FormFieldFloat64]string)
 	_ = map_FormFieldFloat64_Identifiers
 
@@ -596,6 +634,50 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
 		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Value")
 		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formfieldstring.Value))
+		initializerStatements += setValueField
+
+	}
+
+	map_FormFieldTime_Identifiers := make(map[*FormFieldTime]string)
+	_ = map_FormFieldTime_Identifiers
+
+	formfieldtimeOrdered := []*FormFieldTime{}
+	for formfieldtime := range stage.FormFieldTimes {
+		formfieldtimeOrdered = append(formfieldtimeOrdered, formfieldtime)
+	}
+	sort.Slice(formfieldtimeOrdered[:], func(i, j int) bool {
+		return formfieldtimeOrdered[i].Name < formfieldtimeOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of FormFieldTime"
+	for idx, formfieldtime := range formfieldtimeOrdered {
+
+		id = generatesIdentifier("FormFieldTime", idx, formfieldtime.Name)
+		map_FormFieldTime_Identifiers[formfieldtime] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "FormFieldTime")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", formfieldtime.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// FormFieldTime values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formfieldtime.Name))
+		initializerStatements += setValueField
+
+		setValueField = TimeInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Value")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", formfieldtime.Value.String())
+		initializerStatements += setValueField
+
+		setValueField = NumberInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Step")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", fmt.Sprintf("%f", formfieldtime.Step))
 		initializerStatements += setValueField
 
 	}
@@ -907,6 +989,22 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 			pointersInitializesStatements += setPointerField
 		}
 
+		if formfield.FormFieldDate != nil {
+			setPointerField = PointerFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormFieldDate")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormFieldDate_Identifiers[formfield.FormFieldDate])
+			pointersInitializesStatements += setPointerField
+		}
+
+		if formfield.FormFieldTime != nil {
+			setPointerField = PointerFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormFieldTime")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormFieldTime_Identifiers[formfield.FormFieldTime])
+			pointersInitializesStatements += setPointerField
+		}
+
 	}
 
 	for idx, formfieldboolean := range formfieldbooleanOrdered {
@@ -915,6 +1013,16 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 
 		id = generatesIdentifier("FormFieldBoolean", idx, formfieldboolean.Name)
 		map_FormFieldBoolean_Identifiers[formfieldboolean] = id
+
+		// Initialisation of values
+	}
+
+	for idx, formfielddate := range formfielddateOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("FormFieldDate", idx, formfielddate.Name)
+		map_FormFieldDate_Identifiers[formfielddate] = id
 
 		// Initialisation of values
 	}
@@ -945,6 +1053,16 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 
 		id = generatesIdentifier("FormFieldString", idx, formfieldstring.Name)
 		map_FormFieldString_Identifiers[formfieldstring] = id
+
+		// Initialisation of values
+	}
+
+	for idx, formfieldtime := range formfieldtimeOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("FormFieldTime", idx, formfieldtime.Name)
+		map_FormFieldTime_Identifiers[formfieldtime] = id
 
 		// Initialisation of values
 	}

@@ -79,6 +79,10 @@ import { FormFieldBooleansTableComponent } from './formfieldbooleans-table/formf
 import { FormFieldBooleanSortingComponent } from './formfieldboolean-sorting/formfieldboolean-sorting.component'
 import { FormFieldBooleanDetailComponent } from './formfieldboolean-detail/formfieldboolean-detail.component'
 
+import { FormFieldDatesTableComponent } from './formfielddates-table/formfielddates-table.component'
+import { FormFieldDateSortingComponent } from './formfielddate-sorting/formfielddate-sorting.component'
+import { FormFieldDateDetailComponent } from './formfielddate-detail/formfielddate-detail.component'
+
 import { FormFieldFloat64sTableComponent } from './formfieldfloat64s-table/formfieldfloat64s-table.component'
 import { FormFieldFloat64SortingComponent } from './formfieldfloat64-sorting/formfieldfloat64-sorting.component'
 import { FormFieldFloat64DetailComponent } from './formfieldfloat64-detail/formfieldfloat64-detail.component'
@@ -90,6 +94,10 @@ import { FormFieldIntDetailComponent } from './formfieldint-detail/formfieldint-
 import { FormFieldStringsTableComponent } from './formfieldstrings-table/formfieldstrings-table.component'
 import { FormFieldStringSortingComponent } from './formfieldstring-sorting/formfieldstring-sorting.component'
 import { FormFieldStringDetailComponent } from './formfieldstring-detail/formfieldstring-detail.component'
+
+import { FormFieldTimesTableComponent } from './formfieldtimes-table/formfieldtimes-table.component'
+import { FormFieldTimeSortingComponent } from './formfieldtime-sorting/formfieldtime-sorting.component'
+import { FormFieldTimeDetailComponent } from './formfieldtime-detail/formfieldtime-detail.component'
 
 import { FormGroupsTableComponent } from './formgroups-table/formgroups-table.component'
 import { FormGroupSortingComponent } from './formgroup-sorting/formgroup-sorting.component'
@@ -147,6 +155,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormFieldBooleanSortingComponent,
 		FormFieldBooleanDetailComponent,
 
+		FormFieldDatesTableComponent,
+		FormFieldDateSortingComponent,
+		FormFieldDateDetailComponent,
+
 		FormFieldFloat64sTableComponent,
 		FormFieldFloat64SortingComponent,
 		FormFieldFloat64DetailComponent,
@@ -158,6 +170,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormFieldStringsTableComponent,
 		FormFieldStringSortingComponent,
 		FormFieldStringDetailComponent,
+
+		FormFieldTimesTableComponent,
+		FormFieldTimeSortingComponent,
+		FormFieldTimeDetailComponent,
 
 		FormGroupsTableComponent,
 		FormGroupSortingComponent,
@@ -250,6 +266,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormFieldBooleanSortingComponent,
 		FormFieldBooleanDetailComponent,
 
+		FormFieldDatesTableComponent,
+		FormFieldDateSortingComponent,
+		FormFieldDateDetailComponent,
+
 		FormFieldFloat64sTableComponent,
 		FormFieldFloat64SortingComponent,
 		FormFieldFloat64DetailComponent,
@@ -261,6 +281,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormFieldStringsTableComponent,
 		FormFieldStringSortingComponent,
 		FormFieldStringDetailComponent,
+
+		FormFieldTimesTableComponent,
+		FormFieldTimeSortingComponent,
+		FormFieldTimeDetailComponent,
 
 		FormGroupsTableComponent,
 		FormGroupSortingComponent,

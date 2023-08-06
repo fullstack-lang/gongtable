@@ -31,12 +31,16 @@ import { FormFieldService } from '../formfield.service'
 import { getFormFieldUniqueID } from '../front-repo.service'
 import { FormFieldBooleanService } from '../formfieldboolean.service'
 import { getFormFieldBooleanUniqueID } from '../front-repo.service'
+import { FormFieldDateService } from '../formfielddate.service'
+import { getFormFieldDateUniqueID } from '../front-repo.service'
 import { FormFieldFloat64Service } from '../formfieldfloat64.service'
 import { getFormFieldFloat64UniqueID } from '../front-repo.service'
 import { FormFieldIntService } from '../formfieldint.service'
 import { getFormFieldIntUniqueID } from '../front-repo.service'
 import { FormFieldStringService } from '../formfieldstring.service'
 import { getFormFieldStringUniqueID } from '../front-repo.service'
+import { FormFieldTimeService } from '../formfieldtime.service'
+import { getFormFieldTimeUniqueID } from '../front-repo.service'
 import { FormGroupService } from '../formgroup.service'
 import { getFormGroupUniqueID } from '../front-repo.service'
 import { RowService } from '../row.service'
@@ -198,9 +202,11 @@ export class SidebarComponent implements OnInit {
     private formdivService: FormDivService,
     private formfieldService: FormFieldService,
     private formfieldbooleanService: FormFieldBooleanService,
+    private formfielddateService: FormFieldDateService,
     private formfieldfloat64Service: FormFieldFloat64Service,
     private formfieldintService: FormFieldIntService,
     private formfieldstringService: FormFieldStringService,
+    private formfieldtimeService: FormFieldTimeService,
     private formgroupService: FormGroupService,
     private rowService: RowService,
     private tableService: TableService,
@@ -320,6 +326,14 @@ export class SidebarComponent implements OnInit {
       }
     )
     // observable for changes in structs
+    this.formfielddateService.FormFieldDateServiceChanged.subscribe(
+      message => {
+        if (message == "post" || message == "update" || message == "delete") {
+          this.refresh()
+        }
+      }
+    )
+    // observable for changes in structs
     this.formfieldfloat64Service.FormFieldFloat64ServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
@@ -337,6 +351,14 @@ export class SidebarComponent implements OnInit {
     )
     // observable for changes in structs
     this.formfieldstringService.FormFieldStringServiceChanged.subscribe(
+      message => {
+        if (message == "post" || message == "update" || message == "delete") {
+          this.refresh()
+        }
+      }
+    )
+    // observable for changes in structs
+    this.formfieldtimeService.FormFieldTimeServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
           this.refresh()
@@ -1131,6 +1153,76 @@ export class SidebarComponent implements OnInit {
             FormFieldBoolGongNodeAssociation.children.push(formfieldGongNodeInstance_FormFieldBool)
           }
 
+          /**
+          * let append a node for the association FormFieldDate
+          */
+          let FormFieldDateGongNodeAssociation: GongNode = {
+            name: "(FormFieldDate) FormFieldDate",
+            type: GongNodeType.ONE__ZERO_ONE_ASSOCIATION,
+            id: formfieldDB.ID,
+            uniqueIdPerStack: 17 * nonInstanceNodeId,
+            structName: "FormField",
+            associationField: "FormFieldDate",
+            associatedStructName: "FormFieldDate",
+            children: new Array<GongNode>()
+          }
+          nonInstanceNodeId = nonInstanceNodeId + 1
+          formfieldGongNodeInstance.children!.push(FormFieldDateGongNodeAssociation)
+
+          /**
+            * let append a node for the instance behind the asssociation FormFieldDate
+            */
+          if (formfieldDB.FormFieldDate != undefined) {
+            let formfieldGongNodeInstance_FormFieldDate: GongNode = {
+              name: formfieldDB.FormFieldDate.Name,
+              type: GongNodeType.INSTANCE,
+              id: formfieldDB.FormFieldDate.ID,
+              uniqueIdPerStack: // godel numbering (thank you kurt)
+                3 * getFormFieldUniqueID(formfieldDB.ID)
+                + 5 * getFormFieldDateUniqueID(formfieldDB.FormFieldDate.ID),
+              structName: "FormFieldDate",
+              associationField: "",
+              associatedStructName: "",
+              children: new Array<GongNode>()
+            }
+            FormFieldDateGongNodeAssociation.children.push(formfieldGongNodeInstance_FormFieldDate)
+          }
+
+          /**
+          * let append a node for the association FormFieldTime
+          */
+          let FormFieldTimeGongNodeAssociation: GongNode = {
+            name: "(FormFieldTime) FormFieldTime",
+            type: GongNodeType.ONE__ZERO_ONE_ASSOCIATION,
+            id: formfieldDB.ID,
+            uniqueIdPerStack: 17 * nonInstanceNodeId,
+            structName: "FormField",
+            associationField: "FormFieldTime",
+            associatedStructName: "FormFieldTime",
+            children: new Array<GongNode>()
+          }
+          nonInstanceNodeId = nonInstanceNodeId + 1
+          formfieldGongNodeInstance.children!.push(FormFieldTimeGongNodeAssociation)
+
+          /**
+            * let append a node for the instance behind the asssociation FormFieldTime
+            */
+          if (formfieldDB.FormFieldTime != undefined) {
+            let formfieldGongNodeInstance_FormFieldTime: GongNode = {
+              name: formfieldDB.FormFieldTime.Name,
+              type: GongNodeType.INSTANCE,
+              id: formfieldDB.FormFieldTime.ID,
+              uniqueIdPerStack: // godel numbering (thank you kurt)
+                3 * getFormFieldUniqueID(formfieldDB.ID)
+                + 5 * getFormFieldTimeUniqueID(formfieldDB.FormFieldTime.ID),
+              structName: "FormFieldTime",
+              associationField: "",
+              associatedStructName: "",
+              children: new Array<GongNode>()
+            }
+            FormFieldTimeGongNodeAssociation.children.push(formfieldGongNodeInstance_FormFieldTime)
+          }
+
         }
       )
 
@@ -1173,6 +1265,50 @@ export class SidebarComponent implements OnInit {
             children: new Array<GongNode>()
           }
           formfieldbooleanGongNodeStruct.children!.push(formfieldbooleanGongNodeInstance)
+
+          // insertion point for per field code
+        }
+      )
+
+      /**
+      * fill up the FormFieldDate part of the mat tree
+      */
+      let formfielddateGongNodeStruct: GongNode = {
+        name: "FormFieldDate",
+        type: GongNodeType.STRUCT,
+        id: 0,
+        uniqueIdPerStack: 13 * nonInstanceNodeId,
+        structName: "FormFieldDate",
+        associationField: "",
+        associatedStructName: "",
+        children: new Array<GongNode>()
+      }
+      nonInstanceNodeId = nonInstanceNodeId + 1
+      this.gongNodeTree.push(formfielddateGongNodeStruct)
+
+      this.frontRepo.FormFieldDates_array.sort((t1, t2) => {
+        if (t1.Name > t2.Name) {
+          return 1;
+        }
+        if (t1.Name < t2.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      this.frontRepo.FormFieldDates_array.forEach(
+        formfielddateDB => {
+          let formfielddateGongNodeInstance: GongNode = {
+            name: formfielddateDB.Name,
+            type: GongNodeType.INSTANCE,
+            id: formfielddateDB.ID,
+            uniqueIdPerStack: getFormFieldDateUniqueID(formfielddateDB.ID),
+            structName: "FormFieldDate",
+            associationField: "",
+            associatedStructName: "",
+            children: new Array<GongNode>()
+          }
+          formfielddateGongNodeStruct.children!.push(formfielddateGongNodeInstance)
 
           // insertion point for per field code
         }
@@ -1305,6 +1441,50 @@ export class SidebarComponent implements OnInit {
             children: new Array<GongNode>()
           }
           formfieldstringGongNodeStruct.children!.push(formfieldstringGongNodeInstance)
+
+          // insertion point for per field code
+        }
+      )
+
+      /**
+      * fill up the FormFieldTime part of the mat tree
+      */
+      let formfieldtimeGongNodeStruct: GongNode = {
+        name: "FormFieldTime",
+        type: GongNodeType.STRUCT,
+        id: 0,
+        uniqueIdPerStack: 13 * nonInstanceNodeId,
+        structName: "FormFieldTime",
+        associationField: "",
+        associatedStructName: "",
+        children: new Array<GongNode>()
+      }
+      nonInstanceNodeId = nonInstanceNodeId + 1
+      this.gongNodeTree.push(formfieldtimeGongNodeStruct)
+
+      this.frontRepo.FormFieldTimes_array.sort((t1, t2) => {
+        if (t1.Name > t2.Name) {
+          return 1;
+        }
+        if (t1.Name < t2.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      this.frontRepo.FormFieldTimes_array.forEach(
+        formfieldtimeDB => {
+          let formfieldtimeGongNodeInstance: GongNode = {
+            name: formfieldtimeDB.Name,
+            type: GongNodeType.INSTANCE,
+            id: formfieldtimeDB.ID,
+            uniqueIdPerStack: getFormFieldTimeUniqueID(formfieldtimeDB.ID),
+            structName: "FormFieldTime",
+            associationField: "",
+            associatedStructName: "",
+            children: new Array<GongNode>()
+          }
+          formfieldtimeGongNodeStruct.children!.push(formfieldtimeGongNodeInstance)
 
           // insertion point for per field code
         }

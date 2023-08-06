@@ -96,6 +96,12 @@ export class FormFieldsTableComponent implements OnInit {
         case 'FormFieldBool':
           return (formfieldDB.FormFieldBool ? formfieldDB.FormFieldBool.Name : '');
 
+        case 'FormFieldDate':
+          return (formfieldDB.FormFieldDate ? formfieldDB.FormFieldDate.Name : '');
+
+        case 'FormFieldTime':
+          return (formfieldDB.FormFieldTime ? formfieldDB.FormFieldTime.Name : '');
+
         case 'FormDiv_FormFields':
           if (this.frontRepo.FormDivs.get(formfieldDB.FormDiv_FormFieldsDBID.Int64) != undefined) {
             return this.frontRepo.FormDivs.get(formfieldDB.FormDiv_FormFieldsDBID.Int64)!.Name
@@ -132,6 +138,12 @@ export class FormFieldsTableComponent implements OnInit {
       }
       if (formfieldDB.FormFieldBool) {
         mergedContent += formfieldDB.FormFieldBool.Name.toLowerCase()
+      }
+      if (formfieldDB.FormFieldDate) {
+        mergedContent += formfieldDB.FormFieldDate.Name.toLowerCase()
+      }
+      if (formfieldDB.FormFieldTime) {
+        mergedContent += formfieldDB.FormFieldTime.Name.toLowerCase()
       }
       if (formfieldDB.FormDiv_FormFieldsDBID.Int64 != 0) {
         mergedContent += this.frontRepo.FormDivs.get(formfieldDB.FormDiv_FormFieldsDBID.Int64)!.Name.toLowerCase()
@@ -199,6 +211,8 @@ export class FormFieldsTableComponent implements OnInit {
         "FormFieldFloat64",
         "FormFieldInt",
         "FormFieldBool",
+        "FormFieldDate",
+        "FormFieldTime",
         "FormDiv_FormFields",
       ]
     } else {
@@ -211,6 +225,8 @@ export class FormFieldsTableComponent implements OnInit {
         "FormFieldFloat64",
         "FormFieldInt",
         "FormFieldBool",
+        "FormFieldDate",
+        "FormFieldTime",
         "FormDiv_FormFields",
       ]
       this.selection = new SelectionModel<FormFieldDB>(allowMultiSelect, this.initialSelection);

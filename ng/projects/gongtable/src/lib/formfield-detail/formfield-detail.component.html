@@ -112,6 +112,26 @@
     </mat-form-field>
 
     <mat-form-field class="detail-full-width">
+        <mat-label>FormFieldDate</mat-label>
+        <mat-select [compareWith]="compareObjects" [(value)]="formfield.FormFieldDate" (selectionChange)="fillUpNameIfEmpty($event)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let formfielddate of frontRepo.FormFieldDates_array" [value]="formfielddate">
+                {{formfielddate.Name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="detail-full-width">
+        <mat-label>FormFieldTime</mat-label>
+        <mat-select [compareWith]="compareObjects" [(value)]="formfield.FormFieldTime" (selectionChange)="fillUpNameIfEmpty($event)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let formfieldtime of frontRepo.FormFieldTimes_array" [value]="formfieldtime">
+                {{formfieldtime.Name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="detail-full-width">
         <mat-label>(FormDiv) FormFields</mat-label>
         <mat-select [compareWith]="compareObjects" [(ngModel)]="formfield.FormDiv_FormFields_reverse" [ngModelOptions]="{standalone: true}">
             <mat-option>None</mat-option>

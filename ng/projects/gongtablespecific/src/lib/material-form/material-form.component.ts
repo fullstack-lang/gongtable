@@ -143,6 +143,12 @@ export class MaterialFormComponent implements OnInit {
             if (formField.FormFieldInt) {
               generatedFormGroupConfig[formField.Name] = [formField.FormFieldInt.Value.toString(), Validators.required]
             }
+            if (formField.FormFieldDate) {
+              generatedFormGroupConfig[formField.Name] = [formField.FormFieldDate.Value.toString(), Validators.required]
+            }
+            if (formField.FormFieldTime) {
+              generatedFormGroupConfig[formField.Name] = [formField.FormFieldTime.Value.toString(), Validators.required]
+            }
           }
         }
 

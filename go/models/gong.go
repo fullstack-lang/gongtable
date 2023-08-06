@@ -110,6 +110,14 @@ type StageStruct struct { // insertion point for definition of arrays registerin
 	OnAfterFormFieldBooleanDeleteCallback OnAfterDeleteInterface[FormFieldBoolean]
 	OnAfterFormFieldBooleanReadCallback   OnAfterReadInterface[FormFieldBoolean]
 
+	FormFieldDates           map[*FormFieldDate]any
+	FormFieldDates_mapString map[string]*FormFieldDate
+
+	OnAfterFormFieldDateCreateCallback OnAfterCreateInterface[FormFieldDate]
+	OnAfterFormFieldDateUpdateCallback OnAfterUpdateInterface[FormFieldDate]
+	OnAfterFormFieldDateDeleteCallback OnAfterDeleteInterface[FormFieldDate]
+	OnAfterFormFieldDateReadCallback   OnAfterReadInterface[FormFieldDate]
+
 	FormFieldFloat64s           map[*FormFieldFloat64]any
 	FormFieldFloat64s_mapString map[string]*FormFieldFloat64
 
@@ -133,6 +141,14 @@ type StageStruct struct { // insertion point for definition of arrays registerin
 	OnAfterFormFieldStringUpdateCallback OnAfterUpdateInterface[FormFieldString]
 	OnAfterFormFieldStringDeleteCallback OnAfterDeleteInterface[FormFieldString]
 	OnAfterFormFieldStringReadCallback   OnAfterReadInterface[FormFieldString]
+
+	FormFieldTimes           map[*FormFieldTime]any
+	FormFieldTimes_mapString map[string]*FormFieldTime
+
+	OnAfterFormFieldTimeCreateCallback OnAfterCreateInterface[FormFieldTime]
+	OnAfterFormFieldTimeUpdateCallback OnAfterUpdateInterface[FormFieldTime]
+	OnAfterFormFieldTimeDeleteCallback OnAfterDeleteInterface[FormFieldTime]
+	OnAfterFormFieldTimeReadCallback   OnAfterReadInterface[FormFieldTime]
 
 	FormGroups           map[*FormGroup]any
 	FormGroups_mapString map[string]*FormGroup
@@ -242,12 +258,16 @@ type BackRepoInterface interface {
 	CheckoutFormField(formfield *FormField)
 	CommitFormFieldBoolean(formfieldboolean *FormFieldBoolean)
 	CheckoutFormFieldBoolean(formfieldboolean *FormFieldBoolean)
+	CommitFormFieldDate(formfielddate *FormFieldDate)
+	CheckoutFormFieldDate(formfielddate *FormFieldDate)
 	CommitFormFieldFloat64(formfieldfloat64 *FormFieldFloat64)
 	CheckoutFormFieldFloat64(formfieldfloat64 *FormFieldFloat64)
 	CommitFormFieldInt(formfieldint *FormFieldInt)
 	CheckoutFormFieldInt(formfieldint *FormFieldInt)
 	CommitFormFieldString(formfieldstring *FormFieldString)
 	CheckoutFormFieldString(formfieldstring *FormFieldString)
+	CommitFormFieldTime(formfieldtime *FormFieldTime)
+	CheckoutFormFieldTime(formfieldtime *FormFieldTime)
 	CommitFormGroup(formgroup *FormGroup)
 	CheckoutFormGroup(formgroup *FormGroup)
 	CommitRow(row *Row)
@@ -302,6 +322,9 @@ func NewStage() (stage *StageStruct) {
 		FormFieldBooleans:           make(map[*FormFieldBoolean]any),
 		FormFieldBooleans_mapString: make(map[string]*FormFieldBoolean),
 
+		FormFieldDates:           make(map[*FormFieldDate]any),
+		FormFieldDates_mapString: make(map[string]*FormFieldDate),
+
 		FormFieldFloat64s:           make(map[*FormFieldFloat64]any),
 		FormFieldFloat64s_mapString: make(map[string]*FormFieldFloat64),
 
@@ -310,6 +333,9 @@ func NewStage() (stage *StageStruct) {
 
 		FormFieldStrings:           make(map[*FormFieldString]any),
 		FormFieldStrings_mapString: make(map[string]*FormFieldString),
+
+		FormFieldTimes:           make(map[*FormFieldTime]any),
+		FormFieldTimes_mapString: make(map[string]*FormFieldTime),
 
 		FormGroups:           make(map[*FormGroup]any),
 		FormGroups_mapString: make(map[string]*FormGroup),
@@ -355,9 +381,11 @@ func (stage *StageStruct) Commit() {
 	stage.Map_GongStructName_InstancesNb["FormDiv"] = len(stage.FormDivs)
 	stage.Map_GongStructName_InstancesNb["FormField"] = len(stage.FormFields)
 	stage.Map_GongStructName_InstancesNb["FormFieldBoolean"] = len(stage.FormFieldBooleans)
+	stage.Map_GongStructName_InstancesNb["FormFieldDate"] = len(stage.FormFieldDates)
 	stage.Map_GongStructName_InstancesNb["FormFieldFloat64"] = len(stage.FormFieldFloat64s)
 	stage.Map_GongStructName_InstancesNb["FormFieldInt"] = len(stage.FormFieldInts)
 	stage.Map_GongStructName_InstancesNb["FormFieldString"] = len(stage.FormFieldStrings)
+	stage.Map_GongStructName_InstancesNb["FormFieldTime"] = len(stage.FormFieldTimes)
 	stage.Map_GongStructName_InstancesNb["FormGroup"] = len(stage.FormGroups)
 	stage.Map_GongStructName_InstancesNb["Row"] = len(stage.Rows)
 	stage.Map_GongStructName_InstancesNb["Table"] = len(stage.Tables)
@@ -380,9 +408,11 @@ func (stage *StageStruct) Checkout() {
 	stage.Map_GongStructName_InstancesNb["FormDiv"] = len(stage.FormDivs)
 	stage.Map_GongStructName_InstancesNb["FormField"] = len(stage.FormFields)
 	stage.Map_GongStructName_InstancesNb["FormFieldBoolean"] = len(stage.FormFieldBooleans)
+	stage.Map_GongStructName_InstancesNb["FormFieldDate"] = len(stage.FormFieldDates)
 	stage.Map_GongStructName_InstancesNb["FormFieldFloat64"] = len(stage.FormFieldFloat64s)
 	stage.Map_GongStructName_InstancesNb["FormFieldInt"] = len(stage.FormFieldInts)
 	stage.Map_GongStructName_InstancesNb["FormFieldString"] = len(stage.FormFieldStrings)
+	stage.Map_GongStructName_InstancesNb["FormFieldTime"] = len(stage.FormFieldTimes)
 	stage.Map_GongStructName_InstancesNb["FormGroup"] = len(stage.FormGroups)
 	stage.Map_GongStructName_InstancesNb["Row"] = len(stage.Rows)
 	stage.Map_GongStructName_InstancesNb["Table"] = len(stage.Tables)
@@ -818,6 +848,46 @@ func (formfieldboolean *FormFieldBoolean) GetName() (res string) {
 	return formfieldboolean.Name
 }
 
+// Stage puts formfielddate to the model stage
+func (formfielddate *FormFieldDate) Stage(stage *StageStruct) *FormFieldDate {
+	stage.FormFieldDates[formfielddate] = __member
+	stage.FormFieldDates_mapString[formfielddate.Name] = formfielddate
+
+	return formfielddate
+}
+
+// Unstage removes formfielddate off the model stage
+func (formfielddate *FormFieldDate) Unstage(stage *StageStruct) *FormFieldDate {
+	delete(stage.FormFieldDates, formfielddate)
+	delete(stage.FormFieldDates_mapString, formfielddate.Name)
+	return formfielddate
+}
+
+// commit formfielddate to the back repo (if it is already staged)
+func (formfielddate *FormFieldDate) Commit(stage *StageStruct) *FormFieldDate {
+	if _, ok := stage.FormFieldDates[formfielddate]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitFormFieldDate(formfielddate)
+		}
+	}
+	return formfielddate
+}
+
+// Checkout formfielddate to the back repo (if it is already staged)
+func (formfielddate *FormFieldDate) Checkout(stage *StageStruct) *FormFieldDate {
+	if _, ok := stage.FormFieldDates[formfielddate]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutFormFieldDate(formfielddate)
+		}
+	}
+	return formfielddate
+}
+
+// for satisfaction of GongStruct interface
+func (formfielddate *FormFieldDate) GetName() (res string) {
+	return formfielddate.Name
+}
+
 // Stage puts formfieldfloat64 to the model stage
 func (formfieldfloat64 *FormFieldFloat64) Stage(stage *StageStruct) *FormFieldFloat64 {
 	stage.FormFieldFloat64s[formfieldfloat64] = __member
@@ -936,6 +1006,46 @@ func (formfieldstring *FormFieldString) Checkout(stage *StageStruct) *FormFieldS
 // for satisfaction of GongStruct interface
 func (formfieldstring *FormFieldString) GetName() (res string) {
 	return formfieldstring.Name
+}
+
+// Stage puts formfieldtime to the model stage
+func (formfieldtime *FormFieldTime) Stage(stage *StageStruct) *FormFieldTime {
+	stage.FormFieldTimes[formfieldtime] = __member
+	stage.FormFieldTimes_mapString[formfieldtime.Name] = formfieldtime
+
+	return formfieldtime
+}
+
+// Unstage removes formfieldtime off the model stage
+func (formfieldtime *FormFieldTime) Unstage(stage *StageStruct) *FormFieldTime {
+	delete(stage.FormFieldTimes, formfieldtime)
+	delete(stage.FormFieldTimes_mapString, formfieldtime.Name)
+	return formfieldtime
+}
+
+// commit formfieldtime to the back repo (if it is already staged)
+func (formfieldtime *FormFieldTime) Commit(stage *StageStruct) *FormFieldTime {
+	if _, ok := stage.FormFieldTimes[formfieldtime]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitFormFieldTime(formfieldtime)
+		}
+	}
+	return formfieldtime
+}
+
+// Checkout formfieldtime to the back repo (if it is already staged)
+func (formfieldtime *FormFieldTime) Checkout(stage *StageStruct) *FormFieldTime {
+	if _, ok := stage.FormFieldTimes[formfieldtime]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutFormFieldTime(formfieldtime)
+		}
+	}
+	return formfieldtime
+}
+
+// for satisfaction of GongStruct interface
+func (formfieldtime *FormFieldTime) GetName() (res string) {
+	return formfieldtime.Name
 }
 
 // Stage puts formgroup to the model stage
@@ -1070,9 +1180,11 @@ type AllModelsStructCreateInterface interface { // insertion point for Callbacks
 	CreateORMFormDiv(FormDiv *FormDiv)
 	CreateORMFormField(FormField *FormField)
 	CreateORMFormFieldBoolean(FormFieldBoolean *FormFieldBoolean)
+	CreateORMFormFieldDate(FormFieldDate *FormFieldDate)
 	CreateORMFormFieldFloat64(FormFieldFloat64 *FormFieldFloat64)
 	CreateORMFormFieldInt(FormFieldInt *FormFieldInt)
 	CreateORMFormFieldString(FormFieldString *FormFieldString)
+	CreateORMFormFieldTime(FormFieldTime *FormFieldTime)
 	CreateORMFormGroup(FormGroup *FormGroup)
 	CreateORMRow(Row *Row)
 	CreateORMTable(Table *Table)
@@ -1089,9 +1201,11 @@ type AllModelsStructDeleteInterface interface { // insertion point for Callbacks
 	DeleteORMFormDiv(FormDiv *FormDiv)
 	DeleteORMFormField(FormField *FormField)
 	DeleteORMFormFieldBoolean(FormFieldBoolean *FormFieldBoolean)
+	DeleteORMFormFieldDate(FormFieldDate *FormFieldDate)
 	DeleteORMFormFieldFloat64(FormFieldFloat64 *FormFieldFloat64)
 	DeleteORMFormFieldInt(FormFieldInt *FormFieldInt)
 	DeleteORMFormFieldString(FormFieldString *FormFieldString)
+	DeleteORMFormFieldTime(FormFieldTime *FormFieldTime)
 	DeleteORMFormGroup(FormGroup *FormGroup)
 	DeleteORMRow(Row *Row)
 	DeleteORMTable(Table *Table)
@@ -1128,6 +1242,9 @@ func (stage *StageStruct) Reset() { // insertion point for array reset
 	stage.FormFieldBooleans = make(map[*FormFieldBoolean]any)
 	stage.FormFieldBooleans_mapString = make(map[string]*FormFieldBoolean)
 
+	stage.FormFieldDates = make(map[*FormFieldDate]any)
+	stage.FormFieldDates_mapString = make(map[string]*FormFieldDate)
+
 	stage.FormFieldFloat64s = make(map[*FormFieldFloat64]any)
 	stage.FormFieldFloat64s_mapString = make(map[string]*FormFieldFloat64)
 
@@ -1136,6 +1253,9 @@ func (stage *StageStruct) Reset() { // insertion point for array reset
 
 	stage.FormFieldStrings = make(map[*FormFieldString]any)
 	stage.FormFieldStrings_mapString = make(map[string]*FormFieldString)
+
+	stage.FormFieldTimes = make(map[*FormFieldTime]any)
+	stage.FormFieldTimes_mapString = make(map[string]*FormFieldTime)
 
 	stage.FormGroups = make(map[*FormGroup]any)
 	stage.FormGroups_mapString = make(map[string]*FormGroup)
@@ -1179,6 +1299,9 @@ func (stage *StageStruct) Nil() { // insertion point for array nil
 	stage.FormFieldBooleans = nil
 	stage.FormFieldBooleans_mapString = nil
 
+	stage.FormFieldDates = nil
+	stage.FormFieldDates_mapString = nil
+
 	stage.FormFieldFloat64s = nil
 	stage.FormFieldFloat64s_mapString = nil
 
@@ -1187,6 +1310,9 @@ func (stage *StageStruct) Nil() { // insertion point for array nil
 
 	stage.FormFieldStrings = nil
 	stage.FormFieldStrings_mapString = nil
+
+	stage.FormFieldTimes = nil
+	stage.FormFieldTimes_mapString = nil
 
 	stage.FormGroups = nil
 	stage.FormGroups_mapString = nil
@@ -1240,6 +1366,10 @@ func (stage *StageStruct) Unstage() { // insertion point for array nil
 		formfieldboolean.Unstage(stage)
 	}
 
+	for formfielddate := range stage.FormFieldDates {
+		formfielddate.Unstage(stage)
+	}
+
 	for formfieldfloat64 := range stage.FormFieldFloat64s {
 		formfieldfloat64.Unstage(stage)
 	}
@@ -1250,6 +1380,10 @@ func (stage *StageStruct) Unstage() { // insertion point for array nil
 
 	for formfieldstring := range stage.FormFieldStrings {
 		formfieldstring.Unstage(stage)
+	}
+
+	for formfieldtime := range stage.FormFieldTimes {
+		formfieldtime.Unstage(stage)
 	}
 
 	for formgroup := range stage.FormGroups {
@@ -1272,7 +1406,7 @@ func (stage *StageStruct) Unstage() { // insertion point for array nil
 // - full refactoring of Gongstruct identifiers / fields
 type Gongstruct interface {
 	// insertion point for generic types
-	Cell | CellBoolean | CellFloat64 | CellIcon | CellInt | CellString | DisplayedColumn | FormDiv | FormField | FormFieldBoolean | FormFieldFloat64 | FormFieldInt | FormFieldString | FormGroup | Row | Table
+	Cell | CellBoolean | CellFloat64 | CellIcon | CellInt | CellString | DisplayedColumn | FormDiv | FormField | FormFieldBoolean | FormFieldDate | FormFieldFloat64 | FormFieldInt | FormFieldString | FormFieldTime | FormGroup | Row | Table
 }
 
 // Gongstruct is the type parameter for generated generic function that allows
@@ -1281,7 +1415,7 @@ type Gongstruct interface {
 // - full refactoring of Gongstruct identifiers / fields
 type PointerToGongstruct interface {
 	// insertion point for generic types
-	*Cell | *CellBoolean | *CellFloat64 | *CellIcon | *CellInt | *CellString | *DisplayedColumn | *FormDiv | *FormField | *FormFieldBoolean | *FormFieldFloat64 | *FormFieldInt | *FormFieldString | *FormGroup | *Row | *Table
+	*Cell | *CellBoolean | *CellFloat64 | *CellIcon | *CellInt | *CellString | *DisplayedColumn | *FormDiv | *FormField | *FormFieldBoolean | *FormFieldDate | *FormFieldFloat64 | *FormFieldInt | *FormFieldString | *FormFieldTime | *FormGroup | *Row | *Table
 	GetName() string
 }
 
@@ -1298,9 +1432,11 @@ type GongstructSet interface {
 		map[*FormDiv]any |
 		map[*FormField]any |
 		map[*FormFieldBoolean]any |
+		map[*FormFieldDate]any |
 		map[*FormFieldFloat64]any |
 		map[*FormFieldInt]any |
 		map[*FormFieldString]any |
+		map[*FormFieldTime]any |
 		map[*FormGroup]any |
 		map[*Row]any |
 		map[*Table]any |
@@ -1320,9 +1456,11 @@ type GongstructMapString interface {
 		map[string]*FormDiv |
 		map[string]*FormField |
 		map[string]*FormFieldBoolean |
+		map[string]*FormFieldDate |
 		map[string]*FormFieldFloat64 |
 		map[string]*FormFieldInt |
 		map[string]*FormFieldString |
+		map[string]*FormFieldTime |
 		map[string]*FormGroup |
 		map[string]*Row |
 		map[string]*Table |
@@ -1356,12 +1494,16 @@ func GongGetSet[Type GongstructSet](stage *StageStruct) *Type {
 		return any(&stage.FormFields).(*Type)
 	case map[*FormFieldBoolean]any:
 		return any(&stage.FormFieldBooleans).(*Type)
+	case map[*FormFieldDate]any:
+		return any(&stage.FormFieldDates).(*Type)
 	case map[*FormFieldFloat64]any:
 		return any(&stage.FormFieldFloat64s).(*Type)
 	case map[*FormFieldInt]any:
 		return any(&stage.FormFieldInts).(*Type)
 	case map[*FormFieldString]any:
 		return any(&stage.FormFieldStrings).(*Type)
+	case map[*FormFieldTime]any:
+		return any(&stage.FormFieldTimes).(*Type)
 	case map[*FormGroup]any:
 		return any(&stage.FormGroups).(*Type)
 	case map[*Row]any:
@@ -1400,12 +1542,16 @@ func GongGetMap[Type GongstructMapString](stage *StageStruct) *Type {
 		return any(&stage.FormFields_mapString).(*Type)
 	case map[string]*FormFieldBoolean:
 		return any(&stage.FormFieldBooleans_mapString).(*Type)
+	case map[string]*FormFieldDate:
+		return any(&stage.FormFieldDates_mapString).(*Type)
 	case map[string]*FormFieldFloat64:
 		return any(&stage.FormFieldFloat64s_mapString).(*Type)
 	case map[string]*FormFieldInt:
 		return any(&stage.FormFieldInts_mapString).(*Type)
 	case map[string]*FormFieldString:
 		return any(&stage.FormFieldStrings_mapString).(*Type)
+	case map[string]*FormFieldTime:
+		return any(&stage.FormFieldTimes_mapString).(*Type)
 	case map[string]*FormGroup:
 		return any(&stage.FormGroups_mapString).(*Type)
 	case map[string]*Row:
@@ -1444,12 +1590,16 @@ func GetGongstructInstancesSet[Type Gongstruct](stage *StageStruct) *map[*Type]a
 		return any(&stage.FormFields).(*map[*Type]any)
 	case FormFieldBoolean:
 		return any(&stage.FormFieldBooleans).(*map[*Type]any)
+	case FormFieldDate:
+		return any(&stage.FormFieldDates).(*map[*Type]any)
 	case FormFieldFloat64:
 		return any(&stage.FormFieldFloat64s).(*map[*Type]any)
 	case FormFieldInt:
 		return any(&stage.FormFieldInts).(*map[*Type]any)
 	case FormFieldString:
 		return any(&stage.FormFieldStrings).(*map[*Type]any)
+	case FormFieldTime:
+		return any(&stage.FormFieldTimes).(*map[*Type]any)
 	case FormGroup:
 		return any(&stage.FormGroups).(*map[*Type]any)
 	case Row:
@@ -1488,12 +1638,16 @@ func GetGongstructInstancesMap[Type Gongstruct](stage *StageStruct) *map[string]
 		return any(&stage.FormFields_mapString).(*map[string]*Type)
 	case FormFieldBoolean:
 		return any(&stage.FormFieldBooleans_mapString).(*map[string]*Type)
+	case FormFieldDate:
+		return any(&stage.FormFieldDates_mapString).(*map[string]*Type)
 	case FormFieldFloat64:
 		return any(&stage.FormFieldFloat64s_mapString).(*map[string]*Type)
 	case FormFieldInt:
 		return any(&stage.FormFieldInts_mapString).(*map[string]*Type)
 	case FormFieldString:
 		return any(&stage.FormFieldStrings_mapString).(*map[string]*Type)
+	case FormFieldTime:
+		return any(&stage.FormFieldTimes_mapString).(*map[string]*Type)
 	case FormGroup:
 		return any(&stage.FormGroups_mapString).(*map[string]*Type)
 	case Row:
@@ -1569,9 +1723,17 @@ func GetAssociationName[Type Gongstruct]() *Type {
 			FormFieldInt: &FormFieldInt{Name: "FormFieldInt"},
 			// field is initialized with an instance of FormFieldBoolean with the name of the field
 			FormFieldBool: &FormFieldBoolean{Name: "FormFieldBool"},
+			// field is initialized with an instance of FormFieldDate with the name of the field
+			FormFieldDate: &FormFieldDate{Name: "FormFieldDate"},
+			// field is initialized with an instance of FormFieldTime with the name of the field
+			FormFieldTime: &FormFieldTime{Name: "FormFieldTime"},
 		}).(*Type)
 	case FormFieldBoolean:
 		return any(&FormFieldBoolean{
+			// Initialisation of associations
+		}).(*Type)
+	case FormFieldDate:
+		return any(&FormFieldDate{
 			// Initialisation of associations
 		}).(*Type)
 	case FormFieldFloat64:
@@ -1584,6 +1746,10 @@ func GetAssociationName[Type Gongstruct]() *Type {
 		}).(*Type)
 	case FormFieldString:
 		return any(&FormFieldString{
+			// Initialisation of associations
+		}).(*Type)
+	case FormFieldTime:
+		return any(&FormFieldTime{
 			// Initialisation of associations
 		}).(*Type)
 	case FormGroup:
@@ -1821,9 +1987,48 @@ func GetPointerReverseMap[Start, End Gongstruct](fieldname string, stage *StageS
 				}
 			}
 			return any(res).(map[*End][]*Start)
+		case "FormFieldDate":
+			res := make(map[*FormFieldDate][]*FormField)
+			for formfield := range stage.FormFields {
+				if formfield.FormFieldDate != nil {
+					formfielddate_ := formfield.FormFieldDate
+					var formfields []*FormField
+					_, ok := res[formfielddate_]
+					if ok {
+						formfields = res[formfielddate_]
+					} else {
+						formfields = make([]*FormField, 0)
+					}
+					formfields = append(formfields, formfield)
+					res[formfielddate_] = formfields
+				}
+			}
+			return any(res).(map[*End][]*Start)
+		case "FormFieldTime":
+			res := make(map[*FormFieldTime][]*FormField)
+			for formfield := range stage.FormFields {
+				if formfield.FormFieldTime != nil {
+					formfieldtime_ := formfield.FormFieldTime
+					var formfields []*FormField
+					_, ok := res[formfieldtime_]
+					if ok {
+						formfields = res[formfieldtime_]
+					} else {
+						formfields = make([]*FormField, 0)
+					}
+					formfields = append(formfields, formfield)
+					res[formfieldtime_] = formfields
+				}
+			}
+			return any(res).(map[*End][]*Start)
 		}
 	// reverse maps of direct associations of FormFieldBoolean
 	case FormFieldBoolean:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of FormFieldDate
+	case FormFieldDate:
 		switch fieldname {
 		// insertion point for per direct association field
 		}
@@ -1839,6 +2044,11 @@ func GetPointerReverseMap[Start, End Gongstruct](fieldname string, stage *StageS
 		}
 	// reverse maps of direct associations of FormFieldString
 	case FormFieldString:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of FormFieldTime
+	case FormFieldTime:
 		switch fieldname {
 		// insertion point for per direct association field
 		}
@@ -1931,6 +2141,11 @@ func GetSliceOfPointersReverseMap[Start, End Gongstruct](fieldname string, stage
 		switch fieldname {
 		// insertion point for per direct association field
 		}
+	// reverse maps of direct associations of FormFieldDate
+	case FormFieldDate:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
 	// reverse maps of direct associations of FormFieldFloat64
 	case FormFieldFloat64:
 		switch fieldname {
@@ -1943,6 +2158,11 @@ func GetSliceOfPointersReverseMap[Start, End Gongstruct](fieldname string, stage
 		}
 	// reverse maps of direct associations of FormFieldString
 	case FormFieldString:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
+	// reverse maps of direct associations of FormFieldTime
+	case FormFieldTime:
 		switch fieldname {
 		// insertion point for per direct association field
 		}
@@ -2025,12 +2245,16 @@ func GetGongstructName[Type Gongstruct]() (res string) {
 		res = "FormField"
 	case FormFieldBoolean:
 		res = "FormFieldBoolean"
+	case FormFieldDate:
+		res = "FormFieldDate"
 	case FormFieldFloat64:
 		res = "FormFieldFloat64"
 	case FormFieldInt:
 		res = "FormFieldInt"
 	case FormFieldString:
 		res = "FormFieldString"
+	case FormFieldTime:
+		res = "FormFieldTime"
 	case FormGroup:
 		res = "FormGroup"
 	case Row:
@@ -2065,8 +2289,10 @@ func GetFields[Type Gongstruct]() (res []string) {
 	case FormDiv:
 		res = []string{"Name", "FormFields"}
 	case FormField:
-		res = []string{"Name", "InputTypeEnum", "Label", "Placeholder", "FormFieldString", "FormFieldFloat64", "FormFieldInt", "FormFieldBool"}
+		res = []string{"Name", "InputTypeEnum", "Label", "Placeholder", "FormFieldString", "FormFieldFloat64", "FormFieldInt", "FormFieldBool", "FormFieldDate", "FormFieldTime"}
 	case FormFieldBoolean:
+		res = []string{"Name", "Value"}
+	case FormFieldDate:
 		res = []string{"Name", "Value"}
 	case FormFieldFloat64:
 		res = []string{"Name", "Value"}
@@ -2074,6 +2300,8 @@ func GetFields[Type Gongstruct]() (res []string) {
 		res = []string{"Name", "Value"}
 	case FormFieldString:
 		res = []string{"Name", "Value"}
+	case FormFieldTime:
+		res = []string{"Name", "Value", "Step"}
 	case FormGroup:
 		res = []string{"Name", "FormDivs"}
 	case Row:
@@ -2202,6 +2430,14 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 			if any(instance).(FormField).FormFieldBool != nil {
 				res = any(instance).(FormField).FormFieldBool.Name
 			}
+		case "FormFieldDate":
+			if any(instance).(FormField).FormFieldDate != nil {
+				res = any(instance).(FormField).FormFieldDate.Name
+			}
+		case "FormFieldTime":
+			if any(instance).(FormField).FormFieldTime != nil {
+				res = any(instance).(FormField).FormFieldTime.Name
+			}
 		}
 	case FormFieldBoolean:
 		switch fieldName {
@@ -2210,6 +2446,14 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 			res = any(instance).(FormFieldBoolean).Name
 		case "Value":
 			res = fmt.Sprintf("%t", any(instance).(FormFieldBoolean).Value)
+		}
+	case FormFieldDate:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(FormFieldDate).Name
+		case "Value":
+			res = any(instance).(FormFieldDate).Value.String()
 		}
 	case FormFieldFloat64:
 		switch fieldName {
@@ -2234,6 +2478,16 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 			res = any(instance).(FormFieldString).Name
 		case "Value":
 			res = any(instance).(FormFieldString).Value
+		}
+	case FormFieldTime:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(FormFieldTime).Name
+		case "Value":
+			res = any(instance).(FormFieldTime).Value.String()
+		case "Step":
+			res = fmt.Sprintf("%f", any(instance).(FormFieldTime).Step)
 		}
 	case FormGroup:
 		switch fieldName {

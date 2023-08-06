@@ -62,6 +62,14 @@ type FormFieldPointersEnconding struct {
 	// This field is generated into another field to enable AS ONE association
 	FormFieldBoolID sql.NullInt64
 
+	// field FormFieldDate is a pointer to another Struct (optional or 0..1)
+	// This field is generated into another field to enable AS ONE association
+	FormFieldDateID sql.NullInt64
+
+	// field FormFieldTime is a pointer to another Struct (optional or 0..1)
+	// This field is generated into another field to enable AS ONE association
+	FormFieldTimeID sql.NullInt64
+
 	// Implementation of a reverse ID for field FormDiv{}.FormFields []*FormField
 	FormDiv_FormFieldsDBID sql.NullInt64
 
@@ -284,6 +292,24 @@ func (backRepoFormField *BackRepoFormFieldStruct) CommitPhaseTwoInstance(backRep
 			}
 		}
 
+		// commit pointer value formfield.FormFieldDate translates to updating the formfield.FormFieldDateID
+		formfieldDB.FormFieldDateID.Valid = true // allow for a 0 value (nil association)
+		if formfield.FormFieldDate != nil {
+			if FormFieldDateId, ok := backRepo.BackRepoFormFieldDate.Map_FormFieldDatePtr_FormFieldDateDBID[formfield.FormFieldDate]; ok {
+				formfieldDB.FormFieldDateID.Int64 = int64(FormFieldDateId)
+				formfieldDB.FormFieldDateID.Valid = true
+			}
+		}
+
+		// commit pointer value formfield.FormFieldTime translates to updating the formfield.FormFieldTimeID
+		formfieldDB.FormFieldTimeID.Valid = true // allow for a 0 value (nil association)
+		if formfield.FormFieldTime != nil {
+			if FormFieldTimeId, ok := backRepo.BackRepoFormFieldTime.Map_FormFieldTimePtr_FormFieldTimeDBID[formfield.FormFieldTime]; ok {
+				formfieldDB.FormFieldTimeID.Int64 = int64(FormFieldTimeId)
+				formfieldDB.FormFieldTimeID.Valid = true
+			}
+		}
+
 		query := backRepoFormField.db.Save(&formfieldDB)
 		if query.Error != nil {
 			return query.Error
@@ -410,6 +436,16 @@ func (backRepoFormField *BackRepoFormFieldStruct) CheckoutPhaseTwoInstance(backR
 	formfield.FormFieldBool = nil
 	if formfieldDB.FormFieldBoolID.Int64 != 0 {
 		formfield.FormFieldBool = backRepo.BackRepoFormFieldBoolean.Map_FormFieldBooleanDBID_FormFieldBooleanPtr[uint(formfieldDB.FormFieldBoolID.Int64)]
+	}
+	// FormFieldDate field
+	formfield.FormFieldDate = nil
+	if formfieldDB.FormFieldDateID.Int64 != 0 {
+		formfield.FormFieldDate = backRepo.BackRepoFormFieldDate.Map_FormFieldDateDBID_FormFieldDatePtr[uint(formfieldDB.FormFieldDateID.Int64)]
+	}
+	// FormFieldTime field
+	formfield.FormFieldTime = nil
+	if formfieldDB.FormFieldTimeID.Int64 != 0 {
+		formfield.FormFieldTime = backRepo.BackRepoFormFieldTime.Map_FormFieldTimeDBID_FormFieldTimePtr[uint(formfieldDB.FormFieldTimeID.Int64)]
 	}
 	return
 }
@@ -671,6 +707,18 @@ func (backRepoFormField *BackRepoFormFieldStruct) RestorePhaseTwo() {
 		if formfieldDB.FormFieldBoolID.Int64 != 0 {
 			formfieldDB.FormFieldBoolID.Int64 = int64(BackRepoFormFieldBooleanid_atBckpTime_newID[uint(formfieldDB.FormFieldBoolID.Int64)])
 			formfieldDB.FormFieldBoolID.Valid = true
+		}
+
+		// reindexing FormFieldDate field
+		if formfieldDB.FormFieldDateID.Int64 != 0 {
+			formfieldDB.FormFieldDateID.Int64 = int64(BackRepoFormFieldDateid_atBckpTime_newID[uint(formfieldDB.FormFieldDateID.Int64)])
+			formfieldDB.FormFieldDateID.Valid = true
+		}
+
+		// reindexing FormFieldTime field
+		if formfieldDB.FormFieldTimeID.Int64 != 0 {
+			formfieldDB.FormFieldTimeID.Int64 = int64(BackRepoFormFieldTimeid_atBckpTime_newID[uint(formfieldDB.FormFieldTimeID.Int64)])
+			formfieldDB.FormFieldTimeID.Valid = true
 		}
 
 		// This reindex formfield.FormFields

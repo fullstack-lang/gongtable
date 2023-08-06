@@ -1,11 +1,11 @@
 <form *ngIf="generatedForm" [formGroup]="generatedForm" (ngSubmit)="submitForm()">
     <div *ngFor="let div of this.selectedFormGroup?.FormDivs">
-        <p>{{div.Name}}</p>
         <mat-form-field *ngFor="let formField of div.FormFields">
             <mat-label>{{formField.Label}}</mat-label>
             <input *ngIf="formField.FormFieldString" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
             <input *ngIf="formField.FormFieldInt" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
-
+            <input *ngIf="formField.FormFieldDate" type="date" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
+            <input *ngIf="formField.FormFieldTime" type="time" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder" step="formField.FormFieldTime.Step">
         </mat-form-field>
     </div>
 </form>
