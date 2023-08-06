@@ -53,17 +53,20 @@ func form_stageInjection(stage *models.StageStruct) {
 	// Declarations of staged instances of DisplayedColumn
 
 	// Declarations of staged instances of FormDiv
-	__FormDiv__000000_Form_Div_First_Name_Name := (&models.FormDiv{Name: `Form Div First Name  - Name`}).Stage(stage)
+	__FormDiv__000000_Age := (&models.FormDiv{Name: `Age`}).Stage(stage)
+	__FormDiv__000001_Form_Div_First_Name_Name := (&models.FormDiv{Name: `Form Div First Name  - Name`}).Stage(stage)
 
 	// Declarations of staged instances of FormField
-	__FormField__000000_FirstName := (&models.FormField{Name: `FirstName`}).Stage(stage)
-	__FormField__000001_LastName := (&models.FormField{Name: `LastName`}).Stage(stage)
+	__FormField__000000_Age := (&models.FormField{Name: `Age`}).Stage(stage)
+	__FormField__000001_FirstName := (&models.FormField{Name: `FirstName`}).Stage(stage)
+	__FormField__000002_LastName := (&models.FormField{Name: `LastName`}).Stage(stage)
 
 	// Declarations of staged instances of FormFieldBoolean
 
 	// Declarations of staged instances of FormFieldFloat64
 
 	// Declarations of staged instances of FormFieldInt
+	__FormFieldInt__000000_Age := (&models.FormFieldInt{Name: `Age`}).Stage(stage)
 
 	// Declarations of staged instances of FormFieldString
 	__FormFieldString__000000_FirstName := (&models.FormFieldString{Name: `FirstName`}).Stage(stage)
@@ -79,37 +82,53 @@ func form_stageInjection(stage *models.StageStruct) {
 	// Setup of values
 
 	// FormDiv values setup
-	__FormDiv__000000_Form_Div_First_Name_Name.Name = `Form Div First Name  - Name`
+	__FormDiv__000000_Age.Name = `Age`
+
+	// FormDiv values setup
+	__FormDiv__000001_Form_Div_First_Name_Name.Name = `Form Div First Name  - Name`
 
 	// FormField values setup
-	__FormField__000000_FirstName.Name = `FirstName`
-	__FormField__000000_FirstName.InputTypeEnum = models.Text
-	__FormField__000000_FirstName.Label = `First Name (label)`
+	__FormField__000000_Age.Name = `Age`
+	__FormField__000000_Age.InputTypeEnum = models.Number
+	__FormField__000000_Age.Label = `Age`
+	__FormField__000000_Age.Placeholder = `18`
 
 	// FormField values setup
-	__FormField__000001_LastName.Name = `LastName`
-	__FormField__000001_LastName.InputTypeEnum = models.Text
-	__FormField__000001_LastName.Label = `Last Name (label)`
+	__FormField__000001_FirstName.Name = `FirstName`
+	__FormField__000001_FirstName.InputTypeEnum = models.Text
+	__FormField__000001_FirstName.Label = `First Name (label)`
+	__FormField__000001_FirstName.Placeholder = ``
+
+	// FormField values setup
+	__FormField__000002_LastName.Name = `LastName`
+	__FormField__000002_LastName.InputTypeEnum = models.Text
+	__FormField__000002_LastName.Label = `Last Name (label)`
+	__FormField__000002_LastName.Placeholder = ``
+
+	// FormFieldInt values setup
+	__FormFieldInt__000000_Age.Name = `Age`
+	__FormFieldInt__000000_Age.Value = 0
 
 	// FormFieldString values setup
 	__FormFieldString__000000_FirstName.Name = `FirstName`
 	__FormFieldString__000000_FirstName.Value = `charles`
-	__FormFieldString__000000_FirstName.PlaceHolder = `First Name (placeholder)`
 
 	// FormFieldString values setup
 	__FormFieldString__000001_LastName.Name = `LastName`
 	__FormFieldString__000001_LastName.Value = `Bau`
-	__FormFieldString__000001_LastName.PlaceHolder = `Baudelaire`
 
 	// FormGroup values setup
 	__FormGroup__000000_Form_1.Name = `Form 1`
 
 	// Setup of pointers
-	__FormDiv__000000_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000000_Form_Div_First_Name_Name.FormFields, __FormField__000000_FirstName)
-	__FormDiv__000000_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000000_Form_Div_First_Name_Name.FormFields, __FormField__000001_LastName)
-	__FormField__000000_FirstName.FormFieldString = __FormFieldString__000000_FirstName
-	__FormField__000001_LastName.FormFieldString = __FormFieldString__000001_LastName
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000000_Form_Div_First_Name_Name)
+	__FormDiv__000000_Age.FormFields = append(__FormDiv__000000_Age.FormFields, __FormField__000000_Age)
+	__FormDiv__000001_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000001_Form_Div_First_Name_Name.FormFields, __FormField__000001_FirstName)
+	__FormDiv__000001_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000001_Form_Div_First_Name_Name.FormFields, __FormField__000002_LastName)
+	__FormField__000000_Age.FormFieldInt = __FormFieldInt__000000_Age
+	__FormField__000001_FirstName.FormFieldString = __FormFieldString__000000_FirstName
+	__FormField__000002_LastName.FormFieldString = __FormFieldString__000001_LastName
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000001_Form_Div_First_Name_Name)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000000_Age)
 }
 
 

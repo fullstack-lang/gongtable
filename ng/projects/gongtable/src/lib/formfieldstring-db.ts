@@ -14,7 +14,6 @@ export class FormFieldStringDB {
 	// insertion point for basic fields declarations
 	Name: string = ""
 	Value: string = ""
-	PlaceHolder: string = ""
 
 	// insertion point for other declarations
 }

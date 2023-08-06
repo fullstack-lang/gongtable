@@ -40,6 +40,13 @@
             </td>
         </ng-container>
         <!-- -->
+        <ng-container matColumnDef="Placeholder">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Placeholder </th>
+            <td mat-cell *matCellDef="let FormField">
+                {{FormField.Placeholder}}
+            </td>
+        </ng-container>
+        <!-- -->
         <ng-container matColumnDef="FormFieldString">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> FormFieldString </th>
             <td mat-cell *matCellDef="let FormField">

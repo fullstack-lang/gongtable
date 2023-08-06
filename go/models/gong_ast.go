@@ -920,6 +920,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// remove first and last char
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_FormField[identifier].Label = fielValue
+				case "Placeholder":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormField[identifier].Placeholder = fielValue
 				}
 			case "FormFieldBoolean":
 				switch fieldName {
@@ -970,10 +974,6 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// remove first and last char
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_FormFieldString[identifier].Value = fielValue
-				case "PlaceHolder":
-					// remove first and last char
-					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
-					__gong__map_FormFieldString[identifier].PlaceHolder = fielValue
 				}
 			case "FormGroup":
 				switch fieldName {

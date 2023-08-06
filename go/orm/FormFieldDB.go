@@ -88,6 +88,9 @@ type FormFieldDB struct {
 
 	// Declation for basic field formfieldDB.Label
 	Label_Data sql.NullString
+
+	// Declation for basic field formfieldDB.Placeholder
+	Placeholder_Data sql.NullString
 	// encoding of pointers
 	FormFieldPointersEnconding
 }
@@ -114,6 +117,8 @@ type FormFieldWOP struct {
 	InputTypeEnum models.InputTypeEnum `xlsx:"2"`
 
 	Label string `xlsx:"3"`
+
+	Placeholder string `xlsx:"4"`
 	// insertion for WOP pointer fields
 }
 
@@ -123,6 +128,7 @@ var FormField_Fields = []string{
 	"Name",
 	"InputTypeEnum",
 	"Label",
+	"Placeholder",
 }
 
 type BackRepoFormFieldStruct struct {
@@ -447,6 +453,9 @@ func (formfieldDB *FormFieldDB) CopyBasicFieldsFromFormField(formfield *models.F
 
 	formfieldDB.Label_Data.String = formfield.Label
 	formfieldDB.Label_Data.Valid = true
+
+	formfieldDB.Placeholder_Data.String = formfield.Placeholder
+	formfieldDB.Placeholder_Data.Valid = true
 }
 
 // CopyBasicFieldsFromFormFieldWOP
@@ -461,6 +470,9 @@ func (formfieldDB *FormFieldDB) CopyBasicFieldsFromFormFieldWOP(formfield *FormF
 
 	formfieldDB.Label_Data.String = formfield.Label
 	formfieldDB.Label_Data.Valid = true
+
+	formfieldDB.Placeholder_Data.String = formfield.Placeholder
+	formfieldDB.Placeholder_Data.Valid = true
 }
 
 // CopyBasicFieldsToFormField
@@ -469,6 +481,7 @@ func (formfieldDB *FormFieldDB) CopyBasicFieldsToFormField(formfield *models.For
 	formfield.Name = formfieldDB.Name_Data.String
 	formfield.InputTypeEnum.FromString(formfieldDB.InputTypeEnum_Data.String)
 	formfield.Label = formfieldDB.Label_Data.String
+	formfield.Placeholder = formfieldDB.Placeholder_Data.String
 }
 
 // CopyBasicFieldsToFormFieldWOP
@@ -478,6 +491,7 @@ func (formfieldDB *FormFieldDB) CopyBasicFieldsToFormFieldWOP(formfield *FormFie
 	formfield.Name = formfieldDB.Name_Data.String
 	formfield.InputTypeEnum.FromString(formfieldDB.InputTypeEnum_Data.String)
 	formfield.Label = formfieldDB.Label_Data.String
+	formfield.Placeholder = formfieldDB.Placeholder_Data.String
 }
 
 // Backup generates a json file from a slice of all FormFieldDB instances in the backrepo

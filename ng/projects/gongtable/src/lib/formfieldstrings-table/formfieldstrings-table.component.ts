@@ -78,9 +78,6 @@ export class FormFieldStringsTableComponent implements OnInit {
         case 'Value':
           return formfieldstringDB.Value;
 
-        case 'PlaceHolder':
-          return formfieldstringDB.PlaceHolder;
-
         default:
           console.assert(false, "Unknown field")
           return "";
@@ -97,7 +94,6 @@ export class FormFieldStringsTableComponent implements OnInit {
       // insertion point for merging of fields
       mergedContent += formfieldstringDB.Name.toLowerCase()
       mergedContent += formfieldstringDB.Value.toLowerCase()
-      mergedContent += formfieldstringDB.PlaceHolder.toLowerCase()
 
       let isSelected = mergedContent.includes(filter.toLowerCase())
       return isSelected
@@ -154,13 +150,11 @@ export class FormFieldStringsTableComponent implements OnInit {
       this.displayedColumns = ['ID', 'Delete', // insertion point for columns to display
         "Name",
         "Value",
-        "PlaceHolder",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
         "Value",
-        "PlaceHolder",
       ]
       this.selection = new SelectionModel<FormFieldStringDB>(allowMultiSelect, this.initialSelection);
     }

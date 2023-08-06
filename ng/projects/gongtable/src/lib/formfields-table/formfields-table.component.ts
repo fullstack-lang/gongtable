@@ -81,6 +81,9 @@ export class FormFieldsTableComponent implements OnInit {
         case 'Label':
           return formfieldDB.Label;
 
+        case 'Placeholder':
+          return formfieldDB.Placeholder;
+
         case 'FormFieldString':
           return (formfieldDB.FormFieldString ? formfieldDB.FormFieldString.Name : '');
 
@@ -117,6 +120,7 @@ export class FormFieldsTableComponent implements OnInit {
       mergedContent += formfieldDB.Name.toLowerCase()
       mergedContent += formfieldDB.InputTypeEnum.toLowerCase()
       mergedContent += formfieldDB.Label.toLowerCase()
+      mergedContent += formfieldDB.Placeholder.toLowerCase()
       if (formfieldDB.FormFieldString) {
         mergedContent += formfieldDB.FormFieldString.Name.toLowerCase()
       }
@@ -190,6 +194,7 @@ export class FormFieldsTableComponent implements OnInit {
         "Name",
         "InputTypeEnum",
         "Label",
+        "Placeholder",
         "FormFieldString",
         "FormFieldFloat64",
         "FormFieldInt",
@@ -201,6 +206,7 @@ export class FormFieldsTableComponent implements OnInit {
         "Name",
         "InputTypeEnum",
         "Label",
+        "Placeholder",
         "FormFieldString",
         "FormFieldFloat64",
         "FormFieldInt",

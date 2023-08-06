@@ -63,9 +63,6 @@ type FormFieldStringDB struct {
 
 	// Declation for basic field formfieldstringDB.Value
 	Value_Data sql.NullString
-
-	// Declation for basic field formfieldstringDB.PlaceHolder
-	PlaceHolder_Data sql.NullString
 	// encoding of pointers
 	FormFieldStringPointersEnconding
 }
@@ -90,8 +87,6 @@ type FormFieldStringWOP struct {
 	Name string `xlsx:"1"`
 
 	Value string `xlsx:"2"`
-
-	PlaceHolder string `xlsx:"3"`
 	// insertion for WOP pointer fields
 }
 
@@ -100,7 +95,6 @@ var FormFieldString_Fields = []string{
 	"ID",
 	"Name",
 	"Value",
-	"PlaceHolder",
 }
 
 type BackRepoFormFieldStringStruct struct {
@@ -366,9 +360,6 @@ func (formfieldstringDB *FormFieldStringDB) CopyBasicFieldsFromFormFieldString(f
 
 	formfieldstringDB.Value_Data.String = formfieldstring.Value
 	formfieldstringDB.Value_Data.Valid = true
-
-	formfieldstringDB.PlaceHolder_Data.String = formfieldstring.PlaceHolder
-	formfieldstringDB.PlaceHolder_Data.Valid = true
 }
 
 // CopyBasicFieldsFromFormFieldStringWOP
@@ -380,9 +371,6 @@ func (formfieldstringDB *FormFieldStringDB) CopyBasicFieldsFromFormFieldStringWO
 
 	formfieldstringDB.Value_Data.String = formfieldstring.Value
 	formfieldstringDB.Value_Data.Valid = true
-
-	formfieldstringDB.PlaceHolder_Data.String = formfieldstring.PlaceHolder
-	formfieldstringDB.PlaceHolder_Data.Valid = true
 }
 
 // CopyBasicFieldsToFormFieldString
@@ -390,7 +378,6 @@ func (formfieldstringDB *FormFieldStringDB) CopyBasicFieldsToFormFieldString(for
 	// insertion point for checkout of basic fields (back repo to stage)
 	formfieldstring.Name = formfieldstringDB.Name_Data.String
 	formfieldstring.Value = formfieldstringDB.Value_Data.String
-	formfieldstring.PlaceHolder = formfieldstringDB.PlaceHolder_Data.String
 }
 
 // CopyBasicFieldsToFormFieldStringWOP
@@ -399,7 +386,6 @@ func (formfieldstringDB *FormFieldStringDB) CopyBasicFieldsToFormFieldStringWOP(
 	// insertion point for checkout of basic fields (back repo to stage)
 	formfieldstring.Name = formfieldstringDB.Name_Data.String
 	formfieldstring.Value = formfieldstringDB.Value_Data.String
-	formfieldstring.PlaceHolder = formfieldstringDB.PlaceHolder_Data.String
 }
 
 // Backup generates a json file from a slice of all FormFieldStringDB instances in the backrepo

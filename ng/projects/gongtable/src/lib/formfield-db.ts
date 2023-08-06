@@ -20,6 +20,7 @@ export class FormFieldDB {
 	Name: string = ""
 	InputTypeEnum: string = ""
 	Label: string = ""
+	Placeholder: string = ""
 
 	// insertion point for other declarations
 	FormFieldString?: FormFieldStringDB

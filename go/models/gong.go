@@ -2065,7 +2065,7 @@ func GetFields[Type Gongstruct]() (res []string) {
 	case FormDiv:
 		res = []string{"Name", "FormFields"}
 	case FormField:
-		res = []string{"Name", "InputTypeEnum", "Label", "FormFieldString", "FormFieldFloat64", "FormFieldInt", "FormFieldBool"}
+		res = []string{"Name", "InputTypeEnum", "Label", "Placeholder", "FormFieldString", "FormFieldFloat64", "FormFieldInt", "FormFieldBool"}
 	case FormFieldBoolean:
 		res = []string{"Name", "Value"}
 	case FormFieldFloat64:
@@ -2073,7 +2073,7 @@ func GetFields[Type Gongstruct]() (res []string) {
 	case FormFieldInt:
 		res = []string{"Name", "Value"}
 	case FormFieldString:
-		res = []string{"Name", "Value", "PlaceHolder"}
+		res = []string{"Name", "Value"}
 	case FormGroup:
 		res = []string{"Name", "FormDivs"}
 	case Row:
@@ -2184,6 +2184,8 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 			res = enum.ToCodeString()
 		case "Label":
 			res = any(instance).(FormField).Label
+		case "Placeholder":
+			res = any(instance).(FormField).Placeholder
 		case "FormFieldString":
 			if any(instance).(FormField).FormFieldString != nil {
 				res = any(instance).(FormField).FormFieldString.Name
@@ -2232,8 +2234,6 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 			res = any(instance).(FormFieldString).Name
 		case "Value":
 			res = any(instance).(FormFieldString).Value
-		case "PlaceHolder":
-			res = any(instance).(FormFieldString).PlaceHolder
 		}
 	case FormGroup:
 		switch fieldName {

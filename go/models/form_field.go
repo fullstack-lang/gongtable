@@ -8,6 +8,9 @@ type FormField struct {
 	// for instance "First Name" in <mat-label>First Name</mat-label>
 	Label string
 
+	// suggestion for the field
+	Placeholder string
+
 	FormFieldString  *FormFieldString
 	FormFieldFloat64 *FormFieldFloat64
 	FormFieldInt     *FormFieldInt

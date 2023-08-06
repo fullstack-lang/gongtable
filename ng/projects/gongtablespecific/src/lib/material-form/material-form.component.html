@@ -3,7 +3,9 @@
         <p>{{div.Name}}</p>
         <mat-form-field *ngFor="let formField of div.FormFields">
             <mat-label>{{formField.Label}}</mat-label>
-            <input *ngIf="formField.FormFieldString" matInput [formControlName]="formField.Name" [placeholder]="formField.FormFieldString.PlaceHolder">
+            <input *ngIf="formField.FormFieldString" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
+            <input *ngIf="formField.FormFieldInt" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
+
         </mat-form-field>
     </div>
 </form>
