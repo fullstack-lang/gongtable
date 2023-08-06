@@ -42,6 +42,7 @@ export class MaterialFormComponent implements OnInit {
     private gongtableFrontRepoService: gongtable.FrontRepoService,
     private gongtableCommitNbFromBackService: gongtable.CommitNbFromBackService,
     private formBuilder: FormBuilder,
+    private formFieldStringService: gongtable.FormFieldStringService,
   ) {
 
   }
@@ -147,6 +148,35 @@ export class MaterialFormComponent implements OnInit {
   submitForm() {
     if (this.generatedForm?.valid) {
       console.log(this.generatedForm.valueChanges)
+
+      if (this.selectedFormGroup == undefined) {
+        return
+      }
+
+      if (this.selectedFormGroup.FormDivs == undefined) {
+        return
+      }
+
+      for (let formDiv of this.selectedFormGroup.FormDivs) {
+        if (formDiv.FormFields == undefined) {
+          continue
+        }
+        for (let formField of formDiv.FormFields) {
+          if (formField.FormFieldString) {
+            let formFieldString = formField.FormFieldString
+            let newValue = this.generatedForm.value[formField.Name]
+
+            if (newValue != formFieldString.Value) {
+              formFieldString.Value = newValue
+              this.formFieldStringService.updateFormFieldString(formFieldString, this.DataStack).subscribe(
+                () => {
+                  console.log("String Form Field updated")
+                }
+              )
+            }
+          }
+        }
+      }
     }
     if (this.myFormSample?.valid) {
       console.log(this.myFormSample.value);

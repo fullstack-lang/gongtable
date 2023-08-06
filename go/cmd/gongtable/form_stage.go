@@ -98,7 +98,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormFieldString values setup
 	__FormFieldString__000001_LastName.Name = `LastName`
-	__FormFieldString__000001_LastName.Value = `Baudela`
+	__FormFieldString__000001_LastName.Value = `Bau`
 	__FormFieldString__000001_LastName.PlaceHolder = `Baudelaire`
 
 	// FormGroup values setup
