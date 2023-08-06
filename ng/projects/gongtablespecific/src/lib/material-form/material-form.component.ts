@@ -43,6 +43,7 @@ export class MaterialFormComponent implements OnInit {
     private gongtableCommitNbFromBackService: gongtable.CommitNbFromBackService,
     private formBuilder: FormBuilder,
     private formFieldStringService: gongtable.FormFieldStringService,
+    private formFieldIntService: gongtable.FormFieldIntService,
   ) {
 
   }
@@ -139,6 +140,9 @@ export class MaterialFormComponent implements OnInit {
             if (formField.FormFieldString) {
               generatedFormGroupConfig[formField.Name] = [formField.FormFieldString.Value, Validators.required]
             }
+            if (formField.FormFieldInt) {
+              generatedFormGroupConfig[formField.Name] = [formField.FormFieldInt.Value.toString(), Validators.required]
+            }
           }
         }
 
@@ -201,6 +205,20 @@ export class MaterialFormComponent implements OnInit {
               )
             }
           }
+          if (formField.FormFieldInt) {
+            let formFieldInt = formField.FormFieldInt
+            let newValue: number = +this.generatedForm.value[formField.Name]
+
+            if (newValue != formFieldInt.Value) {
+              formFieldInt.Value = newValue
+              this.formFieldIntService.updateFormFieldInt(formFieldInt, this.DataStack).subscribe(
+                () => {
+                  console.log("Int Form Field updated")
+                }
+              )
+            }
+          }
+
         }
       }
     }
