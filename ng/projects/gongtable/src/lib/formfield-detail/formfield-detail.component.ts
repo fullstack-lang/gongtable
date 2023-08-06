@@ -10,6 +10,7 @@ import { MapOfComponents } from '../map-components'
 import { MapOfSortingComponents } from '../map-components'
 
 // insertion point for imports
+import { InputTypeEnumSelect, InputTypeEnumList } from '../InputTypeEnum'
 import { FormDivDB } from '../formdiv-db'
 
 import { Router, ActivatedRoute } from '@angular/router';
@@ -35,6 +36,7 @@ enum FormFieldDetailComponentState {
 export class FormFieldDetailComponent implements OnInit {
 
 	// insertion point for declarations
+	InputTypeEnumList: InputTypeEnumSelect[] = []
 
 	// the FormFieldDB of interest
 	formfield: FormFieldDB = new FormFieldDB
@@ -116,6 +118,7 @@ export class FormFieldDetailComponent implements OnInit {
 		)
 
 		// insertion point for initialisation of enums list
+		this.InputTypeEnumList = InputTypeEnumList
 	}
 
 	getFormField(): void {

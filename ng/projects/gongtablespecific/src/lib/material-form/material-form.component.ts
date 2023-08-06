@@ -30,10 +30,13 @@ export class MaterialFormComponent implements OnInit {
   public gongtableFrontRepo?: gongtable.FrontRepo
 
   // for selection
-  selectedForm: gongtable.FormGroupDB | undefined = undefined;
+  selectedFormGroup: gongtable.FormGroupDB | undefined = undefined;
 
   // angular stuff
-  myForm: FormGroup | undefined
+  myFormSample: FormGroup | undefined
+
+  // generated form by getting info from the back
+  generatedForm: FormGroup | undefined
 
   constructor(
     private gongtableFrontRepoService: gongtable.FrontRepoService,
@@ -82,17 +85,38 @@ export class MaterialFormComponent implements OnInit {
       gongtablesFrontRepo => {
         this.gongtableFrontRepo = gongtablesFrontRepo
 
-        this.selectedForm = undefined
+        this.selectedFormGroup = undefined
 
         for (let form of this.gongtableFrontRepo.FormGroups_array) {
           if (form.Name == this.FormName) {
-            this.selectedForm = form
+            this.selectedFormGroup = form
           }
         }
 
-        if (this.selectedForm == undefined) {
+        this.generatedForm = undefined
+        if (this.selectedFormGroup == undefined) {
           return
         }
+
+        let generatedFormGroupConfig: { [key: string]: [string, any] } = {};
+
+        if (this.selectedFormGroup.FormDivs == undefined) {
+          return
+        }
+
+        for (let formDiv of this.selectedFormGroup.FormDivs) {
+          if (formDiv.FormFields == undefined) {
+            continue
+          }
+          for (let formField of formDiv.FormFields) {
+            if (formField.FormFieldString) {
+              generatedFormGroupConfig[formField.Name] = [formField.FormFieldString.Value, Validators.required]
+            }
+          }
+        }
+
+        this.generatedForm = this.formBuilder.group(generatedFormGroupConfig)
+
 
         const formGroupConfig = {
           firstName: ['', Validators.required],
@@ -106,9 +130,7 @@ export class MaterialFormComponent implements OnInit {
           acceptTerms: [false, Validators.requiredTrue] // boolean field
         };
 
-        this.myForm = this.formBuilder.group(formGroupConfig);
-
-
+        this.myFormSample = this.formBuilder.group(formGroupConfig);
 
       }
     )
@@ -123,8 +145,11 @@ export class MaterialFormComponent implements OnInit {
   ];
 
   submitForm() {
-    if (this.myForm?.valid) {
-      console.log(this.myForm.value);
+    if (this.generatedForm?.valid) {
+      console.log(this.generatedForm.valueChanges)
+    }
+    if (this.myFormSample?.valid) {
+      console.log(this.myFormSample.value);
       // handle your form submission
     }
   }

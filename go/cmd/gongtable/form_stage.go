@@ -52,7 +52,12 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// Declarations of staged instances of DisplayedColumn
 
+	// Declarations of staged instances of FormDiv
+	__FormDiv__000000_Form_Div_First_Name_Name := (&models.FormDiv{Name: `Form Div First Name  - Name`}).Stage(stage)
+
 	// Declarations of staged instances of FormField
+	__FormField__000000_FirstName := (&models.FormField{Name: `FirstName`}).Stage(stage)
+	__FormField__000001_LastName := (&models.FormField{Name: `LastName`}).Stage(stage)
 
 	// Declarations of staged instances of FormFieldBoolean
 
@@ -61,6 +66,8 @@ func form_stageInjection(stage *models.StageStruct) {
 	// Declarations of staged instances of FormFieldInt
 
 	// Declarations of staged instances of FormFieldString
+	__FormFieldString__000000_FirstName := (&models.FormFieldString{Name: `FirstName`}).Stage(stage)
+	__FormFieldString__000001_LastName := (&models.FormFieldString{Name: `LastName`}).Stage(stage)
 
 	// Declarations of staged instances of FormGroup
 	__FormGroup__000000_Form_1 := (&models.FormGroup{Name: `Form 1`}).Stage(stage)
@@ -71,10 +78,38 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// Setup of values
 
+	// FormDiv values setup
+	__FormDiv__000000_Form_Div_First_Name_Name.Name = `Form Div First Name  - Name`
+
+	// FormField values setup
+	__FormField__000000_FirstName.Name = `FirstName`
+	__FormField__000000_FirstName.InputTypeEnum = models.Text
+	__FormField__000000_FirstName.Label = `First Name (label)`
+
+	// FormField values setup
+	__FormField__000001_LastName.Name = `LastName`
+	__FormField__000001_LastName.InputTypeEnum = models.Text
+	__FormField__000001_LastName.Label = `Last Name (label)`
+
+	// FormFieldString values setup
+	__FormFieldString__000000_FirstName.Name = `FirstName`
+	__FormFieldString__000000_FirstName.Value = `charles`
+	__FormFieldString__000000_FirstName.PlaceHolder = `First Name (placeholder)`
+
+	// FormFieldString values setup
+	__FormFieldString__000001_LastName.Name = `LastName`
+	__FormFieldString__000001_LastName.Value = `Baudela`
+	__FormFieldString__000001_LastName.PlaceHolder = `Baudelaire`
+
 	// FormGroup values setup
 	__FormGroup__000000_Form_1.Name = `Form 1`
 
 	// Setup of pointers
+	__FormDiv__000000_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000000_Form_Div_First_Name_Name.FormFields, __FormField__000000_FirstName)
+	__FormDiv__000000_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000000_Form_Div_First_Name_Name.FormFields, __FormField__000001_LastName)
+	__FormField__000000_FirstName.FormFieldString = __FormFieldString__000000_FirstName
+	__FormField__000001_LastName.FormFieldString = __FormFieldString__000001_LastName
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000000_Form_Div_First_Name_Name)
 }
 
 

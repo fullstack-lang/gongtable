@@ -26,6 +26,20 @@
             </td>
         </ng-container>
         <!-- -->
+        <ng-container matColumnDef="InputTypeEnum">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> InputTypeEnum </th>
+            <td mat-cell *matCellDef="let FormField">
+                {{FormField.InputTypeEnum}}
+            </td>
+        </ng-container>
+        <!-- -->
+        <ng-container matColumnDef="Label">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Label </th>
+            <td mat-cell *matCellDef="let FormField">
+                {{FormField.Label}}
+            </td>
+        </ng-container>
+        <!-- -->
         <ng-container matColumnDef="FormFieldString">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> FormFieldString </th>
             <td mat-cell *matCellDef="let FormField">

@@ -82,6 +82,12 @@ type FormFieldDB struct {
 
 	// Declation for basic field formfieldDB.Name
 	Name_Data sql.NullString
+
+	// Declation for basic field formfieldDB.InputTypeEnum
+	InputTypeEnum_Data sql.NullString
+
+	// Declation for basic field formfieldDB.Label
+	Label_Data sql.NullString
 	// encoding of pointers
 	FormFieldPointersEnconding
 }
@@ -104,6 +110,10 @@ type FormFieldWOP struct {
 	// insertion for WOP basic fields
 
 	Name string `xlsx:"1"`
+
+	InputTypeEnum models.InputTypeEnum `xlsx:"2"`
+
+	Label string `xlsx:"3"`
 	// insertion for WOP pointer fields
 }
 
@@ -111,6 +121,8 @@ var FormField_Fields = []string{
 	// insertion for WOP basic fields
 	"ID",
 	"Name",
+	"InputTypeEnum",
+	"Label",
 }
 
 type BackRepoFormFieldStruct struct {
@@ -429,6 +441,12 @@ func (formfieldDB *FormFieldDB) CopyBasicFieldsFromFormField(formfield *models.F
 
 	formfieldDB.Name_Data.String = formfield.Name
 	formfieldDB.Name_Data.Valid = true
+
+	formfieldDB.InputTypeEnum_Data.String = formfield.InputTypeEnum.ToString()
+	formfieldDB.InputTypeEnum_Data.Valid = true
+
+	formfieldDB.Label_Data.String = formfield.Label
+	formfieldDB.Label_Data.Valid = true
 }
 
 // CopyBasicFieldsFromFormFieldWOP
@@ -437,12 +455,20 @@ func (formfieldDB *FormFieldDB) CopyBasicFieldsFromFormFieldWOP(formfield *FormF
 
 	formfieldDB.Name_Data.String = formfield.Name
 	formfieldDB.Name_Data.Valid = true
+
+	formfieldDB.InputTypeEnum_Data.String = formfield.InputTypeEnum.ToString()
+	formfieldDB.InputTypeEnum_Data.Valid = true
+
+	formfieldDB.Label_Data.String = formfield.Label
+	formfieldDB.Label_Data.Valid = true
 }
 
 // CopyBasicFieldsToFormField
 func (formfieldDB *FormFieldDB) CopyBasicFieldsToFormField(formfield *models.FormField) {
 	// insertion point for checkout of basic fields (back repo to stage)
 	formfield.Name = formfieldDB.Name_Data.String
+	formfield.InputTypeEnum.FromString(formfieldDB.InputTypeEnum_Data.String)
+	formfield.Label = formfieldDB.Label_Data.String
 }
 
 // CopyBasicFieldsToFormFieldWOP
@@ -450,6 +476,8 @@ func (formfieldDB *FormFieldDB) CopyBasicFieldsToFormFieldWOP(formfield *FormFie
 	formfield.ID = int(formfieldDB.ID)
 	// insertion point for checkout of basic fields (back repo to stage)
 	formfield.Name = formfieldDB.Name_Data.String
+	formfield.InputTypeEnum.FromString(formfieldDB.InputTypeEnum_Data.String)
+	formfield.Label = formfieldDB.Label_Data.String
 }
 
 // Backup generates a json file from a slice of all FormFieldDB instances in the backrepo

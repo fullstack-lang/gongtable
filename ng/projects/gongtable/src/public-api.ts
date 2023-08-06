@@ -113,3 +113,4 @@ export * from './lib/table-db'
 export * from './lib/table.service'
 
 
+export * from './lib/InputTypeEnum'

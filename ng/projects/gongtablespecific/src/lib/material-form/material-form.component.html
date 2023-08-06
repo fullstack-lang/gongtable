@@ -1,8 +1,17 @@
-<form *ngIf="myForm" [formGroup]="myForm" (ngSubmit)="submitForm()">
+<form *ngIf="generatedForm" [formGroup]="generatedForm" (ngSubmit)="submitForm()">
+    <div *ngFor="let div of this.selectedFormGroup?.FormDivs">
+        <p>{{div.Name}}</p>
+        <mat-form-field *ngFor="let formField of div.FormFields">
+            <mat-label>{{formField.Label}}</mat-label>
+            <input *ngIf="formField.FormFieldString" matInput [formControlName]="formField.Name" [placeholder]="formField.FormFieldString.PlaceHolder">
+        </mat-form-field>
+    </div>
+</form>
+<form *ngIf="myFormSample" [formGroup]="myFormSample" (ngSubmit)="submitForm()">
     <div>
         <mat-form-field appearance="fill">
             <mat-label>First Name</mat-label>
-            <input matInput formControlName="firstName" placeholder="First Name">
+            <input matInput formControlName="firstName" placeholder="First Name placeholder">
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Last Name</mat-label>

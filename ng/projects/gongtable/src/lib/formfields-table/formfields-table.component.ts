@@ -75,6 +75,12 @@ export class FormFieldsTableComponent implements OnInit {
         case 'Name':
           return formfieldDB.Name;
 
+        case 'InputTypeEnum':
+          return formfieldDB.InputTypeEnum;
+
+        case 'Label':
+          return formfieldDB.Label;
+
         case 'FormFieldString':
           return (formfieldDB.FormFieldString ? formfieldDB.FormFieldString.Name : '');
 
@@ -109,6 +115,8 @@ export class FormFieldsTableComponent implements OnInit {
 
       // insertion point for merging of fields
       mergedContent += formfieldDB.Name.toLowerCase()
+      mergedContent += formfieldDB.InputTypeEnum.toLowerCase()
+      mergedContent += formfieldDB.Label.toLowerCase()
       if (formfieldDB.FormFieldString) {
         mergedContent += formfieldDB.FormFieldString.Name.toLowerCase()
       }
@@ -180,6 +188,8 @@ export class FormFieldsTableComponent implements OnInit {
     if (this.mode == TableComponentMode.DISPLAY_MODE) {
       this.displayedColumns = ['ID', 'Delete', // insertion point for columns to display
         "Name",
+        "InputTypeEnum",
+        "Label",
         "FormFieldString",
         "FormFieldFloat64",
         "FormFieldInt",
@@ -189,6 +199,8 @@ export class FormFieldsTableComponent implements OnInit {
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
+        "InputTypeEnum",
+        "Label",
         "FormFieldString",
         "FormFieldFloat64",
         "FormFieldInt",

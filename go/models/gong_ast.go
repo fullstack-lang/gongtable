@@ -916,6 +916,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// remove first and last char
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_FormField[identifier].Name = fielValue
+				case "Label":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormField[identifier].Label = fielValue
 				}
 			case "FormFieldBoolean":
 				switch fieldName {
@@ -966,6 +970,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// remove first and last char
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_FormFieldString[identifier].Value = fielValue
+				case "PlaceHolder":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormFieldString[identifier].PlaceHolder = fielValue
 				}
 			case "FormGroup":
 				switch fieldName {
@@ -1222,6 +1230,13 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				case "FormField":
 					switch fieldName {
 					// insertion point for enum assign code
+					case "InputTypeEnum":
+						var val InputTypeEnum
+						err := (&val).FromCodeString(enumValue)
+						if err != nil {
+							log.Fatalln(err)
+						}
+						__gong__map_FormField[identifier].InputTypeEnum = InputTypeEnum(val)
 					}
 				case "FormFieldBoolean":
 					switch fieldName {

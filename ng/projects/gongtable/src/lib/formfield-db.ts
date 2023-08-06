@@ -18,6 +18,8 @@ export class FormFieldDB {
 
 	// insertion point for basic fields declarations
 	Name: string = ""
+	InputTypeEnum: string = ""
+	Label: string = ""
 
 	// insertion point for other declarations
 	FormFieldString?: FormFieldStringDB

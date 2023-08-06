@@ -2,4 +2,172 @@
 package models
 
 // insertion point of enum utility functions
+// Utility function for InputTypeEnum
+// if enum values are string, it is stored with the value
+// if enum values are int, they are stored with the code of the value
+func (inputtypeenum InputTypeEnum) ToString() (res string) {
+
+	// migration of former implementation of enum
+	switch inputtypeenum {
+	// insertion code per enum code
+	case Text:
+		res = "text"
+	case Password:
+		res = "password"
+	case Number:
+		res = "number"
+	case Email:
+		res = "email"
+	case Tel:
+		res = "tel"
+	case Date:
+		res = "date"
+	case Datetime:
+		res = "datetime-local"
+	case Time:
+		res = "time"
+	case URL:
+		res = "url"
+	case Search:
+		res = "search"
+	case Range:
+		res = "range"
+	case Color:
+		res = "color"
+	case File:
+		res = "file"
+	case Hidden:
+		res = "hidden"
+	case Month:
+		res = "month"
+	case Week:
+		res = "week"
+	}
+	return
+}
+
+func (inputtypeenum *InputTypeEnum) FromString(input string) (err error) {
+
+	switch input {
+	// insertion code per enum code
+	case "text":
+		*inputtypeenum = Text
+	case "password":
+		*inputtypeenum = Password
+	case "number":
+		*inputtypeenum = Number
+	case "email":
+		*inputtypeenum = Email
+	case "tel":
+		*inputtypeenum = Tel
+	case "date":
+		*inputtypeenum = Date
+	case "datetime-local":
+		*inputtypeenum = Datetime
+	case "time":
+		*inputtypeenum = Time
+	case "url":
+		*inputtypeenum = URL
+	case "search":
+		*inputtypeenum = Search
+	case "range":
+		*inputtypeenum = Range
+	case "color":
+		*inputtypeenum = Color
+	case "file":
+		*inputtypeenum = File
+	case "hidden":
+		*inputtypeenum = Hidden
+	case "month":
+		*inputtypeenum = Month
+	case "week":
+		*inputtypeenum = Week
+	default:
+		return errUnkownEnum
+	}
+	return
+}
+
+func (inputtypeenum *InputTypeEnum) FromCodeString(input string) (err error) {
+
+	switch input {
+	// insertion code per enum code
+	case "Text":
+		*inputtypeenum = Text
+	case "Password":
+		*inputtypeenum = Password
+	case "Number":
+		*inputtypeenum = Number
+	case "Email":
+		*inputtypeenum = Email
+	case "Tel":
+		*inputtypeenum = Tel
+	case "Date":
+		*inputtypeenum = Date
+	case "Datetime":
+		*inputtypeenum = Datetime
+	case "Time":
+		*inputtypeenum = Time
+	case "URL":
+		*inputtypeenum = URL
+	case "Search":
+		*inputtypeenum = Search
+	case "Range":
+		*inputtypeenum = Range
+	case "Color":
+		*inputtypeenum = Color
+	case "File":
+		*inputtypeenum = File
+	case "Hidden":
+		*inputtypeenum = Hidden
+	case "Month":
+		*inputtypeenum = Month
+	case "Week":
+		*inputtypeenum = Week
+	default:
+		return errUnkownEnum
+	}
+	return
+}
+
+func (inputtypeenum *InputTypeEnum) ToCodeString() (res string) {
+
+	switch *inputtypeenum {
+	// insertion code per enum code
+	case Text:
+		res = "Text"
+	case Password:
+		res = "Password"
+	case Number:
+		res = "Number"
+	case Email:
+		res = "Email"
+	case Tel:
+		res = "Tel"
+	case Date:
+		res = "Date"
+	case Datetime:
+		res = "Datetime"
+	case Time:
+		res = "Time"
+	case URL:
+		res = "URL"
+	case Search:
+		res = "Search"
+	case Range:
+		res = "Range"
+	case Color:
+		res = "Color"
+	case File:
+		res = "File"
+	case Hidden:
+		res = "Hidden"
+	case Month:
+		res = "Month"
+	case Week:
+		res = "Week"
+	}
+	return
+}
+
 // Last line of the template
