@@ -5,6 +5,8 @@ import * as gongtable from 'gongtable'
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'lib-material-form',
   templateUrl: './material-form.component.html',
@@ -44,6 +46,8 @@ export class MaterialFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formFieldStringService: gongtable.FormFieldStringService,
     private formFieldIntService: gongtable.FormFieldIntService,
+    private formFieldDateService: gongtable.FormFieldDateService,
+    private formFieldTimeService: gongtable.FormFieldTimeService,
   ) {
 
   }
@@ -144,7 +148,7 @@ export class MaterialFormComponent implements OnInit {
               generatedFormGroupConfig[formField.Name] = [formField.FormFieldInt.Value.toString(), Validators.required]
             }
             if (formField.FormFieldDate) {
-              generatedFormGroupConfig[formField.Name] = [formField.FormFieldDate.Value.toString(), Validators.required]
+              generatedFormGroupConfig[formField.Name] = [formField.FormFieldDate.Value.toString().substring(0, 10), Validators.required]
             }
             if (formField.FormFieldTime) {
               generatedFormGroupConfig[formField.Name] = [formField.FormFieldTime.Value.toString(), Validators.required]
@@ -224,7 +228,46 @@ export class MaterialFormComponent implements OnInit {
               )
             }
           }
+          if (formField.FormFieldDate) {
+            let formFieldDate = formField.FormFieldDate
 
+            let date = moment(this.generatedForm.value[formField.Name])
+            let formattedDate = date.utc().format('YYYY-MM-DDTHH:mm:ss[Z]')
+            let dateObject = moment(formattedDate).toDate()
+
+            // console.log(dateObject)
+            // console.log(formFieldDate.Value)
+
+            let moment1 = moment(this.generatedForm.value[formField.Name]).startOf('day');
+            let moment2 = moment(formFieldDate.Value).utc().startOf('day');
+
+            // console.log(moment1.isSame(moment2, 'day')); // Outputs: true if they are the same day
+
+            if (!moment1.isSame(moment2, 'day')) {
+              formFieldDate.Value = dateObject
+              this.formFieldDateService.updateFormFieldDate(formFieldDate, this.DataStack).subscribe(
+                () => {
+                  console.log("Date Form Field updated")
+                }
+              )
+            }
+          }
+          if (formField.FormFieldTime) {
+            let formFieldTime = formField.FormFieldTime
+
+            let date = moment(this.generatedForm.value[formField.Name])
+            let formattedDate = date.utc().format('YYYY-MM-DDTHH:mm:ss[Z]')
+            let dateObject = moment(formattedDate).toDate()
+
+            if (dateObject != formFieldTime.Value) {
+              formFieldTime.Value = dateObject
+              this.formFieldDateService.updateFormFieldDate(formFieldTime, this.DataStack).subscribe(
+                () => {
+                  console.log("Date Form Field updated")
+                }
+              )
+            }
+          }
         }
       }
     }

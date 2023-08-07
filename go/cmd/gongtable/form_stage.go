@@ -67,7 +67,7 @@ func form_stageInjection(stage *models.StageStruct) {
 	// Declarations of staged instances of FormFieldBoolean
 
 	// Declarations of staged instances of FormFieldDate
-	__FormFieldDate__000000_Date := (&models.FormFieldDate{Name: `Date`}).Stage(stage)
+	__FormFieldDate__000000_Time := (&models.FormFieldDate{Name: `Time`}).Stage(stage)
 
 	// Declarations of staged instances of FormFieldFloat64
 
@@ -130,8 +130,8 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000004_Time.Placeholder = ``
 
 	// FormFieldDate values setup
-	__FormFieldDate__000000_Date.Name = `Date`
-	__FormFieldDate__000000_Date.Value, _ = time.Parse("2006-01-02 15:04:05.999999999 -0700 MST", "2023-08-06 17:20:39.364 +0000 UTC")
+	__FormFieldDate__000000_Time.Name = `Time`
+	__FormFieldDate__000000_Time.Value, _ = time.Parse("2006-01-02 15:04:05.999999999 -0700 MST", "2023-08-06 17:21:42 +0000 UTC")
 
 	// FormFieldInt values setup
 	__FormFieldInt__000000_Age.Name = `Age`
@@ -160,7 +160,7 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormDiv__000002_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000002_Form_Div_First_Name_Name.FormFields, __FormField__000002_FirstName)
 	__FormDiv__000002_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000002_Form_Div_First_Name_Name.FormFields, __FormField__000003_LastName)
 	__FormField__000000_Age.FormFieldInt = __FormFieldInt__000000_Age
-	__FormField__000001_Date.FormFieldDate = __FormFieldDate__000000_Date
+	__FormField__000001_Date.FormFieldDate = __FormFieldDate__000000_Time
 	__FormField__000002_FirstName.FormFieldString = __FormFieldString__000000_FirstName
 	__FormField__000003_LastName.FormFieldString = __FormFieldString__000001_LastName
 	__FormField__000004_Time.FormFieldTime = __FormFieldTime__000000_Time
