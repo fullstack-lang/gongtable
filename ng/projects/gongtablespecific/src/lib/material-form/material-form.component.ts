@@ -148,10 +148,22 @@ export class MaterialFormComponent implements OnInit {
               generatedFormGroupConfig[formField.Name] = [formField.FormFieldInt.Value.toString(), Validators.required]
             }
             if (formField.FormFieldDate) {
-              generatedFormGroupConfig[formField.Name] = [formField.FormFieldDate.Value.toString().substring(0, 10), Validators.required]
+              let displayedString = formField.FormFieldDate.Value.toString().substring(0, 10)
+              generatedFormGroupConfig[formField.Name] = [displayedString, Validators.required]
             }
             if (formField.FormFieldTime) {
-              generatedFormGroupConfig[formField.Name] = [formField.FormFieldTime.Value.toString(), Validators.required]
+              let timeValue = new Date(formField.FormFieldTime.Value)
+              let hours = timeValue.getUTCHours();
+              let minutes = timeValue.getUTCMinutes();
+              let seconds = timeValue.getUTCSeconds();
+
+              let hoursStr = hours < 10 ? '0' + hours.toString() : hours.toString();
+              let minutesStr = minutes < 10 ? '0' + minutes.toString() : minutes.toString();
+              let secondsStr = seconds < 10 ? '0' + seconds.toString() : seconds.toString();
+
+              const timeStr = `${hoursStr}:${minutesStr}:${secondsStr}`
+
+              generatedFormGroupConfig[formField.Name] = [timeStr, Validators.required]
             }
           }
         }
@@ -235,13 +247,13 @@ export class MaterialFormComponent implements OnInit {
             let formattedDate = date.utc().format('YYYY-MM-DDTHH:mm:ss[Z]')
             let dateObject = moment(formattedDate).toDate()
 
-            // console.log(dateObject)
-            // console.log(formFieldDate.Value)
+            console.log(dateObject)
+            console.log(formFieldDate.Value)
 
             let moment1 = moment(this.generatedForm.value[formField.Name]).startOf('day');
             let moment2 = moment(formFieldDate.Value).utc().startOf('day');
 
-            // console.log(moment1.isSame(moment2, 'day')); // Outputs: true if they are the same day
+            console.log(moment1.isSame(moment2, 'day')); // Outputs: true if they are the same day
 
             if (!moment1.isSame(moment2, 'day')) {
               formFieldDate.Value = dateObject
@@ -255,15 +267,16 @@ export class MaterialFormComponent implements OnInit {
           if (formField.FormFieldTime) {
             let formFieldTime = formField.FormFieldTime
 
-            let date = moment(this.generatedForm.value[formField.Name])
-            let formattedDate = date.utc().format('YYYY-MM-DDTHH:mm:ss[Z]')
-            let dateObject = moment(formattedDate).toDate()
+            const [hours, minutes, seconds] = this.generatedForm.value[formField.Name].split(':').map(Number);
+            const date = new Date("1970-01-01")
+            date.setUTCHours(hours, minutes, seconds);
+            console.log("date for time", date.toUTCString())
 
-            if (dateObject != formFieldTime.Value) {
-              formFieldTime.Value = dateObject
-              this.formFieldDateService.updateFormFieldDate(formFieldTime, this.DataStack).subscribe(
+            if (date != formFieldTime.Value) {
+              formFieldTime.Value = date
+              this.formFieldTimeService.updateFormFieldTime(formFieldTime, this.DataStack).subscribe(
                 () => {
-                  console.log("Date Form Field updated")
+                  console.log("Time Form Field updated")
                 }
               )
             }

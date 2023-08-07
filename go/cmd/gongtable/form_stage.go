@@ -131,7 +131,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormFieldDate values setup
 	__FormFieldDate__000000_Time.Name = `Time`
-	__FormFieldDate__000000_Time.Value, _ = time.Parse("2006-01-02 15:04:05.999999999 -0700 MST", "2023-08-06 17:21:42 +0000 UTC")
+	__FormFieldDate__000000_Time.Value, _ = time.Parse("2006-01-02 15:04:05.999999999 -0700 MST", "2022-03-02 00:00:00 +0000 UTC")
 
 	// FormFieldInt values setup
 	__FormFieldInt__000000_Age.Name = `Age`
@@ -147,7 +147,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormFieldTime values setup
 	__FormFieldTime__000000_Time.Name = `Time`
-	__FormFieldTime__000000_Time.Value, _ = time.Parse("2006-01-02 15:04:05.999999999 -0700 MST", "2023-08-06 17:21:42.114 +0000 UTC")
+	__FormFieldTime__000000_Time.Value, _ = time.Parse("2006-01-02 15:04:05.999999999 -0700 MST", "1970-01-01 12:03:05 +0000 UTC")
 	__FormFieldTime__000000_Time.Step = 1.000000
 
 	// FormGroup values setup
