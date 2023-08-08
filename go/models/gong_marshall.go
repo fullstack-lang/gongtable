@@ -638,6 +638,38 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 
 	}
 
+	map_FormFieldSelect_Identifiers := make(map[*FormFieldSelect]string)
+	_ = map_FormFieldSelect_Identifiers
+
+	formfieldselectOrdered := []*FormFieldSelect{}
+	for formfieldselect := range stage.FormFieldSelects {
+		formfieldselectOrdered = append(formfieldselectOrdered, formfieldselect)
+	}
+	sort.Slice(formfieldselectOrdered[:], func(i, j int) bool {
+		return formfieldselectOrdered[i].Name < formfieldselectOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of FormFieldSelect"
+	for idx, formfieldselect := range formfieldselectOrdered {
+
+		id = generatesIdentifier("FormFieldSelect", idx, formfieldselect.Name)
+		map_FormFieldSelect_Identifiers[formfieldselect] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "FormFieldSelect")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", formfieldselect.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// FormFieldSelect values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formfieldselect.Name))
+		initializerStatements += setValueField
+
+	}
+
 	map_FormFieldString_Identifiers := make(map[*FormFieldString]string)
 	_ = map_FormFieldString_Identifiers
 
@@ -748,6 +780,38 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
 		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
 		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formgroup.Name))
+		initializerStatements += setValueField
+
+	}
+
+	map_Option_Identifiers := make(map[*Option]string)
+	_ = map_Option_Identifiers
+
+	optionOrdered := []*Option{}
+	for option := range stage.Options {
+		optionOrdered = append(optionOrdered, option)
+	}
+	sort.Slice(optionOrdered[:], func(i, j int) bool {
+		return optionOrdered[i].Name < optionOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of Option"
+	for idx, option := range optionOrdered {
+
+		id = generatesIdentifier("Option", idx, option.Name)
+		map_Option_Identifiers[option] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "Option")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", option.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// Option values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(option.Name))
 		initializerStatements += setValueField
 
 	}
@@ -1061,6 +1125,14 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 			pointersInitializesStatements += setPointerField
 		}
 
+		if formfield.FormFieldSelect != nil {
+			setPointerField = PointerFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormFieldSelect")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormFieldSelect_Identifiers[formfield.FormFieldSelect])
+			pointersInitializesStatements += setPointerField
+		}
+
 	}
 
 	for idx, formfielddate := range formfielddateOrdered {
@@ -1103,6 +1175,32 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 		// Initialisation of values
 	}
 
+	for idx, formfieldselect := range formfieldselectOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("FormFieldSelect", idx, formfieldselect.Name)
+		map_FormFieldSelect_Identifiers[formfieldselect] = id
+
+		// Initialisation of values
+		if formfieldselect.Value != nil {
+			setPointerField = PointerFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "Value")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_Option_Identifiers[formfieldselect.Value])
+			pointersInitializesStatements += setPointerField
+		}
+
+		for _, _option := range formfieldselect.Options {
+			setPointerField = SliceOfPointersFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "Options")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_Option_Identifiers[_option])
+			pointersInitializesStatements += setPointerField
+		}
+
+	}
+
 	for idx, formfieldstring := range formfieldstringOrdered {
 		var setPointerField string
 		_ = setPointerField
@@ -1139,6 +1237,16 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 			pointersInitializesStatements += setPointerField
 		}
 
+	}
+
+	for idx, option := range optionOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("Option", idx, option.Name)
+		map_Option_Identifiers[option] = id
+
+		// Initialisation of values
 	}
 
 	for idx, row := range rowOrdered {

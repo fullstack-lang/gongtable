@@ -18,4 +18,6 @@ type FormField struct {
 	FormFieldDate     *FormFieldDate
 	FormFieldTime     *FormFieldTime
 	FormFieldDateTime *FormFieldDateTime
+
+	FormFieldSelect *FormFieldSelect
 }

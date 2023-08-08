@@ -44,6 +44,9 @@ import { FormFieldFloat64DetailComponent } from './formfieldfloat64-detail/formf
 import { FormFieldIntsTableComponent } from './formfieldints-table/formfieldints-table.component'
 import { FormFieldIntDetailComponent } from './formfieldint-detail/formfieldint-detail.component'
 
+import { FormFieldSelectsTableComponent } from './formfieldselects-table/formfieldselects-table.component'
+import { FormFieldSelectDetailComponent } from './formfieldselect-detail/formfieldselect-detail.component'
+
 import { FormFieldStringsTableComponent } from './formfieldstrings-table/formfieldstrings-table.component'
 import { FormFieldStringDetailComponent } from './formfieldstring-detail/formfieldstring-detail.component'
 
@@ -52,6 +55,9 @@ import { FormFieldTimeDetailComponent } from './formfieldtime-detail/formfieldti
 
 import { FormGroupsTableComponent } from './formgroups-table/formgroups-table.component'
 import { FormGroupDetailComponent } from './formgroup-detail/formgroup-detail.component'
+
+import { OptionsTableComponent } from './options-table/options-table.component'
+import { OptionDetailComponent } from './option-detail/option-detail.component'
 
 import { RowsTableComponent } from './rows-table/rows-table.component'
 import { RowDetailComponent } from './row-detail/row-detail.component'
@@ -552,6 +558,39 @@ export class RouteService {
         return route
     }
 
+    getFormFieldSelectTablePath(): string {
+        return this.getPathRoot() + '-formfieldselects/:GONG__StackPath'
+    }
+    getFormFieldSelectTableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldSelectTablePath(), component: FormFieldSelectsTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getFormFieldSelectAdderPath(): string {
+        return this.getPathRoot() + '-formfieldselect-adder/:GONG__StackPath'
+    }
+    getFormFieldSelectAdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldSelectAdderPath(), component: FormFieldSelectDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormFieldSelectAdderForUsePath(): string {
+        return this.getPathRoot() + '-formfieldselect-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getFormFieldSelectAdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldSelectAdderForUsePath(), component: FormFieldSelectDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormFieldSelectDetailPath(): string {
+        return this.getPathRoot() + '-formfieldselect-detail/:id/:GONG__StackPath'
+    }
+    getFormFieldSelectDetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldSelectDetailPath(), component: FormFieldSelectDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
     getFormFieldStringTablePath(): string {
         return this.getPathRoot() + '-formfieldstrings/:GONG__StackPath'
     }
@@ -648,6 +687,39 @@ export class RouteService {
     getFormGroupDetailRoute(stackPath: string): Route {
         let route: Route =
             { path: this.getFormGroupDetailPath(), component: FormGroupDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
+    getOptionTablePath(): string {
+        return this.getPathRoot() + '-options/:GONG__StackPath'
+    }
+    getOptionTableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getOptionTablePath(), component: OptionsTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getOptionAdderPath(): string {
+        return this.getPathRoot() + '-option-adder/:GONG__StackPath'
+    }
+    getOptionAdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getOptionAdderPath(), component: OptionDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getOptionAdderForUsePath(): string {
+        return this.getPathRoot() + '-option-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getOptionAdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getOptionAdderForUsePath(), component: OptionDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getOptionDetailPath(): string {
+        return this.getPathRoot() + '-option-detail/:id/:GONG__StackPath'
+    }
+    getOptionDetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getOptionDetailPath(), component: OptionDetailComponent, outlet: this.getEditorOutlet(stackPath) }
         return route
     }
 
@@ -793,6 +865,11 @@ export class RouteService {
             this.getFormFieldIntAdderForUseRoute(stackPath),
             this.getFormFieldIntDetailRoute(stackPath),
 
+            this.getFormFieldSelectTableRoute(stackPath),
+            this.getFormFieldSelectAdderRoute(stackPath),
+            this.getFormFieldSelectAdderForUseRoute(stackPath),
+            this.getFormFieldSelectDetailRoute(stackPath),
+
             this.getFormFieldStringTableRoute(stackPath),
             this.getFormFieldStringAdderRoute(stackPath),
             this.getFormFieldStringAdderForUseRoute(stackPath),
@@ -807,6 +884,11 @@ export class RouteService {
             this.getFormGroupAdderRoute(stackPath),
             this.getFormGroupAdderForUseRoute(stackPath),
             this.getFormGroupDetailRoute(stackPath),
+
+            this.getOptionTableRoute(stackPath),
+            this.getOptionAdderRoute(stackPath),
+            this.getOptionAdderForUseRoute(stackPath),
+            this.getOptionDetailRoute(stackPath),
 
             this.getRowTableRoute(stackPath),
             this.getRowAdderRoute(stackPath),

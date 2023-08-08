@@ -20,6 +20,7 @@ import { FormFieldIntDB } from './formfieldint-db'
 import { FormFieldDateDB } from './formfielddate-db'
 import { FormFieldTimeDB } from './formfieldtime-db'
 import { FormFieldDateTimeDB } from './formfielddatetime-db'
+import { FormFieldSelectDB } from './formfieldselect-db'
 import { FormDivDB } from './formdiv-db'
 
 @Injectable({
@@ -83,6 +84,7 @@ export class FormFieldService {
     formfielddb.FormFieldDate = new FormFieldDateDB
     formfielddb.FormFieldTime = new FormFieldTimeDB
     formfielddb.FormFieldDateTime = new FormFieldDateTimeDB
+    formfielddb.FormFieldSelect = new FormFieldSelectDB
     let _FormDiv_FormFields_reverse = formfielddb.FormDiv_FormFields_reverse
     formfielddb.FormDiv_FormFields_reverse = new FormDivDB
 
@@ -131,6 +133,7 @@ export class FormFieldService {
     formfielddb.FormFieldDate = new FormFieldDateDB
     formfielddb.FormFieldTime = new FormFieldTimeDB
     formfielddb.FormFieldDateTime = new FormFieldDateTimeDB
+    formfielddb.FormFieldSelect = new FormFieldSelectDB
     let _FormDiv_FormFields_reverse = formfielddb.FormDiv_FormFields_reverse
     formfielddb.FormDiv_FormFields_reverse = new FormDivDB
 

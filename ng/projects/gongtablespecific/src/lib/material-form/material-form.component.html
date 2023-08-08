@@ -7,62 +7,13 @@
             <input *ngIf="formField.FormFieldDate" type="date" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
             <input *ngIf="formField.FormFieldTime" type="time" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder" [step]="formField.FormFieldTime.Step">
             <input *ngIf="formField.FormFieldDateTime" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
-        </mat-form-field>
-        <mat-checkbox *ngFor="let checkBox of div.CheckBoxs" [formControlName]="checkBox.Name">{{checkBox.Name}}</mat-checkbox>
-    </div>
-</form>
-<form *ngIf="myFormSample" [formGroup]="myFormSample" (ngSubmit)="submitForm()">
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>First Name</mat-label>
-            <input matInput formControlName="firstName" placeholder="First Name placeholder">
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Last Name</mat-label>
-            <input matInput formControlName="lastName" placeholder="Last Name">
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Date</mat-label>
-            <input matInput type="date" formControlName="date" placeholder="Select date">
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Time</mat-label>
-            <input matInput type="time" formControlName="time" placeholder="Select time" step="1">
-        </mat-form-field>
-    </div>
-
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" placeholder="Email">
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Age</mat-label>
-            <input matInput type="number" formControlName="age" placeholder="Age">
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password" placeholder="Password">
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Choice</mat-label>
-            <mat-select formControlName="choice">
-                <mat-option *ngFor="let option of options" [value]="option.value">
-                    {{ option.label }}
+            <mat-select *ngIf="formField.FormFieldSelect" [formControlName]="formField.Name">
+                <mat-option *ngFor="let option of formField.FormFieldSelect.Options" [value]="option.Name">
+                    {{ option.Name }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
-    </div>
-    <div>
-        <mat-checkbox formControlName="acceptTerms">I accept the terms and conditions</mat-checkbox>
+        <mat-checkbox *ngFor="let checkBox of div.CheckBoxs" [formControlName]="checkBox.Name">{{checkBox.Name}}</mat-checkbox>
     </div>
     <button mat-raised-button color="primary" type="submit">Submit</button>
 </form>

@@ -139,6 +139,13 @@ func registerControllers(r *gin.Engine) {
 		v1.PUT("/v1/formfieldints/:id", GetController().UpdateFormFieldInt)
 		v1.DELETE("/v1/formfieldints/:id", GetController().DeleteFormFieldInt)
 
+		v1.GET("/v1/formfieldselects", GetController().GetFormFieldSelects)
+		v1.GET("/v1/formfieldselects/:id", GetController().GetFormFieldSelect)
+		v1.POST("/v1/formfieldselects", GetController().PostFormFieldSelect)
+		v1.PATCH("/v1/formfieldselects/:id", GetController().UpdateFormFieldSelect)
+		v1.PUT("/v1/formfieldselects/:id", GetController().UpdateFormFieldSelect)
+		v1.DELETE("/v1/formfieldselects/:id", GetController().DeleteFormFieldSelect)
+
 		v1.GET("/v1/formfieldstrings", GetController().GetFormFieldStrings)
 		v1.GET("/v1/formfieldstrings/:id", GetController().GetFormFieldString)
 		v1.POST("/v1/formfieldstrings", GetController().PostFormFieldString)
@@ -159,6 +166,13 @@ func registerControllers(r *gin.Engine) {
 		v1.PATCH("/v1/formgroups/:id", GetController().UpdateFormGroup)
 		v1.PUT("/v1/formgroups/:id", GetController().UpdateFormGroup)
 		v1.DELETE("/v1/formgroups/:id", GetController().DeleteFormGroup)
+
+		v1.GET("/v1/options", GetController().GetOptions)
+		v1.GET("/v1/options/:id", GetController().GetOption)
+		v1.POST("/v1/options", GetController().PostOption)
+		v1.PATCH("/v1/options/:id", GetController().UpdateOption)
+		v1.PUT("/v1/options/:id", GetController().UpdateOption)
+		v1.DELETE("/v1/options/:id", GetController().DeleteOption)
 
 		v1.GET("/v1/rows", GetController().GetRows)
 		v1.GET("/v1/rows/:id", GetController().GetRow)

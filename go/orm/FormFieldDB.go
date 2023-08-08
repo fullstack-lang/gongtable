@@ -70,6 +70,10 @@ type FormFieldPointersEnconding struct {
 	// This field is generated into another field to enable AS ONE association
 	FormFieldDateTimeID sql.NullInt64
 
+	// field FormFieldSelect is a pointer to another Struct (optional or 0..1)
+	// This field is generated into another field to enable AS ONE association
+	FormFieldSelectID sql.NullInt64
+
 	// Implementation of a reverse ID for field FormDiv{}.FormFields []*FormField
 	FormDiv_FormFieldsDBID sql.NullInt64
 
@@ -310,6 +314,15 @@ func (backRepoFormField *BackRepoFormFieldStruct) CommitPhaseTwoInstance(backRep
 			}
 		}
 
+		// commit pointer value formfield.FormFieldSelect translates to updating the formfield.FormFieldSelectID
+		formfieldDB.FormFieldSelectID.Valid = true // allow for a 0 value (nil association)
+		if formfield.FormFieldSelect != nil {
+			if FormFieldSelectId, ok := backRepo.BackRepoFormFieldSelect.Map_FormFieldSelectPtr_FormFieldSelectDBID[formfield.FormFieldSelect]; ok {
+				formfieldDB.FormFieldSelectID.Int64 = int64(FormFieldSelectId)
+				formfieldDB.FormFieldSelectID.Valid = true
+			}
+		}
+
 		query := backRepoFormField.db.Save(&formfieldDB)
 		if query.Error != nil {
 			return query.Error
@@ -446,6 +459,11 @@ func (backRepoFormField *BackRepoFormFieldStruct) CheckoutPhaseTwoInstance(backR
 	formfield.FormFieldDateTime = nil
 	if formfieldDB.FormFieldDateTimeID.Int64 != 0 {
 		formfield.FormFieldDateTime = backRepo.BackRepoFormFieldDateTime.Map_FormFieldDateTimeDBID_FormFieldDateTimePtr[uint(formfieldDB.FormFieldDateTimeID.Int64)]
+	}
+	// FormFieldSelect field
+	formfield.FormFieldSelect = nil
+	if formfieldDB.FormFieldSelectID.Int64 != 0 {
+		formfield.FormFieldSelect = backRepo.BackRepoFormFieldSelect.Map_FormFieldSelectDBID_FormFieldSelectPtr[uint(formfieldDB.FormFieldSelectID.Int64)]
 	}
 	return
 }
@@ -719,6 +737,12 @@ func (backRepoFormField *BackRepoFormFieldStruct) RestorePhaseTwo() {
 		if formfieldDB.FormFieldDateTimeID.Int64 != 0 {
 			formfieldDB.FormFieldDateTimeID.Int64 = int64(BackRepoFormFieldDateTimeid_atBckpTime_newID[uint(formfieldDB.FormFieldDateTimeID.Int64)])
 			formfieldDB.FormFieldDateTimeID.Valid = true
+		}
+
+		// reindexing FormFieldSelect field
+		if formfieldDB.FormFieldSelectID.Int64 != 0 {
+			formfieldDB.FormFieldSelectID.Int64 = int64(BackRepoFormFieldSelectid_atBckpTime_newID[uint(formfieldDB.FormFieldSelectID.Int64)])
+			formfieldDB.FormFieldSelectID.Valid = true
 		}
 
 		// This reindex formfield.FormFields

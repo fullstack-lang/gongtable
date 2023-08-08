@@ -95,6 +95,10 @@ import { FormFieldIntsTableComponent } from './formfieldints-table/formfieldints
 import { FormFieldIntSortingComponent } from './formfieldint-sorting/formfieldint-sorting.component'
 import { FormFieldIntDetailComponent } from './formfieldint-detail/formfieldint-detail.component'
 
+import { FormFieldSelectsTableComponent } from './formfieldselects-table/formfieldselects-table.component'
+import { FormFieldSelectSortingComponent } from './formfieldselect-sorting/formfieldselect-sorting.component'
+import { FormFieldSelectDetailComponent } from './formfieldselect-detail/formfieldselect-detail.component'
+
 import { FormFieldStringsTableComponent } from './formfieldstrings-table/formfieldstrings-table.component'
 import { FormFieldStringSortingComponent } from './formfieldstring-sorting/formfieldstring-sorting.component'
 import { FormFieldStringDetailComponent } from './formfieldstring-detail/formfieldstring-detail.component'
@@ -106,6 +110,10 @@ import { FormFieldTimeDetailComponent } from './formfieldtime-detail/formfieldti
 import { FormGroupsTableComponent } from './formgroups-table/formgroups-table.component'
 import { FormGroupSortingComponent } from './formgroup-sorting/formgroup-sorting.component'
 import { FormGroupDetailComponent } from './formgroup-detail/formgroup-detail.component'
+
+import { OptionsTableComponent } from './options-table/options-table.component'
+import { OptionSortingComponent } from './option-sorting/option-sorting.component'
+import { OptionDetailComponent } from './option-detail/option-detail.component'
 
 import { RowsTableComponent } from './rows-table/rows-table.component'
 import { RowSortingComponent } from './row-sorting/row-sorting.component'
@@ -175,6 +183,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormFieldIntSortingComponent,
 		FormFieldIntDetailComponent,
 
+		FormFieldSelectsTableComponent,
+		FormFieldSelectSortingComponent,
+		FormFieldSelectDetailComponent,
+
 		FormFieldStringsTableComponent,
 		FormFieldStringSortingComponent,
 		FormFieldStringDetailComponent,
@@ -186,6 +198,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormGroupsTableComponent,
 		FormGroupSortingComponent,
 		FormGroupDetailComponent,
+
+		OptionsTableComponent,
+		OptionSortingComponent,
+		OptionDetailComponent,
 
 		RowsTableComponent,
 		RowSortingComponent,
@@ -290,6 +306,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormFieldIntSortingComponent,
 		FormFieldIntDetailComponent,
 
+		FormFieldSelectsTableComponent,
+		FormFieldSelectSortingComponent,
+		FormFieldSelectDetailComponent,
+
 		FormFieldStringsTableComponent,
 		FormFieldStringSortingComponent,
 		FormFieldStringDetailComponent,
@@ -301,6 +321,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormGroupsTableComponent,
 		FormGroupSortingComponent,
 		FormGroupDetailComponent,
+
+		OptionsTableComponent,
+		OptionSortingComponent,
+		OptionDetailComponent,
 
 		RowsTableComponent,
 		RowSortingComponent,

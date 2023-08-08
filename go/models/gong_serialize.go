@@ -27,9 +27,11 @@ func SerializeStage(stage *StageStruct, filename string) {
 		SerializeExcelize[FormFieldDateTime](stage, f)
 		SerializeExcelize[FormFieldFloat64](stage, f)
 		SerializeExcelize[FormFieldInt](stage, f)
+		SerializeExcelize[FormFieldSelect](stage, f)
 		SerializeExcelize[FormFieldString](stage, f)
 		SerializeExcelize[FormFieldTime](stage, f)
 		SerializeExcelize[FormGroup](stage, f)
+		SerializeExcelize[Option](stage, f)
 		SerializeExcelize[Row](stage, f)
 		SerializeExcelize[Table](stage, f)
 	}

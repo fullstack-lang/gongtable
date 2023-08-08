@@ -39,12 +39,16 @@ import { FormFieldFloat64Service } from '../formfieldfloat64.service'
 import { getFormFieldFloat64UniqueID } from '../front-repo.service'
 import { FormFieldIntService } from '../formfieldint.service'
 import { getFormFieldIntUniqueID } from '../front-repo.service'
+import { FormFieldSelectService } from '../formfieldselect.service'
+import { getFormFieldSelectUniqueID } from '../front-repo.service'
 import { FormFieldStringService } from '../formfieldstring.service'
 import { getFormFieldStringUniqueID } from '../front-repo.service'
 import { FormFieldTimeService } from '../formfieldtime.service'
 import { getFormFieldTimeUniqueID } from '../front-repo.service'
 import { FormGroupService } from '../formgroup.service'
 import { getFormGroupUniqueID } from '../front-repo.service'
+import { OptionService } from '../option.service'
+import { getOptionUniqueID } from '../front-repo.service'
 import { RowService } from '../row.service'
 import { getRowUniqueID } from '../front-repo.service'
 import { TableService } from '../table.service'
@@ -208,9 +212,11 @@ export class SidebarComponent implements OnInit {
     private formfielddatetimeService: FormFieldDateTimeService,
     private formfieldfloat64Service: FormFieldFloat64Service,
     private formfieldintService: FormFieldIntService,
+    private formfieldselectService: FormFieldSelectService,
     private formfieldstringService: FormFieldStringService,
     private formfieldtimeService: FormFieldTimeService,
     private formgroupService: FormGroupService,
+    private optionService: OptionService,
     private rowService: RowService,
     private tableService: TableService,
 
@@ -361,6 +367,14 @@ export class SidebarComponent implements OnInit {
       }
     )
     // observable for changes in structs
+    this.formfieldselectService.FormFieldSelectServiceChanged.subscribe(
+      message => {
+        if (message == "post" || message == "update" || message == "delete") {
+          this.refresh()
+        }
+      }
+    )
+    // observable for changes in structs
     this.formfieldstringService.FormFieldStringServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
@@ -378,6 +392,14 @@ export class SidebarComponent implements OnInit {
     )
     // observable for changes in structs
     this.formgroupService.FormGroupServiceChanged.subscribe(
+      message => {
+        if (message == "post" || message == "update" || message == "delete") {
+          this.refresh()
+        }
+      }
+    )
+    // observable for changes in structs
+    this.optionService.OptionServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
           this.refresh()
@@ -1310,6 +1332,41 @@ export class SidebarComponent implements OnInit {
             FormFieldDateTimeGongNodeAssociation.children.push(formfieldGongNodeInstance_FormFieldDateTime)
           }
 
+          /**
+          * let append a node for the association FormFieldSelect
+          */
+          let FormFieldSelectGongNodeAssociation: GongNode = {
+            name: "(FormFieldSelect) FormFieldSelect",
+            type: GongNodeType.ONE__ZERO_ONE_ASSOCIATION,
+            id: formfieldDB.ID,
+            uniqueIdPerStack: 17 * nonInstanceNodeId,
+            structName: "FormField",
+            associationField: "FormFieldSelect",
+            associatedStructName: "FormFieldSelect",
+            children: new Array<GongNode>()
+          }
+          nonInstanceNodeId = nonInstanceNodeId + 1
+          formfieldGongNodeInstance.children!.push(FormFieldSelectGongNodeAssociation)
+
+          /**
+            * let append a node for the instance behind the asssociation FormFieldSelect
+            */
+          if (formfieldDB.FormFieldSelect != undefined) {
+            let formfieldGongNodeInstance_FormFieldSelect: GongNode = {
+              name: formfieldDB.FormFieldSelect.Name,
+              type: GongNodeType.INSTANCE,
+              id: formfieldDB.FormFieldSelect.ID,
+              uniqueIdPerStack: // godel numbering (thank you kurt)
+                3 * getFormFieldUniqueID(formfieldDB.ID)
+                + 5 * getFormFieldSelectUniqueID(formfieldDB.FormFieldSelect.ID),
+              structName: "FormFieldSelect",
+              associationField: "",
+              associatedStructName: "",
+              children: new Array<GongNode>()
+            }
+            FormFieldSelectGongNodeAssociation.children.push(formfieldGongNodeInstance_FormFieldSelect)
+          }
+
         }
       )
 
@@ -1490,6 +1547,117 @@ export class SidebarComponent implements OnInit {
       )
 
       /**
+      * fill up the FormFieldSelect part of the mat tree
+      */
+      let formfieldselectGongNodeStruct: GongNode = {
+        name: "FormFieldSelect",
+        type: GongNodeType.STRUCT,
+        id: 0,
+        uniqueIdPerStack: 13 * nonInstanceNodeId,
+        structName: "FormFieldSelect",
+        associationField: "",
+        associatedStructName: "",
+        children: new Array<GongNode>()
+      }
+      nonInstanceNodeId = nonInstanceNodeId + 1
+      this.gongNodeTree.push(formfieldselectGongNodeStruct)
+
+      this.frontRepo.FormFieldSelects_array.sort((t1, t2) => {
+        if (t1.Name > t2.Name) {
+          return 1;
+        }
+        if (t1.Name < t2.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      this.frontRepo.FormFieldSelects_array.forEach(
+        formfieldselectDB => {
+          let formfieldselectGongNodeInstance: GongNode = {
+            name: formfieldselectDB.Name,
+            type: GongNodeType.INSTANCE,
+            id: formfieldselectDB.ID,
+            uniqueIdPerStack: getFormFieldSelectUniqueID(formfieldselectDB.ID),
+            structName: "FormFieldSelect",
+            associationField: "",
+            associatedStructName: "",
+            children: new Array<GongNode>()
+          }
+          formfieldselectGongNodeStruct.children!.push(formfieldselectGongNodeInstance)
+
+          // insertion point for per field code
+          /**
+          * let append a node for the association Value
+          */
+          let ValueGongNodeAssociation: GongNode = {
+            name: "(Option) Value",
+            type: GongNodeType.ONE__ZERO_ONE_ASSOCIATION,
+            id: formfieldselectDB.ID,
+            uniqueIdPerStack: 17 * nonInstanceNodeId,
+            structName: "FormFieldSelect",
+            associationField: "Value",
+            associatedStructName: "Option",
+            children: new Array<GongNode>()
+          }
+          nonInstanceNodeId = nonInstanceNodeId + 1
+          formfieldselectGongNodeInstance.children!.push(ValueGongNodeAssociation)
+
+          /**
+            * let append a node for the instance behind the asssociation Value
+            */
+          if (formfieldselectDB.Value != undefined) {
+            let formfieldselectGongNodeInstance_Value: GongNode = {
+              name: formfieldselectDB.Value.Name,
+              type: GongNodeType.INSTANCE,
+              id: formfieldselectDB.Value.ID,
+              uniqueIdPerStack: // godel numbering (thank you kurt)
+                3 * getFormFieldSelectUniqueID(formfieldselectDB.ID)
+                + 5 * getOptionUniqueID(formfieldselectDB.Value.ID),
+              structName: "Option",
+              associationField: "",
+              associatedStructName: "",
+              children: new Array<GongNode>()
+            }
+            ValueGongNodeAssociation.children.push(formfieldselectGongNodeInstance_Value)
+          }
+
+          /**
+          * let append a node for the slide of pointer Options
+          */
+          let OptionsGongNodeAssociation: GongNode = {
+            name: "(Option) Options",
+            type: GongNodeType.ONE__ZERO_MANY_ASSOCIATION,
+            id: formfieldselectDB.ID,
+            uniqueIdPerStack: 19 * nonInstanceNodeId,
+            structName: "FormFieldSelect",
+            associationField: "Options",
+            associatedStructName: "Option",
+            children: new Array<GongNode>()
+          }
+          nonInstanceNodeId = nonInstanceNodeId + 1
+          formfieldselectGongNodeInstance.children.push(OptionsGongNodeAssociation)
+
+          formfieldselectDB.Options?.forEach(optionDB => {
+            let optionNode: GongNode = {
+              name: optionDB.Name,
+              type: GongNodeType.INSTANCE,
+              id: optionDB.ID,
+              uniqueIdPerStack: // godel numbering (thank you kurt)
+                7 * getFormFieldSelectUniqueID(formfieldselectDB.ID)
+                + 11 * getOptionUniqueID(optionDB.ID),
+              structName: "Option",
+              associationField: "",
+              associatedStructName: "",
+              children: new Array<GongNode>()
+            }
+            OptionsGongNodeAssociation.children.push(optionNode)
+          })
+
+        }
+      )
+
+      /**
       * fill up the FormFieldString part of the mat tree
       */
       let formfieldstringGongNodeStruct: GongNode = {
@@ -1650,6 +1818,50 @@ export class SidebarComponent implements OnInit {
             FormDivsGongNodeAssociation.children.push(formdivNode)
           })
 
+        }
+      )
+
+      /**
+      * fill up the Option part of the mat tree
+      */
+      let optionGongNodeStruct: GongNode = {
+        name: "Option",
+        type: GongNodeType.STRUCT,
+        id: 0,
+        uniqueIdPerStack: 13 * nonInstanceNodeId,
+        structName: "Option",
+        associationField: "",
+        associatedStructName: "",
+        children: new Array<GongNode>()
+      }
+      nonInstanceNodeId = nonInstanceNodeId + 1
+      this.gongNodeTree.push(optionGongNodeStruct)
+
+      this.frontRepo.Options_array.sort((t1, t2) => {
+        if (t1.Name > t2.Name) {
+          return 1;
+        }
+        if (t1.Name < t2.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      this.frontRepo.Options_array.forEach(
+        optionDB => {
+          let optionGongNodeInstance: GongNode = {
+            name: optionDB.Name,
+            type: GongNodeType.INSTANCE,
+            id: optionDB.ID,
+            uniqueIdPerStack: getOptionUniqueID(optionDB.ID),
+            structName: "Option",
+            associationField: "",
+            associatedStructName: "",
+            children: new Array<GongNode>()
+          }
+          optionGongNodeStruct.children!.push(optionGongNodeInstance)
+
+          // insertion point for per field code
         }
       )
 
