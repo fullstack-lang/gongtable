@@ -58,10 +58,6 @@ type FormFieldPointersEnconding struct {
 	// This field is generated into another field to enable AS ONE association
 	FormFieldIntID sql.NullInt64
 
-	// field FormFieldBool is a pointer to another Struct (optional or 0..1)
-	// This field is generated into another field to enable AS ONE association
-	FormFieldBoolID sql.NullInt64
-
 	// field FormFieldDate is a pointer to another Struct (optional or 0..1)
 	// This field is generated into another field to enable AS ONE association
 	FormFieldDateID sql.NullInt64
@@ -287,15 +283,6 @@ func (backRepoFormField *BackRepoFormFieldStruct) CommitPhaseTwoInstance(backRep
 			}
 		}
 
-		// commit pointer value formfield.FormFieldBool translates to updating the formfield.FormFieldBoolID
-		formfieldDB.FormFieldBoolID.Valid = true // allow for a 0 value (nil association)
-		if formfield.FormFieldBool != nil {
-			if FormFieldBoolId, ok := backRepo.BackRepoFormFieldBoolean.Map_FormFieldBooleanPtr_FormFieldBooleanDBID[formfield.FormFieldBool]; ok {
-				formfieldDB.FormFieldBoolID.Int64 = int64(FormFieldBoolId)
-				formfieldDB.FormFieldBoolID.Valid = true
-			}
-		}
-
 		// commit pointer value formfield.FormFieldDate translates to updating the formfield.FormFieldDateID
 		formfieldDB.FormFieldDateID.Valid = true // allow for a 0 value (nil association)
 		if formfield.FormFieldDate != nil {
@@ -444,11 +431,6 @@ func (backRepoFormField *BackRepoFormFieldStruct) CheckoutPhaseTwoInstance(backR
 	formfield.FormFieldInt = nil
 	if formfieldDB.FormFieldIntID.Int64 != 0 {
 		formfield.FormFieldInt = backRepo.BackRepoFormFieldInt.Map_FormFieldIntDBID_FormFieldIntPtr[uint(formfieldDB.FormFieldIntID.Int64)]
-	}
-	// FormFieldBool field
-	formfield.FormFieldBool = nil
-	if formfieldDB.FormFieldBoolID.Int64 != 0 {
-		formfield.FormFieldBool = backRepo.BackRepoFormFieldBoolean.Map_FormFieldBooleanDBID_FormFieldBooleanPtr[uint(formfieldDB.FormFieldBoolID.Int64)]
 	}
 	// FormFieldDate field
 	formfield.FormFieldDate = nil
@@ -719,12 +701,6 @@ func (backRepoFormField *BackRepoFormFieldStruct) RestorePhaseTwo() {
 		if formfieldDB.FormFieldIntID.Int64 != 0 {
 			formfieldDB.FormFieldIntID.Int64 = int64(BackRepoFormFieldIntid_atBckpTime_newID[uint(formfieldDB.FormFieldIntID.Int64)])
 			formfieldDB.FormFieldIntID.Valid = true
-		}
-
-		// reindexing FormFieldBool field
-		if formfieldDB.FormFieldBoolID.Int64 != 0 {
-			formfieldDB.FormFieldBoolID.Int64 = int64(BackRepoFormFieldBooleanid_atBckpTime_newID[uint(formfieldDB.FormFieldBoolID.Int64)])
-			formfieldDB.FormFieldBoolID.Valid = true
 		}
 
 		// reindexing FormFieldDate field

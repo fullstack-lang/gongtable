@@ -22,6 +22,9 @@ import { CellIntService } from './cellint.service'
 import { CellStringDB } from './cellstring-db'
 import { CellStringService } from './cellstring.service'
 
+import { CheckBoxDB } from './checkbox-db'
+import { CheckBoxService } from './checkbox.service'
+
 import { DisplayedColumnDB } from './displayedcolumn-db'
 import { DisplayedColumnService } from './displayedcolumn.service'
 
@@ -30,9 +33,6 @@ import { FormDivService } from './formdiv.service'
 
 import { FormFieldDB } from './formfield-db'
 import { FormFieldService } from './formfield.service'
-
-import { FormFieldBooleanDB } from './formfieldboolean-db'
-import { FormFieldBooleanService } from './formfieldboolean.service'
 
 import { FormFieldDateDB } from './formfielddate-db'
 import { FormFieldDateService } from './formfielddate.service'
@@ -82,6 +82,9 @@ export class FrontRepo { // insertion point sub template
   CellStrings_array = new Array<CellStringDB>(); // array of repo instances
   CellStrings = new Map<number, CellStringDB>(); // map of repo instances
   CellStrings_batch = new Map<number, CellStringDB>(); // same but only in last GET (for finding repo instances to delete)
+  CheckBoxs_array = new Array<CheckBoxDB>(); // array of repo instances
+  CheckBoxs = new Map<number, CheckBoxDB>(); // map of repo instances
+  CheckBoxs_batch = new Map<number, CheckBoxDB>(); // same but only in last GET (for finding repo instances to delete)
   DisplayedColumns_array = new Array<DisplayedColumnDB>(); // array of repo instances
   DisplayedColumns = new Map<number, DisplayedColumnDB>(); // map of repo instances
   DisplayedColumns_batch = new Map<number, DisplayedColumnDB>(); // same but only in last GET (for finding repo instances to delete)
@@ -91,9 +94,6 @@ export class FrontRepo { // insertion point sub template
   FormFields_array = new Array<FormFieldDB>(); // array of repo instances
   FormFields = new Map<number, FormFieldDB>(); // map of repo instances
   FormFields_batch = new Map<number, FormFieldDB>(); // same but only in last GET (for finding repo instances to delete)
-  FormFieldBooleans_array = new Array<FormFieldBooleanDB>(); // array of repo instances
-  FormFieldBooleans = new Map<number, FormFieldBooleanDB>(); // map of repo instances
-  FormFieldBooleans_batch = new Map<number, FormFieldBooleanDB>(); // same but only in last GET (for finding repo instances to delete)
   FormFieldDates_array = new Array<FormFieldDateDB>(); // array of repo instances
   FormFieldDates = new Map<number, FormFieldDateDB>(); // map of repo instances
   FormFieldDates_batch = new Map<number, FormFieldDateDB>(); // same but only in last GET (for finding repo instances to delete)
@@ -189,10 +189,10 @@ export class FrontRepoService {
     private celliconService: CellIconService,
     private cellintService: CellIntService,
     private cellstringService: CellStringService,
+    private checkboxService: CheckBoxService,
     private displayedcolumnService: DisplayedColumnService,
     private formdivService: FormDivService,
     private formfieldService: FormFieldService,
-    private formfieldbooleanService: FormFieldBooleanService,
     private formfielddateService: FormFieldDateService,
     private formfielddatetimeService: FormFieldDateTimeService,
     private formfieldfloat64Service: FormFieldFloat64Service,
@@ -238,10 +238,10 @@ export class FrontRepoService {
     Observable<CellIconDB[]>,
     Observable<CellIntDB[]>,
     Observable<CellStringDB[]>,
+    Observable<CheckBoxDB[]>,
     Observable<DisplayedColumnDB[]>,
     Observable<FormDivDB[]>,
     Observable<FormFieldDB[]>,
-    Observable<FormFieldBooleanDB[]>,
     Observable<FormFieldDateDB[]>,
     Observable<FormFieldDateTimeDB[]>,
     Observable<FormFieldFloat64DB[]>,
@@ -258,10 +258,10 @@ export class FrontRepoService {
       this.celliconService.getCellIcons(this.GONG__StackPath),
       this.cellintService.getCellInts(this.GONG__StackPath),
       this.cellstringService.getCellStrings(this.GONG__StackPath),
+      this.checkboxService.getCheckBoxs(this.GONG__StackPath),
       this.displayedcolumnService.getDisplayedColumns(this.GONG__StackPath),
       this.formdivService.getFormDivs(this.GONG__StackPath),
       this.formfieldService.getFormFields(this.GONG__StackPath),
-      this.formfieldbooleanService.getFormFieldBooleans(this.GONG__StackPath),
       this.formfielddateService.getFormFieldDates(this.GONG__StackPath),
       this.formfielddatetimeService.getFormFieldDateTimes(this.GONG__StackPath),
       this.formfieldfloat64Service.getFormFieldFloat64s(this.GONG__StackPath),
@@ -290,10 +290,10 @@ export class FrontRepoService {
       this.celliconService.getCellIcons(this.GONG__StackPath),
       this.cellintService.getCellInts(this.GONG__StackPath),
       this.cellstringService.getCellStrings(this.GONG__StackPath),
+      this.checkboxService.getCheckBoxs(this.GONG__StackPath),
       this.displayedcolumnService.getDisplayedColumns(this.GONG__StackPath),
       this.formdivService.getFormDivs(this.GONG__StackPath),
       this.formfieldService.getFormFields(this.GONG__StackPath),
-      this.formfieldbooleanService.getFormFieldBooleans(this.GONG__StackPath),
       this.formfielddateService.getFormFieldDates(this.GONG__StackPath),
       this.formfielddatetimeService.getFormFieldDateTimes(this.GONG__StackPath),
       this.formfieldfloat64Service.getFormFieldFloat64s(this.GONG__StackPath),
@@ -317,10 +317,10 @@ export class FrontRepoService {
             cellicons_,
             cellints_,
             cellstrings_,
+            checkboxs_,
             displayedcolumns_,
             formdivs_,
             formfields_,
-            formfieldbooleans_,
             formfielddates_,
             formfielddatetimes_,
             formfieldfloat64s_,
@@ -345,14 +345,14 @@ export class FrontRepoService {
             cellints = cellints_ as CellIntDB[]
             var cellstrings: CellStringDB[]
             cellstrings = cellstrings_ as CellStringDB[]
+            var checkboxs: CheckBoxDB[]
+            checkboxs = checkboxs_ as CheckBoxDB[]
             var displayedcolumns: DisplayedColumnDB[]
             displayedcolumns = displayedcolumns_ as DisplayedColumnDB[]
             var formdivs: FormDivDB[]
             formdivs = formdivs_ as FormDivDB[]
             var formfields: FormFieldDB[]
             formfields = formfields_ as FormFieldDB[]
-            var formfieldbooleans: FormFieldBooleanDB[]
-            formfieldbooleans = formfieldbooleans_ as FormFieldBooleanDB[]
             var formfielddates: FormFieldDateDB[]
             formfielddates = formfielddates_ as FormFieldDateDB[]
             var formfielddatetimes: FormFieldDateTimeDB[]
@@ -574,6 +574,39 @@ export class FrontRepoService {
             });
 
             // init the array
+            this.frontRepo.CheckBoxs_array = checkboxs
+
+            // clear the map that counts CheckBox in the GET
+            this.frontRepo.CheckBoxs_batch.clear()
+
+            checkboxs.forEach(
+              checkbox => {
+                this.frontRepo.CheckBoxs.set(checkbox.ID, checkbox)
+                this.frontRepo.CheckBoxs_batch.set(checkbox.ID, checkbox)
+              }
+            )
+
+            // clear checkboxs that are absent from the batch
+            this.frontRepo.CheckBoxs.forEach(
+              checkbox => {
+                if (this.frontRepo.CheckBoxs_batch.get(checkbox.ID) == undefined) {
+                  this.frontRepo.CheckBoxs.delete(checkbox.ID)
+                }
+              }
+            )
+
+            // sort CheckBoxs_array array
+            this.frontRepo.CheckBoxs_array.sort((t1, t2) => {
+              if (t1.Name > t2.Name) {
+                return 1;
+              }
+              if (t1.Name < t2.Name) {
+                return -1;
+              }
+              return 0;
+            });
+
+            // init the array
             this.frontRepo.DisplayedColumns_array = displayedcolumns
 
             // clear the map that counts DisplayedColumn in the GET
@@ -663,39 +696,6 @@ export class FrontRepoService {
 
             // sort FormFields_array array
             this.frontRepo.FormFields_array.sort((t1, t2) => {
-              if (t1.Name > t2.Name) {
-                return 1;
-              }
-              if (t1.Name < t2.Name) {
-                return -1;
-              }
-              return 0;
-            });
-
-            // init the array
-            this.frontRepo.FormFieldBooleans_array = formfieldbooleans
-
-            // clear the map that counts FormFieldBoolean in the GET
-            this.frontRepo.FormFieldBooleans_batch.clear()
-
-            formfieldbooleans.forEach(
-              formfieldboolean => {
-                this.frontRepo.FormFieldBooleans.set(formfieldboolean.ID, formfieldboolean)
-                this.frontRepo.FormFieldBooleans_batch.set(formfieldboolean.ID, formfieldboolean)
-              }
-            )
-
-            // clear formfieldbooleans that are absent from the batch
-            this.frontRepo.FormFieldBooleans.forEach(
-              formfieldboolean => {
-                if (this.frontRepo.FormFieldBooleans_batch.get(formfieldboolean.ID) == undefined) {
-                  this.frontRepo.FormFieldBooleans.delete(formfieldboolean.ID)
-                }
-              }
-            )
-
-            // sort FormFieldBooleans_array array
-            this.frontRepo.FormFieldBooleans_array.sort((t1, t2) => {
               if (t1.Name > t2.Name) {
                 return 1;
               }
@@ -1096,6 +1096,26 @@ export class FrontRepoService {
                 // insertion point for redeeming ONE-MANY associations
               }
             )
+            checkboxs.forEach(
+              checkbox => {
+                // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
+
+                // insertion point for redeeming ONE-MANY associations
+                // insertion point for slice of pointer field FormDiv.CheckBoxs redeeming
+                {
+                  let _formdiv = this.frontRepo.FormDivs.get(checkbox.FormDiv_CheckBoxsDBID.Int64)
+                  if (_formdiv) {
+                    if (_formdiv.CheckBoxs == undefined) {
+                      _formdiv.CheckBoxs = new Array<CheckBoxDB>()
+                    }
+                    _formdiv.CheckBoxs.push(checkbox)
+                    if (checkbox.FormDiv_CheckBoxs_reverse == undefined) {
+                      checkbox.FormDiv_CheckBoxs_reverse = _formdiv
+                    }
+                  }
+                }
+              }
+            )
             displayedcolumns.forEach(
               displayedcolumn => {
                 // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
@@ -1160,13 +1180,6 @@ export class FrontRepoService {
                     formfield.FormFieldInt = _formfieldint
                   }
                 }
-                // insertion point for pointer field FormFieldBool redeeming
-                {
-                  let _formfieldboolean = this.frontRepo.FormFieldBooleans.get(formfield.FormFieldBoolID.Int64)
-                  if (_formfieldboolean) {
-                    formfield.FormFieldBool = _formfieldboolean
-                  }
-                }
                 // insertion point for pointer field FormFieldDate redeeming
                 {
                   let _formfielddate = this.frontRepo.FormFieldDates.get(formfield.FormFieldDateID.Int64)
@@ -1203,13 +1216,6 @@ export class FrontRepoService {
                     }
                   }
                 }
-              }
-            )
-            formfieldbooleans.forEach(
-              formfieldboolean => {
-                // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
-
-                // insertion point for redeeming ONE-MANY associations
               }
             )
             formfielddates.forEach(
@@ -1653,6 +1659,70 @@ export class FrontRepoService {
     )
   }
 
+  // CheckBoxPull performs a GET on CheckBox of the stack and redeem association pointers 
+  CheckBoxPull(): Observable<FrontRepo> {
+    return new Observable<FrontRepo>(
+      (observer) => {
+        combineLatest([
+          this.checkboxService.getCheckBoxs(this.GONG__StackPath)
+        ]).subscribe(
+          ([ // insertion point sub template 
+            checkboxs,
+          ]) => {
+            // init the array
+            this.frontRepo.CheckBoxs_array = checkboxs
+
+            // clear the map that counts CheckBox in the GET
+            this.frontRepo.CheckBoxs_batch.clear()
+
+            // 
+            // First Step: init map of instances
+            // insertion point sub template 
+            checkboxs.forEach(
+              checkbox => {
+                this.frontRepo.CheckBoxs.set(checkbox.ID, checkbox)
+                this.frontRepo.CheckBoxs_batch.set(checkbox.ID, checkbox)
+
+                // insertion point for redeeming ONE/ZERO-ONE associations
+
+                // insertion point for redeeming ONE-MANY associations
+                // insertion point for slice of pointer field FormDiv.CheckBoxs redeeming
+                {
+                  let _formdiv = this.frontRepo.FormDivs.get(checkbox.FormDiv_CheckBoxsDBID.Int64)
+                  if (_formdiv) {
+                    if (_formdiv.CheckBoxs == undefined) {
+                      _formdiv.CheckBoxs = new Array<CheckBoxDB>()
+                    }
+                    _formdiv.CheckBoxs.push(checkbox)
+                    if (checkbox.FormDiv_CheckBoxs_reverse == undefined) {
+                      checkbox.FormDiv_CheckBoxs_reverse = _formdiv
+                    }
+                  }
+                }
+              }
+            )
+
+            // clear checkboxs that are absent from the GET
+            this.frontRepo.CheckBoxs.forEach(
+              checkbox => {
+                if (this.frontRepo.CheckBoxs_batch.get(checkbox.ID) == undefined) {
+                  this.frontRepo.CheckBoxs.delete(checkbox.ID)
+                }
+              }
+            )
+
+            // 
+            // Second Step: redeem pointers between instances (thanks to maps in the First Step)
+            // insertion point sub template 
+
+            // hand over control flow to observer
+            observer.next(this.frontRepo)
+          }
+        )
+      }
+    )
+  }
+
   // DisplayedColumnPull performs a GET on DisplayedColumn of the stack and redeem association pointers 
   DisplayedColumnPull(): Observable<FrontRepo> {
     return new Observable<FrontRepo>(
@@ -1827,13 +1897,6 @@ export class FrontRepoService {
                     formfield.FormFieldInt = _formfieldint
                   }
                 }
-                // insertion point for pointer field FormFieldBool redeeming
-                {
-                  let _formfieldboolean = this.frontRepo.FormFieldBooleans.get(formfield.FormFieldBoolID.Int64)
-                  if (_formfieldboolean) {
-                    formfield.FormFieldBool = _formfieldboolean
-                  }
-                }
                 // insertion point for pointer field FormFieldDate redeeming
                 {
                   let _formfielddate = this.frontRepo.FormFieldDates.get(formfield.FormFieldDateID.Int64)
@@ -1878,57 +1941,6 @@ export class FrontRepoService {
               formfield => {
                 if (this.frontRepo.FormFields_batch.get(formfield.ID) == undefined) {
                   this.frontRepo.FormFields.delete(formfield.ID)
-                }
-              }
-            )
-
-            // 
-            // Second Step: redeem pointers between instances (thanks to maps in the First Step)
-            // insertion point sub template 
-
-            // hand over control flow to observer
-            observer.next(this.frontRepo)
-          }
-        )
-      }
-    )
-  }
-
-  // FormFieldBooleanPull performs a GET on FormFieldBoolean of the stack and redeem association pointers 
-  FormFieldBooleanPull(): Observable<FrontRepo> {
-    return new Observable<FrontRepo>(
-      (observer) => {
-        combineLatest([
-          this.formfieldbooleanService.getFormFieldBooleans(this.GONG__StackPath)
-        ]).subscribe(
-          ([ // insertion point sub template 
-            formfieldbooleans,
-          ]) => {
-            // init the array
-            this.frontRepo.FormFieldBooleans_array = formfieldbooleans
-
-            // clear the map that counts FormFieldBoolean in the GET
-            this.frontRepo.FormFieldBooleans_batch.clear()
-
-            // 
-            // First Step: init map of instances
-            // insertion point sub template 
-            formfieldbooleans.forEach(
-              formfieldboolean => {
-                this.frontRepo.FormFieldBooleans.set(formfieldboolean.ID, formfieldboolean)
-                this.frontRepo.FormFieldBooleans_batch.set(formfieldboolean.ID, formfieldboolean)
-
-                // insertion point for redeeming ONE/ZERO-ONE associations
-
-                // insertion point for redeeming ONE-MANY associations
-              }
-            )
-
-            // clear formfieldbooleans that are absent from the GET
-            this.frontRepo.FormFieldBooleans.forEach(
-              formfieldboolean => {
-                if (this.frontRepo.FormFieldBooleans_batch.get(formfieldboolean.ID) == undefined) {
-                  this.frontRepo.FormFieldBooleans.delete(formfieldboolean.ID)
                 }
               }
             )
@@ -2437,16 +2449,16 @@ export function getCellIntUniqueID(id: number): number {
 export function getCellStringUniqueID(id: number): number {
   return 53 * id
 }
-export function getDisplayedColumnUniqueID(id: number): number {
+export function getCheckBoxUniqueID(id: number): number {
   return 59 * id
 }
-export function getFormDivUniqueID(id: number): number {
+export function getDisplayedColumnUniqueID(id: number): number {
   return 61 * id
 }
-export function getFormFieldUniqueID(id: number): number {
+export function getFormDivUniqueID(id: number): number {
   return 67 * id
 }
-export function getFormFieldBooleanUniqueID(id: number): number {
+export function getFormFieldUniqueID(id: number): number {
   return 71 * id
 }
 export function getFormFieldDateUniqueID(id: number): number {

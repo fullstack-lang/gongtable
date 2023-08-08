@@ -29,6 +29,10 @@ func AfterCreateFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterCellStringCreateCallback != nil {
 			stage.OnAfterCellStringCreateCallback.OnAfterCreate(stage, target)
 		}
+	case *CheckBox:
+		if stage.OnAfterCheckBoxCreateCallback != nil {
+			stage.OnAfterCheckBoxCreateCallback.OnAfterCreate(stage, target)
+		}
 	case *DisplayedColumn:
 		if stage.OnAfterDisplayedColumnCreateCallback != nil {
 			stage.OnAfterDisplayedColumnCreateCallback.OnAfterCreate(stage, target)
@@ -40,10 +44,6 @@ func AfterCreateFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *FormField:
 		if stage.OnAfterFormFieldCreateCallback != nil {
 			stage.OnAfterFormFieldCreateCallback.OnAfterCreate(stage, target)
-		}
-	case *FormFieldBoolean:
-		if stage.OnAfterFormFieldBooleanCreateCallback != nil {
-			stage.OnAfterFormFieldBooleanCreateCallback.OnAfterCreate(stage, target)
 		}
 	case *FormFieldDate:
 		if stage.OnAfterFormFieldDateCreateCallback != nil {
@@ -121,6 +121,11 @@ func AfterUpdateFromFront[Type Gongstruct](stage *StageStruct, old, new *Type) {
 		if stage.OnAfterCellStringUpdateCallback != nil {
 			stage.OnAfterCellStringUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
+	case *CheckBox:
+		newTarget := any(new).(*CheckBox)
+		if stage.OnAfterCheckBoxUpdateCallback != nil {
+			stage.OnAfterCheckBoxUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
+		}
 	case *DisplayedColumn:
 		newTarget := any(new).(*DisplayedColumn)
 		if stage.OnAfterDisplayedColumnUpdateCallback != nil {
@@ -135,11 +140,6 @@ func AfterUpdateFromFront[Type Gongstruct](stage *StageStruct, old, new *Type) {
 		newTarget := any(new).(*FormField)
 		if stage.OnAfterFormFieldUpdateCallback != nil {
 			stage.OnAfterFormFieldUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
-		}
-	case *FormFieldBoolean:
-		newTarget := any(new).(*FormFieldBoolean)
-		if stage.OnAfterFormFieldBooleanUpdateCallback != nil {
-			stage.OnAfterFormFieldBooleanUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
 	case *FormFieldDate:
 		newTarget := any(new).(*FormFieldDate)
@@ -226,6 +226,11 @@ func AfterDeleteFromFront[Type Gongstruct](stage *StageStruct, staged, front *Ty
 			staged := any(staged).(*CellString)
 			stage.OnAfterCellStringDeleteCallback.OnAfterDelete(stage, staged, front)
 		}
+	case *CheckBox:
+		if stage.OnAfterCheckBoxDeleteCallback != nil {
+			staged := any(staged).(*CheckBox)
+			stage.OnAfterCheckBoxDeleteCallback.OnAfterDelete(stage, staged, front)
+		}
 	case *DisplayedColumn:
 		if stage.OnAfterDisplayedColumnDeleteCallback != nil {
 			staged := any(staged).(*DisplayedColumn)
@@ -240,11 +245,6 @@ func AfterDeleteFromFront[Type Gongstruct](stage *StageStruct, staged, front *Ty
 		if stage.OnAfterFormFieldDeleteCallback != nil {
 			staged := any(staged).(*FormField)
 			stage.OnAfterFormFieldDeleteCallback.OnAfterDelete(stage, staged, front)
-		}
-	case *FormFieldBoolean:
-		if stage.OnAfterFormFieldBooleanDeleteCallback != nil {
-			staged := any(staged).(*FormFieldBoolean)
-			stage.OnAfterFormFieldBooleanDeleteCallback.OnAfterDelete(stage, staged, front)
 		}
 	case *FormFieldDate:
 		if stage.OnAfterFormFieldDateDeleteCallback != nil {
@@ -325,6 +325,10 @@ func AfterReadFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterCellStringReadCallback != nil {
 			stage.OnAfterCellStringReadCallback.OnAfterRead(stage, target)
 		}
+	case *CheckBox:
+		if stage.OnAfterCheckBoxReadCallback != nil {
+			stage.OnAfterCheckBoxReadCallback.OnAfterRead(stage, target)
+		}
 	case *DisplayedColumn:
 		if stage.OnAfterDisplayedColumnReadCallback != nil {
 			stage.OnAfterDisplayedColumnReadCallback.OnAfterRead(stage, target)
@@ -336,10 +340,6 @@ func AfterReadFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *FormField:
 		if stage.OnAfterFormFieldReadCallback != nil {
 			stage.OnAfterFormFieldReadCallback.OnAfterRead(stage, target)
-		}
-	case *FormFieldBoolean:
-		if stage.OnAfterFormFieldBooleanReadCallback != nil {
-			stage.OnAfterFormFieldBooleanReadCallback.OnAfterRead(stage, target)
 		}
 	case *FormFieldDate:
 		if stage.OnAfterFormFieldDateReadCallback != nil {
@@ -406,6 +406,9 @@ func SetCallbackAfterUpdateFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *CellString:
 		stage.OnAfterCellStringUpdateCallback = any(callback).(OnAfterUpdateInterface[CellString])
 	
+	case *CheckBox:
+		stage.OnAfterCheckBoxUpdateCallback = any(callback).(OnAfterUpdateInterface[CheckBox])
+	
 	case *DisplayedColumn:
 		stage.OnAfterDisplayedColumnUpdateCallback = any(callback).(OnAfterUpdateInterface[DisplayedColumn])
 	
@@ -414,9 +417,6 @@ func SetCallbackAfterUpdateFromFront[Type Gongstruct](stage *StageStruct, callba
 	
 	case *FormField:
 		stage.OnAfterFormFieldUpdateCallback = any(callback).(OnAfterUpdateInterface[FormField])
-	
-	case *FormFieldBoolean:
-		stage.OnAfterFormFieldBooleanUpdateCallback = any(callback).(OnAfterUpdateInterface[FormFieldBoolean])
 	
 	case *FormFieldDate:
 		stage.OnAfterFormFieldDateUpdateCallback = any(callback).(OnAfterUpdateInterface[FormFieldDate])
@@ -470,6 +470,9 @@ func SetCallbackAfterCreateFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *CellString:
 		stage.OnAfterCellStringCreateCallback = any(callback).(OnAfterCreateInterface[CellString])
 	
+	case *CheckBox:
+		stage.OnAfterCheckBoxCreateCallback = any(callback).(OnAfterCreateInterface[CheckBox])
+	
 	case *DisplayedColumn:
 		stage.OnAfterDisplayedColumnCreateCallback = any(callback).(OnAfterCreateInterface[DisplayedColumn])
 	
@@ -478,9 +481,6 @@ func SetCallbackAfterCreateFromFront[Type Gongstruct](stage *StageStruct, callba
 	
 	case *FormField:
 		stage.OnAfterFormFieldCreateCallback = any(callback).(OnAfterCreateInterface[FormField])
-	
-	case *FormFieldBoolean:
-		stage.OnAfterFormFieldBooleanCreateCallback = any(callback).(OnAfterCreateInterface[FormFieldBoolean])
 	
 	case *FormFieldDate:
 		stage.OnAfterFormFieldDateCreateCallback = any(callback).(OnAfterCreateInterface[FormFieldDate])
@@ -534,6 +534,9 @@ func SetCallbackAfterDeleteFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *CellString:
 		stage.OnAfterCellStringDeleteCallback = any(callback).(OnAfterDeleteInterface[CellString])
 	
+	case *CheckBox:
+		stage.OnAfterCheckBoxDeleteCallback = any(callback).(OnAfterDeleteInterface[CheckBox])
+	
 	case *DisplayedColumn:
 		stage.OnAfterDisplayedColumnDeleteCallback = any(callback).(OnAfterDeleteInterface[DisplayedColumn])
 	
@@ -542,9 +545,6 @@ func SetCallbackAfterDeleteFromFront[Type Gongstruct](stage *StageStruct, callba
 	
 	case *FormField:
 		stage.OnAfterFormFieldDeleteCallback = any(callback).(OnAfterDeleteInterface[FormField])
-	
-	case *FormFieldBoolean:
-		stage.OnAfterFormFieldBooleanDeleteCallback = any(callback).(OnAfterDeleteInterface[FormFieldBoolean])
 	
 	case *FormFieldDate:
 		stage.OnAfterFormFieldDateDeleteCallback = any(callback).(OnAfterDeleteInterface[FormFieldDate])
@@ -598,6 +598,9 @@ func SetCallbackAfterReadFromFront[Type Gongstruct](stage *StageStruct, callback
 	case *CellString:
 		stage.OnAfterCellStringReadCallback = any(callback).(OnAfterReadInterface[CellString])
 	
+	case *CheckBox:
+		stage.OnAfterCheckBoxReadCallback = any(callback).(OnAfterReadInterface[CheckBox])
+	
 	case *DisplayedColumn:
 		stage.OnAfterDisplayedColumnReadCallback = any(callback).(OnAfterReadInterface[DisplayedColumn])
 	
@@ -606,9 +609,6 @@ func SetCallbackAfterReadFromFront[Type Gongstruct](stage *StageStruct, callback
 	
 	case *FormField:
 		stage.OnAfterFormFieldReadCallback = any(callback).(OnAfterReadInterface[FormField])
-	
-	case *FormFieldBoolean:
-		stage.OnAfterFormFieldBooleanReadCallback = any(callback).(OnAfterReadInterface[FormFieldBoolean])
 	
 	case *FormFieldDate:
 		stage.OnAfterFormFieldDateReadCallback = any(callback).(OnAfterReadInterface[FormFieldDate])

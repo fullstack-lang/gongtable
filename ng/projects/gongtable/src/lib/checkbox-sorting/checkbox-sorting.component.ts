@@ -8,30 +8,30 @@ import { DialogData } from '../front-repo.service'
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { Router, RouterState } from '@angular/router';
-import { FormFieldBooleanDB } from '../formfieldboolean-db'
-import { FormFieldBooleanService } from '../formfieldboolean.service'
+import { CheckBoxDB } from '../checkbox-db'
+import { CheckBoxService } from '../checkbox.service'
 
 import { FrontRepoService, FrontRepo } from '../front-repo.service'
 import { NullInt64 } from '../null-int64'
 
 @Component({
-  selector: 'lib-formfieldboolean-sorting',
-  templateUrl: './formfieldboolean-sorting.component.html',
-  styleUrls: ['./formfieldboolean-sorting.component.css']
+  selector: 'lib-checkbox-sorting',
+  templateUrl: './checkbox-sorting.component.html',
+  styleUrls: ['./checkbox-sorting.component.css']
 })
-export class FormFieldBooleanSortingComponent implements OnInit {
+export class CheckBoxSortingComponent implements OnInit {
 
   frontRepo: FrontRepo = new (FrontRepo)
 
-  // array of FormFieldBoolean instances that are in the association
-  associatedFormFieldBooleans = new Array<FormFieldBooleanDB>();
+  // array of CheckBox instances that are in the association
+  associatedCheckBoxs = new Array<CheckBoxDB>();
 
   constructor(
-    private formfieldbooleanService: FormFieldBooleanService,
+    private checkboxService: CheckBoxService,
     private frontRepoService: FrontRepoService,
 
-    // not null if the component is called as a selection component of formfieldboolean instances
-    public dialogRef: MatDialogRef<FormFieldBooleanSortingComponent>,
+    // not null if the component is called as a selection component of checkbox instances
+    public dialogRef: MatDialogRef<CheckBoxSortingComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: DialogData,
 
     private router: Router,
@@ -42,31 +42,31 @@ export class FormFieldBooleanSortingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getFormFieldBooleans()
+    this.getCheckBoxs()
   }
 
-  getFormFieldBooleans(): void {
+  getCheckBoxs(): void {
     this.frontRepoService.pull(this.dialogData.GONG__StackPath).subscribe(
       frontRepo => {
         this.frontRepo = frontRepo
 
         let index = 0
-        for (let formfieldboolean of this.frontRepo.FormFieldBooleans_array) {
+        for (let checkbox of this.frontRepo.CheckBoxs_array) {
           let ID = this.dialogData.ID
-          let revPointerID = formfieldboolean[this.dialogData.ReversePointer as keyof FormFieldBooleanDB] as unknown as NullInt64
-          let revPointerID_Index = formfieldboolean[this.dialogData.ReversePointer + "_Index" as keyof FormFieldBooleanDB] as unknown as NullInt64
+          let revPointerID = checkbox[this.dialogData.ReversePointer as keyof CheckBoxDB] as unknown as NullInt64
+          let revPointerID_Index = checkbox[this.dialogData.ReversePointer + "_Index" as keyof CheckBoxDB] as unknown as NullInt64
           if (revPointerID.Int64 == ID) {
             if (revPointerID_Index == undefined) {
               revPointerID_Index = new NullInt64
               revPointerID_Index.Valid = true
               revPointerID_Index.Int64 = index++
             }
-            this.associatedFormFieldBooleans.push(formfieldboolean)
+            this.associatedCheckBoxs.push(checkbox)
           }
         }
 
-        // sort associated formfieldboolean according to order
-        this.associatedFormFieldBooleans.sort((t1, t2) => {
+        // sort associated checkbox according to order
+        this.associatedCheckBoxs.sort((t1, t2) => {
           let t1_revPointerID_Index = t1[this.dialogData.ReversePointer + "_Index" as keyof typeof t1] as unknown as NullInt64
           let t2_revPointerID_Index = t2[this.dialogData.ReversePointer + "_Index" as keyof typeof t2] as unknown as NullInt64
           if (t1_revPointerID_Index && t2_revPointerID_Index) {
@@ -84,13 +84,13 @@ export class FormFieldBooleanSortingComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.associatedFormFieldBooleans, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.associatedCheckBoxs, event.previousIndex, event.currentIndex);
 
-    // set the order of FormFieldBoolean instances
+    // set the order of CheckBox instances
     let index = 0
 
-    for (let formfieldboolean of this.associatedFormFieldBooleans) {
-      let revPointerID_Index = formfieldboolean[this.dialogData.ReversePointer + "_Index" as keyof FormFieldBooleanDB] as unknown as NullInt64
+    for (let checkbox of this.associatedCheckBoxs) {
+      let revPointerID_Index = checkbox[this.dialogData.ReversePointer + "_Index" as keyof CheckBoxDB] as unknown as NullInt64
       revPointerID_Index.Valid = true
       revPointerID_Index.Int64 = index++
     }
@@ -98,11 +98,11 @@ export class FormFieldBooleanSortingComponent implements OnInit {
 
   save() {
 
-    this.associatedFormFieldBooleans.forEach(
-      formfieldboolean => {
-        this.formfieldbooleanService.updateFormFieldBoolean(formfieldboolean, this.dialogData.GONG__StackPath)
-          .subscribe(formfieldboolean => {
-            this.formfieldbooleanService.FormFieldBooleanServiceChanged.next("update")
+    this.associatedCheckBoxs.forEach(
+      checkbox => {
+        this.checkboxService.updateCheckBox(checkbox, this.dialogData.GONG__StackPath)
+          .subscribe(checkbox => {
+            this.checkboxService.CheckBoxServiceChanged.next("update")
           });
       }
     )

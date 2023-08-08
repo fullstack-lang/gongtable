@@ -11,14 +11,14 @@
   import { CellIntSortingComponent } from './cellint-sorting/cellint-sorting.component'
   import { CellStringsTableComponent } from './cellstrings-table/cellstrings-table.component'
   import { CellStringSortingComponent } from './cellstring-sorting/cellstring-sorting.component'
+  import { CheckBoxsTableComponent } from './checkboxs-table/checkboxs-table.component'
+  import { CheckBoxSortingComponent } from './checkbox-sorting/checkbox-sorting.component'
   import { DisplayedColumnsTableComponent } from './displayedcolumns-table/displayedcolumns-table.component'
   import { DisplayedColumnSortingComponent } from './displayedcolumn-sorting/displayedcolumn-sorting.component'
   import { FormDivsTableComponent } from './formdivs-table/formdivs-table.component'
   import { FormDivSortingComponent } from './formdiv-sorting/formdiv-sorting.component'
   import { FormFieldsTableComponent } from './formfields-table/formfields-table.component'
   import { FormFieldSortingComponent } from './formfield-sorting/formfield-sorting.component'
-  import { FormFieldBooleansTableComponent } from './formfieldbooleans-table/formfieldbooleans-table.component'
-  import { FormFieldBooleanSortingComponent } from './formfieldboolean-sorting/formfieldboolean-sorting.component'
   import { FormFieldDatesTableComponent } from './formfielddates-table/formfielddates-table.component'
   import { FormFieldDateSortingComponent } from './formfielddate-sorting/formfielddate-sorting.component'
   import { FormFieldDateTimesTableComponent } from './formfielddatetimes-table/formfielddatetimes-table.component'
@@ -51,14 +51,14 @@
   export const MapOfCellIntSortingComponents: Map<string, any> = new Map([["CellIntSortingComponent", CellIntSortingComponent],])
   export const MapOfCellStringsComponents: Map<string, any> = new Map([["CellStringsTableComponent", CellStringsTableComponent],])
   export const MapOfCellStringSortingComponents: Map<string, any> = new Map([["CellStringSortingComponent", CellStringSortingComponent],])
+  export const MapOfCheckBoxsComponents: Map<string, any> = new Map([["CheckBoxsTableComponent", CheckBoxsTableComponent],])
+  export const MapOfCheckBoxSortingComponents: Map<string, any> = new Map([["CheckBoxSortingComponent", CheckBoxSortingComponent],])
   export const MapOfDisplayedColumnsComponents: Map<string, any> = new Map([["DisplayedColumnsTableComponent", DisplayedColumnsTableComponent],])
   export const MapOfDisplayedColumnSortingComponents: Map<string, any> = new Map([["DisplayedColumnSortingComponent", DisplayedColumnSortingComponent],])
   export const MapOfFormDivsComponents: Map<string, any> = new Map([["FormDivsTableComponent", FormDivsTableComponent],])
   export const MapOfFormDivSortingComponents: Map<string, any> = new Map([["FormDivSortingComponent", FormDivSortingComponent],])
   export const MapOfFormFieldsComponents: Map<string, any> = new Map([["FormFieldsTableComponent", FormFieldsTableComponent],])
   export const MapOfFormFieldSortingComponents: Map<string, any> = new Map([["FormFieldSortingComponent", FormFieldSortingComponent],])
-  export const MapOfFormFieldBooleansComponents: Map<string, any> = new Map([["FormFieldBooleansTableComponent", FormFieldBooleansTableComponent],])
-  export const MapOfFormFieldBooleanSortingComponents: Map<string, any> = new Map([["FormFieldBooleanSortingComponent", FormFieldBooleanSortingComponent],])
   export const MapOfFormFieldDatesComponents: Map<string, any> = new Map([["FormFieldDatesTableComponent", FormFieldDatesTableComponent],])
   export const MapOfFormFieldDateSortingComponents: Map<string, any> = new Map([["FormFieldDateSortingComponent", FormFieldDateSortingComponent],])
   export const MapOfFormFieldDateTimesComponents: Map<string, any> = new Map([["FormFieldDateTimesTableComponent", FormFieldDateTimesTableComponent],])
@@ -89,10 +89,10 @@ export const MapOfComponents: Map<string, any> =
       ["CellIcon", MapOfCellIconsComponents],
       ["CellInt", MapOfCellIntsComponents],
       ["CellString", MapOfCellStringsComponents],
+      ["CheckBox", MapOfCheckBoxsComponents],
       ["DisplayedColumn", MapOfDisplayedColumnsComponents],
       ["FormDiv", MapOfFormDivsComponents],
       ["FormField", MapOfFormFieldsComponents],
-      ["FormFieldBoolean", MapOfFormFieldBooleansComponents],
       ["FormFieldDate", MapOfFormFieldDatesComponents],
       ["FormFieldDateTime", MapOfFormFieldDateTimesComponents],
       ["FormFieldFloat64", MapOfFormFieldFloat64sComponents],
@@ -116,10 +116,10 @@ export const MapOfSortingComponents: Map<string, any> =
       ["CellIcon", MapOfCellIconSortingComponents],
       ["CellInt", MapOfCellIntSortingComponents],
       ["CellString", MapOfCellStringSortingComponents],
+      ["CheckBox", MapOfCheckBoxSortingComponents],
       ["DisplayedColumn", MapOfDisplayedColumnSortingComponents],
       ["FormDiv", MapOfFormDivSortingComponents],
       ["FormField", MapOfFormFieldSortingComponents],
-      ["FormFieldBoolean", MapOfFormFieldBooleanSortingComponents],
       ["FormFieldDate", MapOfFormFieldDateSortingComponents],
       ["FormFieldDateTime", MapOfFormFieldDateTimeSortingComponents],
       ["FormFieldFloat64", MapOfFormFieldFloat64SortingComponents],

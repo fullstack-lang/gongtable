@@ -2,7 +2,6 @@
 import { FormFieldStringDB } from './formfieldstring-db'
 import { FormFieldFloat64DB } from './formfieldfloat64-db'
 import { FormFieldIntDB } from './formfieldint-db'
-import { FormFieldBooleanDB } from './formfieldboolean-db'
 import { FormFieldDateDB } from './formfielddate-db'
 import { FormFieldTimeDB } from './formfieldtime-db'
 import { FormFieldDateTimeDB } from './formfielddatetime-db'
@@ -34,9 +33,6 @@ export class FormFieldDB {
 
 	FormFieldInt?: FormFieldIntDB
 	FormFieldIntID: NullInt64 = new NullInt64 // if pointer is null, FormFieldInt.ID = 0
-
-	FormFieldBool?: FormFieldBooleanDB
-	FormFieldBoolID: NullInt64 = new NullInt64 // if pointer is null, FormFieldBool.ID = 0
 
 	FormFieldDate?: FormFieldDateDB
 	FormFieldDateID: NullInt64 = new NullInt64 // if pointer is null, FormFieldDate.ID = 0

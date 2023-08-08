@@ -63,6 +63,10 @@ import { CellStringsTableComponent } from './cellstrings-table/cellstrings-table
 import { CellStringSortingComponent } from './cellstring-sorting/cellstring-sorting.component'
 import { CellStringDetailComponent } from './cellstring-detail/cellstring-detail.component'
 
+import { CheckBoxsTableComponent } from './checkboxs-table/checkboxs-table.component'
+import { CheckBoxSortingComponent } from './checkbox-sorting/checkbox-sorting.component'
+import { CheckBoxDetailComponent } from './checkbox-detail/checkbox-detail.component'
+
 import { DisplayedColumnsTableComponent } from './displayedcolumns-table/displayedcolumns-table.component'
 import { DisplayedColumnSortingComponent } from './displayedcolumn-sorting/displayedcolumn-sorting.component'
 import { DisplayedColumnDetailComponent } from './displayedcolumn-detail/displayedcolumn-detail.component'
@@ -74,10 +78,6 @@ import { FormDivDetailComponent } from './formdiv-detail/formdiv-detail.componen
 import { FormFieldsTableComponent } from './formfields-table/formfields-table.component'
 import { FormFieldSortingComponent } from './formfield-sorting/formfield-sorting.component'
 import { FormFieldDetailComponent } from './formfield-detail/formfield-detail.component'
-
-import { FormFieldBooleansTableComponent } from './formfieldbooleans-table/formfieldbooleans-table.component'
-import { FormFieldBooleanSortingComponent } from './formfieldboolean-sorting/formfieldboolean-sorting.component'
-import { FormFieldBooleanDetailComponent } from './formfieldboolean-detail/formfieldboolean-detail.component'
 
 import { FormFieldDatesTableComponent } from './formfielddates-table/formfielddates-table.component'
 import { FormFieldDateSortingComponent } from './formfielddate-sorting/formfielddate-sorting.component'
@@ -143,6 +143,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		CellStringSortingComponent,
 		CellStringDetailComponent,
 
+		CheckBoxsTableComponent,
+		CheckBoxSortingComponent,
+		CheckBoxDetailComponent,
+
 		DisplayedColumnsTableComponent,
 		DisplayedColumnSortingComponent,
 		DisplayedColumnDetailComponent,
@@ -154,10 +158,6 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormFieldsTableComponent,
 		FormFieldSortingComponent,
 		FormFieldDetailComponent,
-
-		FormFieldBooleansTableComponent,
-		FormFieldBooleanSortingComponent,
-		FormFieldBooleanDetailComponent,
 
 		FormFieldDatesTableComponent,
 		FormFieldDateSortingComponent,
@@ -258,6 +258,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		CellStringSortingComponent,
 		CellStringDetailComponent,
 
+		CheckBoxsTableComponent,
+		CheckBoxSortingComponent,
+		CheckBoxDetailComponent,
+
 		DisplayedColumnsTableComponent,
 		DisplayedColumnSortingComponent,
 		DisplayedColumnDetailComponent,
@@ -269,10 +273,6 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormFieldsTableComponent,
 		FormFieldSortingComponent,
 		FormFieldDetailComponent,
-
-		FormFieldBooleansTableComponent,
-		FormFieldBooleanSortingComponent,
-		FormFieldBooleanDetailComponent,
 
 		FormFieldDatesTableComponent,
 		FormFieldDateSortingComponent,

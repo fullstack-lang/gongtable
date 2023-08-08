@@ -72,6 +72,7 @@ export class FormDivService {
 
     // insertion point for reset of pointers and reverse pointers (to avoid circular JSON)
     formdivdb.FormFields = []
+    formdivdb.CheckBoxs = []
     let _FormGroup_FormDivs_reverse = formdivdb.FormGroup_FormDivs_reverse
     formdivdb.FormGroup_FormDivs_reverse = new FormGroupDB
 
@@ -115,6 +116,7 @@ export class FormDivService {
 
     // insertion point for reset of pointers and reverse pointers (to avoid circular JSON)
     formdivdb.FormFields = []
+    formdivdb.CheckBoxs = []
     let _FormGroup_FormDivs_reverse = formdivdb.FormGroup_FormDivs_reverse
     formdivdb.FormGroup_FormDivs_reverse = new FormGroupDB
 

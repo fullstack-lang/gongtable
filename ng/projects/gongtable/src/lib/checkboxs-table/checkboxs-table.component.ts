@@ -14,8 +14,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 const allowMultiSelect = true;
 
 import { ActivatedRoute, Router, RouterState } from '@angular/router';
-import { FormFieldBooleanDB } from '../formfieldboolean-db'
-import { FormFieldBooleanService } from '../formfieldboolean.service'
+import { CheckBoxDB } from '../checkbox-db'
+import { CheckBoxService } from '../checkbox.service'
 
 // insertion point for additional imports
 
@@ -31,26 +31,26 @@ enum TableComponentMode {
 
 // generated table component
 @Component({
-  selector: 'app-formfieldbooleanstable',
-  templateUrl: './formfieldbooleans-table.component.html',
-  styleUrls: ['./formfieldbooleans-table.component.css'],
+  selector: 'app-checkboxstable',
+  templateUrl: './checkboxs-table.component.html',
+  styleUrls: ['./checkboxs-table.component.css'],
 })
-export class FormFieldBooleansTableComponent implements OnInit {
+export class CheckBoxsTableComponent implements OnInit {
 
   @Input() GONG__StackPath: string = ""
 
   // mode at invocation
   mode: TableComponentMode = TableComponentMode.DISPLAY_MODE
 
-  // used if the component is called as a selection component of FormFieldBoolean instances
-  selection: SelectionModel<FormFieldBooleanDB> = new (SelectionModel)
-  initialSelection = new Array<FormFieldBooleanDB>()
+  // used if the component is called as a selection component of CheckBox instances
+  selection: SelectionModel<CheckBoxDB> = new (SelectionModel)
+  initialSelection = new Array<CheckBoxDB>()
 
   // the data source for the table
-  formfieldbooleans: FormFieldBooleanDB[] = []
-  matTableDataSource: MatTableDataSource<FormFieldBooleanDB> = new (MatTableDataSource)
+  checkboxs: CheckBoxDB[] = []
+  matTableDataSource: MatTableDataSource<CheckBoxDB> = new (MatTableDataSource)
 
-  // front repo, that will be referenced by this.formfieldbooleans
+  // front repo, that will be referenced by this.checkboxs
   frontRepo: FrontRepo = new (FrontRepo)
 
   // displayedColumns is referenced by the MatTable component for specify what columns
@@ -66,17 +66,24 @@ export class FormFieldBooleansTableComponent implements OnInit {
   ngAfterViewInit() {
 
     // enable sorting on all fields (including pointers and reverse pointer)
-    this.matTableDataSource.sortingDataAccessor = (formfieldbooleanDB: FormFieldBooleanDB, property: string) => {
+    this.matTableDataSource.sortingDataAccessor = (checkboxDB: CheckBoxDB, property: string) => {
       switch (property) {
         case 'ID':
-          return formfieldbooleanDB.ID
+          return checkboxDB.ID
 
         // insertion point for specific sorting accessor
         case 'Name':
-          return formfieldbooleanDB.Name;
+          return checkboxDB.Name;
 
         case 'Value':
-          return formfieldbooleanDB.Value ? "true" : "false";
+          return checkboxDB.Value ? "true" : "false";
+
+        case 'FormDiv_CheckBoxs':
+          if (this.frontRepo.FormDivs.get(checkboxDB.FormDiv_CheckBoxsDBID.Int64) != undefined) {
+            return this.frontRepo.FormDivs.get(checkboxDB.FormDiv_CheckBoxsDBID.Int64)!.Name
+          } else {
+            return ""
+          }
 
         default:
           console.assert(false, "Unknown field")
@@ -85,14 +92,18 @@ export class FormFieldBooleansTableComponent implements OnInit {
     };
 
     // enable filtering on all fields (including pointers and reverse pointer, which is not done by default)
-    this.matTableDataSource.filterPredicate = (formfieldbooleanDB: FormFieldBooleanDB, filter: string) => {
+    this.matTableDataSource.filterPredicate = (checkboxDB: CheckBoxDB, filter: string) => {
 
       // filtering is based on finding a lower case filter into a concatenated string
-      // the formfieldbooleanDB properties
+      // the checkboxDB properties
       let mergedContent = ""
 
       // insertion point for merging of fields
-      mergedContent += formfieldbooleanDB.Name.toLowerCase()
+      mergedContent += checkboxDB.Name.toLowerCase()
+      if (checkboxDB.FormDiv_CheckBoxsDBID.Int64 != 0) {
+        mergedContent += this.frontRepo.FormDivs.get(checkboxDB.FormDiv_CheckBoxsDBID.Int64)!.Name.toLowerCase()
+      }
+
 
       let isSelected = mergedContent.includes(filter.toLowerCase())
       return isSelected
@@ -108,11 +119,11 @@ export class FormFieldBooleansTableComponent implements OnInit {
   }
 
   constructor(
-    private formfieldbooleanService: FormFieldBooleanService,
+    private checkboxService: CheckBoxService,
     private frontRepoService: FrontRepoService,
 
-    // not null if the component is called as a selection component of formfieldboolean instances
-    public dialogRef: MatDialogRef<FormFieldBooleansTableComponent>,
+    // not null if the component is called as a selection component of checkbox instances
+    public dialogRef: MatDialogRef<CheckBoxsTableComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: DialogData,
 
     private router: Router,
@@ -138,10 +149,10 @@ export class FormFieldBooleansTableComponent implements OnInit {
     }
 
     // observable for changes in structs
-    this.formfieldbooleanService.FormFieldBooleanServiceChanged.subscribe(
+    this.checkboxService.CheckBoxServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
-          this.getFormFieldBooleans()
+          this.getCheckBoxs()
         }
       }
     )
@@ -149,13 +160,15 @@ export class FormFieldBooleansTableComponent implements OnInit {
       this.displayedColumns = ['ID', 'Delete', // insertion point for columns to display
         "Name",
         "Value",
+        "FormDiv_CheckBoxs",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
         "Value",
+        "FormDiv_CheckBoxs",
       ]
-      this.selection = new SelectionModel<FormFieldBooleanDB>(allowMultiSelect, this.initialSelection);
+      this.selection = new SelectionModel<CheckBoxDB>(allowMultiSelect, this.initialSelection);
     }
 
   }
@@ -166,84 +179,84 @@ export class FormFieldBooleansTableComponent implements OnInit {
       this.GONG__StackPath = stackPath
     }
 
-    this.getFormFieldBooleans()
+    this.getCheckBoxs()
 
-    this.matTableDataSource = new MatTableDataSource(this.formfieldbooleans)
+    this.matTableDataSource = new MatTableDataSource(this.checkboxs)
   }
 
-  getFormFieldBooleans(): void {
+  getCheckBoxs(): void {
     this.frontRepoService.pull(this.GONG__StackPath).subscribe(
       frontRepo => {
         this.frontRepo = frontRepo
 
-        this.formfieldbooleans = this.frontRepo.FormFieldBooleans_array;
+        this.checkboxs = this.frontRepo.CheckBoxs_array;
 
         // insertion point for time duration Recoveries
         // insertion point for enum int Recoveries
 
         // in case the component is called as a selection component
         if (this.mode == TableComponentMode.ONE_MANY_ASSOCIATION_MODE) {
-          for (let formfieldboolean of this.formfieldbooleans) {
+          for (let checkbox of this.checkboxs) {
             let ID = this.dialogData.ID
-            let revPointer = formfieldboolean[this.dialogData.ReversePointer as keyof FormFieldBooleanDB] as unknown as NullInt64
+            let revPointer = checkbox[this.dialogData.ReversePointer as keyof CheckBoxDB] as unknown as NullInt64
             if (revPointer.Int64 == ID) {
-              this.initialSelection.push(formfieldboolean)
+              this.initialSelection.push(checkbox)
             }
-            this.selection = new SelectionModel<FormFieldBooleanDB>(allowMultiSelect, this.initialSelection);
+            this.selection = new SelectionModel<CheckBoxDB>(allowMultiSelect, this.initialSelection);
           }
         }
 
         if (this.mode == TableComponentMode.MANY_MANY_ASSOCIATION_MODE) {
 
-          let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormFieldBooleanDB>
+          let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, CheckBoxDB>
           let sourceInstance = mapOfSourceInstances.get(this.dialogData.ID)!
 
-          // we associates on sourceInstance of type SourceStruct with a MANY MANY associations to FormFieldBooleanDB
+          // we associates on sourceInstance of type SourceStruct with a MANY MANY associations to CheckBoxDB
           // the field name is sourceField
-          let sourceFieldArray = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]! as unknown as FormFieldBooleanDB[]
+          let sourceFieldArray = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]! as unknown as CheckBoxDB[]
           if (sourceFieldArray != null) {
             for (let associationInstance of sourceFieldArray) {
-              let formfieldboolean = associationInstance[this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormFieldBooleanDB
-              this.initialSelection.push(formfieldboolean)
+              let checkbox = associationInstance[this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as CheckBoxDB
+              this.initialSelection.push(checkbox)
             }
           }
 
-          this.selection = new SelectionModel<FormFieldBooleanDB>(allowMultiSelect, this.initialSelection);
+          this.selection = new SelectionModel<CheckBoxDB>(allowMultiSelect, this.initialSelection);
         }
 
         // update the mat table data source
-        this.matTableDataSource.data = this.formfieldbooleans
+        this.matTableDataSource.data = this.checkboxs
       }
     )
   }
 
-  // newFormFieldBoolean initiate a new formfieldboolean
-  // create a new FormFieldBoolean objet
-  newFormFieldBoolean() {
+  // newCheckBox initiate a new checkbox
+  // create a new CheckBox objet
+  newCheckBox() {
   }
 
-  deleteFormFieldBoolean(formfieldbooleanID: number, formfieldboolean: FormFieldBooleanDB) {
-    // list of formfieldbooleans is truncated of formfieldboolean before the delete
-    this.formfieldbooleans = this.formfieldbooleans.filter(h => h !== formfieldboolean);
+  deleteCheckBox(checkboxID: number, checkbox: CheckBoxDB) {
+    // list of checkboxs is truncated of checkbox before the delete
+    this.checkboxs = this.checkboxs.filter(h => h !== checkbox);
 
-    this.formfieldbooleanService.deleteFormFieldBoolean(formfieldbooleanID, this.GONG__StackPath).subscribe(
-      formfieldboolean => {
-        this.formfieldbooleanService.FormFieldBooleanServiceChanged.next("delete")
+    this.checkboxService.deleteCheckBox(checkboxID, this.GONG__StackPath).subscribe(
+      checkbox => {
+        this.checkboxService.CheckBoxServiceChanged.next("delete")
       }
     );
   }
 
-  editFormFieldBoolean(formfieldbooleanID: number, formfieldboolean: FormFieldBooleanDB) {
+  editCheckBox(checkboxID: number, checkbox: CheckBoxDB) {
 
   }
 
   // set editor outlet
-  setEditorRouterOutlet(formfieldbooleanID: number) {
+  setEditorRouterOutlet(checkboxID: number) {
     let outletName = this.routeService.getEditorOutlet(this.GONG__StackPath)
-    let fullPath = this.routeService.getPathRoot() + "-" + "formfieldboolean" + "-detail"
+    let fullPath = this.routeService.getPathRoot() + "-" + "checkbox" + "-detail"
 
     let outletConf: any = {}
-    outletConf[outletName] = [fullPath, formfieldbooleanID, this.GONG__StackPath]
+    outletConf[outletName] = [fullPath, checkboxID, this.GONG__StackPath]
 
     this.router.navigate([{ outlets: outletConf }])
   }
@@ -251,7 +264,7 @@ export class FormFieldBooleansTableComponent implements OnInit {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.formfieldbooleans.length;
+    const numRows = this.checkboxs.length;
     return numSelected === numRows;
   }
 
@@ -259,39 +272,39 @@ export class FormFieldBooleansTableComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.formfieldbooleans.forEach(row => this.selection.select(row));
+      this.checkboxs.forEach(row => this.selection.select(row));
   }
 
   save() {
 
     if (this.mode == TableComponentMode.ONE_MANY_ASSOCIATION_MODE) {
 
-      let toUpdate = new Set<FormFieldBooleanDB>()
+      let toUpdate = new Set<CheckBoxDB>()
 
-      // reset all initial selection of formfieldboolean that belong to formfieldboolean
-      for (let formfieldboolean of this.initialSelection) {
-        let index = formfieldboolean[this.dialogData.ReversePointer as keyof FormFieldBooleanDB] as unknown as NullInt64
+      // reset all initial selection of checkbox that belong to checkbox
+      for (let checkbox of this.initialSelection) {
+        let index = checkbox[this.dialogData.ReversePointer as keyof CheckBoxDB] as unknown as NullInt64
         index.Int64 = 0
         index.Valid = true
-        toUpdate.add(formfieldboolean)
+        toUpdate.add(checkbox)
 
       }
 
-      // from selection, set formfieldboolean that belong to formfieldboolean
-      for (let formfieldboolean of this.selection.selected) {
+      // from selection, set checkbox that belong to checkbox
+      for (let checkbox of this.selection.selected) {
         let ID = this.dialogData.ID as number
-        let reversePointer = formfieldboolean[this.dialogData.ReversePointer as keyof FormFieldBooleanDB] as unknown as NullInt64
+        let reversePointer = checkbox[this.dialogData.ReversePointer as keyof CheckBoxDB] as unknown as NullInt64
         reversePointer.Int64 = ID
         reversePointer.Valid = true
-        toUpdate.add(formfieldboolean)
+        toUpdate.add(checkbox)
       }
 
 
-      // update all formfieldboolean (only update selection & initial selection)
-      for (let formfieldboolean of toUpdate) {
-        this.formfieldbooleanService.updateFormFieldBoolean(formfieldboolean, this.GONG__StackPath)
-          .subscribe(formfieldboolean => {
-            this.formfieldbooleanService.FormFieldBooleanServiceChanged.next("update")
+      // update all checkbox (only update selection & initial selection)
+      for (let checkbox of toUpdate) {
+        this.checkboxService.updateCheckBox(checkbox, this.GONG__StackPath)
+          .subscribe(checkbox => {
+            this.checkboxService.CheckBoxServiceChanged.next("update")
           });
       }
     }
@@ -299,26 +312,26 @@ export class FormFieldBooleansTableComponent implements OnInit {
     if (this.mode == TableComponentMode.MANY_MANY_ASSOCIATION_MODE) {
 
       // get the source instance via the map of instances in the front repo
-      let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormFieldBooleanDB>
+      let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, CheckBoxDB>
       let sourceInstance = mapOfSourceInstances.get(this.dialogData.ID)!
 
       // First, parse all instance of the association struct and remove the instance
       // that have unselect
-      let unselectedFormFieldBoolean = new Set<number>()
-      for (let formfieldboolean of this.initialSelection) {
-        if (this.selection.selected.includes(formfieldboolean)) {
-          // console.log("formfieldboolean " + formfieldboolean.Name + " is still selected")
+      let unselectedCheckBox = new Set<number>()
+      for (let checkbox of this.initialSelection) {
+        if (this.selection.selected.includes(checkbox)) {
+          // console.log("checkbox " + checkbox.Name + " is still selected")
         } else {
-          console.log("formfieldboolean " + formfieldboolean.Name + " has been unselected")
-          unselectedFormFieldBoolean.add(formfieldboolean.ID)
-          console.log("is unselected " + unselectedFormFieldBoolean.has(formfieldboolean.ID))
+          console.log("checkbox " + checkbox.Name + " has been unselected")
+          unselectedCheckBox.add(checkbox.ID)
+          console.log("is unselected " + unselectedCheckBox.has(checkbox.ID))
         }
       }
 
       // delete the association instance
       let associationInstance = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]
-      let formfieldboolean = associationInstance![this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormFieldBooleanDB
-      if (unselectedFormFieldBoolean.has(formfieldboolean.ID)) {
+      let checkbox = associationInstance![this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as CheckBoxDB
+      if (unselectedCheckBox.has(checkbox.ID)) {
         this.frontRepoService.deleteService(this.dialogData.IntermediateStruct, associationInstance)
 
 
@@ -326,38 +339,38 @@ export class FormFieldBooleansTableComponent implements OnInit {
 
       // is the source array is empty create it
       if (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] == undefined) {
-        (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] as unknown as Array<FormFieldBooleanDB>) = new Array<FormFieldBooleanDB>()
+        (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] as unknown as Array<CheckBoxDB>) = new Array<CheckBoxDB>()
       }
 
       // second, parse all instance of the selected
       if (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]) {
         this.selection.selected.forEach(
-          formfieldboolean => {
-            if (!this.initialSelection.includes(formfieldboolean)) {
-              // console.log("formfieldboolean " + formfieldboolean.Name + " has been added to the selection")
+          checkbox => {
+            if (!this.initialSelection.includes(checkbox)) {
+              // console.log("checkbox " + checkbox.Name + " has been added to the selection")
 
               let associationInstance = {
-                Name: sourceInstance["Name"] + "-" + formfieldboolean.Name,
+                Name: sourceInstance["Name"] + "-" + checkbox.Name,
               }
 
               let index = associationInstance[this.dialogData.IntermediateStructField + "ID" as keyof typeof associationInstance] as unknown as NullInt64
-              index.Int64 = formfieldboolean.ID
+              index.Int64 = checkbox.ID
               index.Valid = true
 
               let indexDB = associationInstance[this.dialogData.IntermediateStructField + "DBID" as keyof typeof associationInstance] as unknown as NullInt64
-              indexDB.Int64 = formfieldboolean.ID
+              indexDB.Int64 = checkbox.ID
               index.Valid = true
 
               this.frontRepoService.postService(this.dialogData.IntermediateStruct, associationInstance)
 
             } else {
-              // console.log("formfieldboolean " + formfieldboolean.Name + " is still selected")
+              // console.log("checkbox " + checkbox.Name + " is still selected")
             }
           }
         )
       }
 
-      // this.selection = new SelectionModel<FormFieldBooleanDB>(allowMultiSelect, this.initialSelection);
+      // this.selection = new SelectionModel<CheckBoxDB>(allowMultiSelect, this.initialSelection);
     }
 
     // why pizza ?

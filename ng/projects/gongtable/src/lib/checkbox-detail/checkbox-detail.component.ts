@@ -2,14 +2,15 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 
-import { FormFieldBooleanDB } from '../formfieldboolean-db'
-import { FormFieldBooleanService } from '../formfieldboolean.service'
+import { CheckBoxDB } from '../checkbox-db'
+import { CheckBoxService } from '../checkbox.service'
 
 import { FrontRepoService, FrontRepo, SelectionMode, DialogData } from '../front-repo.service'
 import { MapOfComponents } from '../map-components'
 import { MapOfSortingComponents } from '../map-components'
 
 // insertion point for imports
+import { FormDivDB } from '../formdiv-db'
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -17,26 +18,27 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angu
 
 import { NullInt64 } from '../null-int64'
 
-// FormFieldBooleanDetailComponent is initilizaed from different routes
-// FormFieldBooleanDetailComponentState detail different cases 
-enum FormFieldBooleanDetailComponentState {
+// CheckBoxDetailComponent is initilizaed from different routes
+// CheckBoxDetailComponentState detail different cases 
+enum CheckBoxDetailComponentState {
 	CREATE_INSTANCE,
 	UPDATE_INSTANCE,
 	// insertion point for declarations of enum values of state
+	CREATE_INSTANCE_WITH_ASSOCIATION_FormDiv_CheckBoxs_SET,
 }
 
 @Component({
-	selector: 'app-formfieldboolean-detail',
-	templateUrl: './formfieldboolean-detail.component.html',
-	styleUrls: ['./formfieldboolean-detail.component.css'],
+	selector: 'app-checkbox-detail',
+	templateUrl: './checkbox-detail.component.html',
+	styleUrls: ['./checkbox-detail.component.css'],
 })
-export class FormFieldBooleanDetailComponent implements OnInit {
+export class CheckBoxDetailComponent implements OnInit {
 
 	// insertion point for declarations
 	ValueFormControl: UntypedFormControl = new UntypedFormControl(false);
 
-	// the FormFieldBooleanDB of interest
-	formfieldboolean: FormFieldBooleanDB = new FormFieldBooleanDB
+	// the CheckBoxDB of interest
+	checkbox: CheckBoxDB = new CheckBoxDB
 
 	// front repo
 	frontRepo: FrontRepo = new FrontRepo
@@ -47,7 +49,7 @@ export class FormFieldBooleanDetailComponent implements OnInit {
 	mapFields_displayAsTextArea = new Map<string, boolean>()
 
 	// the state at initialization (CREATION, UPDATE or CREATE with one association set)
-	state: FormFieldBooleanDetailComponentState = FormFieldBooleanDetailComponentState.CREATE_INSTANCE
+	state: CheckBoxDetailComponentState = CheckBoxDetailComponentState.CREATE_INSTANCE
 
 	// in UDPATE state, if is the id of the instance to update
 	// in CREATE state with one association set, this is the id of the associated instance
@@ -60,7 +62,7 @@ export class FormFieldBooleanDetailComponent implements OnInit {
 	GONG__StackPath: string = ""
 
 	constructor(
-		private formfieldbooleanService: FormFieldBooleanService,
+		private checkboxService: CheckBoxService,
 		private frontRepoService: FrontRepoService,
 		public dialog: MatDialog,
 		private activatedRoute: ActivatedRoute,
@@ -86,26 +88,30 @@ export class FormFieldBooleanDetailComponent implements OnInit {
 
 		const association = this.activatedRoute.snapshot.paramMap.get('association');
 		if (this.id == 0) {
-			this.state = FormFieldBooleanDetailComponentState.CREATE_INSTANCE
+			this.state = CheckBoxDetailComponentState.CREATE_INSTANCE
 		} else {
 			if (this.originStruct == undefined) {
-				this.state = FormFieldBooleanDetailComponentState.UPDATE_INSTANCE
+				this.state = CheckBoxDetailComponentState.UPDATE_INSTANCE
 			} else {
 				switch (this.originStructFieldName) {
 					// insertion point for state computation
+					case "CheckBoxs":
+						// console.log("CheckBox" + " is instanciated with back pointer to instance " + this.id + " FormDiv association CheckBoxs")
+						this.state = CheckBoxDetailComponentState.CREATE_INSTANCE_WITH_ASSOCIATION_FormDiv_CheckBoxs_SET
+						break;
 					default:
 						console.log(this.originStructFieldName + " is unkown association")
 				}
 			}
 		}
 
-		this.getFormFieldBoolean()
+		this.getCheckBox()
 
 		// observable for changes in structs
-		this.formfieldbooleanService.FormFieldBooleanServiceChanged.subscribe(
+		this.checkboxService.CheckBoxServiceChanged.subscribe(
 			message => {
 				if (message == "post" || message == "update" || message == "delete") {
-					this.getFormFieldBoolean()
+					this.getCheckBox()
 				}
 			}
 		)
@@ -113,28 +119,32 @@ export class FormFieldBooleanDetailComponent implements OnInit {
 		// insertion point for initialisation of enums list
 	}
 
-	getFormFieldBoolean(): void {
+	getCheckBox(): void {
 
 		this.frontRepoService.pull(this.GONG__StackPath).subscribe(
 			frontRepo => {
 				this.frontRepo = frontRepo
 
 				switch (this.state) {
-					case FormFieldBooleanDetailComponentState.CREATE_INSTANCE:
-						this.formfieldboolean = new (FormFieldBooleanDB)
+					case CheckBoxDetailComponentState.CREATE_INSTANCE:
+						this.checkbox = new (CheckBoxDB)
 						break;
-					case FormFieldBooleanDetailComponentState.UPDATE_INSTANCE:
-						let formfieldboolean = frontRepo.FormFieldBooleans.get(this.id)
-						console.assert(formfieldboolean != undefined, "missing formfieldboolean with id:" + this.id)
-						this.formfieldboolean = formfieldboolean!
+					case CheckBoxDetailComponentState.UPDATE_INSTANCE:
+						let checkbox = frontRepo.CheckBoxs.get(this.id)
+						console.assert(checkbox != undefined, "missing checkbox with id:" + this.id)
+						this.checkbox = checkbox!
 						break;
 					// insertion point for init of association field
+					case CheckBoxDetailComponentState.CREATE_INSTANCE_WITH_ASSOCIATION_FormDiv_CheckBoxs_SET:
+						this.checkbox = new (CheckBoxDB)
+						this.checkbox.FormDiv_CheckBoxs_reverse = frontRepo.FormDivs.get(this.id)!
+						break;
 					default:
 						console.log(this.state + " is unkown state")
 				}
 
 				// insertion point for recovery of form controls value for bool fields
-				this.ValueFormControl.setValue(this.formfieldboolean.Value)
+				this.ValueFormControl.setValue(this.checkbox.Value)
 			}
 		)
 
@@ -147,23 +157,35 @@ export class FormFieldBooleanDetailComponent implements OnInit {
 		// pointers fields, after the translation, are nulled in order to perform serialization
 
 		// insertion point for translation/nullation of each field
-		this.formfieldboolean.Value = this.ValueFormControl.value
+		this.checkbox.Value = this.ValueFormControl.value
 
 		// save from the front pointer space to the non pointer space for serialization
 
 		// insertion point for translation/nullation of each pointers
+		if (this.checkbox.FormDiv_CheckBoxs_reverse != undefined) {
+			if (this.checkbox.FormDiv_CheckBoxsDBID == undefined) {
+				this.checkbox.FormDiv_CheckBoxsDBID = new NullInt64
+			}
+			this.checkbox.FormDiv_CheckBoxsDBID.Int64 = this.checkbox.FormDiv_CheckBoxs_reverse.ID
+			this.checkbox.FormDiv_CheckBoxsDBID.Valid = true
+			if (this.checkbox.FormDiv_CheckBoxsDBID_Index == undefined) {
+				this.checkbox.FormDiv_CheckBoxsDBID_Index = new NullInt64
+			}
+			this.checkbox.FormDiv_CheckBoxsDBID_Index.Valid = true
+			this.checkbox.FormDiv_CheckBoxs_reverse = new FormDivDB // very important, otherwise, circular JSON
+		}
 
 		switch (this.state) {
-			case FormFieldBooleanDetailComponentState.UPDATE_INSTANCE:
-				this.formfieldbooleanService.updateFormFieldBoolean(this.formfieldboolean, this.GONG__StackPath)
-					.subscribe(formfieldboolean => {
-						this.formfieldbooleanService.FormFieldBooleanServiceChanged.next("update")
+			case CheckBoxDetailComponentState.UPDATE_INSTANCE:
+				this.checkboxService.updateCheckBox(this.checkbox, this.GONG__StackPath)
+					.subscribe(checkbox => {
+						this.checkboxService.CheckBoxServiceChanged.next("update")
 					});
 				break;
 			default:
-				this.formfieldbooleanService.postFormFieldBoolean(this.formfieldboolean, this.GONG__StackPath).subscribe(formfieldboolean => {
-					this.formfieldbooleanService.FormFieldBooleanServiceChanged.next("post")
-					this.formfieldboolean = new (FormFieldBooleanDB) // reset fields
+				this.checkboxService.postCheckBox(this.checkbox, this.GONG__StackPath).subscribe(checkbox => {
+					this.checkboxService.CheckBoxServiceChanged.next("post")
+					this.checkbox = new (CheckBoxDB) // reset fields
 				});
 		}
 	}
@@ -186,7 +208,7 @@ export class FormFieldBooleanDetailComponent implements OnInit {
 		dialogConfig.height = "50%"
 		if (selectionMode == SelectionMode.ONE_MANY_ASSOCIATION_MODE) {
 
-			dialogData.ID = this.formfieldboolean.ID!
+			dialogData.ID = this.checkbox.ID!
 			dialogData.ReversePointer = reverseField
 			dialogData.OrderingMode = false
 			dialogData.SelectionMode = selectionMode
@@ -203,14 +225,14 @@ export class FormFieldBooleanDetailComponent implements OnInit {
 			});
 		}
 		if (selectionMode == SelectionMode.MANY_MANY_ASSOCIATION_MODE) {
-			dialogData.ID = this.formfieldboolean.ID!
+			dialogData.ID = this.checkbox.ID!
 			dialogData.ReversePointer = reverseField
 			dialogData.OrderingMode = false
 			dialogData.SelectionMode = selectionMode
 			dialogData.GONG__StackPath = this.GONG__StackPath
 
 			// set up the source
-			dialogData.SourceStruct = "FormFieldBoolean"
+			dialogData.SourceStruct = "CheckBox"
 			dialogData.SourceField = sourceField
 
 			// set up the intermediate struct
@@ -240,7 +262,7 @@ export class FormFieldBooleanDetailComponent implements OnInit {
 		// dialogConfig.disableClose = true;
 		dialogConfig.autoFocus = true;
 		dialogConfig.data = {
-			ID: this.formfieldboolean.ID,
+			ID: this.checkbox.ID,
 			ReversePointer: reverseField,
 			OrderingMode: true,
 			GONG__StackPath: this.GONG__StackPath,
@@ -257,8 +279,8 @@ export class FormFieldBooleanDetailComponent implements OnInit {
 	}
 
 	fillUpNameIfEmpty(event: { value: { Name: string; }; }) {
-		if (this.formfieldboolean.Name == "") {
-			this.formfieldboolean.Name = event.value.Name
+		if (this.checkbox.Name == "") {
+			this.checkbox.Name = event.value.Name
 		}
 	}
 

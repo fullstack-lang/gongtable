@@ -78,6 +78,14 @@ type StageStruct struct { // insertion point for definition of arrays registerin
 	OnAfterCellStringDeleteCallback OnAfterDeleteInterface[CellString]
 	OnAfterCellStringReadCallback   OnAfterReadInterface[CellString]
 
+	CheckBoxs           map[*CheckBox]any
+	CheckBoxs_mapString map[string]*CheckBox
+
+	OnAfterCheckBoxCreateCallback OnAfterCreateInterface[CheckBox]
+	OnAfterCheckBoxUpdateCallback OnAfterUpdateInterface[CheckBox]
+	OnAfterCheckBoxDeleteCallback OnAfterDeleteInterface[CheckBox]
+	OnAfterCheckBoxReadCallback   OnAfterReadInterface[CheckBox]
+
 	DisplayedColumns           map[*DisplayedColumn]any
 	DisplayedColumns_mapString map[string]*DisplayedColumn
 
@@ -101,14 +109,6 @@ type StageStruct struct { // insertion point for definition of arrays registerin
 	OnAfterFormFieldUpdateCallback OnAfterUpdateInterface[FormField]
 	OnAfterFormFieldDeleteCallback OnAfterDeleteInterface[FormField]
 	OnAfterFormFieldReadCallback   OnAfterReadInterface[FormField]
-
-	FormFieldBooleans           map[*FormFieldBoolean]any
-	FormFieldBooleans_mapString map[string]*FormFieldBoolean
-
-	OnAfterFormFieldBooleanCreateCallback OnAfterCreateInterface[FormFieldBoolean]
-	OnAfterFormFieldBooleanUpdateCallback OnAfterUpdateInterface[FormFieldBoolean]
-	OnAfterFormFieldBooleanDeleteCallback OnAfterDeleteInterface[FormFieldBoolean]
-	OnAfterFormFieldBooleanReadCallback   OnAfterReadInterface[FormFieldBoolean]
 
 	FormFieldDates           map[*FormFieldDate]any
 	FormFieldDates_mapString map[string]*FormFieldDate
@@ -258,14 +258,14 @@ type BackRepoInterface interface {
 	CheckoutCellInt(cellint *CellInt)
 	CommitCellString(cellstring *CellString)
 	CheckoutCellString(cellstring *CellString)
+	CommitCheckBox(checkbox *CheckBox)
+	CheckoutCheckBox(checkbox *CheckBox)
 	CommitDisplayedColumn(displayedcolumn *DisplayedColumn)
 	CheckoutDisplayedColumn(displayedcolumn *DisplayedColumn)
 	CommitFormDiv(formdiv *FormDiv)
 	CheckoutFormDiv(formdiv *FormDiv)
 	CommitFormField(formfield *FormField)
 	CheckoutFormField(formfield *FormField)
-	CommitFormFieldBoolean(formfieldboolean *FormFieldBoolean)
-	CheckoutFormFieldBoolean(formfieldboolean *FormFieldBoolean)
 	CommitFormFieldDate(formfielddate *FormFieldDate)
 	CheckoutFormFieldDate(formfielddate *FormFieldDate)
 	CommitFormFieldDateTime(formfielddatetime *FormFieldDateTime)
@@ -320,6 +320,9 @@ func NewStage() (stage *StageStruct) {
 		CellStrings:           make(map[*CellString]any),
 		CellStrings_mapString: make(map[string]*CellString),
 
+		CheckBoxs:           make(map[*CheckBox]any),
+		CheckBoxs_mapString: make(map[string]*CheckBox),
+
 		DisplayedColumns:           make(map[*DisplayedColumn]any),
 		DisplayedColumns_mapString: make(map[string]*DisplayedColumn),
 
@@ -328,9 +331,6 @@ func NewStage() (stage *StageStruct) {
 
 		FormFields:           make(map[*FormField]any),
 		FormFields_mapString: make(map[string]*FormField),
-
-		FormFieldBooleans:           make(map[*FormFieldBoolean]any),
-		FormFieldBooleans_mapString: make(map[string]*FormFieldBoolean),
 
 		FormFieldDates:           make(map[*FormFieldDate]any),
 		FormFieldDates_mapString: make(map[string]*FormFieldDate),
@@ -390,10 +390,10 @@ func (stage *StageStruct) Commit() {
 	stage.Map_GongStructName_InstancesNb["CellIcon"] = len(stage.CellIcons)
 	stage.Map_GongStructName_InstancesNb["CellInt"] = len(stage.CellInts)
 	stage.Map_GongStructName_InstancesNb["CellString"] = len(stage.CellStrings)
+	stage.Map_GongStructName_InstancesNb["CheckBox"] = len(stage.CheckBoxs)
 	stage.Map_GongStructName_InstancesNb["DisplayedColumn"] = len(stage.DisplayedColumns)
 	stage.Map_GongStructName_InstancesNb["FormDiv"] = len(stage.FormDivs)
 	stage.Map_GongStructName_InstancesNb["FormField"] = len(stage.FormFields)
-	stage.Map_GongStructName_InstancesNb["FormFieldBoolean"] = len(stage.FormFieldBooleans)
 	stage.Map_GongStructName_InstancesNb["FormFieldDate"] = len(stage.FormFieldDates)
 	stage.Map_GongStructName_InstancesNb["FormFieldDateTime"] = len(stage.FormFieldDateTimes)
 	stage.Map_GongStructName_InstancesNb["FormFieldFloat64"] = len(stage.FormFieldFloat64s)
@@ -418,10 +418,10 @@ func (stage *StageStruct) Checkout() {
 	stage.Map_GongStructName_InstancesNb["CellIcon"] = len(stage.CellIcons)
 	stage.Map_GongStructName_InstancesNb["CellInt"] = len(stage.CellInts)
 	stage.Map_GongStructName_InstancesNb["CellString"] = len(stage.CellStrings)
+	stage.Map_GongStructName_InstancesNb["CheckBox"] = len(stage.CheckBoxs)
 	stage.Map_GongStructName_InstancesNb["DisplayedColumn"] = len(stage.DisplayedColumns)
 	stage.Map_GongStructName_InstancesNb["FormDiv"] = len(stage.FormDivs)
 	stage.Map_GongStructName_InstancesNb["FormField"] = len(stage.FormFields)
-	stage.Map_GongStructName_InstancesNb["FormFieldBoolean"] = len(stage.FormFieldBooleans)
 	stage.Map_GongStructName_InstancesNb["FormFieldDate"] = len(stage.FormFieldDates)
 	stage.Map_GongStructName_InstancesNb["FormFieldDateTime"] = len(stage.FormFieldDateTimes)
 	stage.Map_GongStructName_InstancesNb["FormFieldFloat64"] = len(stage.FormFieldFloat64s)
@@ -703,6 +703,46 @@ func (cellstring *CellString) GetName() (res string) {
 	return cellstring.Name
 }
 
+// Stage puts checkbox to the model stage
+func (checkbox *CheckBox) Stage(stage *StageStruct) *CheckBox {
+	stage.CheckBoxs[checkbox] = __member
+	stage.CheckBoxs_mapString[checkbox.Name] = checkbox
+
+	return checkbox
+}
+
+// Unstage removes checkbox off the model stage
+func (checkbox *CheckBox) Unstage(stage *StageStruct) *CheckBox {
+	delete(stage.CheckBoxs, checkbox)
+	delete(stage.CheckBoxs_mapString, checkbox.Name)
+	return checkbox
+}
+
+// commit checkbox to the back repo (if it is already staged)
+func (checkbox *CheckBox) Commit(stage *StageStruct) *CheckBox {
+	if _, ok := stage.CheckBoxs[checkbox]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitCheckBox(checkbox)
+		}
+	}
+	return checkbox
+}
+
+// Checkout checkbox to the back repo (if it is already staged)
+func (checkbox *CheckBox) Checkout(stage *StageStruct) *CheckBox {
+	if _, ok := stage.CheckBoxs[checkbox]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutCheckBox(checkbox)
+		}
+	}
+	return checkbox
+}
+
+// for satisfaction of GongStruct interface
+func (checkbox *CheckBox) GetName() (res string) {
+	return checkbox.Name
+}
+
 // Stage puts displayedcolumn to the model stage
 func (displayedcolumn *DisplayedColumn) Stage(stage *StageStruct) *DisplayedColumn {
 	stage.DisplayedColumns[displayedcolumn] = __member
@@ -821,46 +861,6 @@ func (formfield *FormField) Checkout(stage *StageStruct) *FormField {
 // for satisfaction of GongStruct interface
 func (formfield *FormField) GetName() (res string) {
 	return formfield.Name
-}
-
-// Stage puts formfieldboolean to the model stage
-func (formfieldboolean *FormFieldBoolean) Stage(stage *StageStruct) *FormFieldBoolean {
-	stage.FormFieldBooleans[formfieldboolean] = __member
-	stage.FormFieldBooleans_mapString[formfieldboolean.Name] = formfieldboolean
-
-	return formfieldboolean
-}
-
-// Unstage removes formfieldboolean off the model stage
-func (formfieldboolean *FormFieldBoolean) Unstage(stage *StageStruct) *FormFieldBoolean {
-	delete(stage.FormFieldBooleans, formfieldboolean)
-	delete(stage.FormFieldBooleans_mapString, formfieldboolean.Name)
-	return formfieldboolean
-}
-
-// commit formfieldboolean to the back repo (if it is already staged)
-func (formfieldboolean *FormFieldBoolean) Commit(stage *StageStruct) *FormFieldBoolean {
-	if _, ok := stage.FormFieldBooleans[formfieldboolean]; ok {
-		if stage.BackRepo != nil {
-			stage.BackRepo.CommitFormFieldBoolean(formfieldboolean)
-		}
-	}
-	return formfieldboolean
-}
-
-// Checkout formfieldboolean to the back repo (if it is already staged)
-func (formfieldboolean *FormFieldBoolean) Checkout(stage *StageStruct) *FormFieldBoolean {
-	if _, ok := stage.FormFieldBooleans[formfieldboolean]; ok {
-		if stage.BackRepo != nil {
-			stage.BackRepo.CheckoutFormFieldBoolean(formfieldboolean)
-		}
-	}
-	return formfieldboolean
-}
-
-// for satisfaction of GongStruct interface
-func (formfieldboolean *FormFieldBoolean) GetName() (res string) {
-	return formfieldboolean.Name
 }
 
 // Stage puts formfielddate to the model stage
@@ -1231,10 +1231,10 @@ type AllModelsStructCreateInterface interface { // insertion point for Callbacks
 	CreateORMCellIcon(CellIcon *CellIcon)
 	CreateORMCellInt(CellInt *CellInt)
 	CreateORMCellString(CellString *CellString)
+	CreateORMCheckBox(CheckBox *CheckBox)
 	CreateORMDisplayedColumn(DisplayedColumn *DisplayedColumn)
 	CreateORMFormDiv(FormDiv *FormDiv)
 	CreateORMFormField(FormField *FormField)
-	CreateORMFormFieldBoolean(FormFieldBoolean *FormFieldBoolean)
 	CreateORMFormFieldDate(FormFieldDate *FormFieldDate)
 	CreateORMFormFieldDateTime(FormFieldDateTime *FormFieldDateTime)
 	CreateORMFormFieldFloat64(FormFieldFloat64 *FormFieldFloat64)
@@ -1253,10 +1253,10 @@ type AllModelsStructDeleteInterface interface { // insertion point for Callbacks
 	DeleteORMCellIcon(CellIcon *CellIcon)
 	DeleteORMCellInt(CellInt *CellInt)
 	DeleteORMCellString(CellString *CellString)
+	DeleteORMCheckBox(CheckBox *CheckBox)
 	DeleteORMDisplayedColumn(DisplayedColumn *DisplayedColumn)
 	DeleteORMFormDiv(FormDiv *FormDiv)
 	DeleteORMFormField(FormField *FormField)
-	DeleteORMFormFieldBoolean(FormFieldBoolean *FormFieldBoolean)
 	DeleteORMFormFieldDate(FormFieldDate *FormFieldDate)
 	DeleteORMFormFieldDateTime(FormFieldDateTime *FormFieldDateTime)
 	DeleteORMFormFieldFloat64(FormFieldFloat64 *FormFieldFloat64)
@@ -1287,6 +1287,9 @@ func (stage *StageStruct) Reset() { // insertion point for array reset
 	stage.CellStrings = make(map[*CellString]any)
 	stage.CellStrings_mapString = make(map[string]*CellString)
 
+	stage.CheckBoxs = make(map[*CheckBox]any)
+	stage.CheckBoxs_mapString = make(map[string]*CheckBox)
+
 	stage.DisplayedColumns = make(map[*DisplayedColumn]any)
 	stage.DisplayedColumns_mapString = make(map[string]*DisplayedColumn)
 
@@ -1295,9 +1298,6 @@ func (stage *StageStruct) Reset() { // insertion point for array reset
 
 	stage.FormFields = make(map[*FormField]any)
 	stage.FormFields_mapString = make(map[string]*FormField)
-
-	stage.FormFieldBooleans = make(map[*FormFieldBoolean]any)
-	stage.FormFieldBooleans_mapString = make(map[string]*FormFieldBoolean)
 
 	stage.FormFieldDates = make(map[*FormFieldDate]any)
 	stage.FormFieldDates_mapString = make(map[string]*FormFieldDate)
@@ -1347,6 +1347,9 @@ func (stage *StageStruct) Nil() { // insertion point for array nil
 	stage.CellStrings = nil
 	stage.CellStrings_mapString = nil
 
+	stage.CheckBoxs = nil
+	stage.CheckBoxs_mapString = nil
+
 	stage.DisplayedColumns = nil
 	stage.DisplayedColumns_mapString = nil
 
@@ -1355,9 +1358,6 @@ func (stage *StageStruct) Nil() { // insertion point for array nil
 
 	stage.FormFields = nil
 	stage.FormFields_mapString = nil
-
-	stage.FormFieldBooleans = nil
-	stage.FormFieldBooleans_mapString = nil
 
 	stage.FormFieldDates = nil
 	stage.FormFieldDates_mapString = nil
@@ -1413,6 +1413,10 @@ func (stage *StageStruct) Unstage() { // insertion point for array nil
 		cellstring.Unstage(stage)
 	}
 
+	for checkbox := range stage.CheckBoxs {
+		checkbox.Unstage(stage)
+	}
+
 	for displayedcolumn := range stage.DisplayedColumns {
 		displayedcolumn.Unstage(stage)
 	}
@@ -1423,10 +1427,6 @@ func (stage *StageStruct) Unstage() { // insertion point for array nil
 
 	for formfield := range stage.FormFields {
 		formfield.Unstage(stage)
-	}
-
-	for formfieldboolean := range stage.FormFieldBooleans {
-		formfieldboolean.Unstage(stage)
 	}
 
 	for formfielddate := range stage.FormFieldDates {
@@ -1473,7 +1473,7 @@ func (stage *StageStruct) Unstage() { // insertion point for array nil
 // - full refactoring of Gongstruct identifiers / fields
 type Gongstruct interface {
 	// insertion point for generic types
-	Cell | CellBoolean | CellFloat64 | CellIcon | CellInt | CellString | DisplayedColumn | FormDiv | FormField | FormFieldBoolean | FormFieldDate | FormFieldDateTime | FormFieldFloat64 | FormFieldInt | FormFieldString | FormFieldTime | FormGroup | Row | Table
+	Cell | CellBoolean | CellFloat64 | CellIcon | CellInt | CellString | CheckBox | DisplayedColumn | FormDiv | FormField | FormFieldDate | FormFieldDateTime | FormFieldFloat64 | FormFieldInt | FormFieldString | FormFieldTime | FormGroup | Row | Table
 }
 
 // Gongstruct is the type parameter for generated generic function that allows
@@ -1482,7 +1482,7 @@ type Gongstruct interface {
 // - full refactoring of Gongstruct identifiers / fields
 type PointerToGongstruct interface {
 	// insertion point for generic types
-	*Cell | *CellBoolean | *CellFloat64 | *CellIcon | *CellInt | *CellString | *DisplayedColumn | *FormDiv | *FormField | *FormFieldBoolean | *FormFieldDate | *FormFieldDateTime | *FormFieldFloat64 | *FormFieldInt | *FormFieldString | *FormFieldTime | *FormGroup | *Row | *Table
+	*Cell | *CellBoolean | *CellFloat64 | *CellIcon | *CellInt | *CellString | *CheckBox | *DisplayedColumn | *FormDiv | *FormField | *FormFieldDate | *FormFieldDateTime | *FormFieldFloat64 | *FormFieldInt | *FormFieldString | *FormFieldTime | *FormGroup | *Row | *Table
 	GetName() string
 }
 
@@ -1495,10 +1495,10 @@ type GongstructSet interface {
 		map[*CellIcon]any |
 		map[*CellInt]any |
 		map[*CellString]any |
+		map[*CheckBox]any |
 		map[*DisplayedColumn]any |
 		map[*FormDiv]any |
 		map[*FormField]any |
-		map[*FormFieldBoolean]any |
 		map[*FormFieldDate]any |
 		map[*FormFieldDateTime]any |
 		map[*FormFieldFloat64]any |
@@ -1520,10 +1520,10 @@ type GongstructMapString interface {
 		map[string]*CellIcon |
 		map[string]*CellInt |
 		map[string]*CellString |
+		map[string]*CheckBox |
 		map[string]*DisplayedColumn |
 		map[string]*FormDiv |
 		map[string]*FormField |
-		map[string]*FormFieldBoolean |
 		map[string]*FormFieldDate |
 		map[string]*FormFieldDateTime |
 		map[string]*FormFieldFloat64 |
@@ -1555,14 +1555,14 @@ func GongGetSet[Type GongstructSet](stage *StageStruct) *Type {
 		return any(&stage.CellInts).(*Type)
 	case map[*CellString]any:
 		return any(&stage.CellStrings).(*Type)
+	case map[*CheckBox]any:
+		return any(&stage.CheckBoxs).(*Type)
 	case map[*DisplayedColumn]any:
 		return any(&stage.DisplayedColumns).(*Type)
 	case map[*FormDiv]any:
 		return any(&stage.FormDivs).(*Type)
 	case map[*FormField]any:
 		return any(&stage.FormFields).(*Type)
-	case map[*FormFieldBoolean]any:
-		return any(&stage.FormFieldBooleans).(*Type)
 	case map[*FormFieldDate]any:
 		return any(&stage.FormFieldDates).(*Type)
 	case map[*FormFieldDateTime]any:
@@ -1605,14 +1605,14 @@ func GongGetMap[Type GongstructMapString](stage *StageStruct) *Type {
 		return any(&stage.CellInts_mapString).(*Type)
 	case map[string]*CellString:
 		return any(&stage.CellStrings_mapString).(*Type)
+	case map[string]*CheckBox:
+		return any(&stage.CheckBoxs_mapString).(*Type)
 	case map[string]*DisplayedColumn:
 		return any(&stage.DisplayedColumns_mapString).(*Type)
 	case map[string]*FormDiv:
 		return any(&stage.FormDivs_mapString).(*Type)
 	case map[string]*FormField:
 		return any(&stage.FormFields_mapString).(*Type)
-	case map[string]*FormFieldBoolean:
-		return any(&stage.FormFieldBooleans_mapString).(*Type)
 	case map[string]*FormFieldDate:
 		return any(&stage.FormFieldDates_mapString).(*Type)
 	case map[string]*FormFieldDateTime:
@@ -1655,14 +1655,14 @@ func GetGongstructInstancesSet[Type Gongstruct](stage *StageStruct) *map[*Type]a
 		return any(&stage.CellInts).(*map[*Type]any)
 	case CellString:
 		return any(&stage.CellStrings).(*map[*Type]any)
+	case CheckBox:
+		return any(&stage.CheckBoxs).(*map[*Type]any)
 	case DisplayedColumn:
 		return any(&stage.DisplayedColumns).(*map[*Type]any)
 	case FormDiv:
 		return any(&stage.FormDivs).(*map[*Type]any)
 	case FormField:
 		return any(&stage.FormFields).(*map[*Type]any)
-	case FormFieldBoolean:
-		return any(&stage.FormFieldBooleans).(*map[*Type]any)
 	case FormFieldDate:
 		return any(&stage.FormFieldDates).(*map[*Type]any)
 	case FormFieldDateTime:
@@ -1705,14 +1705,14 @@ func GetGongstructInstancesMap[Type Gongstruct](stage *StageStruct) *map[string]
 		return any(&stage.CellInts_mapString).(*map[string]*Type)
 	case CellString:
 		return any(&stage.CellStrings_mapString).(*map[string]*Type)
+	case CheckBox:
+		return any(&stage.CheckBoxs_mapString).(*map[string]*Type)
 	case DisplayedColumn:
 		return any(&stage.DisplayedColumns_mapString).(*map[string]*Type)
 	case FormDiv:
 		return any(&stage.FormDivs_mapString).(*map[string]*Type)
 	case FormField:
 		return any(&stage.FormFields_mapString).(*map[string]*Type)
-	case FormFieldBoolean:
-		return any(&stage.FormFieldBooleans_mapString).(*map[string]*Type)
 	case FormFieldDate:
 		return any(&stage.FormFieldDates_mapString).(*map[string]*Type)
 	case FormFieldDateTime:
@@ -1779,6 +1779,10 @@ func GetAssociationName[Type Gongstruct]() *Type {
 		return any(&CellString{
 			// Initialisation of associations
 		}).(*Type)
+	case CheckBox:
+		return any(&CheckBox{
+			// Initialisation of associations
+		}).(*Type)
 	case DisplayedColumn:
 		return any(&DisplayedColumn{
 			// Initialisation of associations
@@ -1788,6 +1792,8 @@ func GetAssociationName[Type Gongstruct]() *Type {
 			// Initialisation of associations
 			// field is initialized with an instance of FormField with the name of the field
 			FormFields: []*FormField{{Name: "FormFields"}},
+			// field is initialized with an instance of CheckBox with the name of the field
+			CheckBoxs: []*CheckBox{{Name: "CheckBoxs"}},
 		}).(*Type)
 	case FormField:
 		return any(&FormField{
@@ -1798,18 +1804,12 @@ func GetAssociationName[Type Gongstruct]() *Type {
 			FormFieldFloat64: &FormFieldFloat64{Name: "FormFieldFloat64"},
 			// field is initialized with an instance of FormFieldInt with the name of the field
 			FormFieldInt: &FormFieldInt{Name: "FormFieldInt"},
-			// field is initialized with an instance of FormFieldBoolean with the name of the field
-			FormFieldBool: &FormFieldBoolean{Name: "FormFieldBool"},
 			// field is initialized with an instance of FormFieldDate with the name of the field
 			FormFieldDate: &FormFieldDate{Name: "FormFieldDate"},
 			// field is initialized with an instance of FormFieldTime with the name of the field
 			FormFieldTime: &FormFieldTime{Name: "FormFieldTime"},
 			// field is initialized with an instance of FormFieldDateTime with the name of the field
 			FormFieldDateTime: &FormFieldDateTime{Name: "FormFieldDateTime"},
-		}).(*Type)
-	case FormFieldBoolean:
-		return any(&FormFieldBoolean{
-			// Initialisation of associations
 		}).(*Type)
 	case FormFieldDate:
 		return any(&FormFieldDate{
@@ -1988,6 +1988,11 @@ func GetPointerReverseMap[Start, End Gongstruct](fieldname string, stage *StageS
 		switch fieldname {
 		// insertion point for per direct association field
 		}
+	// reverse maps of direct associations of CheckBox
+	case CheckBox:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
 	// reverse maps of direct associations of DisplayedColumn
 	case DisplayedColumn:
 		switch fieldname {
@@ -2053,23 +2058,6 @@ func GetPointerReverseMap[Start, End Gongstruct](fieldname string, stage *StageS
 				}
 			}
 			return any(res).(map[*End][]*Start)
-		case "FormFieldBool":
-			res := make(map[*FormFieldBoolean][]*FormField)
-			for formfield := range stage.FormFields {
-				if formfield.FormFieldBool != nil {
-					formfieldboolean_ := formfield.FormFieldBool
-					var formfields []*FormField
-					_, ok := res[formfieldboolean_]
-					if ok {
-						formfields = res[formfieldboolean_]
-					} else {
-						formfields = make([]*FormField, 0)
-					}
-					formfields = append(formfields, formfield)
-					res[formfieldboolean_] = formfields
-				}
-			}
-			return any(res).(map[*End][]*Start)
 		case "FormFieldDate":
 			res := make(map[*FormFieldDate][]*FormField)
 			for formfield := range stage.FormFields {
@@ -2121,11 +2109,6 @@ func GetPointerReverseMap[Start, End Gongstruct](fieldname string, stage *StageS
 				}
 			}
 			return any(res).(map[*End][]*Start)
-		}
-	// reverse maps of direct associations of FormFieldBoolean
-	case FormFieldBoolean:
-		switch fieldname {
-		// insertion point for per direct association field
 		}
 	// reverse maps of direct associations of FormFieldDate
 	case FormFieldDate:
@@ -2218,6 +2201,11 @@ func GetSliceOfPointersReverseMap[Start, End Gongstruct](fieldname string, stage
 		switch fieldname {
 		// insertion point for per direct association field
 		}
+	// reverse maps of direct associations of CheckBox
+	case CheckBox:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
 	// reverse maps of direct associations of DisplayedColumn
 	case DisplayedColumn:
 		switch fieldname {
@@ -2235,14 +2223,17 @@ func GetSliceOfPointersReverseMap[Start, End Gongstruct](fieldname string, stage
 				}
 			}
 			return any(res).(map[*End]*Start)
+		case "CheckBoxs":
+			res := make(map[*CheckBox]*FormDiv)
+			for formdiv := range stage.FormDivs {
+				for _, checkbox_ := range formdiv.CheckBoxs {
+					res[checkbox_] = formdiv
+				}
+			}
+			return any(res).(map[*End]*Start)
 		}
 	// reverse maps of direct associations of FormField
 	case FormField:
-		switch fieldname {
-		// insertion point for per direct association field
-		}
-	// reverse maps of direct associations of FormFieldBoolean
-	case FormFieldBoolean:
 		switch fieldname {
 		// insertion point for per direct association field
 		}
@@ -2347,14 +2338,14 @@ func GetGongstructName[Type Gongstruct]() (res string) {
 		res = "CellInt"
 	case CellString:
 		res = "CellString"
+	case CheckBox:
+		res = "CheckBox"
 	case DisplayedColumn:
 		res = "DisplayedColumn"
 	case FormDiv:
 		res = "FormDiv"
 	case FormField:
 		res = "FormField"
-	case FormFieldBoolean:
-		res = "FormFieldBoolean"
 	case FormFieldDate:
 		res = "FormFieldDate"
 	case FormFieldDateTime:
@@ -2396,14 +2387,14 @@ func GetFields[Type Gongstruct]() (res []string) {
 		res = []string{"Name", "Value"}
 	case CellString:
 		res = []string{"Name", "Value"}
+	case CheckBox:
+		res = []string{"Name", "Value"}
 	case DisplayedColumn:
 		res = []string{"Name"}
 	case FormDiv:
-		res = []string{"Name", "FormFields"}
+		res = []string{"Name", "FormFields", "CheckBoxs"}
 	case FormField:
-		res = []string{"Name", "InputTypeEnum", "Label", "Placeholder", "FormFieldString", "FormFieldFloat64", "FormFieldInt", "FormFieldBool", "FormFieldDate", "FormFieldTime", "FormFieldDateTime"}
-	case FormFieldBoolean:
-		res = []string{"Name", "Value"}
+		res = []string{"Name", "InputTypeEnum", "Label", "Placeholder", "FormFieldString", "FormFieldFloat64", "FormFieldInt", "FormFieldDate", "FormFieldTime", "FormFieldDateTime"}
 	case FormFieldDate:
 		res = []string{"Name", "Value"}
 	case FormFieldDateTime:
@@ -2497,6 +2488,14 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 		case "Value":
 			res = any(instance).(CellString).Value
 		}
+	case CheckBox:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(CheckBox).Name
+		case "Value":
+			res = fmt.Sprintf("%t", any(instance).(CheckBox).Value)
+		}
 	case DisplayedColumn:
 		switch fieldName {
 		// string value of fields
@@ -2510,6 +2509,13 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 			res = any(instance).(FormDiv).Name
 		case "FormFields":
 			for idx, __instance__ := range any(instance).(FormDiv).FormFields {
+				if idx > 0 {
+					res += "\n"
+				}
+				res += __instance__.Name
+			}
+		case "CheckBoxs":
+			for idx, __instance__ := range any(instance).(FormDiv).CheckBoxs {
 				if idx > 0 {
 					res += "\n"
 				}
@@ -2540,10 +2546,6 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 			if any(instance).(FormField).FormFieldInt != nil {
 				res = any(instance).(FormField).FormFieldInt.Name
 			}
-		case "FormFieldBool":
-			if any(instance).(FormField).FormFieldBool != nil {
-				res = any(instance).(FormField).FormFieldBool.Name
-			}
 		case "FormFieldDate":
 			if any(instance).(FormField).FormFieldDate != nil {
 				res = any(instance).(FormField).FormFieldDate.Name
@@ -2556,14 +2558,6 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 			if any(instance).(FormField).FormFieldDateTime != nil {
 				res = any(instance).(FormField).FormFieldDateTime.Name
 			}
-		}
-	case FormFieldBoolean:
-		switch fieldName {
-		// string value of fields
-		case "Name":
-			res = any(instance).(FormFieldBoolean).Name
-		case "Value":
-			res = fmt.Sprintf("%t", any(instance).(FormFieldBoolean).Value)
 		}
 	case FormFieldDate:
 		switch fieldName {

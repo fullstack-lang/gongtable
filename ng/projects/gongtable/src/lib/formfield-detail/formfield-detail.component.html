@@ -102,16 +102,6 @@
     </mat-form-field>
 
     <mat-form-field class="detail-full-width">
-        <mat-label>FormFieldBool</mat-label>
-        <mat-select [compareWith]="compareObjects" [(value)]="formfield.FormFieldBool" (selectionChange)="fillUpNameIfEmpty($event)">
-            <mat-option>None</mat-option>
-            <mat-option *ngFor="let formfieldboolean of frontRepo.FormFieldBooleans_array" [value]="formfieldboolean">
-                {{formfieldboolean.Name}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="detail-full-width">
         <mat-label>FormFieldDate</mat-label>
         <mat-select [compareWith]="compareObjects" [(value)]="formfield.FormFieldDate" (selectionChange)="fillUpNameIfEmpty($event)">
             <mat-option>None</mat-option>

@@ -188,16 +188,6 @@ export class FormFieldDetailComponent implements OnInit {
 			this.formfield.FormFieldIntID.Int64 = 0
 			this.formfield.FormFieldIntID.Valid = true
 		}
-		if (this.formfield.FormFieldBoolID == undefined) {
-			this.formfield.FormFieldBoolID = new NullInt64
-		}
-		if (this.formfield.FormFieldBool != undefined) {
-			this.formfield.FormFieldBoolID.Int64 = this.formfield.FormFieldBool.ID
-			this.formfield.FormFieldBoolID.Valid = true
-		} else {
-			this.formfield.FormFieldBoolID.Int64 = 0
-			this.formfield.FormFieldBoolID.Valid = true
-		}
 		if (this.formfield.FormFieldDateID == undefined) {
 			this.formfield.FormFieldDateID = new NullInt64
 		}

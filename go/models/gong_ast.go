@@ -309,10 +309,10 @@ var __gong__map_CellFloat64 = make(map[string]*CellFloat64)
 var __gong__map_CellIcon = make(map[string]*CellIcon)
 var __gong__map_CellInt = make(map[string]*CellInt)
 var __gong__map_CellString = make(map[string]*CellString)
+var __gong__map_CheckBox = make(map[string]*CheckBox)
 var __gong__map_DisplayedColumn = make(map[string]*DisplayedColumn)
 var __gong__map_FormDiv = make(map[string]*FormDiv)
 var __gong__map_FormField = make(map[string]*FormField)
-var __gong__map_FormFieldBoolean = make(map[string]*FormFieldBoolean)
 var __gong__map_FormFieldDate = make(map[string]*FormFieldDate)
 var __gong__map_FormFieldDateTime = make(map[string]*FormFieldDateTime)
 var __gong__map_FormFieldFloat64 = make(map[string]*FormFieldFloat64)
@@ -518,6 +518,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 										instanceCellString := (&CellString{Name: instanceName}).Stage(stage)
 										instance = any(instanceCellString)
 										__gong__map_CellString[identifier] = instanceCellString
+									case "CheckBox":
+										instanceCheckBox := (&CheckBox{Name: instanceName}).Stage(stage)
+										instance = any(instanceCheckBox)
+										__gong__map_CheckBox[identifier] = instanceCheckBox
 									case "DisplayedColumn":
 										instanceDisplayedColumn := (&DisplayedColumn{Name: instanceName}).Stage(stage)
 										instance = any(instanceDisplayedColumn)
@@ -530,10 +534,6 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 										instanceFormField := (&FormField{Name: instanceName}).Stage(stage)
 										instance = any(instanceFormField)
 										__gong__map_FormField[identifier] = instanceFormField
-									case "FormFieldBoolean":
-										instanceFormFieldBoolean := (&FormFieldBoolean{Name: instanceName}).Stage(stage)
-										instance = any(instanceFormFieldBoolean)
-										__gong__map_FormFieldBoolean[identifier] = instanceFormFieldBoolean
 									case "FormFieldDate":
 										instanceFormFieldDate := (&FormFieldDate{Name: instanceName}).Stage(stage)
 										instance = any(instanceFormFieldDate)
@@ -630,6 +630,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 							switch fieldName {
 							// insertion point for date assign code
 							}
+						case "CheckBox":
+							switch fieldName {
+							// insertion point for date assign code
+							}
 						case "DisplayedColumn":
 							switch fieldName {
 							// insertion point for date assign code
@@ -639,10 +643,6 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 							// insertion point for date assign code
 							}
 						case "FormField":
-							switch fieldName {
-							// insertion point for date assign code
-							}
-						case "FormFieldBoolean":
 							switch fieldName {
 							// insertion point for date assign code
 							}
@@ -743,6 +743,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 						switch fieldName {
 						// insertion point for slice of pointers assign code
 						}
+					case "CheckBox":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						}
 					case "DisplayedColumn":
 						switch fieldName {
 						// insertion point for slice of pointers assign code
@@ -756,12 +760,14 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 							target := __gong__map_FormField[targetIdentifier]
 							__gong__map_FormDiv[identifier].FormFields =
 								append(__gong__map_FormDiv[identifier].FormFields, target)
+						case "CheckBoxs":
+							// remove first and last char
+							targetIdentifier := ident.Name
+							target := __gong__map_CheckBox[targetIdentifier]
+							__gong__map_FormDiv[identifier].CheckBoxs =
+								append(__gong__map_FormDiv[identifier].CheckBoxs, target)
 						}
 					case "FormField":
-						switch fieldName {
-						// insertion point for slice of pointers assign code
-						}
-					case "FormFieldBoolean":
 						switch fieldName {
 						// insertion point for slice of pointers assign code
 						}
@@ -944,6 +950,14 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_CellString[identifier].Value = fielValue
 				}
+			case "CheckBox":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_CheckBox[identifier].Name = fielValue
+				}
 			case "DisplayedColumn":
 				switch fieldName {
 				// insertion point for field dependant code
@@ -975,14 +989,6 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// remove first and last char
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_FormField[identifier].Placeholder = fielValue
-				}
-			case "FormFieldBoolean":
-				switch fieldName {
-				// insertion point for field dependant code
-				case "Name":
-					// remove first and last char
-					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
-					__gong__map_FormFieldBoolean[identifier].Name = fielValue
 				}
 			case "FormFieldDate":
 				switch fieldName {
@@ -1141,6 +1147,17 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				switch fieldName {
 				// insertion point for field dependant code
 				}
+			case "CheckBox":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Value":
+					// convert string to boolean
+					fielValue, err := strconv.ParseBool(ident.Name)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_CheckBox[identifier].Value = fielValue
+				}
 			case "DisplayedColumn":
 				switch fieldName {
 				// insertion point for field dependant code
@@ -1161,9 +1178,6 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				case "FormFieldInt":
 					targetIdentifier := ident.Name
 					__gong__map_FormField[identifier].FormFieldInt = __gong__map_FormFieldInt[targetIdentifier]
-				case "FormFieldBool":
-					targetIdentifier := ident.Name
-					__gong__map_FormField[identifier].FormFieldBool = __gong__map_FormFieldBoolean[targetIdentifier]
 				case "FormFieldDate":
 					targetIdentifier := ident.Name
 					__gong__map_FormField[identifier].FormFieldDate = __gong__map_FormFieldDate[targetIdentifier]
@@ -1173,17 +1187,6 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				case "FormFieldDateTime":
 					targetIdentifier := ident.Name
 					__gong__map_FormField[identifier].FormFieldDateTime = __gong__map_FormFieldDateTime[targetIdentifier]
-				}
-			case "FormFieldBoolean":
-				switch fieldName {
-				// insertion point for field dependant code
-				case "Value":
-					// convert string to boolean
-					fielValue, err := strconv.ParseBool(ident.Name)
-					if err != nil {
-						log.Fatalln(err)
-					}
-					__gong__map_FormFieldBoolean[identifier].Value = fielValue
 				}
 			case "FormFieldDate":
 				switch fieldName {
@@ -1322,6 +1325,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					switch fieldName {
 					// insertion point for enum assign code
 					}
+				case "CheckBox":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
 				case "DisplayedColumn":
 					switch fieldName {
 					// insertion point for enum assign code
@@ -1340,10 +1347,6 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 							log.Fatalln(err)
 						}
 						__gong__map_FormField[identifier].InputTypeEnum = InputTypeEnum(val)
-					}
-				case "FormFieldBoolean":
-					switch fieldName {
-					// insertion point for enum assign code
 					}
 				case "FormFieldDate":
 					switch fieldName {

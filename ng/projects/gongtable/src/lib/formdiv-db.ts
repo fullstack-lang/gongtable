@@ -1,5 +1,6 @@
 // insertion point for imports
 import { FormFieldDB } from './formfield-db'
+import { CheckBoxDB } from './checkbox-db'
 import { FormGroupDB } from './formgroup-db'
 
 // usefull for managing pointer ID values that can be nullable
@@ -18,6 +19,7 @@ export class FormDivDB {
 
 	// insertion point for other declarations
 	FormFields?: Array<FormFieldDB>
+	CheckBoxs?: Array<CheckBoxDB>
 	FormGroup_FormDivsDBID: NullInt64 = new NullInt64
 	FormGroup_FormDivsDBID_Index: NullInt64  = new NullInt64 // store the index of the formdiv instance in FormGroup.FormDivs
 	FormGroup_FormDivs_reverse?: FormGroupDB 

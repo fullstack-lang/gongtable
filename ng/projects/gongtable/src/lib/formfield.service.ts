@@ -17,7 +17,6 @@ import { FormFieldDB } from './formfield-db';
 import { FormFieldStringDB } from './formfieldstring-db'
 import { FormFieldFloat64DB } from './formfieldfloat64-db'
 import { FormFieldIntDB } from './formfieldint-db'
-import { FormFieldBooleanDB } from './formfieldboolean-db'
 import { FormFieldDateDB } from './formfielddate-db'
 import { FormFieldTimeDB } from './formfieldtime-db'
 import { FormFieldDateTimeDB } from './formfielddatetime-db'
@@ -81,7 +80,6 @@ export class FormFieldService {
     formfielddb.FormFieldString = new FormFieldStringDB
     formfielddb.FormFieldFloat64 = new FormFieldFloat64DB
     formfielddb.FormFieldInt = new FormFieldIntDB
-    formfielddb.FormFieldBool = new FormFieldBooleanDB
     formfielddb.FormFieldDate = new FormFieldDateDB
     formfielddb.FormFieldTime = new FormFieldTimeDB
     formfielddb.FormFieldDateTime = new FormFieldDateTimeDB
@@ -130,7 +128,6 @@ export class FormFieldService {
     formfielddb.FormFieldString = new FormFieldStringDB
     formfielddb.FormFieldFloat64 = new FormFieldFloat64DB
     formfielddb.FormFieldInt = new FormFieldIntDB
-    formfielddb.FormFieldBool = new FormFieldBooleanDB
     formfielddb.FormFieldDate = new FormFieldDateDB
     formfielddb.FormFieldTime = new FormFieldTimeDB
     formfielddb.FormFieldDateTime = new FormFieldDateTimeDB

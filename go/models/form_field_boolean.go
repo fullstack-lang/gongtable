@@ -1,6 +1,6 @@
 package models
 
-type FormFieldBoolean struct {
+type CheckBox struct {
 	Name  string
 	Value bool
 }

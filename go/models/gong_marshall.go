@@ -332,6 +332,44 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 
 	}
 
+	map_CheckBox_Identifiers := make(map[*CheckBox]string)
+	_ = map_CheckBox_Identifiers
+
+	checkboxOrdered := []*CheckBox{}
+	for checkbox := range stage.CheckBoxs {
+		checkboxOrdered = append(checkboxOrdered, checkbox)
+	}
+	sort.Slice(checkboxOrdered[:], func(i, j int) bool {
+		return checkboxOrdered[i].Name < checkboxOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of CheckBox"
+	for idx, checkbox := range checkboxOrdered {
+
+		id = generatesIdentifier("CheckBox", idx, checkbox.Name)
+		map_CheckBox_Identifiers[checkbox] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "CheckBox")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", checkbox.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// CheckBox values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(checkbox.Name))
+		initializerStatements += setValueField
+
+		setValueField = NumberInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Value")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", fmt.Sprintf("%t", checkbox.Value))
+		initializerStatements += setValueField
+
+	}
+
 	map_DisplayedColumn_Identifiers := make(map[*DisplayedColumn]string)
 	_ = map_DisplayedColumn_Identifiers
 
@@ -444,44 +482,6 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
 		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Placeholder")
 		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formfield.Placeholder))
-		initializerStatements += setValueField
-
-	}
-
-	map_FormFieldBoolean_Identifiers := make(map[*FormFieldBoolean]string)
-	_ = map_FormFieldBoolean_Identifiers
-
-	formfieldbooleanOrdered := []*FormFieldBoolean{}
-	for formfieldboolean := range stage.FormFieldBooleans {
-		formfieldbooleanOrdered = append(formfieldbooleanOrdered, formfieldboolean)
-	}
-	sort.Slice(formfieldbooleanOrdered[:], func(i, j int) bool {
-		return formfieldbooleanOrdered[i].Name < formfieldbooleanOrdered[j].Name
-	})
-	identifiersDecl += "\n\n	// Declarations of staged instances of FormFieldBoolean"
-	for idx, formfieldboolean := range formfieldbooleanOrdered {
-
-		id = generatesIdentifier("FormFieldBoolean", idx, formfieldboolean.Name)
-		map_FormFieldBoolean_Identifiers[formfieldboolean] = id
-
-		decl = IdentifiersDecls
-		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
-		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "FormFieldBoolean")
-		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", formfieldboolean.Name)
-		identifiersDecl += decl
-
-		initializerStatements += "\n\n	// FormFieldBoolean values setup"
-		// Initialisation of values
-		setValueField = StringInitStatement
-		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
-		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
-		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formfieldboolean.Name))
-		initializerStatements += setValueField
-
-		setValueField = NumberInitStatement
-		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
-		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Value")
-		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", fmt.Sprintf("%t", formfieldboolean.Value))
 		initializerStatements += setValueField
 
 	}
@@ -959,6 +959,16 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 		// Initialisation of values
 	}
 
+	for idx, checkbox := range checkboxOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("CheckBox", idx, checkbox.Name)
+		map_CheckBox_Identifiers[checkbox] = id
+
+		// Initialisation of values
+	}
+
 	for idx, displayedcolumn := range displayedcolumnOrdered {
 		var setPointerField string
 		_ = setPointerField
@@ -982,6 +992,14 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
 			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormFields")
 			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormField_Identifiers[_formfield])
+			pointersInitializesStatements += setPointerField
+		}
+
+		for _, _checkbox := range formdiv.CheckBoxs {
+			setPointerField = SliceOfPointersFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "CheckBoxs")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_CheckBox_Identifiers[_checkbox])
 			pointersInitializesStatements += setPointerField
 		}
 
@@ -1019,14 +1037,6 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 			pointersInitializesStatements += setPointerField
 		}
 
-		if formfield.FormFieldBool != nil {
-			setPointerField = PointerFieldInitStatement
-			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
-			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormFieldBool")
-			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormFieldBoolean_Identifiers[formfield.FormFieldBool])
-			pointersInitializesStatements += setPointerField
-		}
-
 		if formfield.FormFieldDate != nil {
 			setPointerField = PointerFieldInitStatement
 			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
@@ -1051,16 +1061,6 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 			pointersInitializesStatements += setPointerField
 		}
 
-	}
-
-	for idx, formfieldboolean := range formfieldbooleanOrdered {
-		var setPointerField string
-		_ = setPointerField
-
-		id = generatesIdentifier("FormFieldBoolean", idx, formfieldboolean.Name)
-		map_FormFieldBoolean_Identifiers[formfieldboolean] = id
-
-		// Initialisation of values
 	}
 
 	for idx, formfielddate := range formfielddateOrdered {

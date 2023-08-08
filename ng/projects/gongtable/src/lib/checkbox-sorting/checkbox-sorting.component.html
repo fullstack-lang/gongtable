@@ -1,5 +1,5 @@
 <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-<div class="example-box" *ngFor="let formfieldboolean of associatedFormFieldBooleans" cdkDrag>{{formfieldboolean.Name}}</div>
+<div class="example-box" *ngFor="let checkbox of associatedCheckBoxs" cdkDrag>{{checkbox.Name}}</div>
 </div>
 <button class="table__save" color="primary" mat-raised-button (click)="save()">
 Save

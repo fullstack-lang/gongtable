@@ -23,6 +23,9 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 	case *CellString:
 		ok = stage.IsStagedCellString(target)
 
+	case *CheckBox:
+		ok = stage.IsStagedCheckBox(target)
+
 	case *DisplayedColumn:
 		ok = stage.IsStagedDisplayedColumn(target)
 
@@ -31,9 +34,6 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 
 	case *FormField:
 		ok = stage.IsStagedFormField(target)
-
-	case *FormFieldBoolean:
-		ok = stage.IsStagedFormFieldBoolean(target)
 
 	case *FormFieldDate:
 		ok = stage.IsStagedFormFieldDate(target)
@@ -111,6 +111,13 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 		return
 	}
 
+	func (stage *StageStruct) IsStagedCheckBox(checkbox *CheckBox) (ok bool) {
+
+		_, ok = stage.CheckBoxs[checkbox]
+	
+		return
+	}
+
 	func (stage *StageStruct) IsStagedDisplayedColumn(displayedcolumn *DisplayedColumn) (ok bool) {
 
 		_, ok = stage.DisplayedColumns[displayedcolumn]
@@ -128,13 +135,6 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 	func (stage *StageStruct) IsStagedFormField(formfield *FormField) (ok bool) {
 
 		_, ok = stage.FormFields[formfield]
-	
-		return
-	}
-
-	func (stage *StageStruct) IsStagedFormFieldBoolean(formfieldboolean *FormFieldBoolean) (ok bool) {
-
-		_, ok = stage.FormFieldBooleans[formfieldboolean]
 	
 		return
 	}
@@ -229,6 +229,9 @@ func StageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *CellString:
 		stage.StageBranchCellString(target)
 
+	case *CheckBox:
+		stage.StageBranchCheckBox(target)
+
 	case *DisplayedColumn:
 		stage.StageBranchDisplayedColumn(target)
 
@@ -237,9 +240,6 @@ func StageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 
 	case *FormField:
 		stage.StageBranchFormField(target)
-
-	case *FormFieldBoolean:
-		stage.StageBranchFormFieldBoolean(target)
 
 	case *FormFieldDate:
 		stage.StageBranchFormFieldDate(target)
@@ -379,6 +379,21 @@ func (stage *StageStruct) StageBranchCellString(cellstring *CellString) {
 
 }
 
+func (stage *StageStruct) StageBranchCheckBox(checkbox *CheckBox) {
+
+	// check if instance is already staged
+	if IsStaged(stage, checkbox) {
+		return
+	}
+
+	checkbox.Stage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
+
+}
+
 func (stage *StageStruct) StageBranchDisplayedColumn(displayedcolumn *DisplayedColumn) {
 
 	// check if instance is already staged
@@ -409,6 +424,9 @@ func (stage *StageStruct) StageBranchFormDiv(formdiv *FormDiv) {
 	for _, _formfield := range formdiv.FormFields {
 		StageBranch(stage, _formfield)
 	}
+	for _, _checkbox := range formdiv.CheckBoxs {
+		StageBranch(stage, _checkbox)
+	}
 
 }
 
@@ -431,9 +449,6 @@ func (stage *StageStruct) StageBranchFormField(formfield *FormField) {
 	if formfield.FormFieldInt != nil {
 		StageBranch(stage, formfield.FormFieldInt)
 	}
-	if formfield.FormFieldBool != nil {
-		StageBranch(stage, formfield.FormFieldBool)
-	}
 	if formfield.FormFieldDate != nil {
 		StageBranch(stage, formfield.FormFieldDate)
 	}
@@ -443,21 +458,6 @@ func (stage *StageStruct) StageBranchFormField(formfield *FormField) {
 	if formfield.FormFieldDateTime != nil {
 		StageBranch(stage, formfield.FormFieldDateTime)
 	}
-
-	//insertion point for the staging of instances referenced by slice of pointers
-
-}
-
-func (stage *StageStruct) StageBranchFormFieldBoolean(formfieldboolean *FormFieldBoolean) {
-
-	// check if instance is already staged
-	if IsStaged(stage, formfieldboolean) {
-		return
-	}
-
-	formfieldboolean.Stage(stage)
-
-	//insertion point for the staging of instances referenced by pointers
 
 	//insertion point for the staging of instances referenced by slice of pointers
 
@@ -637,6 +637,9 @@ func UnstageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *CellString:
 		stage.UnstageBranchCellString(target)
 
+	case *CheckBox:
+		stage.UnstageBranchCheckBox(target)
+
 	case *DisplayedColumn:
 		stage.UnstageBranchDisplayedColumn(target)
 
@@ -645,9 +648,6 @@ func UnstageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 
 	case *FormField:
 		stage.UnstageBranchFormField(target)
-
-	case *FormFieldBoolean:
-		stage.UnstageBranchFormFieldBoolean(target)
 
 	case *FormFieldDate:
 		stage.UnstageBranchFormFieldDate(target)
@@ -787,6 +787,21 @@ func (stage *StageStruct) UnstageBranchCellString(cellstring *CellString) {
 
 }
 
+func (stage *StageStruct) UnstageBranchCheckBox(checkbox *CheckBox) {
+
+	// check if instance is already staged
+	if ! IsStaged(stage, checkbox) {
+		return
+	}
+
+	checkbox.Unstage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
+
+}
+
 func (stage *StageStruct) UnstageBranchDisplayedColumn(displayedcolumn *DisplayedColumn) {
 
 	// check if instance is already staged
@@ -817,6 +832,9 @@ func (stage *StageStruct) UnstageBranchFormDiv(formdiv *FormDiv) {
 	for _, _formfield := range formdiv.FormFields {
 		UnstageBranch(stage, _formfield)
 	}
+	for _, _checkbox := range formdiv.CheckBoxs {
+		UnstageBranch(stage, _checkbox)
+	}
 
 }
 
@@ -839,9 +857,6 @@ func (stage *StageStruct) UnstageBranchFormField(formfield *FormField) {
 	if formfield.FormFieldInt != nil {
 		UnstageBranch(stage, formfield.FormFieldInt)
 	}
-	if formfield.FormFieldBool != nil {
-		UnstageBranch(stage, formfield.FormFieldBool)
-	}
 	if formfield.FormFieldDate != nil {
 		UnstageBranch(stage, formfield.FormFieldDate)
 	}
@@ -851,21 +866,6 @@ func (stage *StageStruct) UnstageBranchFormField(formfield *FormField) {
 	if formfield.FormFieldDateTime != nil {
 		UnstageBranch(stage, formfield.FormFieldDateTime)
 	}
-
-	//insertion point for the staging of instances referenced by slice of pointers
-
-}
-
-func (stage *StageStruct) UnstageBranchFormFieldBoolean(formfieldboolean *FormFieldBoolean) {
-
-	// check if instance is already staged
-	if ! IsStaged(stage, formfieldboolean) {
-		return
-	}
-
-	formfieldboolean.Unstage(stage)
-
-	//insertion point for the staging of instances referenced by pointers
 
 	//insertion point for the staging of instances referenced by slice of pointers
 

@@ -83,6 +83,13 @@ func registerControllers(r *gin.Engine) {
 		v1.PUT("/v1/cellstrings/:id", GetController().UpdateCellString)
 		v1.DELETE("/v1/cellstrings/:id", GetController().DeleteCellString)
 
+		v1.GET("/v1/checkboxs", GetController().GetCheckBoxs)
+		v1.GET("/v1/checkboxs/:id", GetController().GetCheckBox)
+		v1.POST("/v1/checkboxs", GetController().PostCheckBox)
+		v1.PATCH("/v1/checkboxs/:id", GetController().UpdateCheckBox)
+		v1.PUT("/v1/checkboxs/:id", GetController().UpdateCheckBox)
+		v1.DELETE("/v1/checkboxs/:id", GetController().DeleteCheckBox)
+
 		v1.GET("/v1/displayedcolumns", GetController().GetDisplayedColumns)
 		v1.GET("/v1/displayedcolumns/:id", GetController().GetDisplayedColumn)
 		v1.POST("/v1/displayedcolumns", GetController().PostDisplayedColumn)
@@ -103,13 +110,6 @@ func registerControllers(r *gin.Engine) {
 		v1.PATCH("/v1/formfields/:id", GetController().UpdateFormField)
 		v1.PUT("/v1/formfields/:id", GetController().UpdateFormField)
 		v1.DELETE("/v1/formfields/:id", GetController().DeleteFormField)
-
-		v1.GET("/v1/formfieldbooleans", GetController().GetFormFieldBooleans)
-		v1.GET("/v1/formfieldbooleans/:id", GetController().GetFormFieldBoolean)
-		v1.POST("/v1/formfieldbooleans", GetController().PostFormFieldBoolean)
-		v1.PATCH("/v1/formfieldbooleans/:id", GetController().UpdateFormFieldBoolean)
-		v1.PUT("/v1/formfieldbooleans/:id", GetController().UpdateFormFieldBoolean)
-		v1.DELETE("/v1/formfieldbooleans/:id", GetController().DeleteFormFieldBoolean)
 
 		v1.GET("/v1/formfielddates", GetController().GetFormFieldDates)
 		v1.GET("/v1/formfielddates/:id", GetController().GetFormFieldDate)

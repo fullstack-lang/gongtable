@@ -23,14 +23,14 @@ import { CellIntService } from '../cellint.service'
 import { getCellIntUniqueID } from '../front-repo.service'
 import { CellStringService } from '../cellstring.service'
 import { getCellStringUniqueID } from '../front-repo.service'
+import { CheckBoxService } from '../checkbox.service'
+import { getCheckBoxUniqueID } from '../front-repo.service'
 import { DisplayedColumnService } from '../displayedcolumn.service'
 import { getDisplayedColumnUniqueID } from '../front-repo.service'
 import { FormDivService } from '../formdiv.service'
 import { getFormDivUniqueID } from '../front-repo.service'
 import { FormFieldService } from '../formfield.service'
 import { getFormFieldUniqueID } from '../front-repo.service'
-import { FormFieldBooleanService } from '../formfieldboolean.service'
-import { getFormFieldBooleanUniqueID } from '../front-repo.service'
 import { FormFieldDateService } from '../formfielddate.service'
 import { getFormFieldDateUniqueID } from '../front-repo.service'
 import { FormFieldDateTimeService } from '../formfielddatetime.service'
@@ -200,10 +200,10 @@ export class SidebarComponent implements OnInit {
     private celliconService: CellIconService,
     private cellintService: CellIntService,
     private cellstringService: CellStringService,
+    private checkboxService: CheckBoxService,
     private displayedcolumnService: DisplayedColumnService,
     private formdivService: FormDivService,
     private formfieldService: FormFieldService,
-    private formfieldbooleanService: FormFieldBooleanService,
     private formfielddateService: FormFieldDateService,
     private formfielddatetimeService: FormFieldDateTimeService,
     private formfieldfloat64Service: FormFieldFloat64Service,
@@ -297,6 +297,14 @@ export class SidebarComponent implements OnInit {
       }
     )
     // observable for changes in structs
+    this.checkboxService.CheckBoxServiceChanged.subscribe(
+      message => {
+        if (message == "post" || message == "update" || message == "delete") {
+          this.refresh()
+        }
+      }
+    )
+    // observable for changes in structs
     this.displayedcolumnService.DisplayedColumnServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
@@ -314,14 +322,6 @@ export class SidebarComponent implements OnInit {
     )
     // observable for changes in structs
     this.formfieldService.FormFieldServiceChanged.subscribe(
-      message => {
-        if (message == "post" || message == "update" || message == "delete") {
-          this.refresh()
-        }
-      }
-    )
-    // observable for changes in structs
-    this.formfieldbooleanService.FormFieldBooleanServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
           this.refresh()
@@ -864,6 +864,50 @@ export class SidebarComponent implements OnInit {
       )
 
       /**
+      * fill up the CheckBox part of the mat tree
+      */
+      let checkboxGongNodeStruct: GongNode = {
+        name: "CheckBox",
+        type: GongNodeType.STRUCT,
+        id: 0,
+        uniqueIdPerStack: 13 * nonInstanceNodeId,
+        structName: "CheckBox",
+        associationField: "",
+        associatedStructName: "",
+        children: new Array<GongNode>()
+      }
+      nonInstanceNodeId = nonInstanceNodeId + 1
+      this.gongNodeTree.push(checkboxGongNodeStruct)
+
+      this.frontRepo.CheckBoxs_array.sort((t1, t2) => {
+        if (t1.Name > t2.Name) {
+          return 1;
+        }
+        if (t1.Name < t2.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      this.frontRepo.CheckBoxs_array.forEach(
+        checkboxDB => {
+          let checkboxGongNodeInstance: GongNode = {
+            name: checkboxDB.Name,
+            type: GongNodeType.INSTANCE,
+            id: checkboxDB.ID,
+            uniqueIdPerStack: getCheckBoxUniqueID(checkboxDB.ID),
+            structName: "CheckBox",
+            associationField: "",
+            associatedStructName: "",
+            children: new Array<GongNode>()
+          }
+          checkboxGongNodeStruct.children!.push(checkboxGongNodeInstance)
+
+          // insertion point for per field code
+        }
+      )
+
+      /**
       * fill up the DisplayedColumn part of the mat tree
       */
       let displayedcolumnGongNodeStruct: GongNode = {
@@ -978,6 +1022,38 @@ export class SidebarComponent implements OnInit {
               children: new Array<GongNode>()
             }
             FormFieldsGongNodeAssociation.children.push(formfieldNode)
+          })
+
+          /**
+          * let append a node for the slide of pointer CheckBoxs
+          */
+          let CheckBoxsGongNodeAssociation: GongNode = {
+            name: "(CheckBox) CheckBoxs",
+            type: GongNodeType.ONE__ZERO_MANY_ASSOCIATION,
+            id: formdivDB.ID,
+            uniqueIdPerStack: 19 * nonInstanceNodeId,
+            structName: "FormDiv",
+            associationField: "CheckBoxs",
+            associatedStructName: "CheckBox",
+            children: new Array<GongNode>()
+          }
+          nonInstanceNodeId = nonInstanceNodeId + 1
+          formdivGongNodeInstance.children.push(CheckBoxsGongNodeAssociation)
+
+          formdivDB.CheckBoxs?.forEach(checkboxDB => {
+            let checkboxNode: GongNode = {
+              name: checkboxDB.Name,
+              type: GongNodeType.INSTANCE,
+              id: checkboxDB.ID,
+              uniqueIdPerStack: // godel numbering (thank you kurt)
+                7 * getFormDivUniqueID(formdivDB.ID)
+                + 11 * getCheckBoxUniqueID(checkboxDB.ID),
+              structName: "CheckBox",
+              associationField: "",
+              associatedStructName: "",
+              children: new Array<GongNode>()
+            }
+            CheckBoxsGongNodeAssociation.children.push(checkboxNode)
           })
 
         }
@@ -1130,41 +1206,6 @@ export class SidebarComponent implements OnInit {
           }
 
           /**
-          * let append a node for the association FormFieldBool
-          */
-          let FormFieldBoolGongNodeAssociation: GongNode = {
-            name: "(FormFieldBoolean) FormFieldBool",
-            type: GongNodeType.ONE__ZERO_ONE_ASSOCIATION,
-            id: formfieldDB.ID,
-            uniqueIdPerStack: 17 * nonInstanceNodeId,
-            structName: "FormField",
-            associationField: "FormFieldBool",
-            associatedStructName: "FormFieldBoolean",
-            children: new Array<GongNode>()
-          }
-          nonInstanceNodeId = nonInstanceNodeId + 1
-          formfieldGongNodeInstance.children!.push(FormFieldBoolGongNodeAssociation)
-
-          /**
-            * let append a node for the instance behind the asssociation FormFieldBool
-            */
-          if (formfieldDB.FormFieldBool != undefined) {
-            let formfieldGongNodeInstance_FormFieldBool: GongNode = {
-              name: formfieldDB.FormFieldBool.Name,
-              type: GongNodeType.INSTANCE,
-              id: formfieldDB.FormFieldBool.ID,
-              uniqueIdPerStack: // godel numbering (thank you kurt)
-                3 * getFormFieldUniqueID(formfieldDB.ID)
-                + 5 * getFormFieldBooleanUniqueID(formfieldDB.FormFieldBool.ID),
-              structName: "FormFieldBoolean",
-              associationField: "",
-              associatedStructName: "",
-              children: new Array<GongNode>()
-            }
-            FormFieldBoolGongNodeAssociation.children.push(formfieldGongNodeInstance_FormFieldBool)
-          }
-
-          /**
           * let append a node for the association FormFieldDate
           */
           let FormFieldDateGongNodeAssociation: GongNode = {
@@ -1269,50 +1310,6 @@ export class SidebarComponent implements OnInit {
             FormFieldDateTimeGongNodeAssociation.children.push(formfieldGongNodeInstance_FormFieldDateTime)
           }
 
-        }
-      )
-
-      /**
-      * fill up the FormFieldBoolean part of the mat tree
-      */
-      let formfieldbooleanGongNodeStruct: GongNode = {
-        name: "FormFieldBoolean",
-        type: GongNodeType.STRUCT,
-        id: 0,
-        uniqueIdPerStack: 13 * nonInstanceNodeId,
-        structName: "FormFieldBoolean",
-        associationField: "",
-        associatedStructName: "",
-        children: new Array<GongNode>()
-      }
-      nonInstanceNodeId = nonInstanceNodeId + 1
-      this.gongNodeTree.push(formfieldbooleanGongNodeStruct)
-
-      this.frontRepo.FormFieldBooleans_array.sort((t1, t2) => {
-        if (t1.Name > t2.Name) {
-          return 1;
-        }
-        if (t1.Name < t2.Name) {
-          return -1;
-        }
-        return 0;
-      });
-
-      this.frontRepo.FormFieldBooleans_array.forEach(
-        formfieldbooleanDB => {
-          let formfieldbooleanGongNodeInstance: GongNode = {
-            name: formfieldbooleanDB.Name,
-            type: GongNodeType.INSTANCE,
-            id: formfieldbooleanDB.ID,
-            uniqueIdPerStack: getFormFieldBooleanUniqueID(formfieldbooleanDB.ID),
-            structName: "FormFieldBoolean",
-            associationField: "",
-            associatedStructName: "",
-            children: new Array<GongNode>()
-          }
-          formfieldbooleanGongNodeStruct.children!.push(formfieldbooleanGongNodeInstance)
-
-          // insertion point for per field code
         }
       )
 

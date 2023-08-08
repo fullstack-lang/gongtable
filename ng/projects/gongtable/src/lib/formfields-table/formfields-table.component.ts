@@ -93,9 +93,6 @@ export class FormFieldsTableComponent implements OnInit {
         case 'FormFieldInt':
           return (formfieldDB.FormFieldInt ? formfieldDB.FormFieldInt.Name : '');
 
-        case 'FormFieldBool':
-          return (formfieldDB.FormFieldBool ? formfieldDB.FormFieldBool.Name : '');
-
         case 'FormFieldDate':
           return (formfieldDB.FormFieldDate ? formfieldDB.FormFieldDate.Name : '');
 
@@ -138,9 +135,6 @@ export class FormFieldsTableComponent implements OnInit {
       }
       if (formfieldDB.FormFieldInt) {
         mergedContent += formfieldDB.FormFieldInt.Name.toLowerCase()
-      }
-      if (formfieldDB.FormFieldBool) {
-        mergedContent += formfieldDB.FormFieldBool.Name.toLowerCase()
       }
       if (formfieldDB.FormFieldDate) {
         mergedContent += formfieldDB.FormFieldDate.Name.toLowerCase()
@@ -216,7 +210,6 @@ export class FormFieldsTableComponent implements OnInit {
         "FormFieldString",
         "FormFieldFloat64",
         "FormFieldInt",
-        "FormFieldBool",
         "FormFieldDate",
         "FormFieldTime",
         "FormFieldDateTime",
@@ -231,7 +224,6 @@ export class FormFieldsTableComponent implements OnInit {
         "FormFieldString",
         "FormFieldFloat64",
         "FormFieldInt",
-        "FormFieldBool",
         "FormFieldDate",
         "FormFieldTime",
         "FormFieldDateTime",

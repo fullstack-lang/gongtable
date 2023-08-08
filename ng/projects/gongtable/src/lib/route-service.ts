@@ -20,6 +20,9 @@ import { CellIntDetailComponent } from './cellint-detail/cellint-detail.componen
 import { CellStringsTableComponent } from './cellstrings-table/cellstrings-table.component'
 import { CellStringDetailComponent } from './cellstring-detail/cellstring-detail.component'
 
+import { CheckBoxsTableComponent } from './checkboxs-table/checkboxs-table.component'
+import { CheckBoxDetailComponent } from './checkbox-detail/checkbox-detail.component'
+
 import { DisplayedColumnsTableComponent } from './displayedcolumns-table/displayedcolumns-table.component'
 import { DisplayedColumnDetailComponent } from './displayedcolumn-detail/displayedcolumn-detail.component'
 
@@ -28,9 +31,6 @@ import { FormDivDetailComponent } from './formdiv-detail/formdiv-detail.componen
 
 import { FormFieldsTableComponent } from './formfields-table/formfields-table.component'
 import { FormFieldDetailComponent } from './formfield-detail/formfield-detail.component'
-
-import { FormFieldBooleansTableComponent } from './formfieldbooleans-table/formfieldbooleans-table.component'
-import { FormFieldBooleanDetailComponent } from './formfieldboolean-detail/formfieldboolean-detail.component'
 
 import { FormFieldDatesTableComponent } from './formfielddates-table/formfielddates-table.component'
 import { FormFieldDateDetailComponent } from './formfielddate-detail/formfielddate-detail.component'
@@ -288,6 +288,39 @@ export class RouteService {
         return route
     }
 
+    getCheckBoxTablePath(): string {
+        return this.getPathRoot() + '-checkboxs/:GONG__StackPath'
+    }
+    getCheckBoxTableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCheckBoxTablePath(), component: CheckBoxsTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getCheckBoxAdderPath(): string {
+        return this.getPathRoot() + '-checkbox-adder/:GONG__StackPath'
+    }
+    getCheckBoxAdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCheckBoxAdderPath(), component: CheckBoxDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getCheckBoxAdderForUsePath(): string {
+        return this.getPathRoot() + '-checkbox-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getCheckBoxAdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCheckBoxAdderForUsePath(), component: CheckBoxDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getCheckBoxDetailPath(): string {
+        return this.getPathRoot() + '-checkbox-detail/:id/:GONG__StackPath'
+    }
+    getCheckBoxDetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getCheckBoxDetailPath(), component: CheckBoxDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
     getDisplayedColumnTablePath(): string {
         return this.getPathRoot() + '-displayedcolumns/:GONG__StackPath'
     }
@@ -384,39 +417,6 @@ export class RouteService {
     getFormFieldDetailRoute(stackPath: string): Route {
         let route: Route =
             { path: this.getFormFieldDetailPath(), component: FormFieldDetailComponent, outlet: this.getEditorOutlet(stackPath) }
-        return route
-    }
-
-    getFormFieldBooleanTablePath(): string {
-        return this.getPathRoot() + '-formfieldbooleans/:GONG__StackPath'
-    }
-    getFormFieldBooleanTableRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormFieldBooleanTablePath(), component: FormFieldBooleansTableComponent, outlet: this.getTableOutlet(stackPath) }
-        return route
-    }
-    getFormFieldBooleanAdderPath(): string {
-        return this.getPathRoot() + '-formfieldboolean-adder/:GONG__StackPath'
-    }
-    getFormFieldBooleanAdderRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormFieldBooleanAdderPath(), component: FormFieldBooleanDetailComponent, outlet: this.getEditorOutlet(stackPath) }
-        return route
-    }
-    getFormFieldBooleanAdderForUsePath(): string {
-        return this.getPathRoot() + '-formfieldboolean-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
-    }
-    getFormFieldBooleanAdderForUseRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormFieldBooleanAdderForUsePath(), component: FormFieldBooleanDetailComponent, outlet: this.getEditorOutlet(stackPath) }
-        return route
-    }
-    getFormFieldBooleanDetailPath(): string {
-        return this.getPathRoot() + '-formfieldboolean-detail/:id/:GONG__StackPath'
-    }
-    getFormFieldBooleanDetailRoute(stackPath: string): Route {
-        let route: Route =
-            { path: this.getFormFieldBooleanDetailPath(), component: FormFieldBooleanDetailComponent, outlet: this.getEditorOutlet(stackPath) }
         return route
     }
 
@@ -753,6 +753,11 @@ export class RouteService {
             this.getCellStringAdderForUseRoute(stackPath),
             this.getCellStringDetailRoute(stackPath),
 
+            this.getCheckBoxTableRoute(stackPath),
+            this.getCheckBoxAdderRoute(stackPath),
+            this.getCheckBoxAdderForUseRoute(stackPath),
+            this.getCheckBoxDetailRoute(stackPath),
+
             this.getDisplayedColumnTableRoute(stackPath),
             this.getDisplayedColumnAdderRoute(stackPath),
             this.getDisplayedColumnAdderForUseRoute(stackPath),
@@ -767,11 +772,6 @@ export class RouteService {
             this.getFormFieldAdderRoute(stackPath),
             this.getFormFieldAdderForUseRoute(stackPath),
             this.getFormFieldDetailRoute(stackPath),
-
-            this.getFormFieldBooleanTableRoute(stackPath),
-            this.getFormFieldBooleanAdderRoute(stackPath),
-            this.getFormFieldBooleanAdderForUseRoute(stackPath),
-            this.getFormFieldBooleanDetailRoute(stackPath),
 
             this.getFormFieldDateTableRoute(stackPath),
             this.getFormFieldDateAdderRoute(stackPath),

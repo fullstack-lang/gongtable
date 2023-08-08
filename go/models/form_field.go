@@ -14,7 +14,6 @@ type FormField struct {
 	FormFieldString  *FormFieldString
 	FormFieldFloat64 *FormFieldFloat64
 	FormFieldInt     *FormFieldInt
-	FormFieldBool    *FormFieldBoolean
 
 	FormFieldDate     *FormFieldDate
 	FormFieldTime     *FormFieldTime
