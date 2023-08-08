@@ -8,6 +8,7 @@
             <input *ngIf="formField.FormFieldTime" type="time" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder" [step]="formField.FormFieldTime.Step">
             <input *ngIf="formField.FormFieldDateTime" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
         </mat-form-field>
+        <mat-checkbox *ngFor="let checkBox of div.CheckBoxs" [formControlName]="checkBox.Name">{{checkBox.Name}}</mat-checkbox>
     </div>
 </form>
 <form *ngIf="myFormSample" [formGroup]="myFormSample" (ngSubmit)="submitForm()">

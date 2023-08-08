@@ -49,6 +49,8 @@ export class MaterialFormComponent implements OnInit {
     private formFieldDateService: gongtable.FormFieldDateService,
     private formFieldTimeService: gongtable.FormFieldTimeService,
     private formFieldDateTimeService: gongtable.FormFieldDateTimeService,
+    private checkBoxService: gongtable.CheckBoxService,
+
   ) {
 
   }
@@ -105,7 +107,7 @@ export class MaterialFormComponent implements OnInit {
           return
         }
 
-        let generatedFormGroupConfig: { [key: string]: [string, any] } = {};
+        let generatedFormGroupConfig: { [key: string]: [any, any] } = {};
 
         if (this.selectedFormGroup.FormDivs == undefined) {
           return
@@ -124,53 +126,57 @@ export class MaterialFormComponent implements OnInit {
         })
 
         for (let formDiv of this.selectedFormGroup.FormDivs) {
-          if (formDiv.FormFields == undefined) {
-            continue
+          if (formDiv.FormFields) {
+            formDiv.FormFields.sort((t1, t2) => {
+              if (t1.FormDiv_FormFieldsDBID_Index && t2.FormDiv_FormFieldsDBID_Index) {
+                if (t1.FormDiv_FormFieldsDBID_Index.Int64 > t2.FormDiv_FormFieldsDBID_Index.Int64) {
+                  return 1;
+                }
+                if (t1.FormDiv_FormFieldsDBID_Index.Int64 < t2.FormDiv_FormFieldsDBID_Index.Int64) {
+                  return -1;
+                }
+              }
+              return 0;
+            })
+
+            for (let formField of formDiv.FormFields) {
+              if (formField.FormFieldString) {
+                generatedFormGroupConfig[formField.Name] = [formField.FormFieldString.Value, Validators.required]
+              }
+              if (formField.FormFieldInt) {
+                generatedFormGroupConfig[formField.Name] = [formField.FormFieldInt.Value.toString(), Validators.required]
+              }
+              if (formField.FormFieldDate) {
+                let displayedString = formField.FormFieldDate.Value.toString().substring(0, 10)
+                generatedFormGroupConfig[formField.Name] = [displayedString, Validators.required]
+              }
+              if (formField.FormFieldDateTime) {
+                let displayedString = formField.FormFieldDateTime.Value.toString()
+                generatedFormGroupConfig[formField.Name] = [displayedString, Validators.required]
+              }
+              if (formField.FormFieldTime) {
+                let timeValue = new Date(formField.FormFieldTime.Value)
+                let hours = timeValue.getUTCHours();
+                let minutes = timeValue.getUTCMinutes();
+                let seconds = timeValue.getUTCSeconds();
+
+                let hoursStr = hours < 10 ? '0' + hours.toString() : hours.toString();
+                let minutesStr = minutes < 10 ? '0' + minutes.toString() : minutes.toString();
+                let secondsStr = seconds < 10 ? '0' + seconds.toString() : seconds.toString();
+
+                const timeStr = `${hoursStr}:${minutesStr}:${secondsStr}`
+
+                generatedFormGroupConfig[formField.Name] = [timeStr, Validators.required]
+              }
+            }
           }
 
-
-          formDiv.FormFields.sort((t1, t2) => {
-            if (t1.FormDiv_FormFieldsDBID_Index && t2.FormDiv_FormFieldsDBID_Index) {
-              if (t1.FormDiv_FormFieldsDBID_Index.Int64 > t2.FormDiv_FormFieldsDBID_Index.Int64) {
-                return 1;
-              }
-              if (t1.FormDiv_FormFieldsDBID_Index.Int64 < t2.FormDiv_FormFieldsDBID_Index.Int64) {
-                return -1;
-              }
-            }
-            return 0;
-          })
-
-          for (let formField of formDiv.FormFields) {
-            if (formField.FormFieldString) {
-              generatedFormGroupConfig[formField.Name] = [formField.FormFieldString.Value, Validators.required]
-            }
-            if (formField.FormFieldInt) {
-              generatedFormGroupConfig[formField.Name] = [formField.FormFieldInt.Value.toString(), Validators.required]
-            }
-            if (formField.FormFieldDate) {
-              let displayedString = formField.FormFieldDate.Value.toString().substring(0, 10)
-              generatedFormGroupConfig[formField.Name] = [displayedString, Validators.required]
-            }
-            if (formField.FormFieldDateTime) {
-              let displayedString = formField.FormFieldDateTime.Value.toString()
-              generatedFormGroupConfig[formField.Name] = [displayedString, Validators.required]
-            }
-            if (formField.FormFieldTime) {
-              let timeValue = new Date(formField.FormFieldTime.Value)
-              let hours = timeValue.getUTCHours();
-              let minutes = timeValue.getUTCMinutes();
-              let seconds = timeValue.getUTCSeconds();
-
-              let hoursStr = hours < 10 ? '0' + hours.toString() : hours.toString();
-              let minutesStr = minutes < 10 ? '0' + minutes.toString() : minutes.toString();
-              let secondsStr = seconds < 10 ? '0' + seconds.toString() : seconds.toString();
-
-              const timeStr = `${hoursStr}:${minutesStr}:${secondsStr}`
-
-              generatedFormGroupConfig[formField.Name] = [timeStr, Validators.required]
+          if (formDiv.CheckBoxs) {
+            for (let checkBox of formDiv.CheckBoxs) {
+              generatedFormGroupConfig[checkBox.Name] = [checkBox.Value, Validators.required]
             }
           }
+
         }
 
         this.generatedForm = this.formBuilder.group(generatedFormGroupConfig)
@@ -215,88 +221,100 @@ export class MaterialFormComponent implements OnInit {
       }
 
       for (let formDiv of this.selectedFormGroup.FormDivs) {
-        if (formDiv.FormFields == undefined) {
-          continue
+        if (formDiv.FormFields) {
+          for (let formField of formDiv.FormFields) {
+            if (formField.FormFieldString) {
+              let formFieldString = formField.FormFieldString
+              let newValue = this.generatedForm.value[formField.Name]
+
+              if (newValue != formFieldString.Value) {
+                formFieldString.Value = newValue
+                this.formFieldStringService.updateFormFieldString(formFieldString, this.DataStack).subscribe(
+                  () => {
+                    console.log("String Form Field updated")
+                  }
+                )
+              }
+            }
+            if (formField.FormFieldInt) {
+              let formFieldInt = formField.FormFieldInt
+              let newValue: number = +this.generatedForm.value[formField.Name]
+
+              if (newValue != formFieldInt.Value) {
+                formFieldInt.Value = newValue
+                this.formFieldIntService.updateFormFieldInt(formFieldInt, this.DataStack).subscribe(
+                  () => {
+                    console.log("Int Form Field updated")
+                  }
+                )
+              }
+            }
+            if (formField.FormFieldDate) {
+              let formFieldDate = formField.FormFieldDate
+
+              let date = moment(this.generatedForm.value[formField.Name])
+              let formattedDate = date.utc().format('YYYY-MM-DDTHH:mm:ss[Z]')
+              let dateObject = moment(formattedDate).toDate()
+
+              console.log(dateObject)
+              console.log(formFieldDate.Value)
+
+              let moment1 = moment(this.generatedForm.value[formField.Name]).startOf('day');
+              let moment2 = moment(formFieldDate.Value).utc().startOf('day');
+
+              console.log(moment1.isSame(moment2, 'day')); // Outputs: true if they are the same day
+
+              if (!moment1.isSame(moment2, 'day')) {
+                formFieldDate.Value = dateObject
+                this.formFieldDateService.updateFormFieldDate(formFieldDate, this.DataStack).subscribe(
+                  () => {
+                    console.log("Date Form Field updated")
+                  }
+                )
+              }
+            }
+            if (formField.FormFieldTime) {
+              let formFieldTime = formField.FormFieldTime
+
+              const [hours, minutes, seconds] = this.generatedForm.value[formField.Name].split(':').map(Number);
+              const date = new Date("1970-01-01")
+              date.setUTCHours(hours, minutes, seconds);
+              // console.log("date for time", date.toUTCString())
+              // console.log("date for backend time", new Date(formFieldTime.Value).toUTCString())
+
+              if (date.getTime() != new Date(formFieldTime.Value).getTime()) {
+                formFieldTime.Value = date
+                this.formFieldTimeService.updateFormFieldTime(formFieldTime, this.DataStack).subscribe(
+                  () => {
+                    console.log("Time Form Field updated")
+                  }
+                )
+              }
+            }
+            if (formField.FormFieldDateTime) {
+              let formFieldDateTime = formField.FormFieldDateTime
+
+              let newValue = this.generatedForm.value[formField.Name]
+
+              if (newValue != formFieldDateTime.Value) {
+                formFieldDateTime.Value = newValue
+                this.formFieldDateTimeService.updateFormFieldDateTime(formFieldDateTime, this.DataStack).subscribe(
+                  () => {
+                    console.log("Date Time Form Field updated")
+                  }
+                )
+              }
+            }
+          }
         }
-        for (let formField of formDiv.FormFields) {
-          if (formField.FormFieldString) {
-            let formFieldString = formField.FormFieldString
-            let newValue = this.generatedForm.value[formField.Name]
-
-            if (newValue != formFieldString.Value) {
-              formFieldString.Value = newValue
-              this.formFieldStringService.updateFormFieldString(formFieldString, this.DataStack).subscribe(
+        if (formDiv.CheckBoxs) {
+          for (let checkBox of formDiv.CheckBoxs) {
+            let newValue = this.generatedForm.value[checkBox.Name] as boolean
+            if (newValue != checkBox.Value) {
+              checkBox.Value = newValue
+              this.checkBoxService.updateCheckBox(checkBox, this.DataStack).subscribe(
                 () => {
-                  console.log("String Form Field updated")
-                }
-              )
-            }
-          }
-          if (formField.FormFieldInt) {
-            let formFieldInt = formField.FormFieldInt
-            let newValue: number = +this.generatedForm.value[formField.Name]
-
-            if (newValue != formFieldInt.Value) {
-              formFieldInt.Value = newValue
-              this.formFieldIntService.updateFormFieldInt(formFieldInt, this.DataStack).subscribe(
-                () => {
-                  console.log("Int Form Field updated")
-                }
-              )
-            }
-          }
-          if (formField.FormFieldDate) {
-            let formFieldDate = formField.FormFieldDate
-
-            let date = moment(this.generatedForm.value[formField.Name])
-            let formattedDate = date.utc().format('YYYY-MM-DDTHH:mm:ss[Z]')
-            let dateObject = moment(formattedDate).toDate()
-
-            console.log(dateObject)
-            console.log(formFieldDate.Value)
-
-            let moment1 = moment(this.generatedForm.value[formField.Name]).startOf('day');
-            let moment2 = moment(formFieldDate.Value).utc().startOf('day');
-
-            console.log(moment1.isSame(moment2, 'day')); // Outputs: true if they are the same day
-
-            if (!moment1.isSame(moment2, 'day')) {
-              formFieldDate.Value = dateObject
-              this.formFieldDateService.updateFormFieldDate(formFieldDate, this.DataStack).subscribe(
-                () => {
-                  console.log("Date Form Field updated")
-                }
-              )
-            }
-          }
-          if (formField.FormFieldTime) {
-            let formFieldTime = formField.FormFieldTime
-
-            const [hours, minutes, seconds] = this.generatedForm.value[formField.Name].split(':').map(Number);
-            const date = new Date("1970-01-01")
-            date.setUTCHours(hours, minutes, seconds);
-            // console.log("date for time", date.toUTCString())
-            // console.log("date for backend time", new Date(formFieldTime.Value).toUTCString())
-
-            if (date.getTime() != new Date(formFieldTime.Value).getTime()) {
-              formFieldTime.Value = date
-              this.formFieldTimeService.updateFormFieldTime(formFieldTime, this.DataStack).subscribe(
-                () => {
-                  console.log("Time Form Field updated")
-                }
-              )
-            }
-          }
-          if (formField.FormFieldDateTime) {
-            let formFieldDateTime = formField.FormFieldDateTime
-
-            let newValue = this.generatedForm.value[formField.Name]
-
-            if (newValue != formFieldDateTime.Value) {
-              formFieldDateTime.Value = newValue
-              this.formFieldDateTimeService.updateFormFieldDateTime(formFieldDateTime, this.DataStack).subscribe(
-                () => {
-                  console.log("Date Time Form Field updated")
+                  console.log("Boolean Field updated")
                 }
               )
             }

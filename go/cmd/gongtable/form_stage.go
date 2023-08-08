@@ -50,13 +50,17 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// Declarations of staged instances of CellString
 
+	// Declarations of staged instances of CheckBox
+	__CheckBox__000000_Boolean := (&models.CheckBox{Name: `Boolean`}).Stage(stage)
+
 	// Declarations of staged instances of DisplayedColumn
 
 	// Declarations of staged instances of FormDiv
 	__FormDiv__000000_Age := (&models.FormDiv{Name: `Age`}).Stage(stage)
-	__FormDiv__000001_Date_Time := (&models.FormDiv{Name: `Date - Time`}).Stage(stage)
-	__FormDiv__000002_DateTime := (&models.FormDiv{Name: `DateTime`}).Stage(stage)
-	__FormDiv__000003_Form_Div_First_Name_Name := (&models.FormDiv{Name: `Form Div First Name  - Name`}).Stage(stage)
+	__FormDiv__000001_CheckBoxs := (&models.FormDiv{Name: `CheckBoxs`}).Stage(stage)
+	__FormDiv__000002_Date_Time := (&models.FormDiv{Name: `Date - Time`}).Stage(stage)
+	__FormDiv__000003_DateTime := (&models.FormDiv{Name: `DateTime`}).Stage(stage)
+	__FormDiv__000004_Form_Div_First_Name_Name := (&models.FormDiv{Name: `Form Div First Name  - Name`}).Stage(stage)
 
 	// Declarations of staged instances of FormField
 	__FormField__000000_Age := (&models.FormField{Name: `Age`}).Stage(stage)
@@ -65,8 +69,6 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000003_FirstName := (&models.FormField{Name: `FirstName`}).Stage(stage)
 	__FormField__000004_LastName := (&models.FormField{Name: `LastName`}).Stage(stage)
 	__FormField__000005_Time := (&models.FormField{Name: `Time`}).Stage(stage)
-
-	// Declarations of staged instances of FormFieldBoolean
 
 	// Declarations of staged instances of FormFieldDate
 	__FormFieldDate__000000_Time := (&models.FormFieldDate{Name: `Time`}).Stage(stage)
@@ -95,17 +97,24 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// Setup of values
 
+	// CheckBox values setup
+	__CheckBox__000000_Boolean.Name = `Boolean`
+	__CheckBox__000000_Boolean.Value = true
+
 	// FormDiv values setup
 	__FormDiv__000000_Age.Name = `Age`
 
 	// FormDiv values setup
-	__FormDiv__000001_Date_Time.Name = `Date - Time`
+	__FormDiv__000001_CheckBoxs.Name = `CheckBoxs`
 
 	// FormDiv values setup
-	__FormDiv__000002_DateTime.Name = `DateTime`
+	__FormDiv__000002_Date_Time.Name = `Date - Time`
 
 	// FormDiv values setup
-	__FormDiv__000003_Form_Div_First_Name_Name.Name = `Form Div First Name  - Name`
+	__FormDiv__000003_DateTime.Name = `DateTime`
+
+	// FormDiv values setup
+	__FormDiv__000004_Form_Div_First_Name_Name.Name = `Form Div First Name  - Name`
 
 	// FormField values setup
 	__FormField__000000_Age.Name = `Age`
@@ -172,21 +181,23 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// Setup of pointers
 	__FormDiv__000000_Age.FormFields = append(__FormDiv__000000_Age.FormFields, __FormField__000000_Age)
-	__FormDiv__000001_Date_Time.FormFields = append(__FormDiv__000001_Date_Time.FormFields, __FormField__000001_Date)
-	__FormDiv__000001_Date_Time.FormFields = append(__FormDiv__000001_Date_Time.FormFields, __FormField__000005_Time)
-	__FormDiv__000002_DateTime.FormFields = append(__FormDiv__000002_DateTime.FormFields, __FormField__000002_DateTime)
-	__FormDiv__000003_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000003_Form_Div_First_Name_Name.FormFields, __FormField__000003_FirstName)
-	__FormDiv__000003_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000003_Form_Div_First_Name_Name.FormFields, __FormField__000004_LastName)
+	__FormDiv__000001_CheckBoxs.CheckBoxs = append(__FormDiv__000001_CheckBoxs.CheckBoxs, __CheckBox__000000_Boolean)
+	__FormDiv__000002_Date_Time.FormFields = append(__FormDiv__000002_Date_Time.FormFields, __FormField__000001_Date)
+	__FormDiv__000002_Date_Time.FormFields = append(__FormDiv__000002_Date_Time.FormFields, __FormField__000005_Time)
+	__FormDiv__000003_DateTime.FormFields = append(__FormDiv__000003_DateTime.FormFields, __FormField__000002_DateTime)
+	__FormDiv__000004_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000004_Form_Div_First_Name_Name.FormFields, __FormField__000003_FirstName)
+	__FormDiv__000004_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000004_Form_Div_First_Name_Name.FormFields, __FormField__000004_LastName)
 	__FormField__000000_Age.FormFieldInt = __FormFieldInt__000000_Age
 	__FormField__000001_Date.FormFieldDate = __FormFieldDate__000000_Time
 	__FormField__000002_DateTime.FormFieldDateTime = __FormFieldDateTime__000000_DateTime
 	__FormField__000003_FirstName.FormFieldString = __FormFieldString__000000_FirstName
 	__FormField__000004_LastName.FormFieldString = __FormFieldString__000001_LastName
 	__FormField__000005_Time.FormFieldTime = __FormFieldTime__000000_Time
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000003_Form_Div_First_Name_Name)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000001_CheckBoxs)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000004_Form_Div_First_Name_Name)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000000_Age)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000001_Date_Time)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000002_DateTime)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000002_Date_Time)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000003_DateTime)
 }
 
 
