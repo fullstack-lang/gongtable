@@ -59,6 +59,7 @@ func NewStackInstance(
 	models.SetOrchestratorOnAfterUpdate[models.FormField](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormFieldBoolean](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormFieldDate](stage)
+	models.SetOrchestratorOnAfterUpdate[models.FormFieldDateTime](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormFieldFloat64](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormFieldInt](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormFieldString](stage)

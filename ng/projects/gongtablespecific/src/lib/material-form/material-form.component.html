@@ -6,6 +6,7 @@
             <input *ngIf="formField.FormFieldInt" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
             <input *ngIf="formField.FormFieldDate" type="date" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
             <input *ngIf="formField.FormFieldTime" type="time" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder" [step]="formField.FormFieldTime.Step">
+            <input *ngIf="formField.FormFieldDateTime" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
         </mat-form-field>
     </div>
 </form>

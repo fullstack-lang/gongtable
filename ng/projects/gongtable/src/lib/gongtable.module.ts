@@ -83,6 +83,10 @@ import { FormFieldDatesTableComponent } from './formfielddates-table/formfieldda
 import { FormFieldDateSortingComponent } from './formfielddate-sorting/formfielddate-sorting.component'
 import { FormFieldDateDetailComponent } from './formfielddate-detail/formfielddate-detail.component'
 
+import { FormFieldDateTimesTableComponent } from './formfielddatetimes-table/formfielddatetimes-table.component'
+import { FormFieldDateTimeSortingComponent } from './formfielddatetime-sorting/formfielddatetime-sorting.component'
+import { FormFieldDateTimeDetailComponent } from './formfielddatetime-detail/formfielddatetime-detail.component'
+
 import { FormFieldFloat64sTableComponent } from './formfieldfloat64s-table/formfieldfloat64s-table.component'
 import { FormFieldFloat64SortingComponent } from './formfieldfloat64-sorting/formfieldfloat64-sorting.component'
 import { FormFieldFloat64DetailComponent } from './formfieldfloat64-detail/formfieldfloat64-detail.component'
@@ -158,6 +162,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormFieldDatesTableComponent,
 		FormFieldDateSortingComponent,
 		FormFieldDateDetailComponent,
+
+		FormFieldDateTimesTableComponent,
+		FormFieldDateTimeSortingComponent,
+		FormFieldDateTimeDetailComponent,
 
 		FormFieldFloat64sTableComponent,
 		FormFieldFloat64SortingComponent,
@@ -269,6 +277,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormFieldDatesTableComponent,
 		FormFieldDateSortingComponent,
 		FormFieldDateDetailComponent,
+
+		FormFieldDateTimesTableComponent,
+		FormFieldDateTimeSortingComponent,
+		FormFieldDateTimeDetailComponent,
 
 		FormFieldFloat64sTableComponent,
 		FormFieldFloat64SortingComponent,

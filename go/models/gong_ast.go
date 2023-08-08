@@ -314,6 +314,7 @@ var __gong__map_FormDiv = make(map[string]*FormDiv)
 var __gong__map_FormField = make(map[string]*FormField)
 var __gong__map_FormFieldBoolean = make(map[string]*FormFieldBoolean)
 var __gong__map_FormFieldDate = make(map[string]*FormFieldDate)
+var __gong__map_FormFieldDateTime = make(map[string]*FormFieldDateTime)
 var __gong__map_FormFieldFloat64 = make(map[string]*FormFieldFloat64)
 var __gong__map_FormFieldInt = make(map[string]*FormFieldInt)
 var __gong__map_FormFieldString = make(map[string]*FormFieldString)
@@ -537,6 +538,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 										instanceFormFieldDate := (&FormFieldDate{Name: instanceName}).Stage(stage)
 										instance = any(instanceFormFieldDate)
 										__gong__map_FormFieldDate[identifier] = instanceFormFieldDate
+									case "FormFieldDateTime":
+										instanceFormFieldDateTime := (&FormFieldDateTime{Name: instanceName}).Stage(stage)
+										instance = any(instanceFormFieldDateTime)
+										__gong__map_FormFieldDateTime[identifier] = instanceFormFieldDateTime
 									case "FormFieldFloat64":
 										instanceFormFieldFloat64 := (&FormFieldFloat64{Name: instanceName}).Stage(stage)
 										instance = any(instanceFormFieldFloat64)
@@ -649,6 +654,14 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 									"2006-01-02 15:04:05.999999999 -0700 MST",
 									date)
 							}
+						case "FormFieldDateTime":
+							switch fieldName {
+							// insertion point for date assign code
+							case "Value":
+								__gong__map_FormFieldDateTime[identifier].Value, _ = time.Parse(
+									"2006-01-02 15:04:05.999999999 -0700 MST",
+									date)
+							}
 						case "FormFieldFloat64":
 							switch fieldName {
 							// insertion point for date assign code
@@ -753,6 +766,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 						// insertion point for slice of pointers assign code
 						}
 					case "FormFieldDate":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						}
+					case "FormFieldDateTime":
 						switch fieldName {
 						// insertion point for slice of pointers assign code
 						}
@@ -975,6 +992,14 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_FormFieldDate[identifier].Name = fielValue
 				}
+			case "FormFieldDateTime":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormFieldDateTime[identifier].Name = fielValue
+				}
 			case "FormFieldFloat64":
 				switch fieldName {
 				// insertion point for field dependant code
@@ -1145,6 +1170,9 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				case "FormFieldTime":
 					targetIdentifier := ident.Name
 					__gong__map_FormField[identifier].FormFieldTime = __gong__map_FormFieldTime[targetIdentifier]
+				case "FormFieldDateTime":
+					targetIdentifier := ident.Name
+					__gong__map_FormField[identifier].FormFieldDateTime = __gong__map_FormFieldDateTime[targetIdentifier]
 				}
 			case "FormFieldBoolean":
 				switch fieldName {
@@ -1158,6 +1186,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					__gong__map_FormFieldBoolean[identifier].Value = fielValue
 				}
 			case "FormFieldDate":
+				switch fieldName {
+				// insertion point for field dependant code
+				}
+			case "FormFieldDateTime":
 				switch fieldName {
 				// insertion point for field dependant code
 				}
@@ -1314,6 +1346,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// insertion point for enum assign code
 					}
 				case "FormFieldDate":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "FormFieldDateTime":
 					switch fieldName {
 					// insertion point for enum assign code
 					}

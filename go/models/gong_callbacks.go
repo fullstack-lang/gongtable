@@ -49,6 +49,10 @@ func AfterCreateFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterFormFieldDateCreateCallback != nil {
 			stage.OnAfterFormFieldDateCreateCallback.OnAfterCreate(stage, target)
 		}
+	case *FormFieldDateTime:
+		if stage.OnAfterFormFieldDateTimeCreateCallback != nil {
+			stage.OnAfterFormFieldDateTimeCreateCallback.OnAfterCreate(stage, target)
+		}
 	case *FormFieldFloat64:
 		if stage.OnAfterFormFieldFloat64CreateCallback != nil {
 			stage.OnAfterFormFieldFloat64CreateCallback.OnAfterCreate(stage, target)
@@ -141,6 +145,11 @@ func AfterUpdateFromFront[Type Gongstruct](stage *StageStruct, old, new *Type) {
 		newTarget := any(new).(*FormFieldDate)
 		if stage.OnAfterFormFieldDateUpdateCallback != nil {
 			stage.OnAfterFormFieldDateUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
+		}
+	case *FormFieldDateTime:
+		newTarget := any(new).(*FormFieldDateTime)
+		if stage.OnAfterFormFieldDateTimeUpdateCallback != nil {
+			stage.OnAfterFormFieldDateTimeUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
 	case *FormFieldFloat64:
 		newTarget := any(new).(*FormFieldFloat64)
@@ -242,6 +251,11 @@ func AfterDeleteFromFront[Type Gongstruct](stage *StageStruct, staged, front *Ty
 			staged := any(staged).(*FormFieldDate)
 			stage.OnAfterFormFieldDateDeleteCallback.OnAfterDelete(stage, staged, front)
 		}
+	case *FormFieldDateTime:
+		if stage.OnAfterFormFieldDateTimeDeleteCallback != nil {
+			staged := any(staged).(*FormFieldDateTime)
+			stage.OnAfterFormFieldDateTimeDeleteCallback.OnAfterDelete(stage, staged, front)
+		}
 	case *FormFieldFloat64:
 		if stage.OnAfterFormFieldFloat64DeleteCallback != nil {
 			staged := any(staged).(*FormFieldFloat64)
@@ -331,6 +345,10 @@ func AfterReadFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterFormFieldDateReadCallback != nil {
 			stage.OnAfterFormFieldDateReadCallback.OnAfterRead(stage, target)
 		}
+	case *FormFieldDateTime:
+		if stage.OnAfterFormFieldDateTimeReadCallback != nil {
+			stage.OnAfterFormFieldDateTimeReadCallback.OnAfterRead(stage, target)
+		}
 	case *FormFieldFloat64:
 		if stage.OnAfterFormFieldFloat64ReadCallback != nil {
 			stage.OnAfterFormFieldFloat64ReadCallback.OnAfterRead(stage, target)
@@ -403,6 +421,9 @@ func SetCallbackAfterUpdateFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *FormFieldDate:
 		stage.OnAfterFormFieldDateUpdateCallback = any(callback).(OnAfterUpdateInterface[FormFieldDate])
 	
+	case *FormFieldDateTime:
+		stage.OnAfterFormFieldDateTimeUpdateCallback = any(callback).(OnAfterUpdateInterface[FormFieldDateTime])
+	
 	case *FormFieldFloat64:
 		stage.OnAfterFormFieldFloat64UpdateCallback = any(callback).(OnAfterUpdateInterface[FormFieldFloat64])
 	
@@ -463,6 +484,9 @@ func SetCallbackAfterCreateFromFront[Type Gongstruct](stage *StageStruct, callba
 	
 	case *FormFieldDate:
 		stage.OnAfterFormFieldDateCreateCallback = any(callback).(OnAfterCreateInterface[FormFieldDate])
+	
+	case *FormFieldDateTime:
+		stage.OnAfterFormFieldDateTimeCreateCallback = any(callback).(OnAfterCreateInterface[FormFieldDateTime])
 	
 	case *FormFieldFloat64:
 		stage.OnAfterFormFieldFloat64CreateCallback = any(callback).(OnAfterCreateInterface[FormFieldFloat64])
@@ -525,6 +549,9 @@ func SetCallbackAfterDeleteFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *FormFieldDate:
 		stage.OnAfterFormFieldDateDeleteCallback = any(callback).(OnAfterDeleteInterface[FormFieldDate])
 	
+	case *FormFieldDateTime:
+		stage.OnAfterFormFieldDateTimeDeleteCallback = any(callback).(OnAfterDeleteInterface[FormFieldDateTime])
+	
 	case *FormFieldFloat64:
 		stage.OnAfterFormFieldFloat64DeleteCallback = any(callback).(OnAfterDeleteInterface[FormFieldFloat64])
 	
@@ -585,6 +612,9 @@ func SetCallbackAfterReadFromFront[Type Gongstruct](stage *StageStruct, callback
 	
 	case *FormFieldDate:
 		stage.OnAfterFormFieldDateReadCallback = any(callback).(OnAfterReadInterface[FormFieldDate])
+	
+	case *FormFieldDateTime:
+		stage.OnAfterFormFieldDateTimeReadCallback = any(callback).(OnAfterReadInterface[FormFieldDateTime])
 	
 	case *FormFieldFloat64:
 		stage.OnAfterFormFieldFloat64ReadCallback = any(callback).(OnAfterReadInterface[FormFieldFloat64])

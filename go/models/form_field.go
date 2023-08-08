@@ -16,6 +16,7 @@ type FormField struct {
 	FormFieldInt     *FormFieldInt
 	FormFieldBool    *FormFieldBoolean
 
-	FormFieldDate *FormFieldDate
-	FormFieldTime *FormFieldTime
+	FormFieldDate     *FormFieldDate
+	FormFieldTime     *FormFieldTime
+	FormFieldDateTime *FormFieldDateTime
 }

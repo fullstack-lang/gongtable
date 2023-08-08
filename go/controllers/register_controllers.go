@@ -118,6 +118,13 @@ func registerControllers(r *gin.Engine) {
 		v1.PUT("/v1/formfielddates/:id", GetController().UpdateFormFieldDate)
 		v1.DELETE("/v1/formfielddates/:id", GetController().DeleteFormFieldDate)
 
+		v1.GET("/v1/formfielddatetimes", GetController().GetFormFieldDateTimes)
+		v1.GET("/v1/formfielddatetimes/:id", GetController().GetFormFieldDateTime)
+		v1.POST("/v1/formfielddatetimes", GetController().PostFormFieldDateTime)
+		v1.PATCH("/v1/formfielddatetimes/:id", GetController().UpdateFormFieldDateTime)
+		v1.PUT("/v1/formfielddatetimes/:id", GetController().UpdateFormFieldDateTime)
+		v1.DELETE("/v1/formfielddatetimes/:id", GetController().DeleteFormFieldDateTime)
+
 		v1.GET("/v1/formfieldfloat64s", GetController().GetFormFieldFloat64s)
 		v1.GET("/v1/formfieldfloat64s/:id", GetController().GetFormFieldFloat64)
 		v1.POST("/v1/formfieldfloat64s", GetController().PostFormFieldFloat64)

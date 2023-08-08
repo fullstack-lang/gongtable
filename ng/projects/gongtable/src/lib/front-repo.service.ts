@@ -37,6 +37,9 @@ import { FormFieldBooleanService } from './formfieldboolean.service'
 import { FormFieldDateDB } from './formfielddate-db'
 import { FormFieldDateService } from './formfielddate.service'
 
+import { FormFieldDateTimeDB } from './formfielddatetime-db'
+import { FormFieldDateTimeService } from './formfielddatetime.service'
+
 import { FormFieldFloat64DB } from './formfieldfloat64-db'
 import { FormFieldFloat64Service } from './formfieldfloat64.service'
 
@@ -94,6 +97,9 @@ export class FrontRepo { // insertion point sub template
   FormFieldDates_array = new Array<FormFieldDateDB>(); // array of repo instances
   FormFieldDates = new Map<number, FormFieldDateDB>(); // map of repo instances
   FormFieldDates_batch = new Map<number, FormFieldDateDB>(); // same but only in last GET (for finding repo instances to delete)
+  FormFieldDateTimes_array = new Array<FormFieldDateTimeDB>(); // array of repo instances
+  FormFieldDateTimes = new Map<number, FormFieldDateTimeDB>(); // map of repo instances
+  FormFieldDateTimes_batch = new Map<number, FormFieldDateTimeDB>(); // same but only in last GET (for finding repo instances to delete)
   FormFieldFloat64s_array = new Array<FormFieldFloat64DB>(); // array of repo instances
   FormFieldFloat64s = new Map<number, FormFieldFloat64DB>(); // map of repo instances
   FormFieldFloat64s_batch = new Map<number, FormFieldFloat64DB>(); // same but only in last GET (for finding repo instances to delete)
@@ -188,6 +194,7 @@ export class FrontRepoService {
     private formfieldService: FormFieldService,
     private formfieldbooleanService: FormFieldBooleanService,
     private formfielddateService: FormFieldDateService,
+    private formfielddatetimeService: FormFieldDateTimeService,
     private formfieldfloat64Service: FormFieldFloat64Service,
     private formfieldintService: FormFieldIntService,
     private formfieldstringService: FormFieldStringService,
@@ -236,6 +243,7 @@ export class FrontRepoService {
     Observable<FormFieldDB[]>,
     Observable<FormFieldBooleanDB[]>,
     Observable<FormFieldDateDB[]>,
+    Observable<FormFieldDateTimeDB[]>,
     Observable<FormFieldFloat64DB[]>,
     Observable<FormFieldIntDB[]>,
     Observable<FormFieldStringDB[]>,
@@ -255,6 +263,7 @@ export class FrontRepoService {
       this.formfieldService.getFormFields(this.GONG__StackPath),
       this.formfieldbooleanService.getFormFieldBooleans(this.GONG__StackPath),
       this.formfielddateService.getFormFieldDates(this.GONG__StackPath),
+      this.formfielddatetimeService.getFormFieldDateTimes(this.GONG__StackPath),
       this.formfieldfloat64Service.getFormFieldFloat64s(this.GONG__StackPath),
       this.formfieldintService.getFormFieldInts(this.GONG__StackPath),
       this.formfieldstringService.getFormFieldStrings(this.GONG__StackPath),
@@ -286,6 +295,7 @@ export class FrontRepoService {
       this.formfieldService.getFormFields(this.GONG__StackPath),
       this.formfieldbooleanService.getFormFieldBooleans(this.GONG__StackPath),
       this.formfielddateService.getFormFieldDates(this.GONG__StackPath),
+      this.formfielddatetimeService.getFormFieldDateTimes(this.GONG__StackPath),
       this.formfieldfloat64Service.getFormFieldFloat64s(this.GONG__StackPath),
       this.formfieldintService.getFormFieldInts(this.GONG__StackPath),
       this.formfieldstringService.getFormFieldStrings(this.GONG__StackPath),
@@ -312,6 +322,7 @@ export class FrontRepoService {
             formfields_,
             formfieldbooleans_,
             formfielddates_,
+            formfielddatetimes_,
             formfieldfloat64s_,
             formfieldints_,
             formfieldstrings_,
@@ -344,6 +355,8 @@ export class FrontRepoService {
             formfieldbooleans = formfieldbooleans_ as FormFieldBooleanDB[]
             var formfielddates: FormFieldDateDB[]
             formfielddates = formfielddates_ as FormFieldDateDB[]
+            var formfielddatetimes: FormFieldDateTimeDB[]
+            formfielddatetimes = formfielddatetimes_ as FormFieldDateTimeDB[]
             var formfieldfloat64s: FormFieldFloat64DB[]
             formfieldfloat64s = formfieldfloat64s_ as FormFieldFloat64DB[]
             var formfieldints: FormFieldIntDB[]
@@ -716,6 +729,39 @@ export class FrontRepoService {
 
             // sort FormFieldDates_array array
             this.frontRepo.FormFieldDates_array.sort((t1, t2) => {
+              if (t1.Name > t2.Name) {
+                return 1;
+              }
+              if (t1.Name < t2.Name) {
+                return -1;
+              }
+              return 0;
+            });
+
+            // init the array
+            this.frontRepo.FormFieldDateTimes_array = formfielddatetimes
+
+            // clear the map that counts FormFieldDateTime in the GET
+            this.frontRepo.FormFieldDateTimes_batch.clear()
+
+            formfielddatetimes.forEach(
+              formfielddatetime => {
+                this.frontRepo.FormFieldDateTimes.set(formfielddatetime.ID, formfielddatetime)
+                this.frontRepo.FormFieldDateTimes_batch.set(formfielddatetime.ID, formfielddatetime)
+              }
+            )
+
+            // clear formfielddatetimes that are absent from the batch
+            this.frontRepo.FormFieldDateTimes.forEach(
+              formfielddatetime => {
+                if (this.frontRepo.FormFieldDateTimes_batch.get(formfielddatetime.ID) == undefined) {
+                  this.frontRepo.FormFieldDateTimes.delete(formfielddatetime.ID)
+                }
+              }
+            )
+
+            // sort FormFieldDateTimes_array array
+            this.frontRepo.FormFieldDateTimes_array.sort((t1, t2) => {
               if (t1.Name > t2.Name) {
                 return 1;
               }
@@ -1135,6 +1181,13 @@ export class FrontRepoService {
                     formfield.FormFieldTime = _formfieldtime
                   }
                 }
+                // insertion point for pointer field FormFieldDateTime redeeming
+                {
+                  let _formfielddatetime = this.frontRepo.FormFieldDateTimes.get(formfield.FormFieldDateTimeID.Int64)
+                  if (_formfielddatetime) {
+                    formfield.FormFieldDateTime = _formfielddatetime
+                  }
+                }
 
                 // insertion point for redeeming ONE-MANY associations
                 // insertion point for slice of pointer field FormDiv.FormFields redeeming
@@ -1161,6 +1214,13 @@ export class FrontRepoService {
             )
             formfielddates.forEach(
               formfielddate => {
+                // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
+
+                // insertion point for redeeming ONE-MANY associations
+              }
+            )
+            formfielddatetimes.forEach(
+              formfielddatetime => {
                 // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
 
                 // insertion point for redeeming ONE-MANY associations
@@ -1788,6 +1848,13 @@ export class FrontRepoService {
                     formfield.FormFieldTime = _formfieldtime
                   }
                 }
+                // insertion point for pointer field FormFieldDateTime redeeming
+                {
+                  let _formfielddatetime = this.frontRepo.FormFieldDateTimes.get(formfield.FormFieldDateTimeID.Int64)
+                  if (_formfielddatetime) {
+                    formfield.FormFieldDateTime = _formfielddatetime
+                  }
+                }
 
                 // insertion point for redeeming ONE-MANY associations
                 // insertion point for slice of pointer field FormDiv.FormFields redeeming
@@ -1913,6 +1980,57 @@ export class FrontRepoService {
               formfielddate => {
                 if (this.frontRepo.FormFieldDates_batch.get(formfielddate.ID) == undefined) {
                   this.frontRepo.FormFieldDates.delete(formfielddate.ID)
+                }
+              }
+            )
+
+            // 
+            // Second Step: redeem pointers between instances (thanks to maps in the First Step)
+            // insertion point sub template 
+
+            // hand over control flow to observer
+            observer.next(this.frontRepo)
+          }
+        )
+      }
+    )
+  }
+
+  // FormFieldDateTimePull performs a GET on FormFieldDateTime of the stack and redeem association pointers 
+  FormFieldDateTimePull(): Observable<FrontRepo> {
+    return new Observable<FrontRepo>(
+      (observer) => {
+        combineLatest([
+          this.formfielddatetimeService.getFormFieldDateTimes(this.GONG__StackPath)
+        ]).subscribe(
+          ([ // insertion point sub template 
+            formfielddatetimes,
+          ]) => {
+            // init the array
+            this.frontRepo.FormFieldDateTimes_array = formfielddatetimes
+
+            // clear the map that counts FormFieldDateTime in the GET
+            this.frontRepo.FormFieldDateTimes_batch.clear()
+
+            // 
+            // First Step: init map of instances
+            // insertion point sub template 
+            formfielddatetimes.forEach(
+              formfielddatetime => {
+                this.frontRepo.FormFieldDateTimes.set(formfielddatetime.ID, formfielddatetime)
+                this.frontRepo.FormFieldDateTimes_batch.set(formfielddatetime.ID, formfielddatetime)
+
+                // insertion point for redeeming ONE/ZERO-ONE associations
+
+                // insertion point for redeeming ONE-MANY associations
+              }
+            )
+
+            // clear formfielddatetimes that are absent from the GET
+            this.frontRepo.FormFieldDateTimes.forEach(
+              formfielddatetime => {
+                if (this.frontRepo.FormFieldDateTimes_batch.get(formfielddatetime.ID) == undefined) {
+                  this.frontRepo.FormFieldDateTimes.delete(formfielddatetime.ID)
                 }
               }
             )
@@ -2334,24 +2452,27 @@ export function getFormFieldBooleanUniqueID(id: number): number {
 export function getFormFieldDateUniqueID(id: number): number {
   return 73 * id
 }
-export function getFormFieldFloat64UniqueID(id: number): number {
+export function getFormFieldDateTimeUniqueID(id: number): number {
   return 79 * id
 }
-export function getFormFieldIntUniqueID(id: number): number {
+export function getFormFieldFloat64UniqueID(id: number): number {
   return 83 * id
 }
-export function getFormFieldStringUniqueID(id: number): number {
+export function getFormFieldIntUniqueID(id: number): number {
   return 89 * id
 }
-export function getFormFieldTimeUniqueID(id: number): number {
+export function getFormFieldStringUniqueID(id: number): number {
   return 97 * id
 }
-export function getFormGroupUniqueID(id: number): number {
+export function getFormFieldTimeUniqueID(id: number): number {
   return 101 * id
 }
-export function getRowUniqueID(id: number): number {
+export function getFormGroupUniqueID(id: number): number {
   return 103 * id
 }
-export function getTableUniqueID(id: number): number {
+export function getRowUniqueID(id: number): number {
   return 107 * id
+}
+export function getTableUniqueID(id: number): number {
+  return 109 * id
 }

@@ -38,6 +38,9 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 	case *FormFieldDate:
 		ok = stage.IsStagedFormFieldDate(target)
 
+	case *FormFieldDateTime:
+		ok = stage.IsStagedFormFieldDateTime(target)
+
 	case *FormFieldFloat64:
 		ok = stage.IsStagedFormFieldFloat64(target)
 
@@ -143,6 +146,13 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 		return
 	}
 
+	func (stage *StageStruct) IsStagedFormFieldDateTime(formfielddatetime *FormFieldDateTime) (ok bool) {
+
+		_, ok = stage.FormFieldDateTimes[formfielddatetime]
+	
+		return
+	}
+
 	func (stage *StageStruct) IsStagedFormFieldFloat64(formfieldfloat64 *FormFieldFloat64) (ok bool) {
 
 		_, ok = stage.FormFieldFloat64s[formfieldfloat64]
@@ -233,6 +243,9 @@ func StageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 
 	case *FormFieldDate:
 		stage.StageBranchFormFieldDate(target)
+
+	case *FormFieldDateTime:
+		stage.StageBranchFormFieldDateTime(target)
 
 	case *FormFieldFloat64:
 		stage.StageBranchFormFieldFloat64(target)
@@ -427,6 +440,9 @@ func (stage *StageStruct) StageBranchFormField(formfield *FormField) {
 	if formfield.FormFieldTime != nil {
 		StageBranch(stage, formfield.FormFieldTime)
 	}
+	if formfield.FormFieldDateTime != nil {
+		StageBranch(stage, formfield.FormFieldDateTime)
+	}
 
 	//insertion point for the staging of instances referenced by slice of pointers
 
@@ -455,6 +471,21 @@ func (stage *StageStruct) StageBranchFormFieldDate(formfielddate *FormFieldDate)
 	}
 
 	formfielddate.Stage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
+
+}
+
+func (stage *StageStruct) StageBranchFormFieldDateTime(formfielddatetime *FormFieldDateTime) {
+
+	// check if instance is already staged
+	if IsStaged(stage, formfielddatetime) {
+		return
+	}
+
+	formfielddatetime.Stage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
 
@@ -620,6 +651,9 @@ func UnstageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 
 	case *FormFieldDate:
 		stage.UnstageBranchFormFieldDate(target)
+
+	case *FormFieldDateTime:
+		stage.UnstageBranchFormFieldDateTime(target)
 
 	case *FormFieldFloat64:
 		stage.UnstageBranchFormFieldFloat64(target)
@@ -814,6 +848,9 @@ func (stage *StageStruct) UnstageBranchFormField(formfield *FormField) {
 	if formfield.FormFieldTime != nil {
 		UnstageBranch(stage, formfield.FormFieldTime)
 	}
+	if formfield.FormFieldDateTime != nil {
+		UnstageBranch(stage, formfield.FormFieldDateTime)
+	}
 
 	//insertion point for the staging of instances referenced by slice of pointers
 
@@ -842,6 +879,21 @@ func (stage *StageStruct) UnstageBranchFormFieldDate(formfielddate *FormFieldDat
 	}
 
 	formfielddate.Unstage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
+
+}
+
+func (stage *StageStruct) UnstageBranchFormFieldDateTime(formfielddatetime *FormFieldDateTime) {
+
+	// check if instance is already staged
+	if ! IsStaged(stage, formfielddatetime) {
+		return
+	}
+
+	formfielddatetime.Unstage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
 

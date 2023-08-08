@@ -35,6 +35,9 @@ import { FormFieldBooleanDetailComponent } from './formfieldboolean-detail/formf
 import { FormFieldDatesTableComponent } from './formfielddates-table/formfielddates-table.component'
 import { FormFieldDateDetailComponent } from './formfielddate-detail/formfielddate-detail.component'
 
+import { FormFieldDateTimesTableComponent } from './formfielddatetimes-table/formfielddatetimes-table.component'
+import { FormFieldDateTimeDetailComponent } from './formfielddatetime-detail/formfielddatetime-detail.component'
+
 import { FormFieldFloat64sTableComponent } from './formfieldfloat64s-table/formfieldfloat64s-table.component'
 import { FormFieldFloat64DetailComponent } from './formfieldfloat64-detail/formfieldfloat64-detail.component'
 
@@ -450,6 +453,39 @@ export class RouteService {
         return route
     }
 
+    getFormFieldDateTimeTablePath(): string {
+        return this.getPathRoot() + '-formfielddatetimes/:GONG__StackPath'
+    }
+    getFormFieldDateTimeTableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldDateTimeTablePath(), component: FormFieldDateTimesTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getFormFieldDateTimeAdderPath(): string {
+        return this.getPathRoot() + '-formfielddatetime-adder/:GONG__StackPath'
+    }
+    getFormFieldDateTimeAdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldDateTimeAdderPath(), component: FormFieldDateTimeDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormFieldDateTimeAdderForUsePath(): string {
+        return this.getPathRoot() + '-formfielddatetime-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getFormFieldDateTimeAdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldDateTimeAdderForUsePath(), component: FormFieldDateTimeDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormFieldDateTimeDetailPath(): string {
+        return this.getPathRoot() + '-formfielddatetime-detail/:id/:GONG__StackPath'
+    }
+    getFormFieldDateTimeDetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormFieldDateTimeDetailPath(), component: FormFieldDateTimeDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
     getFormFieldFloat64TablePath(): string {
         return this.getPathRoot() + '-formfieldfloat64s/:GONG__StackPath'
     }
@@ -741,6 +777,11 @@ export class RouteService {
             this.getFormFieldDateAdderRoute(stackPath),
             this.getFormFieldDateAdderForUseRoute(stackPath),
             this.getFormFieldDateDetailRoute(stackPath),
+
+            this.getFormFieldDateTimeTableRoute(stackPath),
+            this.getFormFieldDateTimeAdderRoute(stackPath),
+            this.getFormFieldDateTimeAdderForUseRoute(stackPath),
+            this.getFormFieldDateTimeDetailRoute(stackPath),
 
             this.getFormFieldFloat64TableRoute(stackPath),
             this.getFormFieldFloat64AdderRoute(stackPath),

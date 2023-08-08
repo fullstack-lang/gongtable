@@ -82,6 +82,12 @@ export * from './lib/formfielddates-table/formfielddates-table.component'
 export * from './lib/formfielddate-db'
 export * from './lib/formfielddate.service'
 
+export * from './lib/formfielddatetime-detail/formfielddatetime-detail.component'
+export * from './lib/formfielddatetime-sorting/formfielddatetime-sorting.component'
+export * from './lib/formfielddatetimes-table/formfielddatetimes-table.component'
+export * from './lib/formfielddatetime-db'
+export * from './lib/formfielddatetime.service'
+
 export * from './lib/formfieldfloat64-detail/formfieldfloat64-detail.component'
 export * from './lib/formfieldfloat64-sorting/formfieldfloat64-sorting.component'
 export * from './lib/formfieldfloat64s-table/formfieldfloat64s-table.component'

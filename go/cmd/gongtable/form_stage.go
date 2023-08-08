@@ -55,19 +55,24 @@ func form_stageInjection(stage *models.StageStruct) {
 	// Declarations of staged instances of FormDiv
 	__FormDiv__000000_Age := (&models.FormDiv{Name: `Age`}).Stage(stage)
 	__FormDiv__000001_Date_Time := (&models.FormDiv{Name: `Date - Time`}).Stage(stage)
-	__FormDiv__000002_Form_Div_First_Name_Name := (&models.FormDiv{Name: `Form Div First Name  - Name`}).Stage(stage)
+	__FormDiv__000002_DateTime := (&models.FormDiv{Name: `DateTime`}).Stage(stage)
+	__FormDiv__000003_Form_Div_First_Name_Name := (&models.FormDiv{Name: `Form Div First Name  - Name`}).Stage(stage)
 
 	// Declarations of staged instances of FormField
 	__FormField__000000_Age := (&models.FormField{Name: `Age`}).Stage(stage)
 	__FormField__000001_Date := (&models.FormField{Name: `Date`}).Stage(stage)
-	__FormField__000002_FirstName := (&models.FormField{Name: `FirstName`}).Stage(stage)
-	__FormField__000003_LastName := (&models.FormField{Name: `LastName`}).Stage(stage)
-	__FormField__000004_Time := (&models.FormField{Name: `Time`}).Stage(stage)
+	__FormField__000002_DateTime := (&models.FormField{Name: `DateTime`}).Stage(stage)
+	__FormField__000003_FirstName := (&models.FormField{Name: `FirstName`}).Stage(stage)
+	__FormField__000004_LastName := (&models.FormField{Name: `LastName`}).Stage(stage)
+	__FormField__000005_Time := (&models.FormField{Name: `Time`}).Stage(stage)
 
 	// Declarations of staged instances of FormFieldBoolean
 
 	// Declarations of staged instances of FormFieldDate
 	__FormFieldDate__000000_Time := (&models.FormFieldDate{Name: `Time`}).Stage(stage)
+
+	// Declarations of staged instances of FormFieldDateTime
+	__FormFieldDateTime__000000_DateTime := (&models.FormFieldDateTime{Name: `DateTime`}).Stage(stage)
 
 	// Declarations of staged instances of FormFieldFloat64
 
@@ -97,7 +102,10 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormDiv__000001_Date_Time.Name = `Date - Time`
 
 	// FormDiv values setup
-	__FormDiv__000002_Form_Div_First_Name_Name.Name = `Form Div First Name  - Name`
+	__FormDiv__000002_DateTime.Name = `DateTime`
+
+	// FormDiv values setup
+	__FormDiv__000003_Form_Div_First_Name_Name.Name = `Form Div First Name  - Name`
 
 	// FormField values setup
 	__FormField__000000_Age.Name = `Age`
@@ -112,26 +120,35 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000001_Date.Placeholder = ``
 
 	// FormField values setup
-	__FormField__000002_FirstName.Name = `FirstName`
-	__FormField__000002_FirstName.InputTypeEnum = models.Text
-	__FormField__000002_FirstName.Label = `First Name (label)`
-	__FormField__000002_FirstName.Placeholder = ``
+	__FormField__000002_DateTime.Name = `DateTime`
+	__FormField__000002_DateTime.Label = ``
+	__FormField__000002_DateTime.Placeholder = ``
 
 	// FormField values setup
-	__FormField__000003_LastName.Name = `LastName`
-	__FormField__000003_LastName.InputTypeEnum = models.Text
-	__FormField__000003_LastName.Label = `Last Name (label)`
-	__FormField__000003_LastName.Placeholder = ``
+	__FormField__000003_FirstName.Name = `FirstName`
+	__FormField__000003_FirstName.InputTypeEnum = models.Text
+	__FormField__000003_FirstName.Label = `First Name (label)`
+	__FormField__000003_FirstName.Placeholder = ``
 
 	// FormField values setup
-	__FormField__000004_Time.Name = `Time`
-	__FormField__000004_Time.InputTypeEnum = models.Time
-	__FormField__000004_Time.Label = `Time`
-	__FormField__000004_Time.Placeholder = ``
+	__FormField__000004_LastName.Name = `LastName`
+	__FormField__000004_LastName.InputTypeEnum = models.Text
+	__FormField__000004_LastName.Label = `Last Name (label)`
+	__FormField__000004_LastName.Placeholder = ``
+
+	// FormField values setup
+	__FormField__000005_Time.Name = `Time`
+	__FormField__000005_Time.InputTypeEnum = models.Time
+	__FormField__000005_Time.Label = `Time`
+	__FormField__000005_Time.Placeholder = ``
 
 	// FormFieldDate values setup
 	__FormFieldDate__000000_Time.Name = `Time`
 	__FormFieldDate__000000_Time.Value, _ = time.Parse("2006-01-02 15:04:05.999999999 -0700 MST", "2022-03-02 00:00:00 +0000 UTC")
+
+	// FormFieldDateTime values setup
+	__FormFieldDateTime__000000_DateTime.Name = `DateTime`
+	__FormFieldDateTime__000000_DateTime.Value, _ = time.Parse("2006-01-02 15:04:05.999999999 -0700 MST", "2001-01-01 01:02:03 +0000 UTC")
 
 	// FormFieldInt values setup
 	__FormFieldInt__000000_Age.Name = `Age`
@@ -147,7 +164,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormFieldTime values setup
 	__FormFieldTime__000000_Time.Name = `Time`
-	__FormFieldTime__000000_Time.Value, _ = time.Parse("2006-01-02 15:04:05.999999999 -0700 MST", "1970-01-01 12:03:05 +0000 UTC")
+	__FormFieldTime__000000_Time.Value, _ = time.Parse("2006-01-02 15:04:05.999999999 -0700 MST", "1970-01-01 12:03:06 +0000 UTC")
 	__FormFieldTime__000000_Time.Step = 1.000000
 
 	// FormGroup values setup
@@ -156,17 +173,20 @@ func form_stageInjection(stage *models.StageStruct) {
 	// Setup of pointers
 	__FormDiv__000000_Age.FormFields = append(__FormDiv__000000_Age.FormFields, __FormField__000000_Age)
 	__FormDiv__000001_Date_Time.FormFields = append(__FormDiv__000001_Date_Time.FormFields, __FormField__000001_Date)
-	__FormDiv__000001_Date_Time.FormFields = append(__FormDiv__000001_Date_Time.FormFields, __FormField__000004_Time)
-	__FormDiv__000002_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000002_Form_Div_First_Name_Name.FormFields, __FormField__000002_FirstName)
-	__FormDiv__000002_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000002_Form_Div_First_Name_Name.FormFields, __FormField__000003_LastName)
+	__FormDiv__000001_Date_Time.FormFields = append(__FormDiv__000001_Date_Time.FormFields, __FormField__000005_Time)
+	__FormDiv__000002_DateTime.FormFields = append(__FormDiv__000002_DateTime.FormFields, __FormField__000002_DateTime)
+	__FormDiv__000003_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000003_Form_Div_First_Name_Name.FormFields, __FormField__000003_FirstName)
+	__FormDiv__000003_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000003_Form_Div_First_Name_Name.FormFields, __FormField__000004_LastName)
 	__FormField__000000_Age.FormFieldInt = __FormFieldInt__000000_Age
 	__FormField__000001_Date.FormFieldDate = __FormFieldDate__000000_Time
-	__FormField__000002_FirstName.FormFieldString = __FormFieldString__000000_FirstName
-	__FormField__000003_LastName.FormFieldString = __FormFieldString__000001_LastName
-	__FormField__000004_Time.FormFieldTime = __FormFieldTime__000000_Time
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000002_Form_Div_First_Name_Name)
+	__FormField__000002_DateTime.FormFieldDateTime = __FormFieldDateTime__000000_DateTime
+	__FormField__000003_FirstName.FormFieldString = __FormFieldString__000000_FirstName
+	__FormField__000004_LastName.FormFieldString = __FormFieldString__000001_LastName
+	__FormField__000005_Time.FormFieldTime = __FormFieldTime__000000_Time
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000003_Form_Div_First_Name_Name)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000000_Age)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000001_Date_Time)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000002_DateTime)
 }
 
 

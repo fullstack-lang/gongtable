@@ -48,6 +48,7 @@ export class MaterialFormComponent implements OnInit {
     private formFieldIntService: gongtable.FormFieldIntService,
     private formFieldDateService: gongtable.FormFieldDateService,
     private formFieldTimeService: gongtable.FormFieldTimeService,
+    private formFieldDateTimeService: gongtable.FormFieldDateTimeService,
   ) {
 
   }
@@ -149,6 +150,10 @@ export class MaterialFormComponent implements OnInit {
             }
             if (formField.FormFieldDate) {
               let displayedString = formField.FormFieldDate.Value.toString().substring(0, 10)
+              generatedFormGroupConfig[formField.Name] = [displayedString, Validators.required]
+            }
+            if (formField.FormFieldDateTime) {
+              let displayedString = formField.FormFieldDateTime.Value.toString()
               generatedFormGroupConfig[formField.Name] = [displayedString, Validators.required]
             }
             if (formField.FormFieldTime) {
@@ -270,9 +275,10 @@ export class MaterialFormComponent implements OnInit {
             const [hours, minutes, seconds] = this.generatedForm.value[formField.Name].split(':').map(Number);
             const date = new Date("1970-01-01")
             date.setUTCHours(hours, minutes, seconds);
-            console.log("date for time", date.toUTCString())
+            // console.log("date for time", date.toUTCString())
+            // console.log("date for backend time", new Date(formFieldTime.Value).toUTCString())
 
-            if (date != formFieldTime.Value) {
+            if (date.getTime() != new Date(formFieldTime.Value).getTime()) {
               formFieldTime.Value = date
               this.formFieldTimeService.updateFormFieldTime(formFieldTime, this.DataStack).subscribe(
                 () => {
@@ -280,6 +286,21 @@ export class MaterialFormComponent implements OnInit {
                 }
               )
             }
+          }
+          if (formField.FormFieldDateTime) {
+            let formFieldDateTime = formField.FormFieldDateTime
+
+            let newValue = this.generatedForm.value[formField.Name]
+
+            if (newValue != formFieldDateTime.Value) {
+              formFieldDateTime.Value = newValue
+              this.formFieldDateTimeService.updateFormFieldDateTime(formFieldDateTime, this.DataStack).subscribe(
+                () => {
+                  console.log("Date Time Form Field updated")
+                }
+              )
+            }
+
           }
         }
       }
