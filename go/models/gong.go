@@ -102,6 +102,14 @@ type StageStruct struct { // insertion point for definition of arrays registerin
 	OnAfterFormDivDeleteCallback OnAfterDeleteInterface[FormDiv]
 	OnAfterFormDivReadCallback   OnAfterReadInterface[FormDiv]
 
+	FormEditAssocButtons           map[*FormEditAssocButton]any
+	FormEditAssocButtons_mapString map[string]*FormEditAssocButton
+
+	OnAfterFormEditAssocButtonCreateCallback OnAfterCreateInterface[FormEditAssocButton]
+	OnAfterFormEditAssocButtonUpdateCallback OnAfterUpdateInterface[FormEditAssocButton]
+	OnAfterFormEditAssocButtonDeleteCallback OnAfterDeleteInterface[FormEditAssocButton]
+	OnAfterFormEditAssocButtonReadCallback   OnAfterReadInterface[FormEditAssocButton]
+
 	FormFields           map[*FormField]any
 	FormFields_mapString map[string]*FormField
 
@@ -280,6 +288,8 @@ type BackRepoInterface interface {
 	CheckoutDisplayedColumn(displayedcolumn *DisplayedColumn)
 	CommitFormDiv(formdiv *FormDiv)
 	CheckoutFormDiv(formdiv *FormDiv)
+	CommitFormEditAssocButton(formeditassocbutton *FormEditAssocButton)
+	CheckoutFormEditAssocButton(formeditassocbutton *FormEditAssocButton)
 	CommitFormField(formfield *FormField)
 	CheckoutFormField(formfield *FormField)
 	CommitFormFieldDate(formfielddate *FormFieldDate)
@@ -348,6 +358,9 @@ func NewStage() (stage *StageStruct) {
 
 		FormDivs:           make(map[*FormDiv]any),
 		FormDivs_mapString: make(map[string]*FormDiv),
+
+		FormEditAssocButtons:           make(map[*FormEditAssocButton]any),
+		FormEditAssocButtons_mapString: make(map[string]*FormEditAssocButton),
 
 		FormFields:           make(map[*FormField]any),
 		FormFields_mapString: make(map[string]*FormField),
@@ -419,6 +432,7 @@ func (stage *StageStruct) Commit() {
 	stage.Map_GongStructName_InstancesNb["CheckBox"] = len(stage.CheckBoxs)
 	stage.Map_GongStructName_InstancesNb["DisplayedColumn"] = len(stage.DisplayedColumns)
 	stage.Map_GongStructName_InstancesNb["FormDiv"] = len(stage.FormDivs)
+	stage.Map_GongStructName_InstancesNb["FormEditAssocButton"] = len(stage.FormEditAssocButtons)
 	stage.Map_GongStructName_InstancesNb["FormField"] = len(stage.FormFields)
 	stage.Map_GongStructName_InstancesNb["FormFieldDate"] = len(stage.FormFieldDates)
 	stage.Map_GongStructName_InstancesNb["FormFieldDateTime"] = len(stage.FormFieldDateTimes)
@@ -449,6 +463,7 @@ func (stage *StageStruct) Checkout() {
 	stage.Map_GongStructName_InstancesNb["CheckBox"] = len(stage.CheckBoxs)
 	stage.Map_GongStructName_InstancesNb["DisplayedColumn"] = len(stage.DisplayedColumns)
 	stage.Map_GongStructName_InstancesNb["FormDiv"] = len(stage.FormDivs)
+	stage.Map_GongStructName_InstancesNb["FormEditAssocButton"] = len(stage.FormEditAssocButtons)
 	stage.Map_GongStructName_InstancesNb["FormField"] = len(stage.FormFields)
 	stage.Map_GongStructName_InstancesNb["FormFieldDate"] = len(stage.FormFieldDates)
 	stage.Map_GongStructName_InstancesNb["FormFieldDateTime"] = len(stage.FormFieldDateTimes)
@@ -851,6 +866,46 @@ func (formdiv *FormDiv) Checkout(stage *StageStruct) *FormDiv {
 // for satisfaction of GongStruct interface
 func (formdiv *FormDiv) GetName() (res string) {
 	return formdiv.Name
+}
+
+// Stage puts formeditassocbutton to the model stage
+func (formeditassocbutton *FormEditAssocButton) Stage(stage *StageStruct) *FormEditAssocButton {
+	stage.FormEditAssocButtons[formeditassocbutton] = __member
+	stage.FormEditAssocButtons_mapString[formeditassocbutton.Name] = formeditassocbutton
+
+	return formeditassocbutton
+}
+
+// Unstage removes formeditassocbutton off the model stage
+func (formeditassocbutton *FormEditAssocButton) Unstage(stage *StageStruct) *FormEditAssocButton {
+	delete(stage.FormEditAssocButtons, formeditassocbutton)
+	delete(stage.FormEditAssocButtons_mapString, formeditassocbutton.Name)
+	return formeditassocbutton
+}
+
+// commit formeditassocbutton to the back repo (if it is already staged)
+func (formeditassocbutton *FormEditAssocButton) Commit(stage *StageStruct) *FormEditAssocButton {
+	if _, ok := stage.FormEditAssocButtons[formeditassocbutton]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CommitFormEditAssocButton(formeditassocbutton)
+		}
+	}
+	return formeditassocbutton
+}
+
+// Checkout formeditassocbutton to the back repo (if it is already staged)
+func (formeditassocbutton *FormEditAssocButton) Checkout(stage *StageStruct) *FormEditAssocButton {
+	if _, ok := stage.FormEditAssocButtons[formeditassocbutton]; ok {
+		if stage.BackRepo != nil {
+			stage.BackRepo.CheckoutFormEditAssocButton(formeditassocbutton)
+		}
+	}
+	return formeditassocbutton
+}
+
+// for satisfaction of GongStruct interface
+func (formeditassocbutton *FormEditAssocButton) GetName() (res string) {
+	return formeditassocbutton.Name
 }
 
 // Stage puts formfield to the model stage
@@ -1344,6 +1399,7 @@ type AllModelsStructCreateInterface interface { // insertion point for Callbacks
 	CreateORMCheckBox(CheckBox *CheckBox)
 	CreateORMDisplayedColumn(DisplayedColumn *DisplayedColumn)
 	CreateORMFormDiv(FormDiv *FormDiv)
+	CreateORMFormEditAssocButton(FormEditAssocButton *FormEditAssocButton)
 	CreateORMFormField(FormField *FormField)
 	CreateORMFormFieldDate(FormFieldDate *FormFieldDate)
 	CreateORMFormFieldDateTime(FormFieldDateTime *FormFieldDateTime)
@@ -1368,6 +1424,7 @@ type AllModelsStructDeleteInterface interface { // insertion point for Callbacks
 	DeleteORMCheckBox(CheckBox *CheckBox)
 	DeleteORMDisplayedColumn(DisplayedColumn *DisplayedColumn)
 	DeleteORMFormDiv(FormDiv *FormDiv)
+	DeleteORMFormEditAssocButton(FormEditAssocButton *FormEditAssocButton)
 	DeleteORMFormField(FormField *FormField)
 	DeleteORMFormFieldDate(FormFieldDate *FormFieldDate)
 	DeleteORMFormFieldDateTime(FormFieldDateTime *FormFieldDateTime)
@@ -1409,6 +1466,9 @@ func (stage *StageStruct) Reset() { // insertion point for array reset
 
 	stage.FormDivs = make(map[*FormDiv]any)
 	stage.FormDivs_mapString = make(map[string]*FormDiv)
+
+	stage.FormEditAssocButtons = make(map[*FormEditAssocButton]any)
+	stage.FormEditAssocButtons_mapString = make(map[string]*FormEditAssocButton)
 
 	stage.FormFields = make(map[*FormField]any)
 	stage.FormFields_mapString = make(map[string]*FormField)
@@ -1475,6 +1535,9 @@ func (stage *StageStruct) Nil() { // insertion point for array nil
 
 	stage.FormDivs = nil
 	stage.FormDivs_mapString = nil
+
+	stage.FormEditAssocButtons = nil
+	stage.FormEditAssocButtons_mapString = nil
 
 	stage.FormFields = nil
 	stage.FormFields_mapString = nil
@@ -1551,6 +1614,10 @@ func (stage *StageStruct) Unstage() { // insertion point for array nil
 		formdiv.Unstage(stage)
 	}
 
+	for formeditassocbutton := range stage.FormEditAssocButtons {
+		formeditassocbutton.Unstage(stage)
+	}
+
 	for formfield := range stage.FormFields {
 		formfield.Unstage(stage)
 	}
@@ -1607,7 +1674,7 @@ func (stage *StageStruct) Unstage() { // insertion point for array nil
 // - full refactoring of Gongstruct identifiers / fields
 type Gongstruct interface {
 	// insertion point for generic types
-	Cell | CellBoolean | CellFloat64 | CellIcon | CellInt | CellString | CheckBox | DisplayedColumn | FormDiv | FormField | FormFieldDate | FormFieldDateTime | FormFieldFloat64 | FormFieldInt | FormFieldSelect | FormFieldString | FormFieldTime | FormGroup | Option | Row | Table
+	Cell | CellBoolean | CellFloat64 | CellIcon | CellInt | CellString | CheckBox | DisplayedColumn | FormDiv | FormEditAssocButton | FormField | FormFieldDate | FormFieldDateTime | FormFieldFloat64 | FormFieldInt | FormFieldSelect | FormFieldString | FormFieldTime | FormGroup | Option | Row | Table
 }
 
 // Gongstruct is the type parameter for generated generic function that allows
@@ -1616,7 +1683,7 @@ type Gongstruct interface {
 // - full refactoring of Gongstruct identifiers / fields
 type PointerToGongstruct interface {
 	// insertion point for generic types
-	*Cell | *CellBoolean | *CellFloat64 | *CellIcon | *CellInt | *CellString | *CheckBox | *DisplayedColumn | *FormDiv | *FormField | *FormFieldDate | *FormFieldDateTime | *FormFieldFloat64 | *FormFieldInt | *FormFieldSelect | *FormFieldString | *FormFieldTime | *FormGroup | *Option | *Row | *Table
+	*Cell | *CellBoolean | *CellFloat64 | *CellIcon | *CellInt | *CellString | *CheckBox | *DisplayedColumn | *FormDiv | *FormEditAssocButton | *FormField | *FormFieldDate | *FormFieldDateTime | *FormFieldFloat64 | *FormFieldInt | *FormFieldSelect | *FormFieldString | *FormFieldTime | *FormGroup | *Option | *Row | *Table
 	GetName() string
 }
 
@@ -1632,6 +1699,7 @@ type GongstructSet interface {
 		map[*CheckBox]any |
 		map[*DisplayedColumn]any |
 		map[*FormDiv]any |
+		map[*FormEditAssocButton]any |
 		map[*FormField]any |
 		map[*FormFieldDate]any |
 		map[*FormFieldDateTime]any |
@@ -1659,6 +1727,7 @@ type GongstructMapString interface {
 		map[string]*CheckBox |
 		map[string]*DisplayedColumn |
 		map[string]*FormDiv |
+		map[string]*FormEditAssocButton |
 		map[string]*FormField |
 		map[string]*FormFieldDate |
 		map[string]*FormFieldDateTime |
@@ -1699,6 +1768,8 @@ func GongGetSet[Type GongstructSet](stage *StageStruct) *Type {
 		return any(&stage.DisplayedColumns).(*Type)
 	case map[*FormDiv]any:
 		return any(&stage.FormDivs).(*Type)
+	case map[*FormEditAssocButton]any:
+		return any(&stage.FormEditAssocButtons).(*Type)
 	case map[*FormField]any:
 		return any(&stage.FormFields).(*Type)
 	case map[*FormFieldDate]any:
@@ -1753,6 +1824,8 @@ func GongGetMap[Type GongstructMapString](stage *StageStruct) *Type {
 		return any(&stage.DisplayedColumns_mapString).(*Type)
 	case map[string]*FormDiv:
 		return any(&stage.FormDivs_mapString).(*Type)
+	case map[string]*FormEditAssocButton:
+		return any(&stage.FormEditAssocButtons_mapString).(*Type)
 	case map[string]*FormField:
 		return any(&stage.FormFields_mapString).(*Type)
 	case map[string]*FormFieldDate:
@@ -1807,6 +1880,8 @@ func GetGongstructInstancesSet[Type Gongstruct](stage *StageStruct) *map[*Type]a
 		return any(&stage.DisplayedColumns).(*map[*Type]any)
 	case FormDiv:
 		return any(&stage.FormDivs).(*map[*Type]any)
+	case FormEditAssocButton:
+		return any(&stage.FormEditAssocButtons).(*map[*Type]any)
 	case FormField:
 		return any(&stage.FormFields).(*map[*Type]any)
 	case FormFieldDate:
@@ -1861,6 +1936,8 @@ func GetGongstructInstancesMap[Type Gongstruct](stage *StageStruct) *map[string]
 		return any(&stage.DisplayedColumns_mapString).(*map[string]*Type)
 	case FormDiv:
 		return any(&stage.FormDivs_mapString).(*map[string]*Type)
+	case FormEditAssocButton:
+		return any(&stage.FormEditAssocButtons_mapString).(*map[string]*Type)
 	case FormField:
 		return any(&stage.FormFields_mapString).(*map[string]*Type)
 	case FormFieldDate:
@@ -1948,6 +2025,12 @@ func GetAssociationName[Type Gongstruct]() *Type {
 			FormFields: []*FormField{{Name: "FormFields"}},
 			// field is initialized with an instance of CheckBox with the name of the field
 			CheckBoxs: []*CheckBox{{Name: "CheckBoxs"}},
+			// field is initialized with an instance of FormEditAssocButton with the name of the field
+			FormEditAssocButton: &FormEditAssocButton{Name: "FormEditAssocButton"},
+		}).(*Type)
+	case FormEditAssocButton:
+		return any(&FormEditAssocButton{
+			// Initialisation of associations
 		}).(*Type)
 	case FormField:
 		return any(&FormField{
@@ -2168,6 +2251,28 @@ func GetPointerReverseMap[Start, End Gongstruct](fieldname string, stage *StageS
 		}
 	// reverse maps of direct associations of FormDiv
 	case FormDiv:
+		switch fieldname {
+		// insertion point for per direct association field
+		case "FormEditAssocButton":
+			res := make(map[*FormEditAssocButton][]*FormDiv)
+			for formdiv := range stage.FormDivs {
+				if formdiv.FormEditAssocButton != nil {
+					formeditassocbutton_ := formdiv.FormEditAssocButton
+					var formdivs []*FormDiv
+					_, ok := res[formeditassocbutton_]
+					if ok {
+						formdivs = res[formeditassocbutton_]
+					} else {
+						formdivs = make([]*FormDiv, 0)
+					}
+					formdivs = append(formdivs, formdiv)
+					res[formeditassocbutton_] = formdivs
+				}
+			}
+			return any(res).(map[*End][]*Start)
+		}
+	// reverse maps of direct associations of FormEditAssocButton
+	case FormEditAssocButton:
 		switch fieldname {
 		// insertion point for per direct association field
 		}
@@ -2444,6 +2549,11 @@ func GetSliceOfPointersReverseMap[Start, End Gongstruct](fieldname string, stage
 			}
 			return any(res).(map[*End]*Start)
 		}
+	// reverse maps of direct associations of FormEditAssocButton
+	case FormEditAssocButton:
+		switch fieldname {
+		// insertion point for per direct association field
+		}
 	// reverse maps of direct associations of FormField
 	case FormField:
 		switch fieldname {
@@ -2574,6 +2684,8 @@ func GetGongstructName[Type Gongstruct]() (res string) {
 		res = "DisplayedColumn"
 	case FormDiv:
 		res = "FormDiv"
+	case FormEditAssocButton:
+		res = "FormEditAssocButton"
 	case FormField:
 		res = "FormField"
 	case FormFieldDate:
@@ -2626,7 +2738,9 @@ func GetFields[Type Gongstruct]() (res []string) {
 	case DisplayedColumn:
 		res = []string{"Name"}
 	case FormDiv:
-		res = []string{"Name", "FormFields", "CheckBoxs"}
+		res = []string{"Name", "FormFields", "CheckBoxs", "FormEditAssocButton"}
+	case FormEditAssocButton:
+		res = []string{"Name", "OnEditMode"}
 	case FormField:
 		res = []string{"Name", "InputTypeEnum", "Label", "Placeholder", "FormFieldString", "FormFieldFloat64", "FormFieldInt", "FormFieldDate", "FormFieldTime", "FormFieldDateTime", "FormFieldSelect"}
 	case FormFieldDate:
@@ -2759,6 +2873,18 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 				}
 				res += __instance__.Name
 			}
+		case "FormEditAssocButton":
+			if any(instance).(FormDiv).FormEditAssocButton != nil {
+				res = any(instance).(FormDiv).FormEditAssocButton.Name
+			}
+		}
+	case FormEditAssocButton:
+		switch fieldName {
+		// string value of fields
+		case "Name":
+			res = any(instance).(FormEditAssocButton).Name
+		case "OnEditMode":
+			res = fmt.Sprintf("%t", any(instance).(FormEditAssocButton).OnEditMode)
 		}
 	case FormField:
 		switch fieldName {

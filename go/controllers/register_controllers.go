@@ -104,6 +104,13 @@ func registerControllers(r *gin.Engine) {
 		v1.PUT("/v1/formdivs/:id", GetController().UpdateFormDiv)
 		v1.DELETE("/v1/formdivs/:id", GetController().DeleteFormDiv)
 
+		v1.GET("/v1/formeditassocbuttons", GetController().GetFormEditAssocButtons)
+		v1.GET("/v1/formeditassocbuttons/:id", GetController().GetFormEditAssocButton)
+		v1.POST("/v1/formeditassocbuttons", GetController().PostFormEditAssocButton)
+		v1.PATCH("/v1/formeditassocbuttons/:id", GetController().UpdateFormEditAssocButton)
+		v1.PUT("/v1/formeditassocbuttons/:id", GetController().UpdateFormEditAssocButton)
+		v1.DELETE("/v1/formeditassocbuttons/:id", GetController().DeleteFormEditAssocButton)
+
 		v1.GET("/v1/formfields", GetController().GetFormFields)
 		v1.GET("/v1/formfields/:id", GetController().GetFormField)
 		v1.POST("/v1/formfields", GetController().PostFormField)

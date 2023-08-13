@@ -29,6 +29,8 @@ import { DisplayedColumnService } from '../displayedcolumn.service'
 import { getDisplayedColumnUniqueID } from '../front-repo.service'
 import { FormDivService } from '../formdiv.service'
 import { getFormDivUniqueID } from '../front-repo.service'
+import { FormEditAssocButtonService } from '../formeditassocbutton.service'
+import { getFormEditAssocButtonUniqueID } from '../front-repo.service'
 import { FormFieldService } from '../formfield.service'
 import { getFormFieldUniqueID } from '../front-repo.service'
 import { FormFieldDateService } from '../formfielddate.service'
@@ -207,6 +209,7 @@ export class SidebarComponent implements OnInit {
     private checkboxService: CheckBoxService,
     private displayedcolumnService: DisplayedColumnService,
     private formdivService: FormDivService,
+    private formeditassocbuttonService: FormEditAssocButtonService,
     private formfieldService: FormFieldService,
     private formfielddateService: FormFieldDateService,
     private formfielddatetimeService: FormFieldDateTimeService,
@@ -320,6 +323,14 @@ export class SidebarComponent implements OnInit {
     )
     // observable for changes in structs
     this.formdivService.FormDivServiceChanged.subscribe(
+      message => {
+        if (message == "post" || message == "update" || message == "delete") {
+          this.refresh()
+        }
+      }
+    )
+    // observable for changes in structs
+    this.formeditassocbuttonService.FormEditAssocButtonServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
           this.refresh()
@@ -1078,6 +1089,85 @@ export class SidebarComponent implements OnInit {
             CheckBoxsGongNodeAssociation.children.push(checkboxNode)
           })
 
+          /**
+          * let append a node for the association FormEditAssocButton
+          */
+          let FormEditAssocButtonGongNodeAssociation: GongNode = {
+            name: "(FormEditAssocButton) FormEditAssocButton",
+            type: GongNodeType.ONE__ZERO_ONE_ASSOCIATION,
+            id: formdivDB.ID,
+            uniqueIdPerStack: 17 * nonInstanceNodeId,
+            structName: "FormDiv",
+            associationField: "FormEditAssocButton",
+            associatedStructName: "FormEditAssocButton",
+            children: new Array<GongNode>()
+          }
+          nonInstanceNodeId = nonInstanceNodeId + 1
+          formdivGongNodeInstance.children!.push(FormEditAssocButtonGongNodeAssociation)
+
+          /**
+            * let append a node for the instance behind the asssociation FormEditAssocButton
+            */
+          if (formdivDB.FormEditAssocButton != undefined) {
+            let formdivGongNodeInstance_FormEditAssocButton: GongNode = {
+              name: formdivDB.FormEditAssocButton.Name,
+              type: GongNodeType.INSTANCE,
+              id: formdivDB.FormEditAssocButton.ID,
+              uniqueIdPerStack: // godel numbering (thank you kurt)
+                3 * getFormDivUniqueID(formdivDB.ID)
+                + 5 * getFormEditAssocButtonUniqueID(formdivDB.FormEditAssocButton.ID),
+              structName: "FormEditAssocButton",
+              associationField: "",
+              associatedStructName: "",
+              children: new Array<GongNode>()
+            }
+            FormEditAssocButtonGongNodeAssociation.children.push(formdivGongNodeInstance_FormEditAssocButton)
+          }
+
+        }
+      )
+
+      /**
+      * fill up the FormEditAssocButton part of the mat tree
+      */
+      let formeditassocbuttonGongNodeStruct: GongNode = {
+        name: "FormEditAssocButton",
+        type: GongNodeType.STRUCT,
+        id: 0,
+        uniqueIdPerStack: 13 * nonInstanceNodeId,
+        structName: "FormEditAssocButton",
+        associationField: "",
+        associatedStructName: "",
+        children: new Array<GongNode>()
+      }
+      nonInstanceNodeId = nonInstanceNodeId + 1
+      this.gongNodeTree.push(formeditassocbuttonGongNodeStruct)
+
+      this.frontRepo.FormEditAssocButtons_array.sort((t1, t2) => {
+        if (t1.Name > t2.Name) {
+          return 1;
+        }
+        if (t1.Name < t2.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      this.frontRepo.FormEditAssocButtons_array.forEach(
+        formeditassocbuttonDB => {
+          let formeditassocbuttonGongNodeInstance: GongNode = {
+            name: formeditassocbuttonDB.Name,
+            type: GongNodeType.INSTANCE,
+            id: formeditassocbuttonDB.ID,
+            uniqueIdPerStack: getFormEditAssocButtonUniqueID(formeditassocbuttonDB.ID),
+            structName: "FormEditAssocButton",
+            associationField: "",
+            associatedStructName: "",
+            children: new Array<GongNode>()
+          }
+          formeditassocbuttonGongNodeStruct.children!.push(formeditassocbuttonGongNodeInstance)
+
+          // insertion point for per field code
         }
       )
 

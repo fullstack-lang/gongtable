@@ -46,6 +46,10 @@ type FormDivAPI struct {
 type FormDivPointersEnconding struct {
 	// insertion for pointer fields encoding declaration
 
+	// field FormEditAssocButton is a pointer to another Struct (optional or 0..1)
+	// This field is generated into another field to enable AS ONE association
+	FormEditAssocButtonID sql.NullInt64
+
 	// Implementation of a reverse ID for field FormGroup{}.FormDivs []*FormDiv
 	FormGroup_FormDivsDBID sql.NullInt64
 
@@ -252,6 +256,15 @@ func (backRepoFormDiv *BackRepoFormDivStruct) CommitPhaseTwoInstance(backRepo *B
 			}
 		}
 
+		// commit pointer value formdiv.FormEditAssocButton translates to updating the formdiv.FormEditAssocButtonID
+		formdivDB.FormEditAssocButtonID.Valid = true // allow for a 0 value (nil association)
+		if formdiv.FormEditAssocButton != nil {
+			if FormEditAssocButtonId, ok := backRepo.BackRepoFormEditAssocButton.Map_FormEditAssocButtonPtr_FormEditAssocButtonDBID[formdiv.FormEditAssocButton]; ok {
+				formdivDB.FormEditAssocButtonID.Int64 = int64(FormEditAssocButtonId)
+				formdivDB.FormEditAssocButtonID.Valid = true
+			}
+		}
+
 		query := backRepoFormDiv.db.Save(&formdivDB)
 		if query.Error != nil {
 			return query.Error
@@ -413,6 +426,11 @@ func (backRepoFormDiv *BackRepoFormDivStruct) CheckoutPhaseTwoInstance(backRepo 
 		return checkboxDB_i.FormDiv_CheckBoxsDBID_Index.Int64 < checkboxDB_j.FormDiv_CheckBoxsDBID_Index.Int64
 	})
 
+	// FormEditAssocButton field
+	formdiv.FormEditAssocButton = nil
+	if formdivDB.FormEditAssocButtonID.Int64 != 0 {
+		formdiv.FormEditAssocButton = backRepo.BackRepoFormEditAssocButton.Map_FormEditAssocButtonDBID_FormEditAssocButtonPtr[uint(formdivDB.FormEditAssocButtonID.Int64)]
+	}
 	return
 }
 
@@ -627,6 +645,12 @@ func (backRepoFormDiv *BackRepoFormDivStruct) RestorePhaseTwo() {
 		_ = formdivDB
 
 		// insertion point for reindexing pointers encoding
+		// reindexing FormEditAssocButton field
+		if formdivDB.FormEditAssocButtonID.Int64 != 0 {
+			formdivDB.FormEditAssocButtonID.Int64 = int64(BackRepoFormEditAssocButtonid_atBckpTime_newID[uint(formdivDB.FormEditAssocButtonID.Int64)])
+			formdivDB.FormEditAssocButtonID.Valid = true
+		}
+
 		// This reindex formdiv.FormDivs
 		if formdivDB.FormGroup_FormDivsDBID.Int64 != 0 {
 			formdivDB.FormGroup_FormDivsDBID.Int64 =

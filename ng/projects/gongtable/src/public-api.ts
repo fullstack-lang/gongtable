@@ -70,6 +70,12 @@ export * from './lib/formdivs-table/formdivs-table.component'
 export * from './lib/formdiv-db'
 export * from './lib/formdiv.service'
 
+export * from './lib/formeditassocbutton-detail/formeditassocbutton-detail.component'
+export * from './lib/formeditassocbutton-sorting/formeditassocbutton-sorting.component'
+export * from './lib/formeditassocbuttons-table/formeditassocbuttons-table.component'
+export * from './lib/formeditassocbutton-db'
+export * from './lib/formeditassocbutton.service'
+
 export * from './lib/formfield-detail/formfield-detail.component'
 export * from './lib/formfield-sorting/formfield-sorting.component'
 export * from './lib/formfields-table/formfields-table.component'

@@ -17,6 +17,8 @@
   import { DisplayedColumnSortingComponent } from './displayedcolumn-sorting/displayedcolumn-sorting.component'
   import { FormDivsTableComponent } from './formdivs-table/formdivs-table.component'
   import { FormDivSortingComponent } from './formdiv-sorting/formdiv-sorting.component'
+  import { FormEditAssocButtonsTableComponent } from './formeditassocbuttons-table/formeditassocbuttons-table.component'
+  import { FormEditAssocButtonSortingComponent } from './formeditassocbutton-sorting/formeditassocbutton-sorting.component'
   import { FormFieldsTableComponent } from './formfields-table/formfields-table.component'
   import { FormFieldSortingComponent } from './formfield-sorting/formfield-sorting.component'
   import { FormFieldDatesTableComponent } from './formfielddates-table/formfielddates-table.component'
@@ -61,6 +63,8 @@
   export const MapOfDisplayedColumnSortingComponents: Map<string, any> = new Map([["DisplayedColumnSortingComponent", DisplayedColumnSortingComponent],])
   export const MapOfFormDivsComponents: Map<string, any> = new Map([["FormDivsTableComponent", FormDivsTableComponent],])
   export const MapOfFormDivSortingComponents: Map<string, any> = new Map([["FormDivSortingComponent", FormDivSortingComponent],])
+  export const MapOfFormEditAssocButtonsComponents: Map<string, any> = new Map([["FormEditAssocButtonsTableComponent", FormEditAssocButtonsTableComponent],])
+  export const MapOfFormEditAssocButtonSortingComponents: Map<string, any> = new Map([["FormEditAssocButtonSortingComponent", FormEditAssocButtonSortingComponent],])
   export const MapOfFormFieldsComponents: Map<string, any> = new Map([["FormFieldsTableComponent", FormFieldsTableComponent],])
   export const MapOfFormFieldSortingComponents: Map<string, any> = new Map([["FormFieldSortingComponent", FormFieldSortingComponent],])
   export const MapOfFormFieldDatesComponents: Map<string, any> = new Map([["FormFieldDatesTableComponent", FormFieldDatesTableComponent],])
@@ -100,6 +104,7 @@ export const MapOfComponents: Map<string, any> =
       ["CheckBox", MapOfCheckBoxsComponents],
       ["DisplayedColumn", MapOfDisplayedColumnsComponents],
       ["FormDiv", MapOfFormDivsComponents],
+      ["FormEditAssocButton", MapOfFormEditAssocButtonsComponents],
       ["FormField", MapOfFormFieldsComponents],
       ["FormFieldDate", MapOfFormFieldDatesComponents],
       ["FormFieldDateTime", MapOfFormFieldDateTimesComponents],
@@ -129,6 +134,7 @@ export const MapOfSortingComponents: Map<string, any> =
       ["CheckBox", MapOfCheckBoxSortingComponents],
       ["DisplayedColumn", MapOfDisplayedColumnSortingComponents],
       ["FormDiv", MapOfFormDivSortingComponents],
+      ["FormEditAssocButton", MapOfFormEditAssocButtonSortingComponents],
       ["FormField", MapOfFormFieldSortingComponents],
       ["FormFieldDate", MapOfFormFieldDateSortingComponents],
       ["FormFieldDateTime", MapOfFormFieldDateTimeSortingComponents],

@@ -75,6 +75,10 @@ import { FormDivsTableComponent } from './formdivs-table/formdivs-table.componen
 import { FormDivSortingComponent } from './formdiv-sorting/formdiv-sorting.component'
 import { FormDivDetailComponent } from './formdiv-detail/formdiv-detail.component'
 
+import { FormEditAssocButtonsTableComponent } from './formeditassocbuttons-table/formeditassocbuttons-table.component'
+import { FormEditAssocButtonSortingComponent } from './formeditassocbutton-sorting/formeditassocbutton-sorting.component'
+import { FormEditAssocButtonDetailComponent } from './formeditassocbutton-detail/formeditassocbutton-detail.component'
+
 import { FormFieldsTableComponent } from './formfields-table/formfields-table.component'
 import { FormFieldSortingComponent } from './formfield-sorting/formfield-sorting.component'
 import { FormFieldDetailComponent } from './formfield-detail/formfield-detail.component'
@@ -162,6 +166,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormDivsTableComponent,
 		FormDivSortingComponent,
 		FormDivDetailComponent,
+
+		FormEditAssocButtonsTableComponent,
+		FormEditAssocButtonSortingComponent,
+		FormEditAssocButtonDetailComponent,
 
 		FormFieldsTableComponent,
 		FormFieldSortingComponent,
@@ -285,6 +293,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormDivsTableComponent,
 		FormDivSortingComponent,
 		FormDivDetailComponent,
+
+		FormEditAssocButtonsTableComponent,
+		FormEditAssocButtonSortingComponent,
+		FormEditAssocButtonDetailComponent,
 
 		FormFieldsTableComponent,
 		FormFieldSortingComponent,

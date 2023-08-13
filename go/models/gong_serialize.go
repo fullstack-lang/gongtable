@@ -22,6 +22,7 @@ func SerializeStage(stage *StageStruct, filename string) {
 		SerializeExcelize[CheckBox](stage, f)
 		SerializeExcelize[DisplayedColumn](stage, f)
 		SerializeExcelize[FormDiv](stage, f)
+		SerializeExcelize[FormEditAssocButton](stage, f)
 		SerializeExcelize[FormField](stage, f)
 		SerializeExcelize[FormFieldDate](stage, f)
 		SerializeExcelize[FormFieldDateTime](stage, f)

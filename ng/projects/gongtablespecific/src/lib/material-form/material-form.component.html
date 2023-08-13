@@ -1,6 +1,6 @@
 <form *ngIf="generatedForm" [formGroup]="generatedForm" (ngSubmit)="submitForm()">
     <div *ngFor="let div of this.selectedFormGroup?.FormDivs">
-        <mat-form-field *ngFor="let formField of div.FormFields">
+        <mat-form-field class="custom-form-field" *ngFor="let formField of div.FormFields">
             <mat-label>{{formField.Label}}</mat-label>
             <input *ngIf="formField.FormFieldString" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
             <input *ngIf="formField.FormFieldInt" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
@@ -13,7 +13,8 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-checkbox *ngFor="let checkBox of div.CheckBoxs" [formControlName]="checkBox.Name">{{checkBox.Name}}</mat-checkbox>
+        <mat-checkbox class="custom-checkbox" *ngFor="let checkBox of div.CheckBoxs" [formControlName]="checkBox.Name">{{checkBox.Name}}</mat-checkbox>
+        <button *ngIf="div.FormEditAssocButton" mat-raised-button class="custom-button">{{div.FormEditAssocButton.Name}}</button>
     </div>
     <button mat-raised-button color="primary" type="submit">Submit</button>
 </form>

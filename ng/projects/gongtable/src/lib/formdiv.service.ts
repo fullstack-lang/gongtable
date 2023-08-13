@@ -14,6 +14,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { FormDivDB } from './formdiv-db';
 
 // insertion point for imports
+import { FormEditAssocButtonDB } from './formeditassocbutton-db'
 import { FormGroupDB } from './formgroup-db'
 
 @Injectable({
@@ -73,6 +74,7 @@ export class FormDivService {
     // insertion point for reset of pointers and reverse pointers (to avoid circular JSON)
     formdivdb.FormFields = []
     formdivdb.CheckBoxs = []
+    formdivdb.FormEditAssocButton = new FormEditAssocButtonDB
     let _FormGroup_FormDivs_reverse = formdivdb.FormGroup_FormDivs_reverse
     formdivdb.FormGroup_FormDivs_reverse = new FormGroupDB
 
@@ -117,6 +119,7 @@ export class FormDivService {
     // insertion point for reset of pointers and reverse pointers (to avoid circular JSON)
     formdivdb.FormFields = []
     formdivdb.CheckBoxs = []
+    formdivdb.FormEditAssocButton = new FormEditAssocButtonDB
     let _FormGroup_FormDivs_reverse = formdivdb.FormGroup_FormDivs_reverse
     formdivdb.FormGroup_FormDivs_reverse = new FormGroupDB
 

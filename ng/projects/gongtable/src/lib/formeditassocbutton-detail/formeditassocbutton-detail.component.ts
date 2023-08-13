@@ -2,15 +2,14 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 
-import { FormDivDB } from '../formdiv-db'
-import { FormDivService } from '../formdiv.service'
+import { FormEditAssocButtonDB } from '../formeditassocbutton-db'
+import { FormEditAssocButtonService } from '../formeditassocbutton.service'
 
 import { FrontRepoService, FrontRepo, SelectionMode, DialogData } from '../front-repo.service'
 import { MapOfComponents } from '../map-components'
 import { MapOfSortingComponents } from '../map-components'
 
 // insertion point for imports
-import { FormGroupDB } from '../formgroup-db'
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -18,26 +17,26 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angu
 
 import { NullInt64 } from '../null-int64'
 
-// FormDivDetailComponent is initilizaed from different routes
-// FormDivDetailComponentState detail different cases 
-enum FormDivDetailComponentState {
+// FormEditAssocButtonDetailComponent is initilizaed from different routes
+// FormEditAssocButtonDetailComponentState detail different cases 
+enum FormEditAssocButtonDetailComponentState {
 	CREATE_INSTANCE,
 	UPDATE_INSTANCE,
 	// insertion point for declarations of enum values of state
-	CREATE_INSTANCE_WITH_ASSOCIATION_FormGroup_FormDivs_SET,
 }
 
 @Component({
-	selector: 'app-formdiv-detail',
-	templateUrl: './formdiv-detail.component.html',
-	styleUrls: ['./formdiv-detail.component.css'],
+	selector: 'app-formeditassocbutton-detail',
+	templateUrl: './formeditassocbutton-detail.component.html',
+	styleUrls: ['./formeditassocbutton-detail.component.css'],
 })
-export class FormDivDetailComponent implements OnInit {
+export class FormEditAssocButtonDetailComponent implements OnInit {
 
 	// insertion point for declarations
+	OnEditModeFormControl: UntypedFormControl = new UntypedFormControl(false);
 
-	// the FormDivDB of interest
-	formdiv: FormDivDB = new FormDivDB
+	// the FormEditAssocButtonDB of interest
+	formeditassocbutton: FormEditAssocButtonDB = new FormEditAssocButtonDB
 
 	// front repo
 	frontRepo: FrontRepo = new FrontRepo
@@ -48,7 +47,7 @@ export class FormDivDetailComponent implements OnInit {
 	mapFields_displayAsTextArea = new Map<string, boolean>()
 
 	// the state at initialization (CREATION, UPDATE or CREATE with one association set)
-	state: FormDivDetailComponentState = FormDivDetailComponentState.CREATE_INSTANCE
+	state: FormEditAssocButtonDetailComponentState = FormEditAssocButtonDetailComponentState.CREATE_INSTANCE
 
 	// in UDPATE state, if is the id of the instance to update
 	// in CREATE state with one association set, this is the id of the associated instance
@@ -61,7 +60,7 @@ export class FormDivDetailComponent implements OnInit {
 	GONG__StackPath: string = ""
 
 	constructor(
-		private formdivService: FormDivService,
+		private formeditassocbuttonService: FormEditAssocButtonService,
 		private frontRepoService: FrontRepoService,
 		public dialog: MatDialog,
 		private activatedRoute: ActivatedRoute,
@@ -87,30 +86,26 @@ export class FormDivDetailComponent implements OnInit {
 
 		const association = this.activatedRoute.snapshot.paramMap.get('association');
 		if (this.id == 0) {
-			this.state = FormDivDetailComponentState.CREATE_INSTANCE
+			this.state = FormEditAssocButtonDetailComponentState.CREATE_INSTANCE
 		} else {
 			if (this.originStruct == undefined) {
-				this.state = FormDivDetailComponentState.UPDATE_INSTANCE
+				this.state = FormEditAssocButtonDetailComponentState.UPDATE_INSTANCE
 			} else {
 				switch (this.originStructFieldName) {
 					// insertion point for state computation
-					case "FormDivs":
-						// console.log("FormDiv" + " is instanciated with back pointer to instance " + this.id + " FormGroup association FormDivs")
-						this.state = FormDivDetailComponentState.CREATE_INSTANCE_WITH_ASSOCIATION_FormGroup_FormDivs_SET
-						break;
 					default:
 						console.log(this.originStructFieldName + " is unkown association")
 				}
 			}
 		}
 
-		this.getFormDiv()
+		this.getFormEditAssocButton()
 
 		// observable for changes in structs
-		this.formdivService.FormDivServiceChanged.subscribe(
+		this.formeditassocbuttonService.FormEditAssocButtonServiceChanged.subscribe(
 			message => {
 				if (message == "post" || message == "update" || message == "delete") {
-					this.getFormDiv()
+					this.getFormEditAssocButton()
 				}
 			}
 		)
@@ -118,31 +113,28 @@ export class FormDivDetailComponent implements OnInit {
 		// insertion point for initialisation of enums list
 	}
 
-	getFormDiv(): void {
+	getFormEditAssocButton(): void {
 
 		this.frontRepoService.pull(this.GONG__StackPath).subscribe(
 			frontRepo => {
 				this.frontRepo = frontRepo
 
 				switch (this.state) {
-					case FormDivDetailComponentState.CREATE_INSTANCE:
-						this.formdiv = new (FormDivDB)
+					case FormEditAssocButtonDetailComponentState.CREATE_INSTANCE:
+						this.formeditassocbutton = new (FormEditAssocButtonDB)
 						break;
-					case FormDivDetailComponentState.UPDATE_INSTANCE:
-						let formdiv = frontRepo.FormDivs.get(this.id)
-						console.assert(formdiv != undefined, "missing formdiv with id:" + this.id)
-						this.formdiv = formdiv!
+					case FormEditAssocButtonDetailComponentState.UPDATE_INSTANCE:
+						let formeditassocbutton = frontRepo.FormEditAssocButtons.get(this.id)
+						console.assert(formeditassocbutton != undefined, "missing formeditassocbutton with id:" + this.id)
+						this.formeditassocbutton = formeditassocbutton!
 						break;
 					// insertion point for init of association field
-					case FormDivDetailComponentState.CREATE_INSTANCE_WITH_ASSOCIATION_FormGroup_FormDivs_SET:
-						this.formdiv = new (FormDivDB)
-						this.formdiv.FormGroup_FormDivs_reverse = frontRepo.FormGroups.get(this.id)!
-						break;
 					default:
 						console.log(this.state + " is unkown state")
 				}
 
 				// insertion point for recovery of form controls value for bool fields
+				this.OnEditModeFormControl.setValue(this.formeditassocbutton.OnEditMode)
 			}
 		)
 
@@ -155,44 +147,23 @@ export class FormDivDetailComponent implements OnInit {
 		// pointers fields, after the translation, are nulled in order to perform serialization
 
 		// insertion point for translation/nullation of each field
-		if (this.formdiv.FormEditAssocButtonID == undefined) {
-			this.formdiv.FormEditAssocButtonID = new NullInt64
-		}
-		if (this.formdiv.FormEditAssocButton != undefined) {
-			this.formdiv.FormEditAssocButtonID.Int64 = this.formdiv.FormEditAssocButton.ID
-			this.formdiv.FormEditAssocButtonID.Valid = true
-		} else {
-			this.formdiv.FormEditAssocButtonID.Int64 = 0
-			this.formdiv.FormEditAssocButtonID.Valid = true
-		}
+		this.formeditassocbutton.OnEditMode = this.OnEditModeFormControl.value
 
 		// save from the front pointer space to the non pointer space for serialization
 
 		// insertion point for translation/nullation of each pointers
-		if (this.formdiv.FormGroup_FormDivs_reverse != undefined) {
-			if (this.formdiv.FormGroup_FormDivsDBID == undefined) {
-				this.formdiv.FormGroup_FormDivsDBID = new NullInt64
-			}
-			this.formdiv.FormGroup_FormDivsDBID.Int64 = this.formdiv.FormGroup_FormDivs_reverse.ID
-			this.formdiv.FormGroup_FormDivsDBID.Valid = true
-			if (this.formdiv.FormGroup_FormDivsDBID_Index == undefined) {
-				this.formdiv.FormGroup_FormDivsDBID_Index = new NullInt64
-			}
-			this.formdiv.FormGroup_FormDivsDBID_Index.Valid = true
-			this.formdiv.FormGroup_FormDivs_reverse = new FormGroupDB // very important, otherwise, circular JSON
-		}
 
 		switch (this.state) {
-			case FormDivDetailComponentState.UPDATE_INSTANCE:
-				this.formdivService.updateFormDiv(this.formdiv, this.GONG__StackPath)
-					.subscribe(formdiv => {
-						this.formdivService.FormDivServiceChanged.next("update")
+			case FormEditAssocButtonDetailComponentState.UPDATE_INSTANCE:
+				this.formeditassocbuttonService.updateFormEditAssocButton(this.formeditassocbutton, this.GONG__StackPath)
+					.subscribe(formeditassocbutton => {
+						this.formeditassocbuttonService.FormEditAssocButtonServiceChanged.next("update")
 					});
 				break;
 			default:
-				this.formdivService.postFormDiv(this.formdiv, this.GONG__StackPath).subscribe(formdiv => {
-					this.formdivService.FormDivServiceChanged.next("post")
-					this.formdiv = new (FormDivDB) // reset fields
+				this.formeditassocbuttonService.postFormEditAssocButton(this.formeditassocbutton, this.GONG__StackPath).subscribe(formeditassocbutton => {
+					this.formeditassocbuttonService.FormEditAssocButtonServiceChanged.next("post")
+					this.formeditassocbutton = new (FormEditAssocButtonDB) // reset fields
 				});
 		}
 	}
@@ -215,7 +186,7 @@ export class FormDivDetailComponent implements OnInit {
 		dialogConfig.height = "50%"
 		if (selectionMode == SelectionMode.ONE_MANY_ASSOCIATION_MODE) {
 
-			dialogData.ID = this.formdiv.ID!
+			dialogData.ID = this.formeditassocbutton.ID!
 			dialogData.ReversePointer = reverseField
 			dialogData.OrderingMode = false
 			dialogData.SelectionMode = selectionMode
@@ -232,14 +203,14 @@ export class FormDivDetailComponent implements OnInit {
 			});
 		}
 		if (selectionMode == SelectionMode.MANY_MANY_ASSOCIATION_MODE) {
-			dialogData.ID = this.formdiv.ID!
+			dialogData.ID = this.formeditassocbutton.ID!
 			dialogData.ReversePointer = reverseField
 			dialogData.OrderingMode = false
 			dialogData.SelectionMode = selectionMode
 			dialogData.GONG__StackPath = this.GONG__StackPath
 
 			// set up the source
-			dialogData.SourceStruct = "FormDiv"
+			dialogData.SourceStruct = "FormEditAssocButton"
 			dialogData.SourceField = sourceField
 
 			// set up the intermediate struct
@@ -269,7 +240,7 @@ export class FormDivDetailComponent implements OnInit {
 		// dialogConfig.disableClose = true;
 		dialogConfig.autoFocus = true;
 		dialogConfig.data = {
-			ID: this.formdiv.ID,
+			ID: this.formeditassocbutton.ID,
 			ReversePointer: reverseField,
 			OrderingMode: true,
 			GONG__StackPath: this.GONG__StackPath,
@@ -286,8 +257,8 @@ export class FormDivDetailComponent implements OnInit {
 	}
 
 	fillUpNameIfEmpty(event: { value: { Name: string; }; }) {
-		if (this.formdiv.Name == "") {
-			this.formdiv.Name = event.value.Name
+		if (this.formeditassocbutton.Name == "") {
+			this.formeditassocbutton.Name = event.value.Name
 		}
 	}
 

@@ -57,6 +57,7 @@ func NewStackInstance(
 	models.SetOrchestratorOnAfterUpdate[models.CheckBox](stage)
 	models.SetOrchestratorOnAfterUpdate[models.DisplayedColumn](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormDiv](stage)
+	models.SetOrchestratorOnAfterUpdate[models.FormEditAssocButton](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormField](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormFieldDate](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormFieldDateTime](stage)

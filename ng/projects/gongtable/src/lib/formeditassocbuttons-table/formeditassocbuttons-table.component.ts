@@ -14,8 +14,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 const allowMultiSelect = true;
 
 import { ActivatedRoute, Router, RouterState } from '@angular/router';
-import { FormDivDB } from '../formdiv-db'
-import { FormDivService } from '../formdiv.service'
+import { FormEditAssocButtonDB } from '../formeditassocbutton-db'
+import { FormEditAssocButtonService } from '../formeditassocbutton.service'
 
 // insertion point for additional imports
 
@@ -31,26 +31,26 @@ enum TableComponentMode {
 
 // generated table component
 @Component({
-  selector: 'app-formdivstable',
-  templateUrl: './formdivs-table.component.html',
-  styleUrls: ['./formdivs-table.component.css'],
+  selector: 'app-formeditassocbuttonstable',
+  templateUrl: './formeditassocbuttons-table.component.html',
+  styleUrls: ['./formeditassocbuttons-table.component.css'],
 })
-export class FormDivsTableComponent implements OnInit {
+export class FormEditAssocButtonsTableComponent implements OnInit {
 
   @Input() GONG__StackPath: string = ""
 
   // mode at invocation
   mode: TableComponentMode = TableComponentMode.DISPLAY_MODE
 
-  // used if the component is called as a selection component of FormDiv instances
-  selection: SelectionModel<FormDivDB> = new (SelectionModel)
-  initialSelection = new Array<FormDivDB>()
+  // used if the component is called as a selection component of FormEditAssocButton instances
+  selection: SelectionModel<FormEditAssocButtonDB> = new (SelectionModel)
+  initialSelection = new Array<FormEditAssocButtonDB>()
 
   // the data source for the table
-  formdivs: FormDivDB[] = []
-  matTableDataSource: MatTableDataSource<FormDivDB> = new (MatTableDataSource)
+  formeditassocbuttons: FormEditAssocButtonDB[] = []
+  matTableDataSource: MatTableDataSource<FormEditAssocButtonDB> = new (MatTableDataSource)
 
-  // front repo, that will be referenced by this.formdivs
+  // front repo, that will be referenced by this.formeditassocbuttons
   frontRepo: FrontRepo = new (FrontRepo)
 
   // displayedColumns is referenced by the MatTable component for specify what columns
@@ -66,24 +66,17 @@ export class FormDivsTableComponent implements OnInit {
   ngAfterViewInit() {
 
     // enable sorting on all fields (including pointers and reverse pointer)
-    this.matTableDataSource.sortingDataAccessor = (formdivDB: FormDivDB, property: string) => {
+    this.matTableDataSource.sortingDataAccessor = (formeditassocbuttonDB: FormEditAssocButtonDB, property: string) => {
       switch (property) {
         case 'ID':
-          return formdivDB.ID
+          return formeditassocbuttonDB.ID
 
         // insertion point for specific sorting accessor
         case 'Name':
-          return formdivDB.Name;
+          return formeditassocbuttonDB.Name;
 
-        case 'FormEditAssocButton':
-          return (formdivDB.FormEditAssocButton ? formdivDB.FormEditAssocButton.Name : '');
-
-        case 'FormGroup_FormDivs':
-          if (this.frontRepo.FormGroups.get(formdivDB.FormGroup_FormDivsDBID.Int64) != undefined) {
-            return this.frontRepo.FormGroups.get(formdivDB.FormGroup_FormDivsDBID.Int64)!.Name
-          } else {
-            return ""
-          }
+        case 'OnEditMode':
+          return formeditassocbuttonDB.OnEditMode ? "true" : "false";
 
         default:
           console.assert(false, "Unknown field")
@@ -92,21 +85,14 @@ export class FormDivsTableComponent implements OnInit {
     };
 
     // enable filtering on all fields (including pointers and reverse pointer, which is not done by default)
-    this.matTableDataSource.filterPredicate = (formdivDB: FormDivDB, filter: string) => {
+    this.matTableDataSource.filterPredicate = (formeditassocbuttonDB: FormEditAssocButtonDB, filter: string) => {
 
       // filtering is based on finding a lower case filter into a concatenated string
-      // the formdivDB properties
+      // the formeditassocbuttonDB properties
       let mergedContent = ""
 
       // insertion point for merging of fields
-      mergedContent += formdivDB.Name.toLowerCase()
-      if (formdivDB.FormEditAssocButton) {
-        mergedContent += formdivDB.FormEditAssocButton.Name.toLowerCase()
-      }
-      if (formdivDB.FormGroup_FormDivsDBID.Int64 != 0) {
-        mergedContent += this.frontRepo.FormGroups.get(formdivDB.FormGroup_FormDivsDBID.Int64)!.Name.toLowerCase()
-      }
-
+      mergedContent += formeditassocbuttonDB.Name.toLowerCase()
 
       let isSelected = mergedContent.includes(filter.toLowerCase())
       return isSelected
@@ -122,11 +108,11 @@ export class FormDivsTableComponent implements OnInit {
   }
 
   constructor(
-    private formdivService: FormDivService,
+    private formeditassocbuttonService: FormEditAssocButtonService,
     private frontRepoService: FrontRepoService,
 
-    // not null if the component is called as a selection component of formdiv instances
-    public dialogRef: MatDialogRef<FormDivsTableComponent>,
+    // not null if the component is called as a selection component of formeditassocbutton instances
+    public dialogRef: MatDialogRef<FormEditAssocButtonsTableComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: DialogData,
 
     private router: Router,
@@ -152,26 +138,24 @@ export class FormDivsTableComponent implements OnInit {
     }
 
     // observable for changes in structs
-    this.formdivService.FormDivServiceChanged.subscribe(
+    this.formeditassocbuttonService.FormEditAssocButtonServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
-          this.getFormDivs()
+          this.getFormEditAssocButtons()
         }
       }
     )
     if (this.mode == TableComponentMode.DISPLAY_MODE) {
       this.displayedColumns = ['ID', 'Delete', // insertion point for columns to display
         "Name",
-        "FormEditAssocButton",
-        "FormGroup_FormDivs",
+        "OnEditMode",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
-        "FormEditAssocButton",
-        "FormGroup_FormDivs",
+        "OnEditMode",
       ]
-      this.selection = new SelectionModel<FormDivDB>(allowMultiSelect, this.initialSelection);
+      this.selection = new SelectionModel<FormEditAssocButtonDB>(allowMultiSelect, this.initialSelection);
     }
 
   }
@@ -182,84 +166,84 @@ export class FormDivsTableComponent implements OnInit {
       this.GONG__StackPath = stackPath
     }
 
-    this.getFormDivs()
+    this.getFormEditAssocButtons()
 
-    this.matTableDataSource = new MatTableDataSource(this.formdivs)
+    this.matTableDataSource = new MatTableDataSource(this.formeditassocbuttons)
   }
 
-  getFormDivs(): void {
+  getFormEditAssocButtons(): void {
     this.frontRepoService.pull(this.GONG__StackPath).subscribe(
       frontRepo => {
         this.frontRepo = frontRepo
 
-        this.formdivs = this.frontRepo.FormDivs_array;
+        this.formeditassocbuttons = this.frontRepo.FormEditAssocButtons_array;
 
         // insertion point for time duration Recoveries
         // insertion point for enum int Recoveries
 
         // in case the component is called as a selection component
         if (this.mode == TableComponentMode.ONE_MANY_ASSOCIATION_MODE) {
-          for (let formdiv of this.formdivs) {
+          for (let formeditassocbutton of this.formeditassocbuttons) {
             let ID = this.dialogData.ID
-            let revPointer = formdiv[this.dialogData.ReversePointer as keyof FormDivDB] as unknown as NullInt64
+            let revPointer = formeditassocbutton[this.dialogData.ReversePointer as keyof FormEditAssocButtonDB] as unknown as NullInt64
             if (revPointer.Int64 == ID) {
-              this.initialSelection.push(formdiv)
+              this.initialSelection.push(formeditassocbutton)
             }
-            this.selection = new SelectionModel<FormDivDB>(allowMultiSelect, this.initialSelection);
+            this.selection = new SelectionModel<FormEditAssocButtonDB>(allowMultiSelect, this.initialSelection);
           }
         }
 
         if (this.mode == TableComponentMode.MANY_MANY_ASSOCIATION_MODE) {
 
-          let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormDivDB>
+          let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormEditAssocButtonDB>
           let sourceInstance = mapOfSourceInstances.get(this.dialogData.ID)!
 
-          // we associates on sourceInstance of type SourceStruct with a MANY MANY associations to FormDivDB
+          // we associates on sourceInstance of type SourceStruct with a MANY MANY associations to FormEditAssocButtonDB
           // the field name is sourceField
-          let sourceFieldArray = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]! as unknown as FormDivDB[]
+          let sourceFieldArray = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]! as unknown as FormEditAssocButtonDB[]
           if (sourceFieldArray != null) {
             for (let associationInstance of sourceFieldArray) {
-              let formdiv = associationInstance[this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormDivDB
-              this.initialSelection.push(formdiv)
+              let formeditassocbutton = associationInstance[this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormEditAssocButtonDB
+              this.initialSelection.push(formeditassocbutton)
             }
           }
 
-          this.selection = new SelectionModel<FormDivDB>(allowMultiSelect, this.initialSelection);
+          this.selection = new SelectionModel<FormEditAssocButtonDB>(allowMultiSelect, this.initialSelection);
         }
 
         // update the mat table data source
-        this.matTableDataSource.data = this.formdivs
+        this.matTableDataSource.data = this.formeditassocbuttons
       }
     )
   }
 
-  // newFormDiv initiate a new formdiv
-  // create a new FormDiv objet
-  newFormDiv() {
+  // newFormEditAssocButton initiate a new formeditassocbutton
+  // create a new FormEditAssocButton objet
+  newFormEditAssocButton() {
   }
 
-  deleteFormDiv(formdivID: number, formdiv: FormDivDB) {
-    // list of formdivs is truncated of formdiv before the delete
-    this.formdivs = this.formdivs.filter(h => h !== formdiv);
+  deleteFormEditAssocButton(formeditassocbuttonID: number, formeditassocbutton: FormEditAssocButtonDB) {
+    // list of formeditassocbuttons is truncated of formeditassocbutton before the delete
+    this.formeditassocbuttons = this.formeditassocbuttons.filter(h => h !== formeditassocbutton);
 
-    this.formdivService.deleteFormDiv(formdivID, this.GONG__StackPath).subscribe(
-      formdiv => {
-        this.formdivService.FormDivServiceChanged.next("delete")
+    this.formeditassocbuttonService.deleteFormEditAssocButton(formeditassocbuttonID, this.GONG__StackPath).subscribe(
+      formeditassocbutton => {
+        this.formeditassocbuttonService.FormEditAssocButtonServiceChanged.next("delete")
       }
     );
   }
 
-  editFormDiv(formdivID: number, formdiv: FormDivDB) {
+  editFormEditAssocButton(formeditassocbuttonID: number, formeditassocbutton: FormEditAssocButtonDB) {
 
   }
 
   // set editor outlet
-  setEditorRouterOutlet(formdivID: number) {
+  setEditorRouterOutlet(formeditassocbuttonID: number) {
     let outletName = this.routeService.getEditorOutlet(this.GONG__StackPath)
-    let fullPath = this.routeService.getPathRoot() + "-" + "formdiv" + "-detail"
+    let fullPath = this.routeService.getPathRoot() + "-" + "formeditassocbutton" + "-detail"
 
     let outletConf: any = {}
-    outletConf[outletName] = [fullPath, formdivID, this.GONG__StackPath]
+    outletConf[outletName] = [fullPath, formeditassocbuttonID, this.GONG__StackPath]
 
     this.router.navigate([{ outlets: outletConf }])
   }
@@ -267,7 +251,7 @@ export class FormDivsTableComponent implements OnInit {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.formdivs.length;
+    const numRows = this.formeditassocbuttons.length;
     return numSelected === numRows;
   }
 
@@ -275,39 +259,39 @@ export class FormDivsTableComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.formdivs.forEach(row => this.selection.select(row));
+      this.formeditassocbuttons.forEach(row => this.selection.select(row));
   }
 
   save() {
 
     if (this.mode == TableComponentMode.ONE_MANY_ASSOCIATION_MODE) {
 
-      let toUpdate = new Set<FormDivDB>()
+      let toUpdate = new Set<FormEditAssocButtonDB>()
 
-      // reset all initial selection of formdiv that belong to formdiv
-      for (let formdiv of this.initialSelection) {
-        let index = formdiv[this.dialogData.ReversePointer as keyof FormDivDB] as unknown as NullInt64
+      // reset all initial selection of formeditassocbutton that belong to formeditassocbutton
+      for (let formeditassocbutton of this.initialSelection) {
+        let index = formeditassocbutton[this.dialogData.ReversePointer as keyof FormEditAssocButtonDB] as unknown as NullInt64
         index.Int64 = 0
         index.Valid = true
-        toUpdate.add(formdiv)
+        toUpdate.add(formeditassocbutton)
 
       }
 
-      // from selection, set formdiv that belong to formdiv
-      for (let formdiv of this.selection.selected) {
+      // from selection, set formeditassocbutton that belong to formeditassocbutton
+      for (let formeditassocbutton of this.selection.selected) {
         let ID = this.dialogData.ID as number
-        let reversePointer = formdiv[this.dialogData.ReversePointer as keyof FormDivDB] as unknown as NullInt64
+        let reversePointer = formeditassocbutton[this.dialogData.ReversePointer as keyof FormEditAssocButtonDB] as unknown as NullInt64
         reversePointer.Int64 = ID
         reversePointer.Valid = true
-        toUpdate.add(formdiv)
+        toUpdate.add(formeditassocbutton)
       }
 
 
-      // update all formdiv (only update selection & initial selection)
-      for (let formdiv of toUpdate) {
-        this.formdivService.updateFormDiv(formdiv, this.GONG__StackPath)
-          .subscribe(formdiv => {
-            this.formdivService.FormDivServiceChanged.next("update")
+      // update all formeditassocbutton (only update selection & initial selection)
+      for (let formeditassocbutton of toUpdate) {
+        this.formeditassocbuttonService.updateFormEditAssocButton(formeditassocbutton, this.GONG__StackPath)
+          .subscribe(formeditassocbutton => {
+            this.formeditassocbuttonService.FormEditAssocButtonServiceChanged.next("update")
           });
       }
     }
@@ -315,26 +299,26 @@ export class FormDivsTableComponent implements OnInit {
     if (this.mode == TableComponentMode.MANY_MANY_ASSOCIATION_MODE) {
 
       // get the source instance via the map of instances in the front repo
-      let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormDivDB>
+      let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormEditAssocButtonDB>
       let sourceInstance = mapOfSourceInstances.get(this.dialogData.ID)!
 
       // First, parse all instance of the association struct and remove the instance
       // that have unselect
-      let unselectedFormDiv = new Set<number>()
-      for (let formdiv of this.initialSelection) {
-        if (this.selection.selected.includes(formdiv)) {
-          // console.log("formdiv " + formdiv.Name + " is still selected")
+      let unselectedFormEditAssocButton = new Set<number>()
+      for (let formeditassocbutton of this.initialSelection) {
+        if (this.selection.selected.includes(formeditassocbutton)) {
+          // console.log("formeditassocbutton " + formeditassocbutton.Name + " is still selected")
         } else {
-          console.log("formdiv " + formdiv.Name + " has been unselected")
-          unselectedFormDiv.add(formdiv.ID)
-          console.log("is unselected " + unselectedFormDiv.has(formdiv.ID))
+          console.log("formeditassocbutton " + formeditassocbutton.Name + " has been unselected")
+          unselectedFormEditAssocButton.add(formeditassocbutton.ID)
+          console.log("is unselected " + unselectedFormEditAssocButton.has(formeditassocbutton.ID))
         }
       }
 
       // delete the association instance
       let associationInstance = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]
-      let formdiv = associationInstance![this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormDivDB
-      if (unselectedFormDiv.has(formdiv.ID)) {
+      let formeditassocbutton = associationInstance![this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormEditAssocButtonDB
+      if (unselectedFormEditAssocButton.has(formeditassocbutton.ID)) {
         this.frontRepoService.deleteService(this.dialogData.IntermediateStruct, associationInstance)
 
 
@@ -342,38 +326,38 @@ export class FormDivsTableComponent implements OnInit {
 
       // is the source array is empty create it
       if (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] == undefined) {
-        (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] as unknown as Array<FormDivDB>) = new Array<FormDivDB>()
+        (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] as unknown as Array<FormEditAssocButtonDB>) = new Array<FormEditAssocButtonDB>()
       }
 
       // second, parse all instance of the selected
       if (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]) {
         this.selection.selected.forEach(
-          formdiv => {
-            if (!this.initialSelection.includes(formdiv)) {
-              // console.log("formdiv " + formdiv.Name + " has been added to the selection")
+          formeditassocbutton => {
+            if (!this.initialSelection.includes(formeditassocbutton)) {
+              // console.log("formeditassocbutton " + formeditassocbutton.Name + " has been added to the selection")
 
               let associationInstance = {
-                Name: sourceInstance["Name"] + "-" + formdiv.Name,
+                Name: sourceInstance["Name"] + "-" + formeditassocbutton.Name,
               }
 
               let index = associationInstance[this.dialogData.IntermediateStructField + "ID" as keyof typeof associationInstance] as unknown as NullInt64
-              index.Int64 = formdiv.ID
+              index.Int64 = formeditassocbutton.ID
               index.Valid = true
 
               let indexDB = associationInstance[this.dialogData.IntermediateStructField + "DBID" as keyof typeof associationInstance] as unknown as NullInt64
-              indexDB.Int64 = formdiv.ID
+              indexDB.Int64 = formeditassocbutton.ID
               index.Valid = true
 
               this.frontRepoService.postService(this.dialogData.IntermediateStruct, associationInstance)
 
             } else {
-              // console.log("formdiv " + formdiv.Name + " is still selected")
+              // console.log("formeditassocbutton " + formeditassocbutton.Name + " is still selected")
             }
           }
         )
       }
 
-      // this.selection = new SelectionModel<FormDivDB>(allowMultiSelect, this.initialSelection);
+      // this.selection = new SelectionModel<FormEditAssocButtonDB>(allowMultiSelect, this.initialSelection);
     }
 
     // why pizza ?

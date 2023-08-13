@@ -1,0 +1,6 @@
+.custom-form-field,
+.custom-checkbox,
+.custom-button {
+    margin-bottom: 16px;
+    /* Adjust this value to get the desired spacing */
+}

@@ -39,6 +39,8 @@ type BackRepoStruct struct {
 
 	BackRepoFormDiv BackRepoFormDivStruct
 
+	BackRepoFormEditAssocButton BackRepoFormEditAssocButtonStruct
+
 	BackRepoFormField BackRepoFormFieldStruct
 
 	BackRepoFormFieldDate BackRepoFormFieldDateStruct
@@ -108,6 +110,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		&CheckBoxDB{},
 		&DisplayedColumnDB{},
 		&FormDivDB{},
+		&FormEditAssocButtonDB{},
 		&FormFieldDB{},
 		&FormFieldDateDB{},
 		&FormFieldDateTimeDB{},
@@ -198,6 +201,14 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_FormDivDBID_FormDivPtr: make(map[uint]*models.FormDiv, 0),
 		Map_FormDivDBID_FormDivDB:  make(map[uint]*FormDivDB, 0),
 		Map_FormDivPtr_FormDivDBID: make(map[*models.FormDiv]uint, 0),
+
+		db:    db,
+		stage: stage,
+	}
+	backRepo.BackRepoFormEditAssocButton = BackRepoFormEditAssocButtonStruct{
+		Map_FormEditAssocButtonDBID_FormEditAssocButtonPtr: make(map[uint]*models.FormEditAssocButton, 0),
+		Map_FormEditAssocButtonDBID_FormEditAssocButtonDB:  make(map[uint]*FormEditAssocButtonDB, 0),
+		Map_FormEditAssocButtonPtr_FormEditAssocButtonDBID: make(map[*models.FormEditAssocButton]uint, 0),
 
 		db:    db,
 		stage: stage,
@@ -352,6 +363,7 @@ func (backRepo *BackRepoStruct) Commit(stage *models.StageStruct) {
 	backRepo.BackRepoCheckBox.CommitPhaseOne(stage)
 	backRepo.BackRepoDisplayedColumn.CommitPhaseOne(stage)
 	backRepo.BackRepoFormDiv.CommitPhaseOne(stage)
+	backRepo.BackRepoFormEditAssocButton.CommitPhaseOne(stage)
 	backRepo.BackRepoFormField.CommitPhaseOne(stage)
 	backRepo.BackRepoFormFieldDate.CommitPhaseOne(stage)
 	backRepo.BackRepoFormFieldDateTime.CommitPhaseOne(stage)
@@ -375,6 +387,7 @@ func (backRepo *BackRepoStruct) Commit(stage *models.StageStruct) {
 	backRepo.BackRepoCheckBox.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoDisplayedColumn.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoFormDiv.CommitPhaseTwo(backRepo)
+	backRepo.BackRepoFormEditAssocButton.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoFormField.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoFormFieldDate.CommitPhaseTwo(backRepo)
 	backRepo.BackRepoFormFieldDateTime.CommitPhaseTwo(backRepo)
@@ -403,6 +416,7 @@ func (backRepo *BackRepoStruct) Checkout(stage *models.StageStruct) {
 	backRepo.BackRepoCheckBox.CheckoutPhaseOne()
 	backRepo.BackRepoDisplayedColumn.CheckoutPhaseOne()
 	backRepo.BackRepoFormDiv.CheckoutPhaseOne()
+	backRepo.BackRepoFormEditAssocButton.CheckoutPhaseOne()
 	backRepo.BackRepoFormField.CheckoutPhaseOne()
 	backRepo.BackRepoFormFieldDate.CheckoutPhaseOne()
 	backRepo.BackRepoFormFieldDateTime.CheckoutPhaseOne()
@@ -426,6 +440,7 @@ func (backRepo *BackRepoStruct) Checkout(stage *models.StageStruct) {
 	backRepo.BackRepoCheckBox.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoDisplayedColumn.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoFormDiv.CheckoutPhaseTwo(backRepo)
+	backRepo.BackRepoFormEditAssocButton.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoFormField.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoFormFieldDate.CheckoutPhaseTwo(backRepo)
 	backRepo.BackRepoFormFieldDateTime.CheckoutPhaseTwo(backRepo)
@@ -473,6 +488,7 @@ func (backRepo *BackRepoStruct) Backup(stage *models.StageStruct, dirPath string
 	backRepo.BackRepoCheckBox.Backup(dirPath)
 	backRepo.BackRepoDisplayedColumn.Backup(dirPath)
 	backRepo.BackRepoFormDiv.Backup(dirPath)
+	backRepo.BackRepoFormEditAssocButton.Backup(dirPath)
 	backRepo.BackRepoFormField.Backup(dirPath)
 	backRepo.BackRepoFormFieldDate.Backup(dirPath)
 	backRepo.BackRepoFormFieldDateTime.Backup(dirPath)
@@ -504,6 +520,7 @@ func (backRepo *BackRepoStruct) BackupXL(stage *models.StageStruct, dirPath stri
 	backRepo.BackRepoCheckBox.BackupXL(file)
 	backRepo.BackRepoDisplayedColumn.BackupXL(file)
 	backRepo.BackRepoFormDiv.BackupXL(file)
+	backRepo.BackRepoFormEditAssocButton.BackupXL(file)
 	backRepo.BackRepoFormField.BackupXL(file)
 	backRepo.BackRepoFormFieldDate.BackupXL(file)
 	backRepo.BackRepoFormFieldDateTime.BackupXL(file)
@@ -549,6 +566,7 @@ func (backRepo *BackRepoStruct) Restore(stage *models.StageStruct, dirPath strin
 	backRepo.BackRepoCheckBox.RestorePhaseOne(dirPath)
 	backRepo.BackRepoDisplayedColumn.RestorePhaseOne(dirPath)
 	backRepo.BackRepoFormDiv.RestorePhaseOne(dirPath)
+	backRepo.BackRepoFormEditAssocButton.RestorePhaseOne(dirPath)
 	backRepo.BackRepoFormField.RestorePhaseOne(dirPath)
 	backRepo.BackRepoFormFieldDate.RestorePhaseOne(dirPath)
 	backRepo.BackRepoFormFieldDateTime.RestorePhaseOne(dirPath)
@@ -576,6 +594,7 @@ func (backRepo *BackRepoStruct) Restore(stage *models.StageStruct, dirPath strin
 	backRepo.BackRepoCheckBox.RestorePhaseTwo()
 	backRepo.BackRepoDisplayedColumn.RestorePhaseTwo()
 	backRepo.BackRepoFormDiv.RestorePhaseTwo()
+	backRepo.BackRepoFormEditAssocButton.RestorePhaseTwo()
 	backRepo.BackRepoFormField.RestorePhaseTwo()
 	backRepo.BackRepoFormFieldDate.RestorePhaseTwo()
 	backRepo.BackRepoFormFieldDateTime.RestorePhaseTwo()
@@ -624,6 +643,7 @@ func (backRepo *BackRepoStruct) RestoreXL(stage *models.StageStruct, dirPath str
 	backRepo.BackRepoCheckBox.RestoreXLPhaseOne(file)
 	backRepo.BackRepoDisplayedColumn.RestoreXLPhaseOne(file)
 	backRepo.BackRepoFormDiv.RestoreXLPhaseOne(file)
+	backRepo.BackRepoFormEditAssocButton.RestoreXLPhaseOne(file)
 	backRepo.BackRepoFormField.RestoreXLPhaseOne(file)
 	backRepo.BackRepoFormFieldDate.RestoreXLPhaseOne(file)
 	backRepo.BackRepoFormFieldDateTime.RestoreXLPhaseOne(file)
