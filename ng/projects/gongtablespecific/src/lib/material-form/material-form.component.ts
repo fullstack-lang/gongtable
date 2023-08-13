@@ -51,7 +51,7 @@ export class MaterialFormComponent implements OnInit {
     private formFieldDateTimeService: gongtable.FormFieldDateTimeService,
     private checkBoxService: gongtable.CheckBoxService,
     private formFieldSelectService: gongtable.FormFieldSelectService,
-
+    private formEditAssocButtonService: gongtable.FormEditAssocButtonService,
 
   ) {
 
@@ -329,6 +329,38 @@ export class MaterialFormComponent implements OnInit {
             }
 
           }
+        }
+      }
+    }
+  }
+
+  openTableAssociation(fieldName: string) {
+
+    console.log("openTableAssociation: ", fieldName)
+
+    if (this.generatedForm == undefined) {
+      return
+    }
+
+    if (this.selectedFormGroup == undefined) {
+      return
+    }
+
+    if (this.selectedFormGroup.FormDivs == undefined) {
+      return
+    }
+
+    let formEditAssocButton: gongtable.FormEditAssocButtonDB | undefined
+    for (let formDiv of this.selectedFormGroup.FormDivs) {
+      if (formDiv.FormEditAssocButton) {
+        if (formDiv.FormEditAssocButton.Name == fieldName) {
+
+          formDiv.FormEditAssocButton.OnEditMode = true
+          this.formEditAssocButtonService.updateFormEditAssocButton(formDiv.FormEditAssocButton, this.DataStack).subscribe(
+            () => {
+              console.log("assoc button updated")
+            }
+          )
         }
       }
     }

@@ -14,7 +14,7 @@
             </mat-select>
         </mat-form-field>
         <mat-checkbox class="custom-checkbox" *ngFor="let checkBox of div.CheckBoxs" [formControlName]="checkBox.Name">{{checkBox.Name}}</mat-checkbox>
-        <button *ngIf="div.FormEditAssocButton" mat-raised-button class="custom-button">{{div.FormEditAssocButton.Name}}</button>
+        <button *ngIf="div.FormEditAssocButton" (click)="openTableAssociation(div.FormEditAssocButton.Name)" mat-raised-button class="custom-button">{{div.FormEditAssocButton.Name}} {{div.FormEditAssocButton.Label}}</button>
     </div>
     <button mat-raised-button color="primary" type="submit">Submit</button>
 </form>

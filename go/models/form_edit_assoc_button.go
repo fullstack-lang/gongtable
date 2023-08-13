@@ -6,6 +6,8 @@ package models
 type FormEditAssocButton struct {
 	Name string
 
+	Label string
+
 	// OnEditMode is true when the user
 	OnEditMode bool
 

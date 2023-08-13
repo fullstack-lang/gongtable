@@ -26,6 +26,13 @@
             </td>
         </ng-container>
         <!-- -->
+        <ng-container matColumnDef="Label">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Label </th>
+            <td mat-cell *matCellDef="let FormEditAssocButton">
+                {{FormEditAssocButton.Label}}
+            </td>
+        </ng-container>
+        <!-- -->
         <ng-container matColumnDef="OnEditMode">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> OnEditMode </th>
             <td mat-cell *matCellDef="let FormEditAssocButton">

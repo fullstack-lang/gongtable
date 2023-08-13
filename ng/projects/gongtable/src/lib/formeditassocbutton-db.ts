@@ -13,6 +13,7 @@ export class FormEditAssocButtonDB {
 
 	// insertion point for basic fields declarations
 	Name: string = ""
+	Label: string = ""
 	OnEditMode: boolean = false
 
 	// insertion point for other declarations

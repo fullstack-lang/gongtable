@@ -75,6 +75,9 @@ export class FormEditAssocButtonsTableComponent implements OnInit {
         case 'Name':
           return formeditassocbuttonDB.Name;
 
+        case 'Label':
+          return formeditassocbuttonDB.Label;
+
         case 'OnEditMode':
           return formeditassocbuttonDB.OnEditMode ? "true" : "false";
 
@@ -93,6 +96,7 @@ export class FormEditAssocButtonsTableComponent implements OnInit {
 
       // insertion point for merging of fields
       mergedContent += formeditassocbuttonDB.Name.toLowerCase()
+      mergedContent += formeditassocbuttonDB.Label.toLowerCase()
 
       let isSelected = mergedContent.includes(filter.toLowerCase())
       return isSelected
@@ -148,11 +152,13 @@ export class FormEditAssocButtonsTableComponent implements OnInit {
     if (this.mode == TableComponentMode.DISPLAY_MODE) {
       this.displayedColumns = ['ID', 'Delete', // insertion point for columns to display
         "Name",
+        "Label",
         "OnEditMode",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
+        "Label",
         "OnEditMode",
       ]
       this.selection = new SelectionModel<FormEditAssocButtonDB>(allowMultiSelect, this.initialSelection);

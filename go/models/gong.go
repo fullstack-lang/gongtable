@@ -2740,7 +2740,7 @@ func GetFields[Type Gongstruct]() (res []string) {
 	case FormDiv:
 		res = []string{"Name", "FormFields", "CheckBoxs", "FormEditAssocButton"}
 	case FormEditAssocButton:
-		res = []string{"Name", "OnEditMode"}
+		res = []string{"Name", "Label", "OnEditMode"}
 	case FormField:
 		res = []string{"Name", "InputTypeEnum", "Label", "Placeholder", "FormFieldString", "FormFieldFloat64", "FormFieldInt", "FormFieldDate", "FormFieldTime", "FormFieldDateTime", "FormFieldSelect"}
 	case FormFieldDate:
@@ -2883,6 +2883,8 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 		// string value of fields
 		case "Name":
 			res = any(instance).(FormEditAssocButton).Name
+		case "Label":
+			res = any(instance).(FormEditAssocButton).Label
 		case "OnEditMode":
 			res = fmt.Sprintf("%t", any(instance).(FormEditAssocButton).OnEditMode)
 		}
