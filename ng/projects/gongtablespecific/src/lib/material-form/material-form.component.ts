@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import * as gongtable from 'gongtable'
@@ -6,6 +6,9 @@ import * as gongtable from 'gongtable'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import * as moment from 'moment';
+import { MatButtonModule } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'lib-material-form',
@@ -41,6 +44,7 @@ export class MaterialFormComponent implements OnInit {
   generatedForm: FormGroup | undefined
 
   constructor(
+    public dialog: MatDialog,
     private gongtableFrontRepoService: gongtable.FrontRepoService,
     private gongtableCommitNbFromBackService: gongtable.CommitNbFromBackService,
     private formBuilder: FormBuilder,
@@ -359,10 +363,29 @@ export class MaterialFormComponent implements OnInit {
           this.formEditAssocButtonService.updateFormEditAssocButton(formDiv.FormEditAssocButton, this.DataStack).subscribe(
             () => {
               console.log("assoc button updated")
+              this.dialog.open(DialogDataExampleDialog, {
+                data: {
+                  animal: 'panda',
+                },
+              });
             }
           )
         }
       }
     }
   }
+}
+
+export interface DialogData {
+  animal: 'panda' | 'unicorn' | 'lion';
+}
+
+@Component({
+  selector: 'dialog-data-example-dialog',
+  templateUrl: './dialog-data-example-dialog.html',
+  standalone: true,
+  imports: [MatDialogModule, NgIf],
+})
+export class DialogDataExampleDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 }

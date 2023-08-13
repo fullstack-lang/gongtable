@@ -17,6 +17,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatSelectModule } from '@angular/material/select'
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 
@@ -39,6 +41,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatPaginatorModule,
     MatSelectModule,
     DragDropModule,
+    MatDialogModule,
   ],
   exports: [
     MaterialTableComponent,

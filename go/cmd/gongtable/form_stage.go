@@ -139,6 +139,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormEditAssocButton values setup
 	__FormEditAssocButton__000000_Edit_Assoc.Name = `Edit Assoc`
+	__FormEditAssocButton__000000_Edit_Assoc.Label = ``
 	__FormEditAssocButton__000000_Edit_Assoc.OnEditMode = true
 
 	// FormField values setup
