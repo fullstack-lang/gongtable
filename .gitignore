@@ -2,3 +2,4 @@ go/cmd/gongtable/gongtable
 *.exe
 __debug_bin
 go/cmd/gongtable/test.db
+__debug_bin*
