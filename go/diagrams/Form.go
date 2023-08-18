@@ -95,9 +95,17 @@ var map_DocLink_Identifier_Form map[string]any = map[string]any{
 
 	"ref_models.FormDiv.CheckBoxs": (ref_models.FormDiv{}).CheckBoxs,
 
+	"ref_models.FormDiv.FormEditAssocButton": (ref_models.FormDiv{}).FormEditAssocButton,
+
 	"ref_models.FormDiv.FormFields": (ref_models.FormDiv{}).FormFields,
 
 	"ref_models.FormDiv.Name": (ref_models.FormDiv{}).Name,
+
+	"ref_models.FormEditAssocButton": &(ref_models.FormEditAssocButton{}),
+
+	"ref_models.FormEditAssocButton.Label": (ref_models.FormEditAssocButton{}).Label,
+
+	"ref_models.FormEditAssocButton.Name": (ref_models.FormEditAssocButton{}).Name,
 
 	"ref_models.FormField": &(ref_models.FormField{}),
 
@@ -108,6 +116,8 @@ var map_DocLink_Identifier_Form map[string]any = map[string]any{
 	"ref_models.FormField.FormFieldFloat64": (ref_models.FormField{}).FormFieldFloat64,
 
 	"ref_models.FormField.FormFieldInt": (ref_models.FormField{}).FormFieldInt,
+
+	"ref_models.FormField.FormFieldSelect": (ref_models.FormField{}).FormFieldSelect,
 
 	"ref_models.FormField.FormFieldString": (ref_models.FormField{}).FormFieldString,
 
@@ -145,6 +155,14 @@ var map_DocLink_Identifier_Form map[string]any = map[string]any{
 
 	"ref_models.FormFieldInt.Value": (ref_models.FormFieldInt{}).Value,
 
+	"ref_models.FormFieldSelect": &(ref_models.FormFieldSelect{}),
+
+	"ref_models.FormFieldSelect.Name": (ref_models.FormFieldSelect{}).Name,
+
+	"ref_models.FormFieldSelect.Options": (ref_models.FormFieldSelect{}).Options,
+
+	"ref_models.FormFieldSelect.Value": (ref_models.FormFieldSelect{}).Value,
+
 	"ref_models.FormFieldString": &(ref_models.FormFieldString{}),
 
 	"ref_models.FormFieldString.Name": (ref_models.FormFieldString{}).Name,
@@ -172,6 +190,10 @@ var map_DocLink_Identifier_Form map[string]any = map[string]any{
 	"ref_models.Month": ref_models.Month,
 
 	"ref_models.Number": ref_models.Number,
+
+	"ref_models.Option": &(ref_models.Option{}),
+
+	"ref_models.Option.Name": (ref_models.Option{}).Name,
 
 	"ref_models.Password": ref_models.Password,
 
@@ -207,6 +229,16 @@ var map_DocLink_Identifier_Form map[string]any = map[string]any{
 
 	"ref_models.Table.Rows": (ref_models.Table{}).Rows,
 
+	"ref_models.Table.SavingInProgress": (ref_models.Table{}).SavingInProgress,
+
+	"ref_models.TableExtraNameEnum": ref_models.TableExtraNameEnum(""),
+
+	"ref_models.TableExtraPathEnum": ref_models.TableExtraPathEnum(""),
+
+	"ref_models.TableSelectExtra": ref_models.TableSelectExtra,
+
+	"ref_models.TableSelectExtraName": ref_models.TableSelectExtraName,
+
 	"ref_models.Tel": ref_models.Tel,
 
 	"ref_models.Text": ref_models.Text,
@@ -239,14 +271,16 @@ func FormInjection(stage *models.StageStruct) {
 	__Field__000000_InputTypeEnum := (&models.Field{Name: `InputTypeEnum`}).Stage(stage)
 	__Field__000001_Label := (&models.Field{Name: `Label`}).Stage(stage)
 	__Field__000002_Name := (&models.Field{Name: `Name`}).Stage(stage)
-	__Field__000003_Placeholder := (&models.Field{Name: `Placeholder`}).Stage(stage)
-	__Field__000004_Step := (&models.Field{Name: `Step`}).Stage(stage)
-	__Field__000005_Value := (&models.Field{Name: `Value`}).Stage(stage)
-	__Field__000006_Value := (&models.Field{Name: `Value`}).Stage(stage)
+	__Field__000003_Name := (&models.Field{Name: `Name`}).Stage(stage)
+	__Field__000004_Name := (&models.Field{Name: `Name`}).Stage(stage)
+	__Field__000005_Placeholder := (&models.Field{Name: `Placeholder`}).Stage(stage)
+	__Field__000006_Step := (&models.Field{Name: `Step`}).Stage(stage)
 	__Field__000007_Value := (&models.Field{Name: `Value`}).Stage(stage)
 	__Field__000008_Value := (&models.Field{Name: `Value`}).Stage(stage)
 	__Field__000009_Value := (&models.Field{Name: `Value`}).Stage(stage)
 	__Field__000010_Value := (&models.Field{Name: `Value`}).Stage(stage)
+	__Field__000011_Value := (&models.Field{Name: `Value`}).Stage(stage)
+	__Field__000012_Value := (&models.Field{Name: `Value`}).Stage(stage)
 
 	// Declarations of staged instances of GongEnumShape
 	__GongEnumShape__000000_Form_InputTypeEnum := (&models.GongEnumShape{Name: `Form-InputTypeEnum`}).Stage(stage)
@@ -276,10 +310,13 @@ func FormInjection(stage *models.StageStruct) {
 	__GongStructShape__000003_Form_FormCellInt := (&models.GongStructShape{Name: `Form-FormCellInt`}).Stage(stage)
 	__GongStructShape__000004_Form_FormCellString := (&models.GongStructShape{Name: `Form-FormCellString`}).Stage(stage)
 	__GongStructShape__000005_Form_FormDiv := (&models.GongStructShape{Name: `Form-FormDiv`}).Stage(stage)
-	__GongStructShape__000006_Form_FormFieldDate := (&models.GongStructShape{Name: `Form-FormFieldDate`}).Stage(stage)
-	__GongStructShape__000007_Form_FormFieldDateTime := (&models.GongStructShape{Name: `Form-FormFieldDateTime`}).Stage(stage)
-	__GongStructShape__000008_Form_FormFieldTime := (&models.GongStructShape{Name: `Form-FormFieldTime`}).Stage(stage)
-	__GongStructShape__000009_Form_FormGroup := (&models.GongStructShape{Name: `Form-FormGroup`}).Stage(stage)
+	__GongStructShape__000006_Form_FormEditAssocButton := (&models.GongStructShape{Name: `Form-FormEditAssocButton`}).Stage(stage)
+	__GongStructShape__000007_Form_FormFieldDate := (&models.GongStructShape{Name: `Form-FormFieldDate`}).Stage(stage)
+	__GongStructShape__000008_Form_FormFieldDateTime := (&models.GongStructShape{Name: `Form-FormFieldDateTime`}).Stage(stage)
+	__GongStructShape__000009_Form_FormFieldSelect := (&models.GongStructShape{Name: `Form-FormFieldSelect`}).Stage(stage)
+	__GongStructShape__000010_Form_FormFieldTime := (&models.GongStructShape{Name: `Form-FormFieldTime`}).Stage(stage)
+	__GongStructShape__000011_Form_FormGroup := (&models.GongStructShape{Name: `Form-FormGroup`}).Stage(stage)
+	__GongStructShape__000012_Form_Option := (&models.GongStructShape{Name: `Form-Option`}).Stage(stage)
 
 	// Declarations of staged instances of Link
 	__Link__000000_CheckBoxs := (&models.Link{Name: `CheckBoxs`}).Stage(stage)
@@ -287,9 +324,14 @@ func FormInjection(stage *models.StageStruct) {
 	__Link__000002_FormCellInt := (&models.Link{Name: `FormCellInt`}).Stage(stage)
 	__Link__000003_FormCellString := (&models.Link{Name: `FormCellString`}).Stage(stage)
 	__Link__000004_FormDivs := (&models.Link{Name: `FormDivs`}).Stage(stage)
-	__Link__000005_FormFieldDate := (&models.Link{Name: `FormFieldDate`}).Stage(stage)
-	__Link__000006_FormFieldTime := (&models.Link{Name: `FormFieldTime`}).Stage(stage)
-	__Link__000007_FormFields := (&models.Link{Name: `FormFields`}).Stage(stage)
+	__Link__000005_FormEditAssocButton := (&models.Link{Name: `FormEditAssocButton`}).Stage(stage)
+	__Link__000006_FormFieldDate := (&models.Link{Name: `FormFieldDate`}).Stage(stage)
+	__Link__000007_FormFieldDateTime := (&models.Link{Name: `FormFieldDateTime`}).Stage(stage)
+	__Link__000008_FormFieldSelect := (&models.Link{Name: `FormFieldSelect`}).Stage(stage)
+	__Link__000009_FormFieldTime := (&models.Link{Name: `FormFieldTime`}).Stage(stage)
+	__Link__000010_FormFields := (&models.Link{Name: `FormFields`}).Stage(stage)
+	__Link__000011_Options := (&models.Link{Name: `Options`}).Stage(stage)
+	__Link__000012_Value := (&models.Link{Name: `Value`}).Stage(stage)
 
 	// Declarations of staged instances of NoteShape
 
@@ -302,11 +344,14 @@ func FormInjection(stage *models.StageStruct) {
 	__Position__000003_Pos_Form_FormCellInt := (&models.Position{Name: `Pos-Form-FormCellInt`}).Stage(stage)
 	__Position__000004_Pos_Form_FormCellString := (&models.Position{Name: `Pos-Form-FormCellString`}).Stage(stage)
 	__Position__000005_Pos_Form_FormDiv := (&models.Position{Name: `Pos-Form-FormDiv`}).Stage(stage)
-	__Position__000006_Pos_Form_FormFieldDate := (&models.Position{Name: `Pos-Form-FormFieldDate`}).Stage(stage)
-	__Position__000007_Pos_Form_FormFieldDateTime := (&models.Position{Name: `Pos-Form-FormFieldDateTime`}).Stage(stage)
-	__Position__000008_Pos_Form_FormFieldTime := (&models.Position{Name: `Pos-Form-FormFieldTime`}).Stage(stage)
-	__Position__000009_Pos_Form_FormGroup := (&models.Position{Name: `Pos-Form-FormGroup`}).Stage(stage)
-	__Position__000010_Pos_Form_InputTypeEnum := (&models.Position{Name: `Pos-Form-InputTypeEnum`}).Stage(stage)
+	__Position__000006_Pos_Form_FormEditAssocButton := (&models.Position{Name: `Pos-Form-FormEditAssocButton`}).Stage(stage)
+	__Position__000007_Pos_Form_FormFieldDate := (&models.Position{Name: `Pos-Form-FormFieldDate`}).Stage(stage)
+	__Position__000008_Pos_Form_FormFieldDateTime := (&models.Position{Name: `Pos-Form-FormFieldDateTime`}).Stage(stage)
+	__Position__000009_Pos_Form_FormFieldSelect := (&models.Position{Name: `Pos-Form-FormFieldSelect`}).Stage(stage)
+	__Position__000010_Pos_Form_FormFieldTime := (&models.Position{Name: `Pos-Form-FormFieldTime`}).Stage(stage)
+	__Position__000011_Pos_Form_FormGroup := (&models.Position{Name: `Pos-Form-FormGroup`}).Stage(stage)
+	__Position__000012_Pos_Form_InputTypeEnum := (&models.Position{Name: `Pos-Form-InputTypeEnum`}).Stage(stage)
+	__Position__000013_Pos_Form_Option := (&models.Position{Name: `Pos-Form-Option`}).Stage(stage)
 
 	// Declarations of staged instances of UmlState
 
@@ -317,10 +362,15 @@ func FormInjection(stage *models.StageStruct) {
 	__Vertice__000001_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormCellInt := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormCell and Form-FormCellInt`}).Stage(stage)
 	__Vertice__000002_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormCellString := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormCell and Form-FormCellString`}).Stage(stage)
 	__Vertice__000003_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldDate := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormCell and Form-FormFieldDate`}).Stage(stage)
-	__Vertice__000004_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldTime := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormCell and Form-FormFieldTime`}).Stage(stage)
-	__Vertice__000005_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_CheckBox := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormDiv and Form-CheckBox`}).Stage(stage)
-	__Vertice__000006_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_FormCell := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormDiv and Form-FormCell`}).Stage(stage)
-	__Vertice__000007_Verticle_in_class_diagram_Form_in_middle_between_Form_FormGroup_and_Form_FormDiv := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormGroup and Form-FormDiv`}).Stage(stage)
+	__Vertice__000004_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldDateTime := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormCell and Form-FormFieldDateTime`}).Stage(stage)
+	__Vertice__000005_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldSelect := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormCell and Form-FormFieldSelect`}).Stage(stage)
+	__Vertice__000006_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldTime := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormCell and Form-FormFieldTime`}).Stage(stage)
+	__Vertice__000007_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_CheckBox := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormDiv and Form-CheckBox`}).Stage(stage)
+	__Vertice__000008_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_FormCell := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormDiv and Form-FormCell`}).Stage(stage)
+	__Vertice__000009_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_FormEditAssocButton := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormDiv and Form-FormEditAssocButton`}).Stage(stage)
+	__Vertice__000010_Verticle_in_class_diagram_Form_in_middle_between_Form_FormFieldSelect_and_Form_Option := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormFieldSelect and Form-Option`}).Stage(stage)
+	__Vertice__000011_Verticle_in_class_diagram_Form_in_middle_between_Form_FormFieldSelect_and_Form_Option := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormFieldSelect and Form-Option`}).Stage(stage)
+	__Vertice__000012_Verticle_in_class_diagram_Form_in_middle_between_Form_FormGroup_and_Form_FormDiv := (&models.Vertice{Name: `Verticle in class diagram Form in middle between Form-FormGroup and Form-FormDiv`}).Stage(stage)
 
 	// Setup of values
 
@@ -362,81 +412,81 @@ func FormInjection(stage *models.StageStruct) {
 	__Field__000002_Name.Fieldtypename = `string`
 
 	// Field values setup
-	__Field__000003_Placeholder.Name = `Placeholder`
+	__Field__000003_Name.Name = `Name`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.FormFieldSelect.Name]
+	__Field__000003_Name.Identifier = `ref_models.FormFieldSelect.Name`
+	__Field__000003_Name.FieldTypeAsString = ``
+	__Field__000003_Name.Structname = `FormFieldSelect`
+	__Field__000003_Name.Fieldtypename = `string`
+
+	// Field values setup
+	__Field__000004_Name.Name = `Name`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.FormDiv.Name]
+	__Field__000004_Name.Identifier = `ref_models.FormDiv.Name`
+	__Field__000004_Name.FieldTypeAsString = ``
+	__Field__000004_Name.Structname = `FormDiv`
+	__Field__000004_Name.Fieldtypename = `string`
+
+	// Field values setup
+	__Field__000005_Placeholder.Name = `Placeholder`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.FormField.Placeholder]
-	__Field__000003_Placeholder.Identifier = `ref_models.FormField.Placeholder`
-	__Field__000003_Placeholder.FieldTypeAsString = ``
-	__Field__000003_Placeholder.Structname = `FormField`
-	__Field__000003_Placeholder.Fieldtypename = `string`
+	__Field__000005_Placeholder.Identifier = `ref_models.FormField.Placeholder`
+	__Field__000005_Placeholder.FieldTypeAsString = ``
+	__Field__000005_Placeholder.Structname = `FormField`
+	__Field__000005_Placeholder.Fieldtypename = `string`
 
 	// Field values setup
-	__Field__000004_Step.Name = `Step`
+	__Field__000006_Step.Name = `Step`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.FormFieldTime.Step]
-	__Field__000004_Step.Identifier = `ref_models.FormFieldTime.Step`
-	__Field__000004_Step.FieldTypeAsString = ``
-	__Field__000004_Step.Structname = `FormFieldTime`
-	__Field__000004_Step.Fieldtypename = `float64`
-
-	// Field values setup
-	__Field__000005_Value.Name = `Value`
-
-	// comment added to overcome the problem with the comment map association
-
-	//gong:ident [ref_models.FormFieldTime.Value]
-	__Field__000005_Value.Identifier = `ref_models.FormFieldTime.Value`
-	__Field__000005_Value.FieldTypeAsString = ``
-	__Field__000005_Value.Structname = `FormFieldTime`
-	__Field__000005_Value.Fieldtypename = `Time`
-
-	// Field values setup
-	__Field__000006_Value.Name = `Value`
-
-	// comment added to overcome the problem with the comment map association
-
-	//gong:ident [ref_models.CheckBox.Value]
-	__Field__000006_Value.Identifier = `ref_models.CheckBox.Value`
-	__Field__000006_Value.FieldTypeAsString = ``
-	__Field__000006_Value.Structname = `CheckBox`
-	__Field__000006_Value.Fieldtypename = `bool`
+	__Field__000006_Step.Identifier = `ref_models.FormFieldTime.Step`
+	__Field__000006_Step.FieldTypeAsString = ``
+	__Field__000006_Step.Structname = `FormFieldTime`
+	__Field__000006_Step.Fieldtypename = `float64`
 
 	// Field values setup
 	__Field__000007_Value.Name = `Value`
 
 	// comment added to overcome the problem with the comment map association
 
-	//gong:ident [ref_models.FormFieldFloat64.Value]
-	__Field__000007_Value.Identifier = `ref_models.FormFieldFloat64.Value`
+	//gong:ident [ref_models.FormFieldTime.Value]
+	__Field__000007_Value.Identifier = `ref_models.FormFieldTime.Value`
 	__Field__000007_Value.FieldTypeAsString = ``
-	__Field__000007_Value.Structname = `FormCellFloat64`
-	__Field__000007_Value.Fieldtypename = `float64`
+	__Field__000007_Value.Structname = `FormFieldTime`
+	__Field__000007_Value.Fieldtypename = `Time`
 
 	// Field values setup
 	__Field__000008_Value.Name = `Value`
 
 	// comment added to overcome the problem with the comment map association
 
-	//gong:ident [ref_models.FormFieldString.Value]
-	__Field__000008_Value.Identifier = `ref_models.FormFieldString.Value`
+	//gong:ident [ref_models.FormFieldDate.Value]
+	__Field__000008_Value.Identifier = `ref_models.FormFieldDate.Value`
 	__Field__000008_Value.FieldTypeAsString = ``
-	__Field__000008_Value.Structname = `FormCellString`
-	__Field__000008_Value.Fieldtypename = `string`
+	__Field__000008_Value.Structname = `FormFieldDate`
+	__Field__000008_Value.Fieldtypename = `Time`
 
 	// Field values setup
 	__Field__000009_Value.Name = `Value`
 
 	// comment added to overcome the problem with the comment map association
 
-	//gong:ident [ref_models.FormFieldDate.Value]
-	__Field__000009_Value.Identifier = `ref_models.FormFieldDate.Value`
+	//gong:ident [ref_models.CheckBox.Value]
+	__Field__000009_Value.Identifier = `ref_models.CheckBox.Value`
 	__Field__000009_Value.FieldTypeAsString = ``
-	__Field__000009_Value.Structname = `FormFieldDate`
-	__Field__000009_Value.Fieldtypename = `Time`
+	__Field__000009_Value.Structname = `CheckBox`
+	__Field__000009_Value.Fieldtypename = `bool`
 
 	// Field values setup
 	__Field__000010_Value.Name = `Value`
@@ -448,6 +498,28 @@ func FormInjection(stage *models.StageStruct) {
 	__Field__000010_Value.FieldTypeAsString = ``
 	__Field__000010_Value.Structname = `FormCellInt`
 	__Field__000010_Value.Fieldtypename = `int`
+
+	// Field values setup
+	__Field__000011_Value.Name = `Value`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.FormFieldFloat64.Value]
+	__Field__000011_Value.Identifier = `ref_models.FormFieldFloat64.Value`
+	__Field__000011_Value.FieldTypeAsString = ``
+	__Field__000011_Value.Structname = `FormCellFloat64`
+	__Field__000011_Value.Fieldtypename = `float64`
+
+	// Field values setup
+	__Field__000012_Value.Name = `Value`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.FormFieldString.Value]
+	__Field__000012_Value.Identifier = `ref_models.FormFieldString.Value`
+	__Field__000012_Value.FieldTypeAsString = ``
+	__Field__000012_Value.Structname = `FormCellString`
+	__Field__000012_Value.Fieldtypename = `string`
 
 	// GongEnumShape values setup
 	__GongEnumShape__000000_Form_InputTypeEnum.Name = `Form-InputTypeEnum`
@@ -594,7 +666,7 @@ func FormInjection(stage *models.StageStruct) {
 
 	//gong:ident [ref_models.CheckBox]
 	__GongStructShape__000000_Form_CheckBox.Identifier = `ref_models.CheckBox`
-	__GongStructShape__000000_Form_CheckBox.ShowNbInstances = false
+	__GongStructShape__000000_Form_CheckBox.ShowNbInstances = true
 	__GongStructShape__000000_Form_CheckBox.NbInstances = 0
 	__GongStructShape__000000_Form_CheckBox.Width = 240.000000
 	__GongStructShape__000000_Form_CheckBox.Heigth = 78.000000
@@ -662,60 +734,99 @@ func FormInjection(stage *models.StageStruct) {
 	__GongStructShape__000005_Form_FormDiv.ShowNbInstances = true
 	__GongStructShape__000005_Form_FormDiv.NbInstances = 0
 	__GongStructShape__000005_Form_FormDiv.Width = 240.000000
-	__GongStructShape__000005_Form_FormDiv.Heigth = 63.000000
+	__GongStructShape__000005_Form_FormDiv.Heigth = 78.000000
 	__GongStructShape__000005_Form_FormDiv.IsSelected = false
 
 	// GongStructShape values setup
-	__GongStructShape__000006_Form_FormFieldDate.Name = `Form-FormFieldDate`
+	__GongStructShape__000006_Form_FormEditAssocButton.Name = `Form-FormEditAssocButton`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.FormEditAssocButton]
+	__GongStructShape__000006_Form_FormEditAssocButton.Identifier = `ref_models.FormEditAssocButton`
+	__GongStructShape__000006_Form_FormEditAssocButton.ShowNbInstances = false
+	__GongStructShape__000006_Form_FormEditAssocButton.NbInstances = 0
+	__GongStructShape__000006_Form_FormEditAssocButton.Width = 240.000000
+	__GongStructShape__000006_Form_FormEditAssocButton.Heigth = 63.000000
+	__GongStructShape__000006_Form_FormEditAssocButton.IsSelected = false
+
+	// GongStructShape values setup
+	__GongStructShape__000007_Form_FormFieldDate.Name = `Form-FormFieldDate`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.FormFieldDate]
-	__GongStructShape__000006_Form_FormFieldDate.Identifier = `ref_models.FormFieldDate`
-	__GongStructShape__000006_Form_FormFieldDate.ShowNbInstances = true
-	__GongStructShape__000006_Form_FormFieldDate.NbInstances = 0
-	__GongStructShape__000006_Form_FormFieldDate.Width = 240.000000
-	__GongStructShape__000006_Form_FormFieldDate.Heigth = 78.000000
-	__GongStructShape__000006_Form_FormFieldDate.IsSelected = false
+	__GongStructShape__000007_Form_FormFieldDate.Identifier = `ref_models.FormFieldDate`
+	__GongStructShape__000007_Form_FormFieldDate.ShowNbInstances = true
+	__GongStructShape__000007_Form_FormFieldDate.NbInstances = 0
+	__GongStructShape__000007_Form_FormFieldDate.Width = 240.000000
+	__GongStructShape__000007_Form_FormFieldDate.Heigth = 78.000000
+	__GongStructShape__000007_Form_FormFieldDate.IsSelected = false
 
 	// GongStructShape values setup
-	__GongStructShape__000007_Form_FormFieldDateTime.Name = `Form-FormFieldDateTime`
+	__GongStructShape__000008_Form_FormFieldDateTime.Name = `Form-FormFieldDateTime`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.FormFieldDateTime]
-	__GongStructShape__000007_Form_FormFieldDateTime.Identifier = `ref_models.FormFieldDateTime`
-	__GongStructShape__000007_Form_FormFieldDateTime.ShowNbInstances = true
-	__GongStructShape__000007_Form_FormFieldDateTime.NbInstances = 0
-	__GongStructShape__000007_Form_FormFieldDateTime.Width = 240.000000
-	__GongStructShape__000007_Form_FormFieldDateTime.Heigth = 63.000000
-	__GongStructShape__000007_Form_FormFieldDateTime.IsSelected = false
+	__GongStructShape__000008_Form_FormFieldDateTime.Identifier = `ref_models.FormFieldDateTime`
+	__GongStructShape__000008_Form_FormFieldDateTime.ShowNbInstances = true
+	__GongStructShape__000008_Form_FormFieldDateTime.NbInstances = 0
+	__GongStructShape__000008_Form_FormFieldDateTime.Width = 240.000000
+	__GongStructShape__000008_Form_FormFieldDateTime.Heigth = 63.000000
+	__GongStructShape__000008_Form_FormFieldDateTime.IsSelected = false
 
 	// GongStructShape values setup
-	__GongStructShape__000008_Form_FormFieldTime.Name = `Form-FormFieldTime`
+	__GongStructShape__000009_Form_FormFieldSelect.Name = `Form-FormFieldSelect`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.FormFieldSelect]
+	__GongStructShape__000009_Form_FormFieldSelect.Identifier = `ref_models.FormFieldSelect`
+	__GongStructShape__000009_Form_FormFieldSelect.ShowNbInstances = false
+	__GongStructShape__000009_Form_FormFieldSelect.NbInstances = 0
+	__GongStructShape__000009_Form_FormFieldSelect.Width = 240.000000
+	__GongStructShape__000009_Form_FormFieldSelect.Heigth = 78.000000
+	__GongStructShape__000009_Form_FormFieldSelect.IsSelected = false
+
+	// GongStructShape values setup
+	__GongStructShape__000010_Form_FormFieldTime.Name = `Form-FormFieldTime`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.FormFieldTime]
-	__GongStructShape__000008_Form_FormFieldTime.Identifier = `ref_models.FormFieldTime`
-	__GongStructShape__000008_Form_FormFieldTime.ShowNbInstances = true
-	__GongStructShape__000008_Form_FormFieldTime.NbInstances = 0
-	__GongStructShape__000008_Form_FormFieldTime.Width = 240.000000
-	__GongStructShape__000008_Form_FormFieldTime.Heigth = 93.000000
-	__GongStructShape__000008_Form_FormFieldTime.IsSelected = false
+	__GongStructShape__000010_Form_FormFieldTime.Identifier = `ref_models.FormFieldTime`
+	__GongStructShape__000010_Form_FormFieldTime.ShowNbInstances = true
+	__GongStructShape__000010_Form_FormFieldTime.NbInstances = 0
+	__GongStructShape__000010_Form_FormFieldTime.Width = 240.000000
+	__GongStructShape__000010_Form_FormFieldTime.Heigth = 93.000000
+	__GongStructShape__000010_Form_FormFieldTime.IsSelected = false
 
 	// GongStructShape values setup
-	__GongStructShape__000009_Form_FormGroup.Name = `Form-FormGroup`
+	__GongStructShape__000011_Form_FormGroup.Name = `Form-FormGroup`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.FormGroup]
-	__GongStructShape__000009_Form_FormGroup.Identifier = `ref_models.FormGroup`
-	__GongStructShape__000009_Form_FormGroup.ShowNbInstances = true
-	__GongStructShape__000009_Form_FormGroup.NbInstances = 0
-	__GongStructShape__000009_Form_FormGroup.Width = 240.000000
-	__GongStructShape__000009_Form_FormGroup.Heigth = 63.000000
-	__GongStructShape__000009_Form_FormGroup.IsSelected = false
+	__GongStructShape__000011_Form_FormGroup.Identifier = `ref_models.FormGroup`
+	__GongStructShape__000011_Form_FormGroup.ShowNbInstances = true
+	__GongStructShape__000011_Form_FormGroup.NbInstances = 0
+	__GongStructShape__000011_Form_FormGroup.Width = 240.000000
+	__GongStructShape__000011_Form_FormGroup.Heigth = 63.000000
+	__GongStructShape__000011_Form_FormGroup.IsSelected = false
+
+	// GongStructShape values setup
+	__GongStructShape__000012_Form_Option.Name = `Form-Option`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.Option]
+	__GongStructShape__000012_Form_Option.Identifier = `ref_models.Option`
+	__GongStructShape__000012_Form_Option.ShowNbInstances = false
+	__GongStructShape__000012_Form_Option.NbInstances = 0
+	__GongStructShape__000012_Form_Option.Width = 240.000000
+	__GongStructShape__000012_Form_Option.Heigth = 63.000000
+	__GongStructShape__000012_Form_Option.IsSelected = false
 
 	// Link values setup
 	__Link__000000_CheckBoxs.Name = `CheckBoxs`
@@ -735,10 +846,10 @@ func FormInjection(stage *models.StageStruct) {
 	__Link__000000_CheckBoxs.TargetMultiplicityOffsetX = -50.000000
 	__Link__000000_CheckBoxs.TargetMultiplicityOffsetY = 16.000000
 	__Link__000000_CheckBoxs.SourceMultiplicity = models.ZERO_ONE
-	__Link__000000_CheckBoxs.SourceMultiplicityOffsetX = 10.000000
-	__Link__000000_CheckBoxs.SourceMultiplicityOffsetY = -50.000000
+	__Link__000000_CheckBoxs.SourceMultiplicityOffsetX = 9.000000
+	__Link__000000_CheckBoxs.SourceMultiplicityOffsetY = -11.000000
 	__Link__000000_CheckBoxs.StartOrientation = models.ORIENTATION_HORIZONTAL
-	__Link__000000_CheckBoxs.StartRatio = 0.500000
+	__Link__000000_CheckBoxs.StartRatio = 0.391026
 	__Link__000000_CheckBoxs.EndOrientation = models.ORIENTATION_HORIZONTAL
 	__Link__000000_CheckBoxs.EndRatio = 0.500000
 	__Link__000000_CheckBoxs.CornerOffsetRatio = 1.540007
@@ -848,82 +959,212 @@ func FormInjection(stage *models.StageStruct) {
 	__Link__000004_FormDivs.CornerOffsetRatio = 1.761905
 
 	// Link values setup
-	__Link__000005_FormFieldDate.Name = `FormFieldDate`
+	__Link__000005_FormEditAssocButton.Name = `FormEditAssocButton`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.FormDiv.FormEditAssocButton]
+	__Link__000005_FormEditAssocButton.Identifier = `ref_models.FormDiv.FormEditAssocButton`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.FormEditAssocButton]
+	__Link__000005_FormEditAssocButton.Fieldtypename = `ref_models.FormEditAssocButton`
+	__Link__000005_FormEditAssocButton.FieldOffsetX = -177.000000
+	__Link__000005_FormEditAssocButton.FieldOffsetY = -21.000000
+	__Link__000005_FormEditAssocButton.TargetMultiplicity = models.ZERO_ONE
+	__Link__000005_FormEditAssocButton.TargetMultiplicityOffsetX = -56.000000
+	__Link__000005_FormEditAssocButton.TargetMultiplicityOffsetY = 27.000000
+	__Link__000005_FormEditAssocButton.SourceMultiplicity = models.MANY
+	__Link__000005_FormEditAssocButton.SourceMultiplicityOffsetX = 10.000000
+	__Link__000005_FormEditAssocButton.SourceMultiplicityOffsetY = 24.000000
+	__Link__000005_FormEditAssocButton.StartOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000005_FormEditAssocButton.StartRatio = 0.544872
+	__Link__000005_FormEditAssocButton.EndOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000005_FormEditAssocButton.EndRatio = 0.500000
+	__Link__000005_FormEditAssocButton.CornerOffsetRatio = 1.531673
+
+	// Link values setup
+	__Link__000006_FormFieldDate.Name = `FormFieldDate`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.FormField.FormFieldDate]
-	__Link__000005_FormFieldDate.Identifier = `ref_models.FormField.FormFieldDate`
+	__Link__000006_FormFieldDate.Identifier = `ref_models.FormField.FormFieldDate`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.FormFieldDate]
-	__Link__000005_FormFieldDate.Fieldtypename = `ref_models.FormFieldDate`
-	__Link__000005_FormFieldDate.FieldOffsetX = -116.000000
-	__Link__000005_FormFieldDate.FieldOffsetY = -22.000000
-	__Link__000005_FormFieldDate.TargetMultiplicity = models.ZERO_ONE
-	__Link__000005_FormFieldDate.TargetMultiplicityOffsetX = -49.000000
-	__Link__000005_FormFieldDate.TargetMultiplicityOffsetY = 19.000000
-	__Link__000005_FormFieldDate.SourceMultiplicity = models.MANY
-	__Link__000005_FormFieldDate.SourceMultiplicityOffsetX = 37.000000
-	__Link__000005_FormFieldDate.SourceMultiplicityOffsetY = 39.000000
-	__Link__000005_FormFieldDate.StartOrientation = models.ORIENTATION_HORIZONTAL
-	__Link__000005_FormFieldDate.StartRatio = 0.500000
-	__Link__000005_FormFieldDate.EndOrientation = models.ORIENTATION_HORIZONTAL
-	__Link__000005_FormFieldDate.EndRatio = 0.500000
-	__Link__000005_FormFieldDate.CornerOffsetRatio = 1.731673
+	__Link__000006_FormFieldDate.Fieldtypename = `ref_models.FormFieldDate`
+	__Link__000006_FormFieldDate.FieldOffsetX = -116.000000
+	__Link__000006_FormFieldDate.FieldOffsetY = -22.000000
+	__Link__000006_FormFieldDate.TargetMultiplicity = models.ZERO_ONE
+	__Link__000006_FormFieldDate.TargetMultiplicityOffsetX = -49.000000
+	__Link__000006_FormFieldDate.TargetMultiplicityOffsetY = 19.000000
+	__Link__000006_FormFieldDate.SourceMultiplicity = models.MANY
+	__Link__000006_FormFieldDate.SourceMultiplicityOffsetX = 37.000000
+	__Link__000006_FormFieldDate.SourceMultiplicityOffsetY = 39.000000
+	__Link__000006_FormFieldDate.StartOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000006_FormFieldDate.StartRatio = 0.500000
+	__Link__000006_FormFieldDate.EndOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000006_FormFieldDate.EndRatio = 0.500000
+	__Link__000006_FormFieldDate.CornerOffsetRatio = 1.731673
 
 	// Link values setup
-	__Link__000006_FormFieldTime.Name = `FormFieldTime`
+	__Link__000007_FormFieldDateTime.Name = `FormFieldDateTime`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.FormField.FormFieldDateTime]
+	__Link__000007_FormFieldDateTime.Identifier = `ref_models.FormField.FormFieldDateTime`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.FormFieldDateTime]
+	__Link__000007_FormFieldDateTime.Fieldtypename = `ref_models.FormFieldDateTime`
+	__Link__000007_FormFieldDateTime.FieldOffsetX = -152.000000
+	__Link__000007_FormFieldDateTime.FieldOffsetY = -21.000000
+	__Link__000007_FormFieldDateTime.TargetMultiplicity = models.ZERO_ONE
+	__Link__000007_FormFieldDateTime.TargetMultiplicityOffsetX = -50.000000
+	__Link__000007_FormFieldDateTime.TargetMultiplicityOffsetY = 16.000000
+	__Link__000007_FormFieldDateTime.SourceMultiplicity = models.MANY
+	__Link__000007_FormFieldDateTime.SourceMultiplicityOffsetX = 30.000000
+	__Link__000007_FormFieldDateTime.SourceMultiplicityOffsetY = 56.000000
+	__Link__000007_FormFieldDateTime.StartOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000007_FormFieldDateTime.StartRatio = 0.500000
+	__Link__000007_FormFieldDateTime.EndOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000007_FormFieldDateTime.EndRatio = 0.500000
+	__Link__000007_FormFieldDateTime.CornerOffsetRatio = 1.728523
+
+	// Link values setup
+	__Link__000008_FormFieldSelect.Name = `FormFieldSelect`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.FormField.FormFieldSelect]
+	__Link__000008_FormFieldSelect.Identifier = `ref_models.FormField.FormFieldSelect`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.FormFieldSelect]
+	__Link__000008_FormFieldSelect.Fieldtypename = `ref_models.FormFieldSelect`
+	__Link__000008_FormFieldSelect.FieldOffsetX = -126.000000
+	__Link__000008_FormFieldSelect.FieldOffsetY = -21.000000
+	__Link__000008_FormFieldSelect.TargetMultiplicity = models.ZERO_ONE
+	__Link__000008_FormFieldSelect.TargetMultiplicityOffsetX = -50.000000
+	__Link__000008_FormFieldSelect.TargetMultiplicityOffsetY = 16.000000
+	__Link__000008_FormFieldSelect.SourceMultiplicity = models.MANY
+	__Link__000008_FormFieldSelect.SourceMultiplicityOffsetX = 11.000000
+	__Link__000008_FormFieldSelect.SourceMultiplicityOffsetY = 58.000000
+	__Link__000008_FormFieldSelect.StartOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000008_FormFieldSelect.StartRatio = 0.500000
+	__Link__000008_FormFieldSelect.EndOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000008_FormFieldSelect.EndRatio = 0.500000
+	__Link__000008_FormFieldSelect.CornerOffsetRatio = 1.728523
+
+	// Link values setup
+	__Link__000009_FormFieldTime.Name = `FormFieldTime`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.FormField.FormFieldTime]
-	__Link__000006_FormFieldTime.Identifier = `ref_models.FormField.FormFieldTime`
+	__Link__000009_FormFieldTime.Identifier = `ref_models.FormField.FormFieldTime`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.FormFieldTime]
-	__Link__000006_FormFieldTime.Fieldtypename = `ref_models.FormFieldTime`
-	__Link__000006_FormFieldTime.FieldOffsetX = -123.000000
-	__Link__000006_FormFieldTime.FieldOffsetY = -25.000000
-	__Link__000006_FormFieldTime.TargetMultiplicity = models.ZERO_ONE
-	__Link__000006_FormFieldTime.TargetMultiplicityOffsetX = -46.000000
-	__Link__000006_FormFieldTime.TargetMultiplicityOffsetY = 24.000000
-	__Link__000006_FormFieldTime.SourceMultiplicity = models.MANY
-	__Link__000006_FormFieldTime.SourceMultiplicityOffsetX = 41.000000
-	__Link__000006_FormFieldTime.SourceMultiplicityOffsetY = 26.000000
-	__Link__000006_FormFieldTime.StartOrientation = models.ORIENTATION_HORIZONTAL
-	__Link__000006_FormFieldTime.StartRatio = 0.500000
-	__Link__000006_FormFieldTime.EndOrientation = models.ORIENTATION_HORIZONTAL
-	__Link__000006_FormFieldTime.EndRatio = 0.500000
-	__Link__000006_FormFieldTime.CornerOffsetRatio = 1.731673
+	__Link__000009_FormFieldTime.Fieldtypename = `ref_models.FormFieldTime`
+	__Link__000009_FormFieldTime.FieldOffsetX = -123.000000
+	__Link__000009_FormFieldTime.FieldOffsetY = -25.000000
+	__Link__000009_FormFieldTime.TargetMultiplicity = models.ZERO_ONE
+	__Link__000009_FormFieldTime.TargetMultiplicityOffsetX = -46.000000
+	__Link__000009_FormFieldTime.TargetMultiplicityOffsetY = 24.000000
+	__Link__000009_FormFieldTime.SourceMultiplicity = models.MANY
+	__Link__000009_FormFieldTime.SourceMultiplicityOffsetX = 41.000000
+	__Link__000009_FormFieldTime.SourceMultiplicityOffsetY = 26.000000
+	__Link__000009_FormFieldTime.StartOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000009_FormFieldTime.StartRatio = 0.500000
+	__Link__000009_FormFieldTime.EndOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000009_FormFieldTime.EndRatio = 0.500000
+	__Link__000009_FormFieldTime.CornerOffsetRatio = 1.731673
 
 	// Link values setup
-	__Link__000007_FormFields.Name = `FormFields`
+	__Link__000010_FormFields.Name = `FormFields`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.FormDiv.FormFields]
-	__Link__000007_FormFields.Identifier = `ref_models.FormDiv.FormFields`
+	__Link__000010_FormFields.Identifier = `ref_models.FormDiv.FormFields`
 
 	// comment added to overcome the problem with the comment map association
 
 	//gong:ident [ref_models.FormField]
-	__Link__000007_FormFields.Fieldtypename = `ref_models.FormField`
-	__Link__000007_FormFields.FieldOffsetX = 24.000000
-	__Link__000007_FormFields.FieldOffsetY = -19.000000
-	__Link__000007_FormFields.TargetMultiplicity = models.MANY
-	__Link__000007_FormFields.TargetMultiplicityOffsetX = -32.000000
-	__Link__000007_FormFields.TargetMultiplicityOffsetY = -5.000000
-	__Link__000007_FormFields.SourceMultiplicity = models.ZERO_ONE
-	__Link__000007_FormFields.SourceMultiplicityOffsetX = -35.000000
-	__Link__000007_FormFields.SourceMultiplicityOffsetY = 25.000000
-	__Link__000007_FormFields.StartOrientation = models.ORIENTATION_VERTICAL
-	__Link__000007_FormFields.StartRatio = 0.440007
-	__Link__000007_FormFields.EndOrientation = models.ORIENTATION_VERTICAL
-	__Link__000007_FormFields.EndRatio = 0.424341
-	__Link__000007_FormFields.CornerOffsetRatio = 2.150794
+	__Link__000010_FormFields.Fieldtypename = `ref_models.FormField`
+	__Link__000010_FormFields.FieldOffsetX = 24.000000
+	__Link__000010_FormFields.FieldOffsetY = -19.000000
+	__Link__000010_FormFields.TargetMultiplicity = models.MANY
+	__Link__000010_FormFields.TargetMultiplicityOffsetX = -32.000000
+	__Link__000010_FormFields.TargetMultiplicityOffsetY = -5.000000
+	__Link__000010_FormFields.SourceMultiplicity = models.ZERO_ONE
+	__Link__000010_FormFields.SourceMultiplicityOffsetX = -35.000000
+	__Link__000010_FormFields.SourceMultiplicityOffsetY = 25.000000
+	__Link__000010_FormFields.StartOrientation = models.ORIENTATION_VERTICAL
+	__Link__000010_FormFields.StartRatio = 0.440007
+	__Link__000010_FormFields.EndOrientation = models.ORIENTATION_VERTICAL
+	__Link__000010_FormFields.EndRatio = 0.424341
+	__Link__000010_FormFields.CornerOffsetRatio = 2.150794
+
+	// Link values setup
+	__Link__000011_Options.Name = `Options`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.FormFieldSelect.Options]
+	__Link__000011_Options.Identifier = `ref_models.FormFieldSelect.Options`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.Option]
+	__Link__000011_Options.Fieldtypename = `ref_models.Option`
+	__Link__000011_Options.FieldOffsetX = -57.000000
+	__Link__000011_Options.FieldOffsetY = -30.000000
+	__Link__000011_Options.TargetMultiplicity = models.MANY
+	__Link__000011_Options.TargetMultiplicityOffsetX = -27.000000
+	__Link__000011_Options.TargetMultiplicityOffsetY = -2.000000
+	__Link__000011_Options.SourceMultiplicity = models.ZERO_ONE
+	__Link__000011_Options.SourceMultiplicityOffsetX = 10.000000
+	__Link__000011_Options.SourceMultiplicityOffsetY = -9.000000
+	__Link__000011_Options.StartOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000011_Options.StartRatio = 0.423077
+	__Link__000011_Options.EndOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000011_Options.EndRatio = 0.301587
+	__Link__000011_Options.CornerOffsetRatio = 1.210840
+
+	// Link values setup
+	__Link__000012_Value.Name = `Value`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.FormFieldSelect.Value]
+	__Link__000012_Value.Identifier = `ref_models.FormFieldSelect.Value`
+
+	// comment added to overcome the problem with the comment map association
+
+	//gong:ident [ref_models.Option]
+	__Link__000012_Value.Fieldtypename = `ref_models.Option`
+	__Link__000012_Value.FieldOffsetX = -46.000000
+	__Link__000012_Value.FieldOffsetY = 26.000000
+	__Link__000012_Value.TargetMultiplicity = models.ZERO_ONE
+	__Link__000012_Value.TargetMultiplicityOffsetX = -41.000000
+	__Link__000012_Value.TargetMultiplicityOffsetY = -8.000000
+	__Link__000012_Value.SourceMultiplicity = models.MANY
+	__Link__000012_Value.SourceMultiplicityOffsetX = 17.000000
+	__Link__000012_Value.SourceMultiplicityOffsetY = -3.000000
+	__Link__000012_Value.StartOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000012_Value.StartRatio = 0.961538
+	__Link__000012_Value.EndOrientation = models.ORIENTATION_HORIZONTAL
+	__Link__000012_Value.EndRatio = 1.000000
+	__Link__000012_Value.CornerOffsetRatio = 1.248340
 
 	// Position values setup
 	__Position__000000_Pos_Form_CheckBox.X = 643.000000
@@ -956,29 +1197,44 @@ func FormInjection(stage *models.StageStruct) {
 	__Position__000005_Pos_Form_FormDiv.Name = `Pos-Form-FormDiv`
 
 	// Position values setup
-	__Position__000006_Pos_Form_FormFieldDate.X = 639.000000
-	__Position__000006_Pos_Form_FormFieldDate.Y = 515.000000
-	__Position__000006_Pos_Form_FormFieldDate.Name = `Pos-Form-FormFieldDate`
+	__Position__000006_Pos_Form_FormEditAssocButton.X = 660.000000
+	__Position__000006_Pos_Form_FormEditAssocButton.Y = 1005.000000
+	__Position__000006_Pos_Form_FormEditAssocButton.Name = `Pos-Form-FormEditAssocButton`
 
 	// Position values setup
-	__Position__000007_Pos_Form_FormFieldDateTime.X = 650.000000
-	__Position__000007_Pos_Form_FormFieldDateTime.Y = 767.000000
-	__Position__000007_Pos_Form_FormFieldDateTime.Name = `Pos-Form-FormFieldDateTime`
+	__Position__000007_Pos_Form_FormFieldDate.X = 639.000000
+	__Position__000007_Pos_Form_FormFieldDate.Y = 515.000000
+	__Position__000007_Pos_Form_FormFieldDate.Name = `Pos-Form-FormFieldDate`
 
 	// Position values setup
-	__Position__000008_Pos_Form_FormFieldTime.X = 647.000000
-	__Position__000008_Pos_Form_FormFieldTime.Y = 610.000000
-	__Position__000008_Pos_Form_FormFieldTime.Name = `Pos-Form-FormFieldTime`
+	__Position__000008_Pos_Form_FormFieldDateTime.X = 650.000000
+	__Position__000008_Pos_Form_FormFieldDateTime.Y = 767.000000
+	__Position__000008_Pos_Form_FormFieldDateTime.Name = `Pos-Form-FormFieldDateTime`
 
 	// Position values setup
-	__Position__000009_Pos_Form_FormGroup.X = 30.000000
-	__Position__000009_Pos_Form_FormGroup.Y = 59.000000
-	__Position__000009_Pos_Form_FormGroup.Name = `Pos-Form-FormGroup`
+	__Position__000009_Pos_Form_FormFieldSelect.X = 649.000000
+	__Position__000009_Pos_Form_FormFieldSelect.Y = 872.000000
+	__Position__000009_Pos_Form_FormFieldSelect.Name = `Pos-Form-FormFieldSelect`
 
 	// Position values setup
-	__Position__000010_Pos_Form_InputTypeEnum.X = 28.000000
-	__Position__000010_Pos_Form_InputTypeEnum.Y = 596.000000
-	__Position__000010_Pos_Form_InputTypeEnum.Name = `Pos-Form-InputTypeEnum`
+	__Position__000010_Pos_Form_FormFieldTime.X = 647.000000
+	__Position__000010_Pos_Form_FormFieldTime.Y = 610.000000
+	__Position__000010_Pos_Form_FormFieldTime.Name = `Pos-Form-FormFieldTime`
+
+	// Position values setup
+	__Position__000011_Pos_Form_FormGroup.X = 30.000000
+	__Position__000011_Pos_Form_FormGroup.Y = 59.000000
+	__Position__000011_Pos_Form_FormGroup.Name = `Pos-Form-FormGroup`
+
+	// Position values setup
+	__Position__000012_Pos_Form_InputTypeEnum.X = 28.000000
+	__Position__000012_Pos_Form_InputTypeEnum.Y = 596.000000
+	__Position__000012_Pos_Form_InputTypeEnum.Name = `Pos-Form-InputTypeEnum`
+
+	// Position values setup
+	__Position__000013_Pos_Form_Option.X = 1038.000000
+	__Position__000013_Pos_Form_Option.Y = 884.000000
+	__Position__000013_Pos_Form_Option.Name = `Pos-Form-Option`
 
 	// Vertice values setup
 	__Vertice__000000_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormCellFloat64.X = 409.500000
@@ -1001,38 +1257,66 @@ func FormInjection(stage *models.StageStruct) {
 	__Vertice__000003_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldDate.Name = `Verticle in class diagram Form in middle between Form-FormCell and Form-FormFieldDate`
 
 	// Vertice values setup
-	__Vertice__000004_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldTime.X = 711.000000
-	__Vertice__000004_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldTime.Y = 461.000000
-	__Vertice__000004_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldTime.Name = `Verticle in class diagram Form in middle between Form-FormCell and Form-FormFieldTime`
+	__Vertice__000004_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldDateTime.X = 727.000000
+	__Vertice__000004_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldDateTime.Y = 662.000000
+	__Vertice__000004_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldDateTime.Name = `Verticle in class diagram Form in middle between Form-FormCell and Form-FormFieldDateTime`
 
 	// Vertice values setup
-	__Vertice__000005_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_CheckBox.X = 690.000000
-	__Vertice__000005_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_CheckBox.Y = 171.500000
-	__Vertice__000005_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_CheckBox.Name = `Verticle in class diagram Form in middle between Form-FormDiv and Form-CheckBox`
+	__Vertice__000005_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldSelect.X = 726.500000
+	__Vertice__000005_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldSelect.Y = 714.500000
+	__Vertice__000005_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldSelect.Name = `Verticle in class diagram Form in middle between Form-FormCell and Form-FormFieldSelect`
 
 	// Vertice values setup
-	__Vertice__000006_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_FormCell.X = 385.500000
-	__Vertice__000006_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_FormCell.Y = 371.500000
-	__Vertice__000006_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_FormCell.Name = `Verticle in class diagram Form in middle between Form-FormDiv and Form-FormCell`
+	__Vertice__000006_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldTime.X = 711.000000
+	__Vertice__000006_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldTime.Y = 461.000000
+	__Vertice__000006_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldTime.Name = `Verticle in class diagram Form in middle between Form-FormCell and Form-FormFieldTime`
 
 	// Vertice values setup
-	__Vertice__000007_Verticle_in_class_diagram_Form_in_middle_between_Form_FormGroup_and_Form_FormDiv.X = 390.000000
-	__Vertice__000007_Verticle_in_class_diagram_Form_in_middle_between_Form_FormGroup_and_Form_FormDiv.Y = 185.000000
-	__Vertice__000007_Verticle_in_class_diagram_Form_in_middle_between_Form_FormGroup_and_Form_FormDiv.Name = `Verticle in class diagram Form in middle between Form-FormGroup and Form-FormDiv`
+	__Vertice__000007_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_CheckBox.X = 690.000000
+	__Vertice__000007_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_CheckBox.Y = 171.500000
+	__Vertice__000007_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_CheckBox.Name = `Verticle in class diagram Form in middle between Form-FormDiv and Form-CheckBox`
+
+	// Vertice values setup
+	__Vertice__000008_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_FormCell.X = 385.500000
+	__Vertice__000008_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_FormCell.Y = 371.500000
+	__Vertice__000008_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_FormCell.Name = `Verticle in class diagram Form in middle between Form-FormDiv and Form-FormCell`
+
+	// Vertice values setup
+	__Vertice__000009_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_FormEditAssocButton.X = 698.500000
+	__Vertice__000009_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_FormEditAssocButton.Y = 654.500000
+	__Vertice__000009_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_FormEditAssocButton.Name = `Verticle in class diagram Form in middle between Form-FormDiv and Form-FormEditAssocButton`
+
+	// Vertice values setup
+	__Vertice__000010_Verticle_in_class_diagram_Form_in_middle_between_Form_FormFieldSelect_and_Form_Option.X = 510.000000
+	__Vertice__000010_Verticle_in_class_diagram_Form_in_middle_between_Form_FormFieldSelect_and_Form_Option.Y = 476.000000
+	__Vertice__000010_Verticle_in_class_diagram_Form_in_middle_between_Form_FormFieldSelect_and_Form_Option.Name = `Verticle in class diagram Form in middle between Form-FormFieldSelect and Form-Option`
+
+	// Vertice values setup
+	__Vertice__000011_Verticle_in_class_diagram_Form_in_middle_between_Form_FormFieldSelect_and_Form_Option.X = 510.000000
+	__Vertice__000011_Verticle_in_class_diagram_Form_in_middle_between_Form_FormFieldSelect_and_Form_Option.Y = 476.000000
+	__Vertice__000011_Verticle_in_class_diagram_Form_in_middle_between_Form_FormFieldSelect_and_Form_Option.Name = `Verticle in class diagram Form in middle between Form-FormFieldSelect and Form-Option`
+
+	// Vertice values setup
+	__Vertice__000012_Verticle_in_class_diagram_Form_in_middle_between_Form_FormGroup_and_Form_FormDiv.X = 390.000000
+	__Vertice__000012_Verticle_in_class_diagram_Form_in_middle_between_Form_FormGroup_and_Form_FormDiv.Y = 185.000000
+	__Vertice__000012_Verticle_in_class_diagram_Form_in_middle_between_Form_FormGroup_and_Form_FormDiv.Name = `Verticle in class diagram Form in middle between Form-FormGroup and Form-FormDiv`
 
 	// Setup of pointers
 	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000001_Form_FormCell)
 	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000002_Form_FormCellFloat64)
 	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000003_Form_FormCellInt)
 	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000004_Form_FormCellString)
-	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000008_Form_FormFieldTime)
-	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000006_Form_FormFieldDate)
-	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000009_Form_FormGroup)
-	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000007_Form_FormFieldDateTime)
+	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000010_Form_FormFieldTime)
+	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000007_Form_FormFieldDate)
+	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000011_Form_FormGroup)
+	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000008_Form_FormFieldDateTime)
 	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000005_Form_FormDiv)
 	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000000_Form_CheckBox)
+	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000006_Form_FormEditAssocButton)
+	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000009_Form_FormFieldSelect)
+	__Classdiagram__000000_Form.GongStructShapes = append(__Classdiagram__000000_Form.GongStructShapes, __GongStructShape__000012_Form_Option)
 	__Classdiagram__000000_Form.GongEnumShapes = append(__Classdiagram__000000_Form.GongEnumShapes, __GongEnumShape__000000_Form_InputTypeEnum)
-	__GongEnumShape__000000_Form_InputTypeEnum.Position = __Position__000010_Pos_Form_InputTypeEnum
+	__GongEnumShape__000000_Form_InputTypeEnum.Position = __Position__000012_Pos_Form_InputTypeEnum
 	__GongEnumShape__000000_Form_InputTypeEnum.GongEnumValueEntrys = append(__GongEnumShape__000000_Form_InputTypeEnum.GongEnumValueEntrys, __GongEnumValueEntry__000012_Text)
 	__GongEnumShape__000000_Form_InputTypeEnum.GongEnumValueEntrys = append(__GongEnumShape__000000_Form_InputTypeEnum.GongEnumValueEntrys, __GongEnumValueEntry__000008_Password)
 	__GongEnumShape__000000_Form_InputTypeEnum.GongEnumValueEntrys = append(__GongEnumShape__000000_Form_InputTypeEnum.GongEnumValueEntrys, __GongEnumValueEntry__000007_Number)
@@ -1050,42 +1334,55 @@ func FormInjection(stage *models.StageStruct) {
 	__GongEnumShape__000000_Form_InputTypeEnum.GongEnumValueEntrys = append(__GongEnumShape__000000_Form_InputTypeEnum.GongEnumValueEntrys, __GongEnumValueEntry__000006_Month)
 	__GongEnumShape__000000_Form_InputTypeEnum.GongEnumValueEntrys = append(__GongEnumShape__000000_Form_InputTypeEnum.GongEnumValueEntrys, __GongEnumValueEntry__000015_Week)
 	__GongStructShape__000000_Form_CheckBox.Position = __Position__000000_Pos_Form_CheckBox
-	__GongStructShape__000000_Form_CheckBox.Fields = append(__GongStructShape__000000_Form_CheckBox.Fields, __Field__000006_Value)
+	__GongStructShape__000000_Form_CheckBox.Fields = append(__GongStructShape__000000_Form_CheckBox.Fields, __Field__000009_Value)
 	__GongStructShape__000001_Form_FormCell.Position = __Position__000001_Pos_Form_FormCell
 	__GongStructShape__000001_Form_FormCell.Fields = append(__GongStructShape__000001_Form_FormCell.Fields, __Field__000002_Name)
 	__GongStructShape__000001_Form_FormCell.Fields = append(__GongStructShape__000001_Form_FormCell.Fields, __Field__000000_InputTypeEnum)
 	__GongStructShape__000001_Form_FormCell.Fields = append(__GongStructShape__000001_Form_FormCell.Fields, __Field__000001_Label)
-	__GongStructShape__000001_Form_FormCell.Fields = append(__GongStructShape__000001_Form_FormCell.Fields, __Field__000003_Placeholder)
+	__GongStructShape__000001_Form_FormCell.Fields = append(__GongStructShape__000001_Form_FormCell.Fields, __Field__000005_Placeholder)
 	__GongStructShape__000001_Form_FormCell.Links = append(__GongStructShape__000001_Form_FormCell.Links, __Link__000001_FormCellFloat64)
 	__GongStructShape__000001_Form_FormCell.Links = append(__GongStructShape__000001_Form_FormCell.Links, __Link__000002_FormCellInt)
 	__GongStructShape__000001_Form_FormCell.Links = append(__GongStructShape__000001_Form_FormCell.Links, __Link__000003_FormCellString)
-	__GongStructShape__000001_Form_FormCell.Links = append(__GongStructShape__000001_Form_FormCell.Links, __Link__000006_FormFieldTime)
-	__GongStructShape__000001_Form_FormCell.Links = append(__GongStructShape__000001_Form_FormCell.Links, __Link__000005_FormFieldDate)
+	__GongStructShape__000001_Form_FormCell.Links = append(__GongStructShape__000001_Form_FormCell.Links, __Link__000009_FormFieldTime)
+	__GongStructShape__000001_Form_FormCell.Links = append(__GongStructShape__000001_Form_FormCell.Links, __Link__000006_FormFieldDate)
+	__GongStructShape__000001_Form_FormCell.Links = append(__GongStructShape__000001_Form_FormCell.Links, __Link__000007_FormFieldDateTime)
+	__GongStructShape__000001_Form_FormCell.Links = append(__GongStructShape__000001_Form_FormCell.Links, __Link__000008_FormFieldSelect)
 	__GongStructShape__000002_Form_FormCellFloat64.Position = __Position__000002_Pos_Form_FormCellFloat64
-	__GongStructShape__000002_Form_FormCellFloat64.Fields = append(__GongStructShape__000002_Form_FormCellFloat64.Fields, __Field__000007_Value)
+	__GongStructShape__000002_Form_FormCellFloat64.Fields = append(__GongStructShape__000002_Form_FormCellFloat64.Fields, __Field__000011_Value)
 	__GongStructShape__000003_Form_FormCellInt.Position = __Position__000003_Pos_Form_FormCellInt
 	__GongStructShape__000003_Form_FormCellInt.Fields = append(__GongStructShape__000003_Form_FormCellInt.Fields, __Field__000010_Value)
 	__GongStructShape__000004_Form_FormCellString.Position = __Position__000004_Pos_Form_FormCellString
-	__GongStructShape__000004_Form_FormCellString.Fields = append(__GongStructShape__000004_Form_FormCellString.Fields, __Field__000008_Value)
+	__GongStructShape__000004_Form_FormCellString.Fields = append(__GongStructShape__000004_Form_FormCellString.Fields, __Field__000012_Value)
 	__GongStructShape__000005_Form_FormDiv.Position = __Position__000005_Pos_Form_FormDiv
-	__GongStructShape__000005_Form_FormDiv.Links = append(__GongStructShape__000005_Form_FormDiv.Links, __Link__000007_FormFields)
+	__GongStructShape__000005_Form_FormDiv.Fields = append(__GongStructShape__000005_Form_FormDiv.Fields, __Field__000004_Name)
+	__GongStructShape__000005_Form_FormDiv.Links = append(__GongStructShape__000005_Form_FormDiv.Links, __Link__000010_FormFields)
 	__GongStructShape__000005_Form_FormDiv.Links = append(__GongStructShape__000005_Form_FormDiv.Links, __Link__000000_CheckBoxs)
-	__GongStructShape__000006_Form_FormFieldDate.Position = __Position__000006_Pos_Form_FormFieldDate
-	__GongStructShape__000006_Form_FormFieldDate.Fields = append(__GongStructShape__000006_Form_FormFieldDate.Fields, __Field__000009_Value)
-	__GongStructShape__000007_Form_FormFieldDateTime.Position = __Position__000007_Pos_Form_FormFieldDateTime
-	__GongStructShape__000008_Form_FormFieldTime.Position = __Position__000008_Pos_Form_FormFieldTime
-	__GongStructShape__000008_Form_FormFieldTime.Fields = append(__GongStructShape__000008_Form_FormFieldTime.Fields, __Field__000005_Value)
-	__GongStructShape__000008_Form_FormFieldTime.Fields = append(__GongStructShape__000008_Form_FormFieldTime.Fields, __Field__000004_Step)
-	__GongStructShape__000009_Form_FormGroup.Position = __Position__000009_Pos_Form_FormGroup
-	__GongStructShape__000009_Form_FormGroup.Links = append(__GongStructShape__000009_Form_FormGroup.Links, __Link__000004_FormDivs)
-	__Link__000000_CheckBoxs.Middlevertice = __Vertice__000005_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_CheckBox
+	__GongStructShape__000005_Form_FormDiv.Links = append(__GongStructShape__000005_Form_FormDiv.Links, __Link__000005_FormEditAssocButton)
+	__GongStructShape__000006_Form_FormEditAssocButton.Position = __Position__000006_Pos_Form_FormEditAssocButton
+	__GongStructShape__000007_Form_FormFieldDate.Position = __Position__000007_Pos_Form_FormFieldDate
+	__GongStructShape__000007_Form_FormFieldDate.Fields = append(__GongStructShape__000007_Form_FormFieldDate.Fields, __Field__000008_Value)
+	__GongStructShape__000008_Form_FormFieldDateTime.Position = __Position__000008_Pos_Form_FormFieldDateTime
+	__GongStructShape__000009_Form_FormFieldSelect.Position = __Position__000009_Pos_Form_FormFieldSelect
+	__GongStructShape__000009_Form_FormFieldSelect.Fields = append(__GongStructShape__000009_Form_FormFieldSelect.Fields, __Field__000003_Name)
+	__GongStructShape__000009_Form_FormFieldSelect.Links = append(__GongStructShape__000009_Form_FormFieldSelect.Links, __Link__000011_Options)
+	__GongStructShape__000009_Form_FormFieldSelect.Links = append(__GongStructShape__000009_Form_FormFieldSelect.Links, __Link__000012_Value)
+	__GongStructShape__000010_Form_FormFieldTime.Position = __Position__000010_Pos_Form_FormFieldTime
+	__GongStructShape__000010_Form_FormFieldTime.Fields = append(__GongStructShape__000010_Form_FormFieldTime.Fields, __Field__000007_Value)
+	__GongStructShape__000010_Form_FormFieldTime.Fields = append(__GongStructShape__000010_Form_FormFieldTime.Fields, __Field__000006_Step)
+	__GongStructShape__000011_Form_FormGroup.Position = __Position__000011_Pos_Form_FormGroup
+	__GongStructShape__000011_Form_FormGroup.Links = append(__GongStructShape__000011_Form_FormGroup.Links, __Link__000004_FormDivs)
+	__GongStructShape__000012_Form_Option.Position = __Position__000013_Pos_Form_Option
+	__Link__000000_CheckBoxs.Middlevertice = __Vertice__000007_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_CheckBox
 	__Link__000001_FormCellFloat64.Middlevertice = __Vertice__000000_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormCellFloat64
 	__Link__000002_FormCellInt.Middlevertice = __Vertice__000001_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormCellInt
 	__Link__000003_FormCellString.Middlevertice = __Vertice__000002_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormCellString
-	__Link__000004_FormDivs.Middlevertice = __Vertice__000007_Verticle_in_class_diagram_Form_in_middle_between_Form_FormGroup_and_Form_FormDiv
-	__Link__000005_FormFieldDate.Middlevertice = __Vertice__000003_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldDate
-	__Link__000006_FormFieldTime.Middlevertice = __Vertice__000004_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldTime
-	__Link__000007_FormFields.Middlevertice = __Vertice__000006_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_FormCell
+	__Link__000004_FormDivs.Middlevertice = __Vertice__000012_Verticle_in_class_diagram_Form_in_middle_between_Form_FormGroup_and_Form_FormDiv
+	__Link__000005_FormEditAssocButton.Middlevertice = __Vertice__000009_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_FormEditAssocButton
+	__Link__000006_FormFieldDate.Middlevertice = __Vertice__000003_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldDate
+	__Link__000007_FormFieldDateTime.Middlevertice = __Vertice__000004_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldDateTime
+	__Link__000008_FormFieldSelect.Middlevertice = __Vertice__000005_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldSelect
+	__Link__000009_FormFieldTime.Middlevertice = __Vertice__000006_Verticle_in_class_diagram_Form_in_middle_between_Form_FormCell_and_Form_FormFieldTime
+	__Link__000010_FormFields.Middlevertice = __Vertice__000008_Verticle_in_class_diagram_Form_in_middle_between_Form_FormDiv_and_Form_FormCell
+	__Link__000011_Options.Middlevertice = __Vertice__000011_Verticle_in_class_diagram_Form_in_middle_between_Form_FormFieldSelect_and_Form_Option
+	__Link__000012_Value.Middlevertice = __Vertice__000010_Verticle_in_class_diagram_Form_in_middle_between_Form_FormFieldSelect_and_Form_Option
 }
-
-

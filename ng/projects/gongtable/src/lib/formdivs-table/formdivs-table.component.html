@@ -26,6 +26,13 @@
             </td>
         </ng-container>
         <!-- -->
+        <ng-container matColumnDef="FormEditAssocButton">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> FormEditAssocButton </th>
+            <td mat-cell *matCellDef="let FormDiv">
+                {{ FormDiv.FormEditAssocButton ? FormDiv.FormEditAssocButton.Name : ''}}
+            </td>
+        </ng-container>
+        <!-- -->
         <ng-container matColumnDef="FormGroup_FormDivs">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> <-- (FormGroup) FormDivs </th>
             <td mat-cell *matCellDef="let formdiv">

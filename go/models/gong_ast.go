@@ -312,6 +312,7 @@ var __gong__map_CellString = make(map[string]*CellString)
 var __gong__map_CheckBox = make(map[string]*CheckBox)
 var __gong__map_DisplayedColumn = make(map[string]*DisplayedColumn)
 var __gong__map_FormDiv = make(map[string]*FormDiv)
+var __gong__map_FormEditAssocButton = make(map[string]*FormEditAssocButton)
 var __gong__map_FormField = make(map[string]*FormField)
 var __gong__map_FormFieldDate = make(map[string]*FormFieldDate)
 var __gong__map_FormFieldDateTime = make(map[string]*FormFieldDateTime)
@@ -321,6 +322,7 @@ var __gong__map_FormFieldSelect = make(map[string]*FormFieldSelect)
 var __gong__map_FormFieldString = make(map[string]*FormFieldString)
 var __gong__map_FormFieldTime = make(map[string]*FormFieldTime)
 var __gong__map_FormGroup = make(map[string]*FormGroup)
+var __gong__map_FormSortAssocButton = make(map[string]*FormSortAssocButton)
 var __gong__map_Option = make(map[string]*Option)
 var __gong__map_Row = make(map[string]*Row)
 var __gong__map_Table = make(map[string]*Table)
@@ -532,6 +534,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 										instanceFormDiv := (&FormDiv{Name: instanceName}).Stage(stage)
 										instance = any(instanceFormDiv)
 										__gong__map_FormDiv[identifier] = instanceFormDiv
+									case "FormEditAssocButton":
+										instanceFormEditAssocButton := (&FormEditAssocButton{Name: instanceName}).Stage(stage)
+										instance = any(instanceFormEditAssocButton)
+										__gong__map_FormEditAssocButton[identifier] = instanceFormEditAssocButton
 									case "FormField":
 										instanceFormField := (&FormField{Name: instanceName}).Stage(stage)
 										instance = any(instanceFormField)
@@ -568,6 +574,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 										instanceFormGroup := (&FormGroup{Name: instanceName}).Stage(stage)
 										instance = any(instanceFormGroup)
 										__gong__map_FormGroup[identifier] = instanceFormGroup
+									case "FormSortAssocButton":
+										instanceFormSortAssocButton := (&FormSortAssocButton{Name: instanceName}).Stage(stage)
+										instance = any(instanceFormSortAssocButton)
+										__gong__map_FormSortAssocButton[identifier] = instanceFormSortAssocButton
 									case "Option":
 										instanceOption := (&Option{Name: instanceName}).Stage(stage)
 										instance = any(instanceOption)
@@ -652,6 +662,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 							switch fieldName {
 							// insertion point for date assign code
 							}
+						case "FormEditAssocButton":
+							switch fieldName {
+							// insertion point for date assign code
+							}
 						case "FormField":
 							switch fieldName {
 							// insertion point for date assign code
@@ -697,6 +711,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 									date)
 							}
 						case "FormGroup":
+							switch fieldName {
+							// insertion point for date assign code
+							}
+						case "FormSortAssocButton":
 							switch fieldName {
 							// insertion point for date assign code
 							}
@@ -785,6 +803,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 							__gong__map_FormDiv[identifier].CheckBoxs =
 								append(__gong__map_FormDiv[identifier].CheckBoxs, target)
 						}
+					case "FormEditAssocButton":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
+						}
 					case "FormField":
 						switch fieldName {
 						// insertion point for slice of pointers assign code
@@ -832,6 +854,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 							target := __gong__map_FormDiv[targetIdentifier]
 							__gong__map_FormGroup[identifier].FormDivs =
 								append(__gong__map_FormGroup[identifier].FormDivs, target)
+						}
+					case "FormSortAssocButton":
+						switch fieldName {
+						// insertion point for slice of pointers assign code
 						}
 					case "Option":
 						switch fieldName {
@@ -1006,6 +1032,18 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_FormDiv[identifier].Name = fielValue
 				}
+			case "FormEditAssocButton":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormEditAssocButton[identifier].Name = fielValue
+				case "Label":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormEditAssocButton[identifier].Label = fielValue
+				}
 			case "FormField":
 				switch fieldName {
 				// insertion point for field dependant code
@@ -1111,6 +1149,18 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_FormGroup[identifier].Name = fielValue
 				}
+			case "FormSortAssocButton":
+				switch fieldName {
+				// insertion point for field dependant code
+				case "Name":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormSortAssocButton[identifier].Name = fielValue
+				case "Label":
+					// remove first and last char
+					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
+					__gong__map_FormSortAssocButton[identifier].Label = fielValue
+				}
 			case "Option":
 				switch fieldName {
 				// insertion point for field dependant code
@@ -1213,6 +1263,13 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 			case "FormDiv":
 				switch fieldName {
 				// insertion point for field dependant code
+				case "FormEditAssocButton":
+					targetIdentifier := ident.Name
+					__gong__map_FormDiv[identifier].FormEditAssocButton = __gong__map_FormEditAssocButton[targetIdentifier]
+				}
+			case "FormEditAssocButton":
+				switch fieldName {
+				// insertion point for field dependant code
 				}
 			case "FormField":
 				switch fieldName {
@@ -1271,6 +1328,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				// insertion point for field dependant code
 				}
 			case "FormGroup":
+				switch fieldName {
+				// insertion point for field dependant code
+				}
+			case "FormSortAssocButton":
 				switch fieldName {
 				// insertion point for field dependant code
 				}
@@ -1334,6 +1395,13 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 						log.Fatalln(err)
 					}
 					__gong__map_Table[identifier].CanDragDropRows = fielValue
+				case "SavingInProgress":
+					// convert string to boolean
+					fielValue, err := strconv.ParseBool(ident.Name)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_Table[identifier].SavingInProgress = fielValue
 				}
 			}
 		case *ast.SelectorExpr:
@@ -1399,6 +1467,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					switch fieldName {
 					// insertion point for enum assign code
 					}
+				case "FormEditAssocButton":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
 				case "FormField":
 					switch fieldName {
 					// insertion point for enum assign code
@@ -1439,6 +1511,10 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// insertion point for enum assign code
 					}
 				case "FormGroup":
+					switch fieldName {
+					// insertion point for enum assign code
+					}
+				case "FormSortAssocButton":
 					switch fieldName {
 					// insertion point for enum assign code
 					}

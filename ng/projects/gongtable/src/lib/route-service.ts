@@ -29,6 +29,9 @@ import { DisplayedColumnDetailComponent } from './displayedcolumn-detail/display
 import { FormDivsTableComponent } from './formdivs-table/formdivs-table.component'
 import { FormDivDetailComponent } from './formdiv-detail/formdiv-detail.component'
 
+import { FormEditAssocButtonsTableComponent } from './formeditassocbuttons-table/formeditassocbuttons-table.component'
+import { FormEditAssocButtonDetailComponent } from './formeditassocbutton-detail/formeditassocbutton-detail.component'
+
 import { FormFieldsTableComponent } from './formfields-table/formfields-table.component'
 import { FormFieldDetailComponent } from './formfield-detail/formfield-detail.component'
 
@@ -55,6 +58,9 @@ import { FormFieldTimeDetailComponent } from './formfieldtime-detail/formfieldti
 
 import { FormGroupsTableComponent } from './formgroups-table/formgroups-table.component'
 import { FormGroupDetailComponent } from './formgroup-detail/formgroup-detail.component'
+
+import { FormSortAssocButtonsTableComponent } from './formsortassocbuttons-table/formsortassocbuttons-table.component'
+import { FormSortAssocButtonDetailComponent } from './formsortassocbutton-detail/formsortassocbutton-detail.component'
 
 import { OptionsTableComponent } from './options-table/options-table.component'
 import { OptionDetailComponent } from './option-detail/option-detail.component'
@@ -393,6 +399,39 @@ export class RouteService {
         return route
     }
 
+    getFormEditAssocButtonTablePath(): string {
+        return this.getPathRoot() + '-formeditassocbuttons/:GONG__StackPath'
+    }
+    getFormEditAssocButtonTableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormEditAssocButtonTablePath(), component: FormEditAssocButtonsTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getFormEditAssocButtonAdderPath(): string {
+        return this.getPathRoot() + '-formeditassocbutton-adder/:GONG__StackPath'
+    }
+    getFormEditAssocButtonAdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormEditAssocButtonAdderPath(), component: FormEditAssocButtonDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormEditAssocButtonAdderForUsePath(): string {
+        return this.getPathRoot() + '-formeditassocbutton-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getFormEditAssocButtonAdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormEditAssocButtonAdderForUsePath(), component: FormEditAssocButtonDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormEditAssocButtonDetailPath(): string {
+        return this.getPathRoot() + '-formeditassocbutton-detail/:id/:GONG__StackPath'
+    }
+    getFormEditAssocButtonDetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormEditAssocButtonDetailPath(), component: FormEditAssocButtonDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
     getFormFieldTablePath(): string {
         return this.getPathRoot() + '-formfields/:GONG__StackPath'
     }
@@ -690,6 +729,39 @@ export class RouteService {
         return route
     }
 
+    getFormSortAssocButtonTablePath(): string {
+        return this.getPathRoot() + '-formsortassocbuttons/:GONG__StackPath'
+    }
+    getFormSortAssocButtonTableRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormSortAssocButtonTablePath(), component: FormSortAssocButtonsTableComponent, outlet: this.getTableOutlet(stackPath) }
+        return route
+    }
+    getFormSortAssocButtonAdderPath(): string {
+        return this.getPathRoot() + '-formsortassocbutton-adder/:GONG__StackPath'
+    }
+    getFormSortAssocButtonAdderRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormSortAssocButtonAdderPath(), component: FormSortAssocButtonDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormSortAssocButtonAdderForUsePath(): string {
+        return this.getPathRoot() + '-formsortassocbutton-adder/:id/:originStruct/:originStructFieldName/:GONG__StackPath'
+    }
+    getFormSortAssocButtonAdderForUseRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormSortAssocButtonAdderForUsePath(), component: FormSortAssocButtonDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+    getFormSortAssocButtonDetailPath(): string {
+        return this.getPathRoot() + '-formsortassocbutton-detail/:id/:GONG__StackPath'
+    }
+    getFormSortAssocButtonDetailRoute(stackPath: string): Route {
+        let route: Route =
+            { path: this.getFormSortAssocButtonDetailPath(), component: FormSortAssocButtonDetailComponent, outlet: this.getEditorOutlet(stackPath) }
+        return route
+    }
+
     getOptionTablePath(): string {
         return this.getPathRoot() + '-options/:GONG__StackPath'
     }
@@ -840,6 +912,11 @@ export class RouteService {
             this.getFormDivAdderForUseRoute(stackPath),
             this.getFormDivDetailRoute(stackPath),
 
+            this.getFormEditAssocButtonTableRoute(stackPath),
+            this.getFormEditAssocButtonAdderRoute(stackPath),
+            this.getFormEditAssocButtonAdderForUseRoute(stackPath),
+            this.getFormEditAssocButtonDetailRoute(stackPath),
+
             this.getFormFieldTableRoute(stackPath),
             this.getFormFieldAdderRoute(stackPath),
             this.getFormFieldAdderForUseRoute(stackPath),
@@ -884,6 +961,11 @@ export class RouteService {
             this.getFormGroupAdderRoute(stackPath),
             this.getFormGroupAdderForUseRoute(stackPath),
             this.getFormGroupDetailRoute(stackPath),
+
+            this.getFormSortAssocButtonTableRoute(stackPath),
+            this.getFormSortAssocButtonAdderRoute(stackPath),
+            this.getFormSortAssocButtonAdderForUseRoute(stackPath),
+            this.getFormSortAssocButtonDetailRoute(stackPath),
 
             this.getOptionTableRoute(stackPath),
             this.getOptionAdderRoute(stackPath),

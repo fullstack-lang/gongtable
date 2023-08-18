@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import * as gongtable from 'gongtable'
@@ -6,6 +6,11 @@ import * as gongtable from 'gongtable'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import * as moment from 'moment';
+import { MatButtonModule } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { NgIf } from '@angular/common';
+import { TableDialogData } from '../table-dialog-data';
+import { MaterialTableComponent } from '../material-table/material-table.component';
 
 @Component({
   selector: 'lib-material-form',
@@ -41,6 +46,7 @@ export class MaterialFormComponent implements OnInit {
   generatedForm: FormGroup | undefined
 
   constructor(
+    public dialog: MatDialog,
     private gongtableFrontRepoService: gongtable.FrontRepoService,
     private gongtableCommitNbFromBackService: gongtable.CommitNbFromBackService,
     private formBuilder: FormBuilder,
@@ -51,7 +57,7 @@ export class MaterialFormComponent implements OnInit {
     private formFieldDateTimeService: gongtable.FormFieldDateTimeService,
     private checkBoxService: gongtable.CheckBoxService,
     private formFieldSelectService: gongtable.FormFieldSelectService,
-
+    private formEditAssocButtonService: gongtable.FormEditAssocButtonService,
 
   ) {
 
@@ -333,4 +339,43 @@ export class MaterialFormComponent implements OnInit {
       }
     }
   }
+
+  openTableAssociation(fieldName: string) {
+
+    console.log("openTableAssociation: ", fieldName)
+
+    if (this.generatedForm == undefined) {
+      return
+    }
+
+    if (this.selectedFormGroup == undefined) {
+      return
+    }
+
+    if (this.selectedFormGroup.FormDivs == undefined) {
+      return
+    }
+
+    for (let formDiv of this.selectedFormGroup.FormDivs) {
+      if (formDiv.FormEditAssocButton) {
+        if (formDiv.FormEditAssocButton.Name == fieldName) {
+
+          this.formEditAssocButtonService.updateFormEditAssocButton(formDiv.FormEditAssocButton, this.DataStack).subscribe(
+            () => {
+              console.log("assoc button updated")
+
+              // when the association button is pressed
+              this.dialog.open(MaterialTableComponent, {
+                data: {
+                  DataStack: this.DataStack + gongtable.TableExtraPathEnum.TableSelectExtra,
+                  TableName: gongtable.TableExtraNameEnum.TableSelectExtraName
+                },
+              });
+            }
+          )
+        }
+      }
+    }
+  }
 }
+

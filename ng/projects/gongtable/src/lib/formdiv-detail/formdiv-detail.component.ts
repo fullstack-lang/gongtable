@@ -155,6 +155,16 @@ export class FormDivDetailComponent implements OnInit {
 		// pointers fields, after the translation, are nulled in order to perform serialization
 
 		// insertion point for translation/nullation of each field
+		if (this.formdiv.FormEditAssocButtonID == undefined) {
+			this.formdiv.FormEditAssocButtonID = new NullInt64
+		}
+		if (this.formdiv.FormEditAssocButton != undefined) {
+			this.formdiv.FormEditAssocButtonID.Int64 = this.formdiv.FormEditAssocButton.ID
+			this.formdiv.FormEditAssocButtonID.Valid = true
+		} else {
+			this.formdiv.FormEditAssocButtonID.Int64 = 0
+			this.formdiv.FormEditAssocButtonID.Valid = true
+		}
 
 		// save from the front pointer space to the non pointer space for serialization
 

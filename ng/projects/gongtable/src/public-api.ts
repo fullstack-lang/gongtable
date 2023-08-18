@@ -70,6 +70,12 @@ export * from './lib/formdivs-table/formdivs-table.component'
 export * from './lib/formdiv-db'
 export * from './lib/formdiv.service'
 
+export * from './lib/formeditassocbutton-detail/formeditassocbutton-detail.component'
+export * from './lib/formeditassocbutton-sorting/formeditassocbutton-sorting.component'
+export * from './lib/formeditassocbuttons-table/formeditassocbuttons-table.component'
+export * from './lib/formeditassocbutton-db'
+export * from './lib/formeditassocbutton.service'
+
 export * from './lib/formfield-detail/formfield-detail.component'
 export * from './lib/formfield-sorting/formfield-sorting.component'
 export * from './lib/formfields-table/formfields-table.component'
@@ -124,6 +130,12 @@ export * from './lib/formgroups-table/formgroups-table.component'
 export * from './lib/formgroup-db'
 export * from './lib/formgroup.service'
 
+export * from './lib/formsortassocbutton-detail/formsortassocbutton-detail.component'
+export * from './lib/formsortassocbutton-sorting/formsortassocbutton-sorting.component'
+export * from './lib/formsortassocbuttons-table/formsortassocbuttons-table.component'
+export * from './lib/formsortassocbutton-db'
+export * from './lib/formsortassocbutton.service'
+
 export * from './lib/option-detail/option-detail.component'
 export * from './lib/option-sorting/option-sorting.component'
 export * from './lib/options-table/options-table.component'
@@ -144,3 +156,5 @@ export * from './lib/table.service'
 
 
 export * from './lib/InputTypeEnum'
+export * from './lib/TableExtraNameEnum'
+export * from './lib/TableExtraPathEnum'

@@ -41,6 +41,10 @@ func AfterCreateFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterFormDivCreateCallback != nil {
 			stage.OnAfterFormDivCreateCallback.OnAfterCreate(stage, target)
 		}
+	case *FormEditAssocButton:
+		if stage.OnAfterFormEditAssocButtonCreateCallback != nil {
+			stage.OnAfterFormEditAssocButtonCreateCallback.OnAfterCreate(stage, target)
+		}
 	case *FormField:
 		if stage.OnAfterFormFieldCreateCallback != nil {
 			stage.OnAfterFormFieldCreateCallback.OnAfterCreate(stage, target)
@@ -76,6 +80,10 @@ func AfterCreateFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *FormGroup:
 		if stage.OnAfterFormGroupCreateCallback != nil {
 			stage.OnAfterFormGroupCreateCallback.OnAfterCreate(stage, target)
+		}
+	case *FormSortAssocButton:
+		if stage.OnAfterFormSortAssocButtonCreateCallback != nil {
+			stage.OnAfterFormSortAssocButtonCreateCallback.OnAfterCreate(stage, target)
 		}
 	case *Option:
 		if stage.OnAfterOptionCreateCallback != nil {
@@ -144,6 +152,11 @@ func AfterUpdateFromFront[Type Gongstruct](stage *StageStruct, old, new *Type) {
 		if stage.OnAfterFormDivUpdateCallback != nil {
 			stage.OnAfterFormDivUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
+	case *FormEditAssocButton:
+		newTarget := any(new).(*FormEditAssocButton)
+		if stage.OnAfterFormEditAssocButtonUpdateCallback != nil {
+			stage.OnAfterFormEditAssocButtonUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
+		}
 	case *FormField:
 		newTarget := any(new).(*FormField)
 		if stage.OnAfterFormFieldUpdateCallback != nil {
@@ -188,6 +201,11 @@ func AfterUpdateFromFront[Type Gongstruct](stage *StageStruct, old, new *Type) {
 		newTarget := any(new).(*FormGroup)
 		if stage.OnAfterFormGroupUpdateCallback != nil {
 			stage.OnAfterFormGroupUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
+		}
+	case *FormSortAssocButton:
+		newTarget := any(new).(*FormSortAssocButton)
+		if stage.OnAfterFormSortAssocButtonUpdateCallback != nil {
+			stage.OnAfterFormSortAssocButtonUpdateCallback.OnAfterUpdate(stage, oldTarget, newTarget)
 		}
 	case *Option:
 		newTarget := any(new).(*Option)
@@ -259,6 +277,11 @@ func AfterDeleteFromFront[Type Gongstruct](stage *StageStruct, staged, front *Ty
 			staged := any(staged).(*FormDiv)
 			stage.OnAfterFormDivDeleteCallback.OnAfterDelete(stage, staged, front)
 		}
+	case *FormEditAssocButton:
+		if stage.OnAfterFormEditAssocButtonDeleteCallback != nil {
+			staged := any(staged).(*FormEditAssocButton)
+			stage.OnAfterFormEditAssocButtonDeleteCallback.OnAfterDelete(stage, staged, front)
+		}
 	case *FormField:
 		if stage.OnAfterFormFieldDeleteCallback != nil {
 			staged := any(staged).(*FormField)
@@ -303,6 +326,11 @@ func AfterDeleteFromFront[Type Gongstruct](stage *StageStruct, staged, front *Ty
 		if stage.OnAfterFormGroupDeleteCallback != nil {
 			staged := any(staged).(*FormGroup)
 			stage.OnAfterFormGroupDeleteCallback.OnAfterDelete(stage, staged, front)
+		}
+	case *FormSortAssocButton:
+		if stage.OnAfterFormSortAssocButtonDeleteCallback != nil {
+			staged := any(staged).(*FormSortAssocButton)
+			stage.OnAfterFormSortAssocButtonDeleteCallback.OnAfterDelete(stage, staged, front)
 		}
 	case *Option:
 		if stage.OnAfterOptionDeleteCallback != nil {
@@ -365,6 +393,10 @@ func AfterReadFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 		if stage.OnAfterFormDivReadCallback != nil {
 			stage.OnAfterFormDivReadCallback.OnAfterRead(stage, target)
 		}
+	case *FormEditAssocButton:
+		if stage.OnAfterFormEditAssocButtonReadCallback != nil {
+			stage.OnAfterFormEditAssocButtonReadCallback.OnAfterRead(stage, target)
+		}
 	case *FormField:
 		if stage.OnAfterFormFieldReadCallback != nil {
 			stage.OnAfterFormFieldReadCallback.OnAfterRead(stage, target)
@@ -400,6 +432,10 @@ func AfterReadFromFront[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *FormGroup:
 		if stage.OnAfterFormGroupReadCallback != nil {
 			stage.OnAfterFormGroupReadCallback.OnAfterRead(stage, target)
+		}
+	case *FormSortAssocButton:
+		if stage.OnAfterFormSortAssocButtonReadCallback != nil {
+			stage.OnAfterFormSortAssocButtonReadCallback.OnAfterRead(stage, target)
 		}
 	case *Option:
 		if stage.OnAfterOptionReadCallback != nil {
@@ -451,6 +487,9 @@ func SetCallbackAfterUpdateFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *FormDiv:
 		stage.OnAfterFormDivUpdateCallback = any(callback).(OnAfterUpdateInterface[FormDiv])
 	
+	case *FormEditAssocButton:
+		stage.OnAfterFormEditAssocButtonUpdateCallback = any(callback).(OnAfterUpdateInterface[FormEditAssocButton])
+	
 	case *FormField:
 		stage.OnAfterFormFieldUpdateCallback = any(callback).(OnAfterUpdateInterface[FormField])
 	
@@ -477,6 +516,9 @@ func SetCallbackAfterUpdateFromFront[Type Gongstruct](stage *StageStruct, callba
 	
 	case *FormGroup:
 		stage.OnAfterFormGroupUpdateCallback = any(callback).(OnAfterUpdateInterface[FormGroup])
+	
+	case *FormSortAssocButton:
+		stage.OnAfterFormSortAssocButtonUpdateCallback = any(callback).(OnAfterUpdateInterface[FormSortAssocButton])
 	
 	case *Option:
 		stage.OnAfterOptionUpdateCallback = any(callback).(OnAfterUpdateInterface[Option])
@@ -521,6 +563,9 @@ func SetCallbackAfterCreateFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *FormDiv:
 		stage.OnAfterFormDivCreateCallback = any(callback).(OnAfterCreateInterface[FormDiv])
 	
+	case *FormEditAssocButton:
+		stage.OnAfterFormEditAssocButtonCreateCallback = any(callback).(OnAfterCreateInterface[FormEditAssocButton])
+	
 	case *FormField:
 		stage.OnAfterFormFieldCreateCallback = any(callback).(OnAfterCreateInterface[FormField])
 	
@@ -547,6 +592,9 @@ func SetCallbackAfterCreateFromFront[Type Gongstruct](stage *StageStruct, callba
 	
 	case *FormGroup:
 		stage.OnAfterFormGroupCreateCallback = any(callback).(OnAfterCreateInterface[FormGroup])
+	
+	case *FormSortAssocButton:
+		stage.OnAfterFormSortAssocButtonCreateCallback = any(callback).(OnAfterCreateInterface[FormSortAssocButton])
 	
 	case *Option:
 		stage.OnAfterOptionCreateCallback = any(callback).(OnAfterCreateInterface[Option])
@@ -591,6 +639,9 @@ func SetCallbackAfterDeleteFromFront[Type Gongstruct](stage *StageStruct, callba
 	case *FormDiv:
 		stage.OnAfterFormDivDeleteCallback = any(callback).(OnAfterDeleteInterface[FormDiv])
 	
+	case *FormEditAssocButton:
+		stage.OnAfterFormEditAssocButtonDeleteCallback = any(callback).(OnAfterDeleteInterface[FormEditAssocButton])
+	
 	case *FormField:
 		stage.OnAfterFormFieldDeleteCallback = any(callback).(OnAfterDeleteInterface[FormField])
 	
@@ -617,6 +668,9 @@ func SetCallbackAfterDeleteFromFront[Type Gongstruct](stage *StageStruct, callba
 	
 	case *FormGroup:
 		stage.OnAfterFormGroupDeleteCallback = any(callback).(OnAfterDeleteInterface[FormGroup])
+	
+	case *FormSortAssocButton:
+		stage.OnAfterFormSortAssocButtonDeleteCallback = any(callback).(OnAfterDeleteInterface[FormSortAssocButton])
 	
 	case *Option:
 		stage.OnAfterOptionDeleteCallback = any(callback).(OnAfterDeleteInterface[Option])
@@ -661,6 +715,9 @@ func SetCallbackAfterReadFromFront[Type Gongstruct](stage *StageStruct, callback
 	case *FormDiv:
 		stage.OnAfterFormDivReadCallback = any(callback).(OnAfterReadInterface[FormDiv])
 	
+	case *FormEditAssocButton:
+		stage.OnAfterFormEditAssocButtonReadCallback = any(callback).(OnAfterReadInterface[FormEditAssocButton])
+	
 	case *FormField:
 		stage.OnAfterFormFieldReadCallback = any(callback).(OnAfterReadInterface[FormField])
 	
@@ -687,6 +744,9 @@ func SetCallbackAfterReadFromFront[Type Gongstruct](stage *StageStruct, callback
 	
 	case *FormGroup:
 		stage.OnAfterFormGroupReadCallback = any(callback).(OnAfterReadInterface[FormGroup])
+	
+	case *FormSortAssocButton:
+		stage.OnAfterFormSortAssocButtonReadCallback = any(callback).(OnAfterReadInterface[FormSortAssocButton])
 	
 	case *Option:
 		stage.OnAfterOptionReadCallback = any(callback).(OnAfterReadInterface[Option])

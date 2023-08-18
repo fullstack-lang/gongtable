@@ -32,6 +32,9 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 	case *FormDiv:
 		ok = stage.IsStagedFormDiv(target)
 
+	case *FormEditAssocButton:
+		ok = stage.IsStagedFormEditAssocButton(target)
+
 	case *FormField:
 		ok = stage.IsStagedFormField(target)
 
@@ -58,6 +61,9 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 
 	case *FormGroup:
 		ok = stage.IsStagedFormGroup(target)
+
+	case *FormSortAssocButton:
+		ok = stage.IsStagedFormSortAssocButton(target)
 
 	case *Option:
 		ok = stage.IsStagedOption(target)
@@ -138,6 +144,13 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 		return
 	}
 
+	func (stage *StageStruct) IsStagedFormEditAssocButton(formeditassocbutton *FormEditAssocButton) (ok bool) {
+
+		_, ok = stage.FormEditAssocButtons[formeditassocbutton]
+	
+		return
+	}
+
 	func (stage *StageStruct) IsStagedFormField(formfield *FormField) (ok bool) {
 
 		_, ok = stage.FormFields[formfield]
@@ -201,6 +214,13 @@ func IsStaged[Type Gongstruct](stage *StageStruct, instance *Type) (ok bool) {
 		return
 	}
 
+	func (stage *StageStruct) IsStagedFormSortAssocButton(formsortassocbutton *FormSortAssocButton) (ok bool) {
+
+		_, ok = stage.FormSortAssocButtons[formsortassocbutton]
+	
+		return
+	}
+
 	func (stage *StageStruct) IsStagedOption(option *Option) (ok bool) {
 
 		_, ok = stage.Options[option]
@@ -258,6 +278,9 @@ func StageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *FormDiv:
 		stage.StageBranchFormDiv(target)
 
+	case *FormEditAssocButton:
+		stage.StageBranchFormEditAssocButton(target)
+
 	case *FormField:
 		stage.StageBranchFormField(target)
 
@@ -284,6 +307,9 @@ func StageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 
 	case *FormGroup:
 		stage.StageBranchFormGroup(target)
+
+	case *FormSortAssocButton:
+		stage.StageBranchFormSortAssocButton(target)
 
 	case *Option:
 		stage.StageBranchOption(target)
@@ -445,6 +471,9 @@ func (stage *StageStruct) StageBranchFormDiv(formdiv *FormDiv) {
 	formdiv.Stage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
+	if formdiv.FormEditAssocButton != nil {
+		StageBranch(stage, formdiv.FormEditAssocButton)
+	}
 
 	//insertion point for the staging of instances referenced by slice of pointers
 	for _, _formfield := range formdiv.FormFields {
@@ -453,6 +482,21 @@ func (stage *StageStruct) StageBranchFormDiv(formdiv *FormDiv) {
 	for _, _checkbox := range formdiv.CheckBoxs {
 		StageBranch(stage, _checkbox)
 	}
+
+}
+
+func (stage *StageStruct) StageBranchFormEditAssocButton(formeditassocbutton *FormEditAssocButton) {
+
+	// check if instance is already staged
+	if IsStaged(stage, formeditassocbutton) {
+		return
+	}
+
+	formeditassocbutton.Stage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
 
 }
 
@@ -621,6 +665,21 @@ func (stage *StageStruct) StageBranchFormGroup(formgroup *FormGroup) {
 
 }
 
+func (stage *StageStruct) StageBranchFormSortAssocButton(formsortassocbutton *FormSortAssocButton) {
+
+	// check if instance is already staged
+	if IsStaged(stage, formsortassocbutton) {
+		return
+	}
+
+	formsortassocbutton.Stage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
+
+}
+
 func (stage *StageStruct) StageBranchOption(option *Option) {
 
 	// check if instance is already staged
@@ -711,6 +770,9 @@ func UnstageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 	case *FormDiv:
 		stage.UnstageBranchFormDiv(target)
 
+	case *FormEditAssocButton:
+		stage.UnstageBranchFormEditAssocButton(target)
+
 	case *FormField:
 		stage.UnstageBranchFormField(target)
 
@@ -737,6 +799,9 @@ func UnstageBranch[Type Gongstruct](stage *StageStruct, instance *Type) {
 
 	case *FormGroup:
 		stage.UnstageBranchFormGroup(target)
+
+	case *FormSortAssocButton:
+		stage.UnstageBranchFormSortAssocButton(target)
 
 	case *Option:
 		stage.UnstageBranchOption(target)
@@ -898,6 +963,9 @@ func (stage *StageStruct) UnstageBranchFormDiv(formdiv *FormDiv) {
 	formdiv.Unstage(stage)
 
 	//insertion point for the staging of instances referenced by pointers
+	if formdiv.FormEditAssocButton != nil {
+		UnstageBranch(stage, formdiv.FormEditAssocButton)
+	}
 
 	//insertion point for the staging of instances referenced by slice of pointers
 	for _, _formfield := range formdiv.FormFields {
@@ -906,6 +974,21 @@ func (stage *StageStruct) UnstageBranchFormDiv(formdiv *FormDiv) {
 	for _, _checkbox := range formdiv.CheckBoxs {
 		UnstageBranch(stage, _checkbox)
 	}
+
+}
+
+func (stage *StageStruct) UnstageBranchFormEditAssocButton(formeditassocbutton *FormEditAssocButton) {
+
+	// check if instance is already staged
+	if ! IsStaged(stage, formeditassocbutton) {
+		return
+	}
+
+	formeditassocbutton.Unstage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
 
 }
 
@@ -1071,6 +1154,21 @@ func (stage *StageStruct) UnstageBranchFormGroup(formgroup *FormGroup) {
 	for _, _formdiv := range formgroup.FormDivs {
 		UnstageBranch(stage, _formdiv)
 	}
+
+}
+
+func (stage *StageStruct) UnstageBranchFormSortAssocButton(formsortassocbutton *FormSortAssocButton) {
+
+	// check if instance is already staged
+	if ! IsStaged(stage, formsortassocbutton) {
+		return
+	}
+
+	formsortassocbutton.Unstage(stage)
+
+	//insertion point for the staging of instances referenced by pointers
+
+	//insertion point for the staging of instances referenced by slice of pointers
 
 }
 

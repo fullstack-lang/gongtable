@@ -31,6 +31,9 @@ import { DisplayedColumnService } from './displayedcolumn.service'
 import { FormDivDB } from './formdiv-db'
 import { FormDivService } from './formdiv.service'
 
+import { FormEditAssocButtonDB } from './formeditassocbutton-db'
+import { FormEditAssocButtonService } from './formeditassocbutton.service'
+
 import { FormFieldDB } from './formfield-db'
 import { FormFieldService } from './formfield.service'
 
@@ -57,6 +60,9 @@ import { FormFieldTimeService } from './formfieldtime.service'
 
 import { FormGroupDB } from './formgroup-db'
 import { FormGroupService } from './formgroup.service'
+
+import { FormSortAssocButtonDB } from './formsortassocbutton-db'
+import { FormSortAssocButtonService } from './formsortassocbutton.service'
 
 import { OptionDB } from './option-db'
 import { OptionService } from './option.service'
@@ -97,6 +103,9 @@ export class FrontRepo { // insertion point sub template
   FormDivs_array = new Array<FormDivDB>(); // array of repo instances
   FormDivs = new Map<number, FormDivDB>(); // map of repo instances
   FormDivs_batch = new Map<number, FormDivDB>(); // same but only in last GET (for finding repo instances to delete)
+  FormEditAssocButtons_array = new Array<FormEditAssocButtonDB>(); // array of repo instances
+  FormEditAssocButtons = new Map<number, FormEditAssocButtonDB>(); // map of repo instances
+  FormEditAssocButtons_batch = new Map<number, FormEditAssocButtonDB>(); // same but only in last GET (for finding repo instances to delete)
   FormFields_array = new Array<FormFieldDB>(); // array of repo instances
   FormFields = new Map<number, FormFieldDB>(); // map of repo instances
   FormFields_batch = new Map<number, FormFieldDB>(); // same but only in last GET (for finding repo instances to delete)
@@ -124,6 +133,9 @@ export class FrontRepo { // insertion point sub template
   FormGroups_array = new Array<FormGroupDB>(); // array of repo instances
   FormGroups = new Map<number, FormGroupDB>(); // map of repo instances
   FormGroups_batch = new Map<number, FormGroupDB>(); // same but only in last GET (for finding repo instances to delete)
+  FormSortAssocButtons_array = new Array<FormSortAssocButtonDB>(); // array of repo instances
+  FormSortAssocButtons = new Map<number, FormSortAssocButtonDB>(); // map of repo instances
+  FormSortAssocButtons_batch = new Map<number, FormSortAssocButtonDB>(); // same but only in last GET (for finding repo instances to delete)
   Options_array = new Array<OptionDB>(); // array of repo instances
   Options = new Map<number, OptionDB>(); // map of repo instances
   Options_batch = new Map<number, OptionDB>(); // same but only in last GET (for finding repo instances to delete)
@@ -204,6 +216,7 @@ export class FrontRepoService {
     private checkboxService: CheckBoxService,
     private displayedcolumnService: DisplayedColumnService,
     private formdivService: FormDivService,
+    private formeditassocbuttonService: FormEditAssocButtonService,
     private formfieldService: FormFieldService,
     private formfielddateService: FormFieldDateService,
     private formfielddatetimeService: FormFieldDateTimeService,
@@ -213,6 +226,7 @@ export class FrontRepoService {
     private formfieldstringService: FormFieldStringService,
     private formfieldtimeService: FormFieldTimeService,
     private formgroupService: FormGroupService,
+    private formsortassocbuttonService: FormSortAssocButtonService,
     private optionService: OptionService,
     private rowService: RowService,
     private tableService: TableService,
@@ -255,6 +269,7 @@ export class FrontRepoService {
     Observable<CheckBoxDB[]>,
     Observable<DisplayedColumnDB[]>,
     Observable<FormDivDB[]>,
+    Observable<FormEditAssocButtonDB[]>,
     Observable<FormFieldDB[]>,
     Observable<FormFieldDateDB[]>,
     Observable<FormFieldDateTimeDB[]>,
@@ -264,6 +279,7 @@ export class FrontRepoService {
     Observable<FormFieldStringDB[]>,
     Observable<FormFieldTimeDB[]>,
     Observable<FormGroupDB[]>,
+    Observable<FormSortAssocButtonDB[]>,
     Observable<OptionDB[]>,
     Observable<RowDB[]>,
     Observable<TableDB[]>,
@@ -277,6 +293,7 @@ export class FrontRepoService {
       this.checkboxService.getCheckBoxs(this.GONG__StackPath),
       this.displayedcolumnService.getDisplayedColumns(this.GONG__StackPath),
       this.formdivService.getFormDivs(this.GONG__StackPath),
+      this.formeditassocbuttonService.getFormEditAssocButtons(this.GONG__StackPath),
       this.formfieldService.getFormFields(this.GONG__StackPath),
       this.formfielddateService.getFormFieldDates(this.GONG__StackPath),
       this.formfielddatetimeService.getFormFieldDateTimes(this.GONG__StackPath),
@@ -286,6 +303,7 @@ export class FrontRepoService {
       this.formfieldstringService.getFormFieldStrings(this.GONG__StackPath),
       this.formfieldtimeService.getFormFieldTimes(this.GONG__StackPath),
       this.formgroupService.getFormGroups(this.GONG__StackPath),
+      this.formsortassocbuttonService.getFormSortAssocButtons(this.GONG__StackPath),
       this.optionService.getOptions(this.GONG__StackPath),
       this.rowService.getRows(this.GONG__StackPath),
       this.tableService.getTables(this.GONG__StackPath),
@@ -311,6 +329,7 @@ export class FrontRepoService {
       this.checkboxService.getCheckBoxs(this.GONG__StackPath),
       this.displayedcolumnService.getDisplayedColumns(this.GONG__StackPath),
       this.formdivService.getFormDivs(this.GONG__StackPath),
+      this.formeditassocbuttonService.getFormEditAssocButtons(this.GONG__StackPath),
       this.formfieldService.getFormFields(this.GONG__StackPath),
       this.formfielddateService.getFormFieldDates(this.GONG__StackPath),
       this.formfielddatetimeService.getFormFieldDateTimes(this.GONG__StackPath),
@@ -320,6 +339,7 @@ export class FrontRepoService {
       this.formfieldstringService.getFormFieldStrings(this.GONG__StackPath),
       this.formfieldtimeService.getFormFieldTimes(this.GONG__StackPath),
       this.formgroupService.getFormGroups(this.GONG__StackPath),
+      this.formsortassocbuttonService.getFormSortAssocButtons(this.GONG__StackPath),
       this.optionService.getOptions(this.GONG__StackPath),
       this.rowService.getRows(this.GONG__StackPath),
       this.tableService.getTables(this.GONG__StackPath),
@@ -340,6 +360,7 @@ export class FrontRepoService {
             checkboxs_,
             displayedcolumns_,
             formdivs_,
+            formeditassocbuttons_,
             formfields_,
             formfielddates_,
             formfielddatetimes_,
@@ -349,6 +370,7 @@ export class FrontRepoService {
             formfieldstrings_,
             formfieldtimes_,
             formgroups_,
+            formsortassocbuttons_,
             options_,
             rows_,
             tables_,
@@ -373,6 +395,8 @@ export class FrontRepoService {
             displayedcolumns = displayedcolumns_ as DisplayedColumnDB[]
             var formdivs: FormDivDB[]
             formdivs = formdivs_ as FormDivDB[]
+            var formeditassocbuttons: FormEditAssocButtonDB[]
+            formeditassocbuttons = formeditassocbuttons_ as FormEditAssocButtonDB[]
             var formfields: FormFieldDB[]
             formfields = formfields_ as FormFieldDB[]
             var formfielddates: FormFieldDateDB[]
@@ -391,6 +415,8 @@ export class FrontRepoService {
             formfieldtimes = formfieldtimes_ as FormFieldTimeDB[]
             var formgroups: FormGroupDB[]
             formgroups = formgroups_ as FormGroupDB[]
+            var formsortassocbuttons: FormSortAssocButtonDB[]
+            formsortassocbuttons = formsortassocbuttons_ as FormSortAssocButtonDB[]
             var options: OptionDB[]
             options = options_ as OptionDB[]
             var rows: RowDB[]
@@ -699,6 +725,39 @@ export class FrontRepoService {
             });
 
             // init the array
+            this.frontRepo.FormEditAssocButtons_array = formeditassocbuttons
+
+            // clear the map that counts FormEditAssocButton in the GET
+            this.frontRepo.FormEditAssocButtons_batch.clear()
+
+            formeditassocbuttons.forEach(
+              formeditassocbutton => {
+                this.frontRepo.FormEditAssocButtons.set(formeditassocbutton.ID, formeditassocbutton)
+                this.frontRepo.FormEditAssocButtons_batch.set(formeditassocbutton.ID, formeditassocbutton)
+              }
+            )
+
+            // clear formeditassocbuttons that are absent from the batch
+            this.frontRepo.FormEditAssocButtons.forEach(
+              formeditassocbutton => {
+                if (this.frontRepo.FormEditAssocButtons_batch.get(formeditassocbutton.ID) == undefined) {
+                  this.frontRepo.FormEditAssocButtons.delete(formeditassocbutton.ID)
+                }
+              }
+            )
+
+            // sort FormEditAssocButtons_array array
+            this.frontRepo.FormEditAssocButtons_array.sort((t1, t2) => {
+              if (t1.Name > t2.Name) {
+                return 1;
+              }
+              if (t1.Name < t2.Name) {
+                return -1;
+              }
+              return 0;
+            });
+
+            // init the array
             this.frontRepo.FormFields_array = formfields
 
             // clear the map that counts FormField in the GET
@@ -996,6 +1055,39 @@ export class FrontRepoService {
             });
 
             // init the array
+            this.frontRepo.FormSortAssocButtons_array = formsortassocbuttons
+
+            // clear the map that counts FormSortAssocButton in the GET
+            this.frontRepo.FormSortAssocButtons_batch.clear()
+
+            formsortassocbuttons.forEach(
+              formsortassocbutton => {
+                this.frontRepo.FormSortAssocButtons.set(formsortassocbutton.ID, formsortassocbutton)
+                this.frontRepo.FormSortAssocButtons_batch.set(formsortassocbutton.ID, formsortassocbutton)
+              }
+            )
+
+            // clear formsortassocbuttons that are absent from the batch
+            this.frontRepo.FormSortAssocButtons.forEach(
+              formsortassocbutton => {
+                if (this.frontRepo.FormSortAssocButtons_batch.get(formsortassocbutton.ID) == undefined) {
+                  this.frontRepo.FormSortAssocButtons.delete(formsortassocbutton.ID)
+                }
+              }
+            )
+
+            // sort FormSortAssocButtons_array array
+            this.frontRepo.FormSortAssocButtons_array.sort((t1, t2) => {
+              if (t1.Name > t2.Name) {
+                return 1;
+              }
+              if (t1.Name < t2.Name) {
+                return -1;
+              }
+              return 0;
+            });
+
+            // init the array
             this.frontRepo.Options_array = options
 
             // clear the map that counts Option in the GET
@@ -1231,6 +1323,13 @@ export class FrontRepoService {
             formdivs.forEach(
               formdiv => {
                 // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
+                // insertion point for pointer field FormEditAssocButton redeeming
+                {
+                  let _formeditassocbutton = this.frontRepo.FormEditAssocButtons.get(formdiv.FormEditAssocButtonID.Int64)
+                  if (_formeditassocbutton) {
+                    formdiv.FormEditAssocButton = _formeditassocbutton
+                  }
+                }
 
                 // insertion point for redeeming ONE-MANY associations
                 // insertion point for slice of pointer field FormGroup.FormDivs redeeming
@@ -1246,6 +1345,13 @@ export class FrontRepoService {
                     }
                   }
                 }
+              }
+            )
+            formeditassocbuttons.forEach(
+              formeditassocbutton => {
+                // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
+
+                // insertion point for redeeming ONE-MANY associations
               }
             )
             formfields.forEach(
@@ -1375,6 +1481,13 @@ export class FrontRepoService {
             )
             formgroups.forEach(
               formgroup => {
+                // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
+
+                // insertion point for redeeming ONE-MANY associations
+              }
+            )
+            formsortassocbuttons.forEach(
+              formsortassocbutton => {
                 // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
 
                 // insertion point for redeeming ONE-MANY associations
@@ -1945,6 +2058,13 @@ export class FrontRepoService {
                 this.frontRepo.FormDivs_batch.set(formdiv.ID, formdiv)
 
                 // insertion point for redeeming ONE/ZERO-ONE associations
+                // insertion point for pointer field FormEditAssocButton redeeming
+                {
+                  let _formeditassocbutton = this.frontRepo.FormEditAssocButtons.get(formdiv.FormEditAssocButtonID.Int64)
+                  if (_formeditassocbutton) {
+                    formdiv.FormEditAssocButton = _formeditassocbutton
+                  }
+                }
 
                 // insertion point for redeeming ONE-MANY associations
                 // insertion point for slice of pointer field FormGroup.FormDivs redeeming
@@ -1968,6 +2088,57 @@ export class FrontRepoService {
               formdiv => {
                 if (this.frontRepo.FormDivs_batch.get(formdiv.ID) == undefined) {
                   this.frontRepo.FormDivs.delete(formdiv.ID)
+                }
+              }
+            )
+
+            // 
+            // Second Step: redeem pointers between instances (thanks to maps in the First Step)
+            // insertion point sub template 
+
+            // hand over control flow to observer
+            observer.next(this.frontRepo)
+          }
+        )
+      }
+    )
+  }
+
+  // FormEditAssocButtonPull performs a GET on FormEditAssocButton of the stack and redeem association pointers 
+  FormEditAssocButtonPull(): Observable<FrontRepo> {
+    return new Observable<FrontRepo>(
+      (observer) => {
+        combineLatest([
+          this.formeditassocbuttonService.getFormEditAssocButtons(this.GONG__StackPath)
+        ]).subscribe(
+          ([ // insertion point sub template 
+            formeditassocbuttons,
+          ]) => {
+            // init the array
+            this.frontRepo.FormEditAssocButtons_array = formeditassocbuttons
+
+            // clear the map that counts FormEditAssocButton in the GET
+            this.frontRepo.FormEditAssocButtons_batch.clear()
+
+            // 
+            // First Step: init map of instances
+            // insertion point sub template 
+            formeditassocbuttons.forEach(
+              formeditassocbutton => {
+                this.frontRepo.FormEditAssocButtons.set(formeditassocbutton.ID, formeditassocbutton)
+                this.frontRepo.FormEditAssocButtons_batch.set(formeditassocbutton.ID, formeditassocbutton)
+
+                // insertion point for redeeming ONE/ZERO-ONE associations
+
+                // insertion point for redeeming ONE-MANY associations
+              }
+            )
+
+            // clear formeditassocbuttons that are absent from the GET
+            this.frontRepo.FormEditAssocButtons.forEach(
+              formeditassocbutton => {
+                if (this.frontRepo.FormEditAssocButtons_batch.get(formeditassocbutton.ID) == undefined) {
+                  this.frontRepo.FormEditAssocButtons.delete(formeditassocbutton.ID)
                 }
               }
             )
@@ -2512,6 +2683,57 @@ export class FrontRepoService {
     )
   }
 
+  // FormSortAssocButtonPull performs a GET on FormSortAssocButton of the stack and redeem association pointers 
+  FormSortAssocButtonPull(): Observable<FrontRepo> {
+    return new Observable<FrontRepo>(
+      (observer) => {
+        combineLatest([
+          this.formsortassocbuttonService.getFormSortAssocButtons(this.GONG__StackPath)
+        ]).subscribe(
+          ([ // insertion point sub template 
+            formsortassocbuttons,
+          ]) => {
+            // init the array
+            this.frontRepo.FormSortAssocButtons_array = formsortassocbuttons
+
+            // clear the map that counts FormSortAssocButton in the GET
+            this.frontRepo.FormSortAssocButtons_batch.clear()
+
+            // 
+            // First Step: init map of instances
+            // insertion point sub template 
+            formsortassocbuttons.forEach(
+              formsortassocbutton => {
+                this.frontRepo.FormSortAssocButtons.set(formsortassocbutton.ID, formsortassocbutton)
+                this.frontRepo.FormSortAssocButtons_batch.set(formsortassocbutton.ID, formsortassocbutton)
+
+                // insertion point for redeeming ONE/ZERO-ONE associations
+
+                // insertion point for redeeming ONE-MANY associations
+              }
+            )
+
+            // clear formsortassocbuttons that are absent from the GET
+            this.frontRepo.FormSortAssocButtons.forEach(
+              formsortassocbutton => {
+                if (this.frontRepo.FormSortAssocButtons_batch.get(formsortassocbutton.ID) == undefined) {
+                  this.frontRepo.FormSortAssocButtons.delete(formsortassocbutton.ID)
+                }
+              }
+            )
+
+            // 
+            // Second Step: redeem pointers between instances (thanks to maps in the First Step)
+            // insertion point sub template 
+
+            // hand over control flow to observer
+            observer.next(this.frontRepo)
+          }
+        )
+      }
+    )
+  }
+
   // OptionPull performs a GET on Option of the stack and redeem association pointers 
   OptionPull(): Observable<FrontRepo> {
     return new Observable<FrontRepo>(
@@ -2720,39 +2942,45 @@ export function getDisplayedColumnUniqueID(id: number): number {
 export function getFormDivUniqueID(id: number): number {
   return 67 * id
 }
-export function getFormFieldUniqueID(id: number): number {
+export function getFormEditAssocButtonUniqueID(id: number): number {
   return 71 * id
 }
-export function getFormFieldDateUniqueID(id: number): number {
+export function getFormFieldUniqueID(id: number): number {
   return 73 * id
 }
-export function getFormFieldDateTimeUniqueID(id: number): number {
+export function getFormFieldDateUniqueID(id: number): number {
   return 79 * id
 }
-export function getFormFieldFloat64UniqueID(id: number): number {
+export function getFormFieldDateTimeUniqueID(id: number): number {
   return 83 * id
 }
-export function getFormFieldIntUniqueID(id: number): number {
+export function getFormFieldFloat64UniqueID(id: number): number {
   return 89 * id
 }
-export function getFormFieldSelectUniqueID(id: number): number {
+export function getFormFieldIntUniqueID(id: number): number {
   return 97 * id
 }
-export function getFormFieldStringUniqueID(id: number): number {
+export function getFormFieldSelectUniqueID(id: number): number {
   return 101 * id
 }
-export function getFormFieldTimeUniqueID(id: number): number {
+export function getFormFieldStringUniqueID(id: number): number {
   return 103 * id
 }
-export function getFormGroupUniqueID(id: number): number {
+export function getFormFieldTimeUniqueID(id: number): number {
   return 107 * id
 }
-export function getOptionUniqueID(id: number): number {
+export function getFormGroupUniqueID(id: number): number {
   return 109 * id
 }
-export function getRowUniqueID(id: number): number {
+export function getFormSortAssocButtonUniqueID(id: number): number {
   return 113 * id
 }
-export function getTableUniqueID(id: number): number {
+export function getOptionUniqueID(id: number): number {
   return 127 * id
+}
+export function getRowUniqueID(id: number): number {
+  return 131 * id
+}
+export function getTableUniqueID(id: number): number {
+  return 137 * id
 }

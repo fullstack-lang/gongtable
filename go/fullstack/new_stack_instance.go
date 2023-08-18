@@ -31,7 +31,7 @@ func NewStackInstance(
 	if stackPath == "" {
 		stage = models.GetDefaultStage()
 	} else {
-		stage = models.NewStage()
+		stage = models.NewStage(stackPath)
 	}
 
 	if len(filenames) == 0 {
@@ -57,6 +57,7 @@ func NewStackInstance(
 	models.SetOrchestratorOnAfterUpdate[models.CheckBox](stage)
 	models.SetOrchestratorOnAfterUpdate[models.DisplayedColumn](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormDiv](stage)
+	models.SetOrchestratorOnAfterUpdate[models.FormEditAssocButton](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormField](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormFieldDate](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormFieldDateTime](stage)
@@ -66,6 +67,7 @@ func NewStackInstance(
 	models.SetOrchestratorOnAfterUpdate[models.FormFieldString](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormFieldTime](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormGroup](stage)
+	models.SetOrchestratorOnAfterUpdate[models.FormSortAssocButton](stage)
 	models.SetOrchestratorOnAfterUpdate[models.Option](stage)
 	models.SetOrchestratorOnAfterUpdate[models.Row](stage)
 	models.SetOrchestratorOnAfterUpdate[models.Table](stage)

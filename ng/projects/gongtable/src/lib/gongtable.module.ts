@@ -75,6 +75,10 @@ import { FormDivsTableComponent } from './formdivs-table/formdivs-table.componen
 import { FormDivSortingComponent } from './formdiv-sorting/formdiv-sorting.component'
 import { FormDivDetailComponent } from './formdiv-detail/formdiv-detail.component'
 
+import { FormEditAssocButtonsTableComponent } from './formeditassocbuttons-table/formeditassocbuttons-table.component'
+import { FormEditAssocButtonSortingComponent } from './formeditassocbutton-sorting/formeditassocbutton-sorting.component'
+import { FormEditAssocButtonDetailComponent } from './formeditassocbutton-detail/formeditassocbutton-detail.component'
+
 import { FormFieldsTableComponent } from './formfields-table/formfields-table.component'
 import { FormFieldSortingComponent } from './formfield-sorting/formfield-sorting.component'
 import { FormFieldDetailComponent } from './formfield-detail/formfield-detail.component'
@@ -110,6 +114,10 @@ import { FormFieldTimeDetailComponent } from './formfieldtime-detail/formfieldti
 import { FormGroupsTableComponent } from './formgroups-table/formgroups-table.component'
 import { FormGroupSortingComponent } from './formgroup-sorting/formgroup-sorting.component'
 import { FormGroupDetailComponent } from './formgroup-detail/formgroup-detail.component'
+
+import { FormSortAssocButtonsTableComponent } from './formsortassocbuttons-table/formsortassocbuttons-table.component'
+import { FormSortAssocButtonSortingComponent } from './formsortassocbutton-sorting/formsortassocbutton-sorting.component'
+import { FormSortAssocButtonDetailComponent } from './formsortassocbutton-detail/formsortassocbutton-detail.component'
 
 import { OptionsTableComponent } from './options-table/options-table.component'
 import { OptionSortingComponent } from './option-sorting/option-sorting.component'
@@ -163,6 +171,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormDivSortingComponent,
 		FormDivDetailComponent,
 
+		FormEditAssocButtonsTableComponent,
+		FormEditAssocButtonSortingComponent,
+		FormEditAssocButtonDetailComponent,
+
 		FormFieldsTableComponent,
 		FormFieldSortingComponent,
 		FormFieldDetailComponent,
@@ -198,6 +210,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormGroupsTableComponent,
 		FormGroupSortingComponent,
 		FormGroupDetailComponent,
+
+		FormSortAssocButtonsTableComponent,
+		FormSortAssocButtonSortingComponent,
+		FormSortAssocButtonDetailComponent,
 
 		OptionsTableComponent,
 		OptionSortingComponent,
@@ -286,6 +302,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormDivSortingComponent,
 		FormDivDetailComponent,
 
+		FormEditAssocButtonsTableComponent,
+		FormEditAssocButtonSortingComponent,
+		FormEditAssocButtonDetailComponent,
+
 		FormFieldsTableComponent,
 		FormFieldSortingComponent,
 		FormFieldDetailComponent,
@@ -321,6 +341,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormGroupsTableComponent,
 		FormGroupSortingComponent,
 		FormGroupDetailComponent,
+
+		FormSortAssocButtonsTableComponent,
+		FormSortAssocButtonSortingComponent,
+		FormSortAssocButtonDetailComponent,
 
 		OptionsTableComponent,
 		OptionSortingComponent,

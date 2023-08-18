@@ -75,6 +75,9 @@ export class FormDivsTableComponent implements OnInit {
         case 'Name':
           return formdivDB.Name;
 
+        case 'FormEditAssocButton':
+          return (formdivDB.FormEditAssocButton ? formdivDB.FormEditAssocButton.Name : '');
+
         case 'FormGroup_FormDivs':
           if (this.frontRepo.FormGroups.get(formdivDB.FormGroup_FormDivsDBID.Int64) != undefined) {
             return this.frontRepo.FormGroups.get(formdivDB.FormGroup_FormDivsDBID.Int64)!.Name
@@ -97,6 +100,9 @@ export class FormDivsTableComponent implements OnInit {
 
       // insertion point for merging of fields
       mergedContent += formdivDB.Name.toLowerCase()
+      if (formdivDB.FormEditAssocButton) {
+        mergedContent += formdivDB.FormEditAssocButton.Name.toLowerCase()
+      }
       if (formdivDB.FormGroup_FormDivsDBID.Int64 != 0) {
         mergedContent += this.frontRepo.FormGroups.get(formdivDB.FormGroup_FormDivsDBID.Int64)!.Name.toLowerCase()
       }
@@ -156,11 +162,13 @@ export class FormDivsTableComponent implements OnInit {
     if (this.mode == TableComponentMode.DISPLAY_MODE) {
       this.displayedColumns = ['ID', 'Delete', // insertion point for columns to display
         "Name",
+        "FormEditAssocButton",
         "FormGroup_FormDivs",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
+        "FormEditAssocButton",
         "FormGroup_FormDivs",
       ]
       this.selection = new SelectionModel<FormDivDB>(allowMultiSelect, this.initialSelection);

@@ -434,6 +434,44 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 
 	}
 
+	map_FormEditAssocButton_Identifiers := make(map[*FormEditAssocButton]string)
+	_ = map_FormEditAssocButton_Identifiers
+
+	formeditassocbuttonOrdered := []*FormEditAssocButton{}
+	for formeditassocbutton := range stage.FormEditAssocButtons {
+		formeditassocbuttonOrdered = append(formeditassocbuttonOrdered, formeditassocbutton)
+	}
+	sort.Slice(formeditassocbuttonOrdered[:], func(i, j int) bool {
+		return formeditassocbuttonOrdered[i].Name < formeditassocbuttonOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of FormEditAssocButton"
+	for idx, formeditassocbutton := range formeditassocbuttonOrdered {
+
+		id = generatesIdentifier("FormEditAssocButton", idx, formeditassocbutton.Name)
+		map_FormEditAssocButton_Identifiers[formeditassocbutton] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "FormEditAssocButton")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", formeditassocbutton.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// FormEditAssocButton values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formeditassocbutton.Name))
+		initializerStatements += setValueField
+
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Label")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formeditassocbutton.Label))
+		initializerStatements += setValueField
+
+	}
+
 	map_FormField_Identifiers := make(map[*FormField]string)
 	_ = map_FormField_Identifiers
 
@@ -784,6 +822,44 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 
 	}
 
+	map_FormSortAssocButton_Identifiers := make(map[*FormSortAssocButton]string)
+	_ = map_FormSortAssocButton_Identifiers
+
+	formsortassocbuttonOrdered := []*FormSortAssocButton{}
+	for formsortassocbutton := range stage.FormSortAssocButtons {
+		formsortassocbuttonOrdered = append(formsortassocbuttonOrdered, formsortassocbutton)
+	}
+	sort.Slice(formsortassocbuttonOrdered[:], func(i, j int) bool {
+		return formsortassocbuttonOrdered[i].Name < formsortassocbuttonOrdered[j].Name
+	})
+	identifiersDecl += "\n\n	// Declarations of staged instances of FormSortAssocButton"
+	for idx, formsortassocbutton := range formsortassocbuttonOrdered {
+
+		id = generatesIdentifier("FormSortAssocButton", idx, formsortassocbutton.Name)
+		map_FormSortAssocButton_Identifiers[formsortassocbutton] = id
+
+		decl = IdentifiersDecls
+		decl = strings.ReplaceAll(decl, "{{Identifier}}", id)
+		decl = strings.ReplaceAll(decl, "{{GeneratedStructName}}", "FormSortAssocButton")
+		decl = strings.ReplaceAll(decl, "{{GeneratedFieldNameValue}}", formsortassocbutton.Name)
+		identifiersDecl += decl
+
+		initializerStatements += "\n\n	// FormSortAssocButton values setup"
+		// Initialisation of values
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Name")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formsortassocbutton.Name))
+		initializerStatements += setValueField
+
+		setValueField = StringInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "Label")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", string(formsortassocbutton.Label))
+		initializerStatements += setValueField
+
+	}
+
 	map_Option_Identifiers := make(map[*Option]string)
 	_ = map_Option_Identifiers
 
@@ -918,6 +994,12 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
 		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "CanDragDropRows")
 		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", fmt.Sprintf("%t", table.CanDragDropRows))
+		initializerStatements += setValueField
+
+		setValueField = NumberInitStatement
+		setValueField = strings.ReplaceAll(setValueField, "{{Identifier}}", id)
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldName}}", "SavingInProgress")
+		setValueField = strings.ReplaceAll(setValueField, "{{GeneratedFieldNameValue}}", fmt.Sprintf("%t", table.SavingInProgress))
 		initializerStatements += setValueField
 
 	}
@@ -1067,6 +1149,24 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 			pointersInitializesStatements += setPointerField
 		}
 
+		if formdiv.FormEditAssocButton != nil {
+			setPointerField = PointerFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormEditAssocButton")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormEditAssocButton_Identifiers[formdiv.FormEditAssocButton])
+			pointersInitializesStatements += setPointerField
+		}
+
+	}
+
+	for idx, formeditassocbutton := range formeditassocbuttonOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("FormEditAssocButton", idx, formeditassocbutton.Name)
+		map_FormEditAssocButton_Identifiers[formeditassocbutton] = id
+
+		// Initialisation of values
 	}
 
 	for idx, formfield := range formfieldOrdered {
@@ -1237,6 +1337,16 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 			pointersInitializesStatements += setPointerField
 		}
 
+	}
+
+	for idx, formsortassocbutton := range formsortassocbuttonOrdered {
+		var setPointerField string
+		_ = setPointerField
+
+		id = generatesIdentifier("FormSortAssocButton", idx, formsortassocbutton.Name)
+		map_FormSortAssocButton_Identifiers[formsortassocbutton] = id
+
+		// Initialisation of values
 	}
 
 	for idx, option := range optionOrdered {

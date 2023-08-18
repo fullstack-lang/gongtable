@@ -93,6 +93,9 @@ export class TablesTableComponent implements OnInit {
         case 'CanDragDropRows':
           return tableDB.CanDragDropRows ? "true" : "false";
 
+        case 'SavingInProgress':
+          return tableDB.SavingInProgress ? "true" : "false";
+
         default:
           console.assert(false, "Unknown field")
           return "";
@@ -169,6 +172,7 @@ export class TablesTableComponent implements OnInit {
         "HasCheckableRows",
         "HasSaveButton",
         "CanDragDropRows",
+        "SavingInProgress",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
@@ -179,6 +183,7 @@ export class TablesTableComponent implements OnInit {
         "HasCheckableRows",
         "HasSaveButton",
         "CanDragDropRows",
+        "SavingInProgress",
       ]
       this.selection = new SelectionModel<TableDB>(allowMultiSelect, this.initialSelection);
     }
