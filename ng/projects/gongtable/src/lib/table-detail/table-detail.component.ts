@@ -39,6 +39,7 @@ export class TableDetailComponent implements OnInit {
 	HasCheckableRowsFormControl: UntypedFormControl = new UntypedFormControl(false);
 	HasSaveButtonFormControl: UntypedFormControl = new UntypedFormControl(false);
 	CanDragDropRowsFormControl: UntypedFormControl = new UntypedFormControl(false);
+	SavingInProgressFormControl: UntypedFormControl = new UntypedFormControl(false);
 
 	// the TableDB of interest
 	table: TableDB = new TableDB
@@ -145,6 +146,7 @@ export class TableDetailComponent implements OnInit {
 				this.HasCheckableRowsFormControl.setValue(this.table.HasCheckableRows)
 				this.HasSaveButtonFormControl.setValue(this.table.HasSaveButton)
 				this.CanDragDropRowsFormControl.setValue(this.table.CanDragDropRows)
+				this.SavingInProgressFormControl.setValue(this.table.SavingInProgress)
 			}
 		)
 
@@ -163,6 +165,7 @@ export class TableDetailComponent implements OnInit {
 		this.table.HasCheckableRows = this.HasCheckableRowsFormControl.value
 		this.table.HasSaveButton = this.HasSaveButtonFormControl.value
 		this.table.CanDragDropRows = this.CanDragDropRowsFormControl.value
+		this.table.SavingInProgress = this.SavingInProgressFormControl.value
 
 		// save from the front pointer space to the non pointer space for serialization
 

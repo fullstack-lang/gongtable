@@ -86,6 +86,19 @@
 			]
 		},
 		{
+			"label": "01 - gongc gongtable -skipGoModCommands -skipNpmInstall",
+			"type": "shell",
+			"options": {
+				"cwd": "${workspaceFolder}/go/models"
+			},
+			"command": "gongc",
+			"group": "build",
+			"args": [
+				"-skipNpmInstall",
+				"-skipGoModCommands"
+			]
+		},
+		{
 			"label": "01 - gongc gongtable -skipNg -skipGoModCommands",
 			"type": "shell",
 			"options": {

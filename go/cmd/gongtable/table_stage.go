@@ -265,11 +265,11 @@ func table_stageInjection(stage *models.StageStruct) {
 
 	// Row values setup
 	__Row__000000_Row_1.Name = `Row 1`
-	__Row__000000_Row_1.IsChecked = true
+	__Row__000000_Row_1.IsChecked = false
 
 	// Row values setup
 	__Row__000001_Row_2.Name = `Row 2`
-	__Row__000001_Row_2.IsChecked = false
+	__Row__000001_Row_2.IsChecked = true
 
 	// Row values setup
 	__Row__000002_Table_2_Row_1.Name = `Table 2 - Row 1`
@@ -291,6 +291,7 @@ func table_stageInjection(stage *models.StageStruct) {
 	__Table__000000_Table.HasCheckableRows = true
 	__Table__000000_Table.HasSaveButton = true
 	__Table__000000_Table.CanDragDropRows = false
+	__Table__000000_Table.SavingInProgress = false
 
 	// Table values setup
 	__Table__000001_Table_2.Name = `Table 2`
@@ -300,6 +301,7 @@ func table_stageInjection(stage *models.StageStruct) {
 	__Table__000001_Table_2.HasCheckableRows = false
 	__Table__000001_Table_2.HasSaveButton = true
 	__Table__000001_Table_2.CanDragDropRows = true
+	__Table__000001_Table_2.SavingInProgress = false
 
 	// Setup of pointers
 	__Cell__000000_Row_1_Cell_1.CellBool = __CellBoolean__000000_Row_1_Cell_1_Cell_False

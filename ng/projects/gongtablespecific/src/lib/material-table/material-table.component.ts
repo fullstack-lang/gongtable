@@ -65,6 +65,8 @@ export class MaterialTableComponent implements OnInit {
     private gongtableFrontRepoService: gongtable.FrontRepoService,
     private gongtableCommitNbFromBackService: gongtable.CommitNbFromBackService,
     private rowService: gongtable.RowService,
+    private tableService: gongtable.TableService,
+
 
     // not null if the component is called as a selection component of cellboolean instances
     public dialogRef: MatDialogRef<MaterialTableComponent>,
@@ -297,25 +299,59 @@ export class MaterialTableComponent implements OnInit {
 
   save() {
 
-    // store 
-    this.selectedTable?.Rows?.forEach(row => row.IsChecked = false)
-
-    for (let row of this.selection.selected) {
-      row.IsChecked = true
+    if (this.selectedTable == undefined) {
+      return
     }
 
-    const promises = []
-    for (let row of this.selectedTable?.Rows!) {
-      promises.push(this.rowService.updateRow(row, this.DataStack))
+    // map of modified rows to be be updated
+    let modifiedRows = new Set<gongtable.RowDB>
+    for (let row of this.selectedTable.Rows!) {
+      if ((row.IsChecked && !this.selection.isSelected(row)) ||
+        (!row.IsChecked && this.selection.isSelected(row))) {
+        row.IsChecked = !row.IsChecked
+        modifiedRows.add(row)
+      }
     }
 
-    forkJoin(promises).subscribe(
-      () => this.refresh()
+    if (modifiedRows.size == 0) {
+      // in case this component is called as a modal window (MatDialog)
+      // exits,
+      if (this.tableDialogData) {
+        this.dialogRef?.close('Closing the application')
+      }
+      return
+    }
+
+    // inform the back that the saving is some rows is in progress
+    this.selectedTable.SavingInProgress = true
+    this.tableService.updateTable(this.selectedTable, this.DataStack).subscribe(
+      () => {
+
+        const promises = []
+        for (let row of modifiedRows) {
+          promises.push(this.rowService.updateRow(row, this.DataStack))
+        }
+
+        forkJoin(promises).subscribe(
+          () => {
+
+            this.selectedTable!.SavingInProgress = false
+            this.tableService.updateTable(this.selectedTable!, this.DataStack).subscribe(
+              () => {
+                // in case this component is called as a modal window (MatDialog)
+                // exits,
+                if (this.tableDialogData) {
+                  this.dialogRef?.close('Closing the application')
+                }
+
+                this.refresh()
+              }
+            )
+          }
+        )
+      }
     )
 
-    // in case this component is called as a modal window (MatDialog)
-    // exits,
-    this.dialogRef?.close('Closing the application');
 
   }
 

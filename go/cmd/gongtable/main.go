@@ -197,6 +197,10 @@ func fillUpSelectTableDummyStuff(stage *gongtable_models.StageStruct, tableName 
 		row.Name = fmt.Sprintf("Row %d", i)
 		table.Rows = append(table.Rows, row)
 
+		if i%2 == 0 {
+			row.IsChecked = true
+		}
+
 		for j := 0; j < nbColumns; j++ {
 			cell := new(gongtable_models.Cell).Stage(stage)
 			cell.Name = fmt.Sprintf("Row %d - Column %d", i, j)
