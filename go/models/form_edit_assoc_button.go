@@ -10,9 +10,6 @@ type FormEditAssocButton struct {
 
 	Label string
 
-	// OnEditMode is true when the user
-	OnEditMode bool
-
 	OnAssocEditon FormEditAssocButtonInterface
 }
 
@@ -23,13 +20,10 @@ func (formEditAssocButton *FormEditAssocButton) OnAfterUpdate(
 
 	log.Println("OnAfterUpdate")
 
-	// start the stack and reset the field
-	if frontInstance.OnEditMode == true {
-		stagedInstance.Commit(stage)
+	stagedInstance.Commit(stage)
 
-		if stagedInstance.OnAssocEditon != nil {
-			stagedInstance.OnAssocEditon.OnButtonPressed()
-		}
+	if stagedInstance.OnAssocEditon != nil {
+		stagedInstance.OnAssocEditon.OnButtonPressed()
 	}
 }
 

@@ -107,8 +107,6 @@ var map_DocLink_Identifier_Form map[string]any = map[string]any{
 
 	"ref_models.FormEditAssocButton.Name": (ref_models.FormEditAssocButton{}).Name,
 
-	"ref_models.FormEditAssocButton.OnEditMode": (ref_models.FormEditAssocButton{}).OnEditMode,
-
 	"ref_models.FormField": &(ref_models.FormField{}),
 
 	"ref_models.FormField.FormFieldDate": (ref_models.FormField{}).FormFieldDate,
@@ -1388,5 +1386,3 @@ func FormInjection(stage *models.StageStruct) {
 	__Link__000011_Options.Middlevertice = __Vertice__000011_Verticle_in_class_diagram_Form_in_middle_between_Form_FormFieldSelect_and_Form_Option
 	__Link__000012_Value.Middlevertice = __Vertice__000010_Verticle_in_class_diagram_Form_in_middle_between_Form_FormFieldSelect_and_Form_Option
 }
-
-

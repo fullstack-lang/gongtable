@@ -115,6 +115,8 @@ func table_stageInjection(stage *models.StageStruct) {
 
 	// Declarations of staged instances of FormGroup
 
+	// Declarations of staged instances of FormSortAssocButton
+
 	// Declarations of staged instances of Option
 
 	// Declarations of staged instances of Row
@@ -265,11 +267,11 @@ func table_stageInjection(stage *models.StageStruct) {
 
 	// Row values setup
 	__Row__000000_Row_1.Name = `Row 1`
-	__Row__000000_Row_1.IsChecked = false
+	__Row__000000_Row_1.IsChecked = true
 
 	// Row values setup
 	__Row__000001_Row_2.Name = `Row 2`
-	__Row__000001_Row_2.IsChecked = true
+	__Row__000001_Row_2.IsChecked = false
 
 	// Row values setup
 	__Row__000002_Table_2_Row_1.Name = `Table 2 - Row 1`

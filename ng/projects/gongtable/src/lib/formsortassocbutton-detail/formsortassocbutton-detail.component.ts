@@ -2,8 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 
-import { FormEditAssocButtonDB } from '../formeditassocbutton-db'
-import { FormEditAssocButtonService } from '../formeditassocbutton.service'
+import { FormSortAssocButtonDB } from '../formsortassocbutton-db'
+import { FormSortAssocButtonService } from '../formsortassocbutton.service'
 
 import { FrontRepoService, FrontRepo, SelectionMode, DialogData } from '../front-repo.service'
 import { MapOfComponents } from '../map-components'
@@ -17,25 +17,25 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angu
 
 import { NullInt64 } from '../null-int64'
 
-// FormEditAssocButtonDetailComponent is initilizaed from different routes
-// FormEditAssocButtonDetailComponentState detail different cases 
-enum FormEditAssocButtonDetailComponentState {
+// FormSortAssocButtonDetailComponent is initilizaed from different routes
+// FormSortAssocButtonDetailComponentState detail different cases 
+enum FormSortAssocButtonDetailComponentState {
 	CREATE_INSTANCE,
 	UPDATE_INSTANCE,
 	// insertion point for declarations of enum values of state
 }
 
 @Component({
-	selector: 'app-formeditassocbutton-detail',
-	templateUrl: './formeditassocbutton-detail.component.html',
-	styleUrls: ['./formeditassocbutton-detail.component.css'],
+	selector: 'app-formsortassocbutton-detail',
+	templateUrl: './formsortassocbutton-detail.component.html',
+	styleUrls: ['./formsortassocbutton-detail.component.css'],
 })
-export class FormEditAssocButtonDetailComponent implements OnInit {
+export class FormSortAssocButtonDetailComponent implements OnInit {
 
 	// insertion point for declarations
 
-	// the FormEditAssocButtonDB of interest
-	formeditassocbutton: FormEditAssocButtonDB = new FormEditAssocButtonDB
+	// the FormSortAssocButtonDB of interest
+	formsortassocbutton: FormSortAssocButtonDB = new FormSortAssocButtonDB
 
 	// front repo
 	frontRepo: FrontRepo = new FrontRepo
@@ -46,7 +46,7 @@ export class FormEditAssocButtonDetailComponent implements OnInit {
 	mapFields_displayAsTextArea = new Map<string, boolean>()
 
 	// the state at initialization (CREATION, UPDATE or CREATE with one association set)
-	state: FormEditAssocButtonDetailComponentState = FormEditAssocButtonDetailComponentState.CREATE_INSTANCE
+	state: FormSortAssocButtonDetailComponentState = FormSortAssocButtonDetailComponentState.CREATE_INSTANCE
 
 	// in UDPATE state, if is the id of the instance to update
 	// in CREATE state with one association set, this is the id of the associated instance
@@ -59,7 +59,7 @@ export class FormEditAssocButtonDetailComponent implements OnInit {
 	GONG__StackPath: string = ""
 
 	constructor(
-		private formeditassocbuttonService: FormEditAssocButtonService,
+		private formsortassocbuttonService: FormSortAssocButtonService,
 		private frontRepoService: FrontRepoService,
 		public dialog: MatDialog,
 		private activatedRoute: ActivatedRoute,
@@ -85,10 +85,10 @@ export class FormEditAssocButtonDetailComponent implements OnInit {
 
 		const association = this.activatedRoute.snapshot.paramMap.get('association');
 		if (this.id == 0) {
-			this.state = FormEditAssocButtonDetailComponentState.CREATE_INSTANCE
+			this.state = FormSortAssocButtonDetailComponentState.CREATE_INSTANCE
 		} else {
 			if (this.originStruct == undefined) {
-				this.state = FormEditAssocButtonDetailComponentState.UPDATE_INSTANCE
+				this.state = FormSortAssocButtonDetailComponentState.UPDATE_INSTANCE
 			} else {
 				switch (this.originStructFieldName) {
 					// insertion point for state computation
@@ -98,13 +98,13 @@ export class FormEditAssocButtonDetailComponent implements OnInit {
 			}
 		}
 
-		this.getFormEditAssocButton()
+		this.getFormSortAssocButton()
 
 		// observable for changes in structs
-		this.formeditassocbuttonService.FormEditAssocButtonServiceChanged.subscribe(
+		this.formsortassocbuttonService.FormSortAssocButtonServiceChanged.subscribe(
 			message => {
 				if (message == "post" || message == "update" || message == "delete") {
-					this.getFormEditAssocButton()
+					this.getFormSortAssocButton()
 				}
 			}
 		)
@@ -112,20 +112,20 @@ export class FormEditAssocButtonDetailComponent implements OnInit {
 		// insertion point for initialisation of enums list
 	}
 
-	getFormEditAssocButton(): void {
+	getFormSortAssocButton(): void {
 
 		this.frontRepoService.pull(this.GONG__StackPath).subscribe(
 			frontRepo => {
 				this.frontRepo = frontRepo
 
 				switch (this.state) {
-					case FormEditAssocButtonDetailComponentState.CREATE_INSTANCE:
-						this.formeditassocbutton = new (FormEditAssocButtonDB)
+					case FormSortAssocButtonDetailComponentState.CREATE_INSTANCE:
+						this.formsortassocbutton = new (FormSortAssocButtonDB)
 						break;
-					case FormEditAssocButtonDetailComponentState.UPDATE_INSTANCE:
-						let formeditassocbutton = frontRepo.FormEditAssocButtons.get(this.id)
-						console.assert(formeditassocbutton != undefined, "missing formeditassocbutton with id:" + this.id)
-						this.formeditassocbutton = formeditassocbutton!
+					case FormSortAssocButtonDetailComponentState.UPDATE_INSTANCE:
+						let formsortassocbutton = frontRepo.FormSortAssocButtons.get(this.id)
+						console.assert(formsortassocbutton != undefined, "missing formsortassocbutton with id:" + this.id)
+						this.formsortassocbutton = formsortassocbutton!
 						break;
 					// insertion point for init of association field
 					default:
@@ -151,16 +151,16 @@ export class FormEditAssocButtonDetailComponent implements OnInit {
 		// insertion point for translation/nullation of each pointers
 
 		switch (this.state) {
-			case FormEditAssocButtonDetailComponentState.UPDATE_INSTANCE:
-				this.formeditassocbuttonService.updateFormEditAssocButton(this.formeditassocbutton, this.GONG__StackPath)
-					.subscribe(formeditassocbutton => {
-						this.formeditassocbuttonService.FormEditAssocButtonServiceChanged.next("update")
+			case FormSortAssocButtonDetailComponentState.UPDATE_INSTANCE:
+				this.formsortassocbuttonService.updateFormSortAssocButton(this.formsortassocbutton, this.GONG__StackPath)
+					.subscribe(formsortassocbutton => {
+						this.formsortassocbuttonService.FormSortAssocButtonServiceChanged.next("update")
 					});
 				break;
 			default:
-				this.formeditassocbuttonService.postFormEditAssocButton(this.formeditassocbutton, this.GONG__StackPath).subscribe(formeditassocbutton => {
-					this.formeditassocbuttonService.FormEditAssocButtonServiceChanged.next("post")
-					this.formeditassocbutton = new (FormEditAssocButtonDB) // reset fields
+				this.formsortassocbuttonService.postFormSortAssocButton(this.formsortassocbutton, this.GONG__StackPath).subscribe(formsortassocbutton => {
+					this.formsortassocbuttonService.FormSortAssocButtonServiceChanged.next("post")
+					this.formsortassocbutton = new (FormSortAssocButtonDB) // reset fields
 				});
 		}
 	}
@@ -183,7 +183,7 @@ export class FormEditAssocButtonDetailComponent implements OnInit {
 		dialogConfig.height = "50%"
 		if (selectionMode == SelectionMode.ONE_MANY_ASSOCIATION_MODE) {
 
-			dialogData.ID = this.formeditassocbutton.ID!
+			dialogData.ID = this.formsortassocbutton.ID!
 			dialogData.ReversePointer = reverseField
 			dialogData.OrderingMode = false
 			dialogData.SelectionMode = selectionMode
@@ -200,14 +200,14 @@ export class FormEditAssocButtonDetailComponent implements OnInit {
 			});
 		}
 		if (selectionMode == SelectionMode.MANY_MANY_ASSOCIATION_MODE) {
-			dialogData.ID = this.formeditassocbutton.ID!
+			dialogData.ID = this.formsortassocbutton.ID!
 			dialogData.ReversePointer = reverseField
 			dialogData.OrderingMode = false
 			dialogData.SelectionMode = selectionMode
 			dialogData.GONG__StackPath = this.GONG__StackPath
 
 			// set up the source
-			dialogData.SourceStruct = "FormEditAssocButton"
+			dialogData.SourceStruct = "FormSortAssocButton"
 			dialogData.SourceField = sourceField
 
 			// set up the intermediate struct
@@ -237,7 +237,7 @@ export class FormEditAssocButtonDetailComponent implements OnInit {
 		// dialogConfig.disableClose = true;
 		dialogConfig.autoFocus = true;
 		dialogConfig.data = {
-			ID: this.formeditassocbutton.ID,
+			ID: this.formsortassocbutton.ID,
 			ReversePointer: reverseField,
 			OrderingMode: true,
 			GONG__StackPath: this.GONG__StackPath,
@@ -254,8 +254,8 @@ export class FormEditAssocButtonDetailComponent implements OnInit {
 	}
 
 	fillUpNameIfEmpty(event: { value: { Name: string; }; }) {
-		if (this.formeditassocbutton.Name == "") {
-			this.formeditassocbutton.Name = event.value.Name
+		if (this.formsortassocbutton.Name == "") {
+			this.formsortassocbutton.Name = event.value.Name
 		}
 	}
 

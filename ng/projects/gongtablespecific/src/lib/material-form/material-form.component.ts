@@ -356,13 +356,10 @@ export class MaterialFormComponent implements OnInit {
       return
     }
 
-
-    let formEditAssocButton: gongtable.FormEditAssocButtonDB | undefined
     for (let formDiv of this.selectedFormGroup.FormDivs) {
       if (formDiv.FormEditAssocButton) {
         if (formDiv.FormEditAssocButton.Name == fieldName) {
 
-          formDiv.FormEditAssocButton.OnEditMode = true
           this.formEditAssocButtonService.updateFormEditAssocButton(formDiv.FormEditAssocButton, this.DataStack).subscribe(
             () => {
               console.log("assoc button updated")

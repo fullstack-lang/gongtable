@@ -115,6 +115,10 @@ import { FormGroupsTableComponent } from './formgroups-table/formgroups-table.co
 import { FormGroupSortingComponent } from './formgroup-sorting/formgroup-sorting.component'
 import { FormGroupDetailComponent } from './formgroup-detail/formgroup-detail.component'
 
+import { FormSortAssocButtonsTableComponent } from './formsortassocbuttons-table/formsortassocbuttons-table.component'
+import { FormSortAssocButtonSortingComponent } from './formsortassocbutton-sorting/formsortassocbutton-sorting.component'
+import { FormSortAssocButtonDetailComponent } from './formsortassocbutton-detail/formsortassocbutton-detail.component'
+
 import { OptionsTableComponent } from './options-table/options-table.component'
 import { OptionSortingComponent } from './option-sorting/option-sorting.component'
 import { OptionDetailComponent } from './option-detail/option-detail.component'
@@ -206,6 +210,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormGroupsTableComponent,
 		FormGroupSortingComponent,
 		FormGroupDetailComponent,
+
+		FormSortAssocButtonsTableComponent,
+		FormSortAssocButtonSortingComponent,
+		FormSortAssocButtonDetailComponent,
 
 		OptionsTableComponent,
 		OptionSortingComponent,
@@ -333,6 +341,10 @@ import { TableDetailComponent } from './table-detail/table-detail.component'
 		FormGroupsTableComponent,
 		FormGroupSortingComponent,
 		FormGroupDetailComponent,
+
+		FormSortAssocButtonsTableComponent,
+		FormSortAssocButtonSortingComponent,
+		FormSortAssocButtonDetailComponent,
 
 		OptionsTableComponent,
 		OptionSortingComponent,

@@ -63,10 +63,6 @@ type FormEditAssocButtonDB struct {
 
 	// Declation for basic field formeditassocbuttonDB.Label
 	Label_Data sql.NullString
-
-	// Declation for basic field formeditassocbuttonDB.OnEditMode
-	// provide the sql storage for the boolan
-	OnEditMode_Data sql.NullBool
 	// encoding of pointers
 	FormEditAssocButtonPointersEnconding
 }
@@ -91,8 +87,6 @@ type FormEditAssocButtonWOP struct {
 	Name string `xlsx:"1"`
 
 	Label string `xlsx:"2"`
-
-	OnEditMode bool `xlsx:"3"`
 	// insertion for WOP pointer fields
 }
 
@@ -101,7 +95,6 @@ var FormEditAssocButton_Fields = []string{
 	"ID",
 	"Name",
 	"Label",
-	"OnEditMode",
 }
 
 type BackRepoFormEditAssocButtonStruct struct {
@@ -367,9 +360,6 @@ func (formeditassocbuttonDB *FormEditAssocButtonDB) CopyBasicFieldsFromFormEditA
 
 	formeditassocbuttonDB.Label_Data.String = formeditassocbutton.Label
 	formeditassocbuttonDB.Label_Data.Valid = true
-
-	formeditassocbuttonDB.OnEditMode_Data.Bool = formeditassocbutton.OnEditMode
-	formeditassocbuttonDB.OnEditMode_Data.Valid = true
 }
 
 // CopyBasicFieldsFromFormEditAssocButtonWOP
@@ -381,9 +371,6 @@ func (formeditassocbuttonDB *FormEditAssocButtonDB) CopyBasicFieldsFromFormEditA
 
 	formeditassocbuttonDB.Label_Data.String = formeditassocbutton.Label
 	formeditassocbuttonDB.Label_Data.Valid = true
-
-	formeditassocbuttonDB.OnEditMode_Data.Bool = formeditassocbutton.OnEditMode
-	formeditassocbuttonDB.OnEditMode_Data.Valid = true
 }
 
 // CopyBasicFieldsToFormEditAssocButton
@@ -391,7 +378,6 @@ func (formeditassocbuttonDB *FormEditAssocButtonDB) CopyBasicFieldsToFormEditAss
 	// insertion point for checkout of basic fields (back repo to stage)
 	formeditassocbutton.Name = formeditassocbuttonDB.Name_Data.String
 	formeditassocbutton.Label = formeditassocbuttonDB.Label_Data.String
-	formeditassocbutton.OnEditMode = formeditassocbuttonDB.OnEditMode_Data.Bool
 }
 
 // CopyBasicFieldsToFormEditAssocButtonWOP
@@ -400,7 +386,6 @@ func (formeditassocbuttonDB *FormEditAssocButtonDB) CopyBasicFieldsToFormEditAss
 	// insertion point for checkout of basic fields (back repo to stage)
 	formeditassocbutton.Name = formeditassocbuttonDB.Name_Data.String
 	formeditassocbutton.Label = formeditassocbuttonDB.Label_Data.String
-	formeditassocbutton.OnEditMode = formeditassocbuttonDB.OnEditMode_Data.Bool
 }
 
 // Backup generates a json file from a slice of all FormEditAssocButtonDB instances in the backrepo

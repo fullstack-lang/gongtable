@@ -14,8 +14,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 const allowMultiSelect = true;
 
 import { ActivatedRoute, Router, RouterState } from '@angular/router';
-import { FormEditAssocButtonDB } from '../formeditassocbutton-db'
-import { FormEditAssocButtonService } from '../formeditassocbutton.service'
+import { FormSortAssocButtonDB } from '../formsortassocbutton-db'
+import { FormSortAssocButtonService } from '../formsortassocbutton.service'
 
 // insertion point for additional imports
 
@@ -31,26 +31,26 @@ enum TableComponentMode {
 
 // generated table component
 @Component({
-  selector: 'app-formeditassocbuttonstable',
-  templateUrl: './formeditassocbuttons-table.component.html',
-  styleUrls: ['./formeditassocbuttons-table.component.css'],
+  selector: 'app-formsortassocbuttonstable',
+  templateUrl: './formsortassocbuttons-table.component.html',
+  styleUrls: ['./formsortassocbuttons-table.component.css'],
 })
-export class FormEditAssocButtonsTableComponent implements OnInit {
+export class FormSortAssocButtonsTableComponent implements OnInit {
 
   @Input() GONG__StackPath: string = ""
 
   // mode at invocation
   mode: TableComponentMode = TableComponentMode.DISPLAY_MODE
 
-  // used if the component is called as a selection component of FormEditAssocButton instances
-  selection: SelectionModel<FormEditAssocButtonDB> = new (SelectionModel)
-  initialSelection = new Array<FormEditAssocButtonDB>()
+  // used if the component is called as a selection component of FormSortAssocButton instances
+  selection: SelectionModel<FormSortAssocButtonDB> = new (SelectionModel)
+  initialSelection = new Array<FormSortAssocButtonDB>()
 
   // the data source for the table
-  formeditassocbuttons: FormEditAssocButtonDB[] = []
-  matTableDataSource: MatTableDataSource<FormEditAssocButtonDB> = new (MatTableDataSource)
+  formsortassocbuttons: FormSortAssocButtonDB[] = []
+  matTableDataSource: MatTableDataSource<FormSortAssocButtonDB> = new (MatTableDataSource)
 
-  // front repo, that will be referenced by this.formeditassocbuttons
+  // front repo, that will be referenced by this.formsortassocbuttons
   frontRepo: FrontRepo = new (FrontRepo)
 
   // displayedColumns is referenced by the MatTable component for specify what columns
@@ -66,17 +66,17 @@ export class FormEditAssocButtonsTableComponent implements OnInit {
   ngAfterViewInit() {
 
     // enable sorting on all fields (including pointers and reverse pointer)
-    this.matTableDataSource.sortingDataAccessor = (formeditassocbuttonDB: FormEditAssocButtonDB, property: string) => {
+    this.matTableDataSource.sortingDataAccessor = (formsortassocbuttonDB: FormSortAssocButtonDB, property: string) => {
       switch (property) {
         case 'ID':
-          return formeditassocbuttonDB.ID
+          return formsortassocbuttonDB.ID
 
         // insertion point for specific sorting accessor
         case 'Name':
-          return formeditassocbuttonDB.Name;
+          return formsortassocbuttonDB.Name;
 
         case 'Label':
-          return formeditassocbuttonDB.Label;
+          return formsortassocbuttonDB.Label;
 
         default:
           console.assert(false, "Unknown field")
@@ -85,15 +85,15 @@ export class FormEditAssocButtonsTableComponent implements OnInit {
     };
 
     // enable filtering on all fields (including pointers and reverse pointer, which is not done by default)
-    this.matTableDataSource.filterPredicate = (formeditassocbuttonDB: FormEditAssocButtonDB, filter: string) => {
+    this.matTableDataSource.filterPredicate = (formsortassocbuttonDB: FormSortAssocButtonDB, filter: string) => {
 
       // filtering is based on finding a lower case filter into a concatenated string
-      // the formeditassocbuttonDB properties
+      // the formsortassocbuttonDB properties
       let mergedContent = ""
 
       // insertion point for merging of fields
-      mergedContent += formeditassocbuttonDB.Name.toLowerCase()
-      mergedContent += formeditassocbuttonDB.Label.toLowerCase()
+      mergedContent += formsortassocbuttonDB.Name.toLowerCase()
+      mergedContent += formsortassocbuttonDB.Label.toLowerCase()
 
       let isSelected = mergedContent.includes(filter.toLowerCase())
       return isSelected
@@ -109,11 +109,11 @@ export class FormEditAssocButtonsTableComponent implements OnInit {
   }
 
   constructor(
-    private formeditassocbuttonService: FormEditAssocButtonService,
+    private formsortassocbuttonService: FormSortAssocButtonService,
     private frontRepoService: FrontRepoService,
 
-    // not null if the component is called as a selection component of formeditassocbutton instances
-    public dialogRef: MatDialogRef<FormEditAssocButtonsTableComponent>,
+    // not null if the component is called as a selection component of formsortassocbutton instances
+    public dialogRef: MatDialogRef<FormSortAssocButtonsTableComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: DialogData,
 
     private router: Router,
@@ -139,10 +139,10 @@ export class FormEditAssocButtonsTableComponent implements OnInit {
     }
 
     // observable for changes in structs
-    this.formeditassocbuttonService.FormEditAssocButtonServiceChanged.subscribe(
+    this.formsortassocbuttonService.FormSortAssocButtonServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
-          this.getFormEditAssocButtons()
+          this.getFormSortAssocButtons()
         }
       }
     )
@@ -156,7 +156,7 @@ export class FormEditAssocButtonsTableComponent implements OnInit {
         "Name",
         "Label",
       ]
-      this.selection = new SelectionModel<FormEditAssocButtonDB>(allowMultiSelect, this.initialSelection);
+      this.selection = new SelectionModel<FormSortAssocButtonDB>(allowMultiSelect, this.initialSelection);
     }
 
   }
@@ -167,84 +167,84 @@ export class FormEditAssocButtonsTableComponent implements OnInit {
       this.GONG__StackPath = stackPath
     }
 
-    this.getFormEditAssocButtons()
+    this.getFormSortAssocButtons()
 
-    this.matTableDataSource = new MatTableDataSource(this.formeditassocbuttons)
+    this.matTableDataSource = new MatTableDataSource(this.formsortassocbuttons)
   }
 
-  getFormEditAssocButtons(): void {
+  getFormSortAssocButtons(): void {
     this.frontRepoService.pull(this.GONG__StackPath).subscribe(
       frontRepo => {
         this.frontRepo = frontRepo
 
-        this.formeditassocbuttons = this.frontRepo.FormEditAssocButtons_array;
+        this.formsortassocbuttons = this.frontRepo.FormSortAssocButtons_array;
 
         // insertion point for time duration Recoveries
         // insertion point for enum int Recoveries
 
         // in case the component is called as a selection component
         if (this.mode == TableComponentMode.ONE_MANY_ASSOCIATION_MODE) {
-          for (let formeditassocbutton of this.formeditassocbuttons) {
+          for (let formsortassocbutton of this.formsortassocbuttons) {
             let ID = this.dialogData.ID
-            let revPointer = formeditassocbutton[this.dialogData.ReversePointer as keyof FormEditAssocButtonDB] as unknown as NullInt64
+            let revPointer = formsortassocbutton[this.dialogData.ReversePointer as keyof FormSortAssocButtonDB] as unknown as NullInt64
             if (revPointer.Int64 == ID) {
-              this.initialSelection.push(formeditassocbutton)
+              this.initialSelection.push(formsortassocbutton)
             }
-            this.selection = new SelectionModel<FormEditAssocButtonDB>(allowMultiSelect, this.initialSelection);
+            this.selection = new SelectionModel<FormSortAssocButtonDB>(allowMultiSelect, this.initialSelection);
           }
         }
 
         if (this.mode == TableComponentMode.MANY_MANY_ASSOCIATION_MODE) {
 
-          let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormEditAssocButtonDB>
+          let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormSortAssocButtonDB>
           let sourceInstance = mapOfSourceInstances.get(this.dialogData.ID)!
 
-          // we associates on sourceInstance of type SourceStruct with a MANY MANY associations to FormEditAssocButtonDB
+          // we associates on sourceInstance of type SourceStruct with a MANY MANY associations to FormSortAssocButtonDB
           // the field name is sourceField
-          let sourceFieldArray = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]! as unknown as FormEditAssocButtonDB[]
+          let sourceFieldArray = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]! as unknown as FormSortAssocButtonDB[]
           if (sourceFieldArray != null) {
             for (let associationInstance of sourceFieldArray) {
-              let formeditassocbutton = associationInstance[this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormEditAssocButtonDB
-              this.initialSelection.push(formeditassocbutton)
+              let formsortassocbutton = associationInstance[this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormSortAssocButtonDB
+              this.initialSelection.push(formsortassocbutton)
             }
           }
 
-          this.selection = new SelectionModel<FormEditAssocButtonDB>(allowMultiSelect, this.initialSelection);
+          this.selection = new SelectionModel<FormSortAssocButtonDB>(allowMultiSelect, this.initialSelection);
         }
 
         // update the mat table data source
-        this.matTableDataSource.data = this.formeditassocbuttons
+        this.matTableDataSource.data = this.formsortassocbuttons
       }
     )
   }
 
-  // newFormEditAssocButton initiate a new formeditassocbutton
-  // create a new FormEditAssocButton objet
-  newFormEditAssocButton() {
+  // newFormSortAssocButton initiate a new formsortassocbutton
+  // create a new FormSortAssocButton objet
+  newFormSortAssocButton() {
   }
 
-  deleteFormEditAssocButton(formeditassocbuttonID: number, formeditassocbutton: FormEditAssocButtonDB) {
-    // list of formeditassocbuttons is truncated of formeditassocbutton before the delete
-    this.formeditassocbuttons = this.formeditassocbuttons.filter(h => h !== formeditassocbutton);
+  deleteFormSortAssocButton(formsortassocbuttonID: number, formsortassocbutton: FormSortAssocButtonDB) {
+    // list of formsortassocbuttons is truncated of formsortassocbutton before the delete
+    this.formsortassocbuttons = this.formsortassocbuttons.filter(h => h !== formsortassocbutton);
 
-    this.formeditassocbuttonService.deleteFormEditAssocButton(formeditassocbuttonID, this.GONG__StackPath).subscribe(
-      formeditassocbutton => {
-        this.formeditassocbuttonService.FormEditAssocButtonServiceChanged.next("delete")
+    this.formsortassocbuttonService.deleteFormSortAssocButton(formsortassocbuttonID, this.GONG__StackPath).subscribe(
+      formsortassocbutton => {
+        this.formsortassocbuttonService.FormSortAssocButtonServiceChanged.next("delete")
       }
     );
   }
 
-  editFormEditAssocButton(formeditassocbuttonID: number, formeditassocbutton: FormEditAssocButtonDB) {
+  editFormSortAssocButton(formsortassocbuttonID: number, formsortassocbutton: FormSortAssocButtonDB) {
 
   }
 
   // set editor outlet
-  setEditorRouterOutlet(formeditassocbuttonID: number) {
+  setEditorRouterOutlet(formsortassocbuttonID: number) {
     let outletName = this.routeService.getEditorOutlet(this.GONG__StackPath)
-    let fullPath = this.routeService.getPathRoot() + "-" + "formeditassocbutton" + "-detail"
+    let fullPath = this.routeService.getPathRoot() + "-" + "formsortassocbutton" + "-detail"
 
     let outletConf: any = {}
-    outletConf[outletName] = [fullPath, formeditassocbuttonID, this.GONG__StackPath]
+    outletConf[outletName] = [fullPath, formsortassocbuttonID, this.GONG__StackPath]
 
     this.router.navigate([{ outlets: outletConf }])
   }
@@ -252,7 +252,7 @@ export class FormEditAssocButtonsTableComponent implements OnInit {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.formeditassocbuttons.length;
+    const numRows = this.formsortassocbuttons.length;
     return numSelected === numRows;
   }
 
@@ -260,39 +260,39 @@ export class FormEditAssocButtonsTableComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.formeditassocbuttons.forEach(row => this.selection.select(row));
+      this.formsortassocbuttons.forEach(row => this.selection.select(row));
   }
 
   save() {
 
     if (this.mode == TableComponentMode.ONE_MANY_ASSOCIATION_MODE) {
 
-      let toUpdate = new Set<FormEditAssocButtonDB>()
+      let toUpdate = new Set<FormSortAssocButtonDB>()
 
-      // reset all initial selection of formeditassocbutton that belong to formeditassocbutton
-      for (let formeditassocbutton of this.initialSelection) {
-        let index = formeditassocbutton[this.dialogData.ReversePointer as keyof FormEditAssocButtonDB] as unknown as NullInt64
+      // reset all initial selection of formsortassocbutton that belong to formsortassocbutton
+      for (let formsortassocbutton of this.initialSelection) {
+        let index = formsortassocbutton[this.dialogData.ReversePointer as keyof FormSortAssocButtonDB] as unknown as NullInt64
         index.Int64 = 0
         index.Valid = true
-        toUpdate.add(formeditassocbutton)
+        toUpdate.add(formsortassocbutton)
 
       }
 
-      // from selection, set formeditassocbutton that belong to formeditassocbutton
-      for (let formeditassocbutton of this.selection.selected) {
+      // from selection, set formsortassocbutton that belong to formsortassocbutton
+      for (let formsortassocbutton of this.selection.selected) {
         let ID = this.dialogData.ID as number
-        let reversePointer = formeditassocbutton[this.dialogData.ReversePointer as keyof FormEditAssocButtonDB] as unknown as NullInt64
+        let reversePointer = formsortassocbutton[this.dialogData.ReversePointer as keyof FormSortAssocButtonDB] as unknown as NullInt64
         reversePointer.Int64 = ID
         reversePointer.Valid = true
-        toUpdate.add(formeditassocbutton)
+        toUpdate.add(formsortassocbutton)
       }
 
 
-      // update all formeditassocbutton (only update selection & initial selection)
-      for (let formeditassocbutton of toUpdate) {
-        this.formeditassocbuttonService.updateFormEditAssocButton(formeditassocbutton, this.GONG__StackPath)
-          .subscribe(formeditassocbutton => {
-            this.formeditassocbuttonService.FormEditAssocButtonServiceChanged.next("update")
+      // update all formsortassocbutton (only update selection & initial selection)
+      for (let formsortassocbutton of toUpdate) {
+        this.formsortassocbuttonService.updateFormSortAssocButton(formsortassocbutton, this.GONG__StackPath)
+          .subscribe(formsortassocbutton => {
+            this.formsortassocbuttonService.FormSortAssocButtonServiceChanged.next("update")
           });
       }
     }
@@ -300,26 +300,26 @@ export class FormEditAssocButtonsTableComponent implements OnInit {
     if (this.mode == TableComponentMode.MANY_MANY_ASSOCIATION_MODE) {
 
       // get the source instance via the map of instances in the front repo
-      let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormEditAssocButtonDB>
+      let mapOfSourceInstances = this.frontRepo[this.dialogData.SourceStruct + "s" as keyof FrontRepo] as Map<number, FormSortAssocButtonDB>
       let sourceInstance = mapOfSourceInstances.get(this.dialogData.ID)!
 
       // First, parse all instance of the association struct and remove the instance
       // that have unselect
-      let unselectedFormEditAssocButton = new Set<number>()
-      for (let formeditassocbutton of this.initialSelection) {
-        if (this.selection.selected.includes(formeditassocbutton)) {
-          // console.log("formeditassocbutton " + formeditassocbutton.Name + " is still selected")
+      let unselectedFormSortAssocButton = new Set<number>()
+      for (let formsortassocbutton of this.initialSelection) {
+        if (this.selection.selected.includes(formsortassocbutton)) {
+          // console.log("formsortassocbutton " + formsortassocbutton.Name + " is still selected")
         } else {
-          console.log("formeditassocbutton " + formeditassocbutton.Name + " has been unselected")
-          unselectedFormEditAssocButton.add(formeditassocbutton.ID)
-          console.log("is unselected " + unselectedFormEditAssocButton.has(formeditassocbutton.ID))
+          console.log("formsortassocbutton " + formsortassocbutton.Name + " has been unselected")
+          unselectedFormSortAssocButton.add(formsortassocbutton.ID)
+          console.log("is unselected " + unselectedFormSortAssocButton.has(formsortassocbutton.ID))
         }
       }
 
       // delete the association instance
       let associationInstance = sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]
-      let formeditassocbutton = associationInstance![this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormEditAssocButtonDB
-      if (unselectedFormEditAssocButton.has(formeditassocbutton.ID)) {
+      let formsortassocbutton = associationInstance![this.dialogData.IntermediateStructField as keyof typeof associationInstance] as unknown as FormSortAssocButtonDB
+      if (unselectedFormSortAssocButton.has(formsortassocbutton.ID)) {
         this.frontRepoService.deleteService(this.dialogData.IntermediateStruct, associationInstance)
 
 
@@ -327,38 +327,38 @@ export class FormEditAssocButtonsTableComponent implements OnInit {
 
       // is the source array is empty create it
       if (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] == undefined) {
-        (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] as unknown as Array<FormEditAssocButtonDB>) = new Array<FormEditAssocButtonDB>()
+        (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance] as unknown as Array<FormSortAssocButtonDB>) = new Array<FormSortAssocButtonDB>()
       }
 
       // second, parse all instance of the selected
       if (sourceInstance[this.dialogData.SourceField as keyof typeof sourceInstance]) {
         this.selection.selected.forEach(
-          formeditassocbutton => {
-            if (!this.initialSelection.includes(formeditassocbutton)) {
-              // console.log("formeditassocbutton " + formeditassocbutton.Name + " has been added to the selection")
+          formsortassocbutton => {
+            if (!this.initialSelection.includes(formsortassocbutton)) {
+              // console.log("formsortassocbutton " + formsortassocbutton.Name + " has been added to the selection")
 
               let associationInstance = {
-                Name: sourceInstance["Name"] + "-" + formeditassocbutton.Name,
+                Name: sourceInstance["Name"] + "-" + formsortassocbutton.Name,
               }
 
               let index = associationInstance[this.dialogData.IntermediateStructField + "ID" as keyof typeof associationInstance] as unknown as NullInt64
-              index.Int64 = formeditassocbutton.ID
+              index.Int64 = formsortassocbutton.ID
               index.Valid = true
 
               let indexDB = associationInstance[this.dialogData.IntermediateStructField + "DBID" as keyof typeof associationInstance] as unknown as NullInt64
-              indexDB.Int64 = formeditassocbutton.ID
+              indexDB.Int64 = formsortassocbutton.ID
               index.Valid = true
 
               this.frontRepoService.postService(this.dialogData.IntermediateStruct, associationInstance)
 
             } else {
-              // console.log("formeditassocbutton " + formeditassocbutton.Name + " is still selected")
+              // console.log("formsortassocbutton " + formsortassocbutton.Name + " is still selected")
             }
           }
         )
       }
 
-      // this.selection = new SelectionModel<FormEditAssocButtonDB>(allowMultiSelect, this.initialSelection);
+      // this.selection = new SelectionModel<FormSortAssocButtonDB>(allowMultiSelect, this.initialSelection);
     }
 
     // why pizza ?

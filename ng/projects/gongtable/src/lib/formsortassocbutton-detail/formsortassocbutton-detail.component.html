@@ -1,11 +1,11 @@
-<form *ngIf="formeditassocbutton" class="details">
-    <h2 class="details__title">formeditassocbutton</h2>
+<form *ngIf="formsortassocbutton" class="details">
+    <h2 class="details__title">formsortassocbutton</h2>
     <!-- insertion point for fields specific code -->
     <mat-grid-list *ngIf='!isATextArea("Name")' cols="5" rowHeight="1:1">
         <mat-grid-tile [colspan]="3">
             <mat-form-field mat-form-field class="detail-full-width">
                 <mat-label>Name</mat-label>
-                <input name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="formeditassocbutton.Name">
+                <input name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="formsortassocbutton.Name">
             </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile>
@@ -18,14 +18,14 @@
     </mat-grid-list>
     <mat-form-field *ngIf='isATextArea("Name")' mat-form-field class="detail-full-width">
         <mat-label>Name</mat-label>
-        <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="formeditassocbutton.Name"></textarea>
+        <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="formsortassocbutton.Name"></textarea>
     </mat-form-field>
 
     <mat-grid-list *ngIf='!isATextArea("Label")' cols="5" rowHeight="1:1">
         <mat-grid-tile [colspan]="3">
             <mat-form-field mat-form-field class="detail-full-width">
                 <mat-label>Label</mat-label>
-                <input name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="formeditassocbutton.Label">
+                <input name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="formsortassocbutton.Label">
             </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile>
@@ -38,12 +38,12 @@
     </mat-grid-list>
     <mat-form-field *ngIf='isATextArea("Label")' mat-form-field class="detail-full-width">
         <mat-label>Label</mat-label>
-        <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="formeditassocbutton.Label"></textarea>
+        <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="formsortassocbutton.Label"></textarea>
     </mat-form-field>
 
     <div class="details__save">
         <button mat-raised-button color="primary" (click)="save()">
-            Save formeditassocbutton
+            Save formsortassocbutton
         </button>
     </div>
 </form>

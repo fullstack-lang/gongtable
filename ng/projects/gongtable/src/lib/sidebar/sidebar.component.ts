@@ -49,6 +49,8 @@ import { FormFieldTimeService } from '../formfieldtime.service'
 import { getFormFieldTimeUniqueID } from '../front-repo.service'
 import { FormGroupService } from '../formgroup.service'
 import { getFormGroupUniqueID } from '../front-repo.service'
+import { FormSortAssocButtonService } from '../formsortassocbutton.service'
+import { getFormSortAssocButtonUniqueID } from '../front-repo.service'
 import { OptionService } from '../option.service'
 import { getOptionUniqueID } from '../front-repo.service'
 import { RowService } from '../row.service'
@@ -219,6 +221,7 @@ export class SidebarComponent implements OnInit {
     private formfieldstringService: FormFieldStringService,
     private formfieldtimeService: FormFieldTimeService,
     private formgroupService: FormGroupService,
+    private formsortassocbuttonService: FormSortAssocButtonService,
     private optionService: OptionService,
     private rowService: RowService,
     private tableService: TableService,
@@ -403,6 +406,14 @@ export class SidebarComponent implements OnInit {
     )
     // observable for changes in structs
     this.formgroupService.FormGroupServiceChanged.subscribe(
+      message => {
+        if (message == "post" || message == "update" || message == "delete") {
+          this.refresh()
+        }
+      }
+    )
+    // observable for changes in structs
+    this.formsortassocbuttonService.FormSortAssocButtonServiceChanged.subscribe(
       message => {
         if (message == "post" || message == "update" || message == "delete") {
           this.refresh()
@@ -1908,6 +1919,50 @@ export class SidebarComponent implements OnInit {
             FormDivsGongNodeAssociation.children.push(formdivNode)
           })
 
+        }
+      )
+
+      /**
+      * fill up the FormSortAssocButton part of the mat tree
+      */
+      let formsortassocbuttonGongNodeStruct: GongNode = {
+        name: "FormSortAssocButton",
+        type: GongNodeType.STRUCT,
+        id: 0,
+        uniqueIdPerStack: 13 * nonInstanceNodeId,
+        structName: "FormSortAssocButton",
+        associationField: "",
+        associatedStructName: "",
+        children: new Array<GongNode>()
+      }
+      nonInstanceNodeId = nonInstanceNodeId + 1
+      this.gongNodeTree.push(formsortassocbuttonGongNodeStruct)
+
+      this.frontRepo.FormSortAssocButtons_array.sort((t1, t2) => {
+        if (t1.Name > t2.Name) {
+          return 1;
+        }
+        if (t1.Name < t2.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      this.frontRepo.FormSortAssocButtons_array.forEach(
+        formsortassocbuttonDB => {
+          let formsortassocbuttonGongNodeInstance: GongNode = {
+            name: formsortassocbuttonDB.Name,
+            type: GongNodeType.INSTANCE,
+            id: formsortassocbuttonDB.ID,
+            uniqueIdPerStack: getFormSortAssocButtonUniqueID(formsortassocbuttonDB.ID),
+            structName: "FormSortAssocButton",
+            associationField: "",
+            associatedStructName: "",
+            children: new Array<GongNode>()
+          }
+          formsortassocbuttonGongNodeStruct.children!.push(formsortassocbuttonGongNodeInstance)
+
+          // insertion point for per field code
         }
       )
 

@@ -37,6 +37,8 @@
   import { FormFieldTimeSortingComponent } from './formfieldtime-sorting/formfieldtime-sorting.component'
   import { FormGroupsTableComponent } from './formgroups-table/formgroups-table.component'
   import { FormGroupSortingComponent } from './formgroup-sorting/formgroup-sorting.component'
+  import { FormSortAssocButtonsTableComponent } from './formsortassocbuttons-table/formsortassocbuttons-table.component'
+  import { FormSortAssocButtonSortingComponent } from './formsortassocbutton-sorting/formsortassocbutton-sorting.component'
   import { OptionsTableComponent } from './options-table/options-table.component'
   import { OptionSortingComponent } from './option-sorting/option-sorting.component'
   import { RowsTableComponent } from './rows-table/rows-table.component'
@@ -83,6 +85,8 @@
   export const MapOfFormFieldTimeSortingComponents: Map<string, any> = new Map([["FormFieldTimeSortingComponent", FormFieldTimeSortingComponent],])
   export const MapOfFormGroupsComponents: Map<string, any> = new Map([["FormGroupsTableComponent", FormGroupsTableComponent],])
   export const MapOfFormGroupSortingComponents: Map<string, any> = new Map([["FormGroupSortingComponent", FormGroupSortingComponent],])
+  export const MapOfFormSortAssocButtonsComponents: Map<string, any> = new Map([["FormSortAssocButtonsTableComponent", FormSortAssocButtonsTableComponent],])
+  export const MapOfFormSortAssocButtonSortingComponents: Map<string, any> = new Map([["FormSortAssocButtonSortingComponent", FormSortAssocButtonSortingComponent],])
   export const MapOfOptionsComponents: Map<string, any> = new Map([["OptionsTableComponent", OptionsTableComponent],])
   export const MapOfOptionSortingComponents: Map<string, any> = new Map([["OptionSortingComponent", OptionSortingComponent],])
   export const MapOfRowsComponents: Map<string, any> = new Map([["RowsTableComponent", RowsTableComponent],])
@@ -114,6 +118,7 @@ export const MapOfComponents: Map<string, any> =
       ["FormFieldString", MapOfFormFieldStringsComponents],
       ["FormFieldTime", MapOfFormFieldTimesComponents],
       ["FormGroup", MapOfFormGroupsComponents],
+      ["FormSortAssocButton", MapOfFormSortAssocButtonsComponents],
       ["Option", MapOfOptionsComponents],
       ["Row", MapOfRowsComponents],
       ["Table", MapOfTablesComponents],
@@ -144,6 +149,7 @@ export const MapOfSortingComponents: Map<string, any> =
       ["FormFieldString", MapOfFormFieldStringSortingComponents],
       ["FormFieldTime", MapOfFormFieldTimeSortingComponents],
       ["FormGroup", MapOfFormGroupSortingComponents],
+      ["FormSortAssocButton", MapOfFormSortAssocButtonSortingComponents],
       ["Option", MapOfOptionSortingComponents],
       ["Row", MapOfRowSortingComponents],
       ["Table", MapOfTableSortingComponents],

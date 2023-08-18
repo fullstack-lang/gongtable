@@ -3,9 +3,9 @@
 // usefull for managing pointer ID values that can be nullable
 import { NullInt64 } from './null-int64'
 
-export class FormEditAssocButtonDB {
+export class FormSortAssocButtonDB {
 
-	static GONGSTRUCT_NAME = "FormEditAssocButton"
+	static GONGSTRUCT_NAME = "FormSortAssocButton"
 
 	CreatedAt?: string
 	DeletedAt?: string

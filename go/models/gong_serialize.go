@@ -32,6 +32,7 @@ func SerializeStage(stage *StageStruct, filename string) {
 		SerializeExcelize[FormFieldString](stage, f)
 		SerializeExcelize[FormFieldTime](stage, f)
 		SerializeExcelize[FormGroup](stage, f)
+		SerializeExcelize[FormSortAssocButton](stage, f)
 		SerializeExcelize[Option](stage, f)
 		SerializeExcelize[Row](stage, f)
 		SerializeExcelize[Table](stage, f)

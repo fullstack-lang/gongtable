@@ -130,6 +130,12 @@ export * from './lib/formgroups-table/formgroups-table.component'
 export * from './lib/formgroup-db'
 export * from './lib/formgroup.service'
 
+export * from './lib/formsortassocbutton-detail/formsortassocbutton-detail.component'
+export * from './lib/formsortassocbutton-sorting/formsortassocbutton-sorting.component'
+export * from './lib/formsortassocbuttons-table/formsortassocbuttons-table.component'
+export * from './lib/formsortassocbutton-db'
+export * from './lib/formsortassocbutton.service'
+
 export * from './lib/option-detail/option-detail.component'
 export * from './lib/option-sorting/option-sorting.component'
 export * from './lib/options-table/options-table.component'

@@ -67,6 +67,7 @@ func NewStackInstance(
 	models.SetOrchestratorOnAfterUpdate[models.FormFieldString](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormFieldTime](stage)
 	models.SetOrchestratorOnAfterUpdate[models.FormGroup](stage)
+	models.SetOrchestratorOnAfterUpdate[models.FormSortAssocButton](stage)
 	models.SetOrchestratorOnAfterUpdate[models.Option](stage)
 	models.SetOrchestratorOnAfterUpdate[models.Row](stage)
 	models.SetOrchestratorOnAfterUpdate[models.Table](stage)

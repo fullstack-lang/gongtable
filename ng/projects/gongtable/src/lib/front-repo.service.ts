@@ -61,6 +61,9 @@ import { FormFieldTimeService } from './formfieldtime.service'
 import { FormGroupDB } from './formgroup-db'
 import { FormGroupService } from './formgroup.service'
 
+import { FormSortAssocButtonDB } from './formsortassocbutton-db'
+import { FormSortAssocButtonService } from './formsortassocbutton.service'
+
 import { OptionDB } from './option-db'
 import { OptionService } from './option.service'
 
@@ -130,6 +133,9 @@ export class FrontRepo { // insertion point sub template
   FormGroups_array = new Array<FormGroupDB>(); // array of repo instances
   FormGroups = new Map<number, FormGroupDB>(); // map of repo instances
   FormGroups_batch = new Map<number, FormGroupDB>(); // same but only in last GET (for finding repo instances to delete)
+  FormSortAssocButtons_array = new Array<FormSortAssocButtonDB>(); // array of repo instances
+  FormSortAssocButtons = new Map<number, FormSortAssocButtonDB>(); // map of repo instances
+  FormSortAssocButtons_batch = new Map<number, FormSortAssocButtonDB>(); // same but only in last GET (for finding repo instances to delete)
   Options_array = new Array<OptionDB>(); // array of repo instances
   Options = new Map<number, OptionDB>(); // map of repo instances
   Options_batch = new Map<number, OptionDB>(); // same but only in last GET (for finding repo instances to delete)
@@ -220,6 +226,7 @@ export class FrontRepoService {
     private formfieldstringService: FormFieldStringService,
     private formfieldtimeService: FormFieldTimeService,
     private formgroupService: FormGroupService,
+    private formsortassocbuttonService: FormSortAssocButtonService,
     private optionService: OptionService,
     private rowService: RowService,
     private tableService: TableService,
@@ -272,6 +279,7 @@ export class FrontRepoService {
     Observable<FormFieldStringDB[]>,
     Observable<FormFieldTimeDB[]>,
     Observable<FormGroupDB[]>,
+    Observable<FormSortAssocButtonDB[]>,
     Observable<OptionDB[]>,
     Observable<RowDB[]>,
     Observable<TableDB[]>,
@@ -295,6 +303,7 @@ export class FrontRepoService {
       this.formfieldstringService.getFormFieldStrings(this.GONG__StackPath),
       this.formfieldtimeService.getFormFieldTimes(this.GONG__StackPath),
       this.formgroupService.getFormGroups(this.GONG__StackPath),
+      this.formsortassocbuttonService.getFormSortAssocButtons(this.GONG__StackPath),
       this.optionService.getOptions(this.GONG__StackPath),
       this.rowService.getRows(this.GONG__StackPath),
       this.tableService.getTables(this.GONG__StackPath),
@@ -330,6 +339,7 @@ export class FrontRepoService {
       this.formfieldstringService.getFormFieldStrings(this.GONG__StackPath),
       this.formfieldtimeService.getFormFieldTimes(this.GONG__StackPath),
       this.formgroupService.getFormGroups(this.GONG__StackPath),
+      this.formsortassocbuttonService.getFormSortAssocButtons(this.GONG__StackPath),
       this.optionService.getOptions(this.GONG__StackPath),
       this.rowService.getRows(this.GONG__StackPath),
       this.tableService.getTables(this.GONG__StackPath),
@@ -360,6 +370,7 @@ export class FrontRepoService {
             formfieldstrings_,
             formfieldtimes_,
             formgroups_,
+            formsortassocbuttons_,
             options_,
             rows_,
             tables_,
@@ -404,6 +415,8 @@ export class FrontRepoService {
             formfieldtimes = formfieldtimes_ as FormFieldTimeDB[]
             var formgroups: FormGroupDB[]
             formgroups = formgroups_ as FormGroupDB[]
+            var formsortassocbuttons: FormSortAssocButtonDB[]
+            formsortassocbuttons = formsortassocbuttons_ as FormSortAssocButtonDB[]
             var options: OptionDB[]
             options = options_ as OptionDB[]
             var rows: RowDB[]
@@ -1042,6 +1055,39 @@ export class FrontRepoService {
             });
 
             // init the array
+            this.frontRepo.FormSortAssocButtons_array = formsortassocbuttons
+
+            // clear the map that counts FormSortAssocButton in the GET
+            this.frontRepo.FormSortAssocButtons_batch.clear()
+
+            formsortassocbuttons.forEach(
+              formsortassocbutton => {
+                this.frontRepo.FormSortAssocButtons.set(formsortassocbutton.ID, formsortassocbutton)
+                this.frontRepo.FormSortAssocButtons_batch.set(formsortassocbutton.ID, formsortassocbutton)
+              }
+            )
+
+            // clear formsortassocbuttons that are absent from the batch
+            this.frontRepo.FormSortAssocButtons.forEach(
+              formsortassocbutton => {
+                if (this.frontRepo.FormSortAssocButtons_batch.get(formsortassocbutton.ID) == undefined) {
+                  this.frontRepo.FormSortAssocButtons.delete(formsortassocbutton.ID)
+                }
+              }
+            )
+
+            // sort FormSortAssocButtons_array array
+            this.frontRepo.FormSortAssocButtons_array.sort((t1, t2) => {
+              if (t1.Name > t2.Name) {
+                return 1;
+              }
+              if (t1.Name < t2.Name) {
+                return -1;
+              }
+              return 0;
+            });
+
+            // init the array
             this.frontRepo.Options_array = options
 
             // clear the map that counts Option in the GET
@@ -1435,6 +1481,13 @@ export class FrontRepoService {
             )
             formgroups.forEach(
               formgroup => {
+                // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
+
+                // insertion point for redeeming ONE-MANY associations
+              }
+            )
+            formsortassocbuttons.forEach(
+              formsortassocbutton => {
                 // insertion point sub sub template for ONE-/ZERO-ONE associations pointers redeeming
 
                 // insertion point for redeeming ONE-MANY associations
@@ -2630,6 +2683,57 @@ export class FrontRepoService {
     )
   }
 
+  // FormSortAssocButtonPull performs a GET on FormSortAssocButton of the stack and redeem association pointers 
+  FormSortAssocButtonPull(): Observable<FrontRepo> {
+    return new Observable<FrontRepo>(
+      (observer) => {
+        combineLatest([
+          this.formsortassocbuttonService.getFormSortAssocButtons(this.GONG__StackPath)
+        ]).subscribe(
+          ([ // insertion point sub template 
+            formsortassocbuttons,
+          ]) => {
+            // init the array
+            this.frontRepo.FormSortAssocButtons_array = formsortassocbuttons
+
+            // clear the map that counts FormSortAssocButton in the GET
+            this.frontRepo.FormSortAssocButtons_batch.clear()
+
+            // 
+            // First Step: init map of instances
+            // insertion point sub template 
+            formsortassocbuttons.forEach(
+              formsortassocbutton => {
+                this.frontRepo.FormSortAssocButtons.set(formsortassocbutton.ID, formsortassocbutton)
+                this.frontRepo.FormSortAssocButtons_batch.set(formsortassocbutton.ID, formsortassocbutton)
+
+                // insertion point for redeeming ONE/ZERO-ONE associations
+
+                // insertion point for redeeming ONE-MANY associations
+              }
+            )
+
+            // clear formsortassocbuttons that are absent from the GET
+            this.frontRepo.FormSortAssocButtons.forEach(
+              formsortassocbutton => {
+                if (this.frontRepo.FormSortAssocButtons_batch.get(formsortassocbutton.ID) == undefined) {
+                  this.frontRepo.FormSortAssocButtons.delete(formsortassocbutton.ID)
+                }
+              }
+            )
+
+            // 
+            // Second Step: redeem pointers between instances (thanks to maps in the First Step)
+            // insertion point sub template 
+
+            // hand over control flow to observer
+            observer.next(this.frontRepo)
+          }
+        )
+      }
+    )
+  }
+
   // OptionPull performs a GET on Option of the stack and redeem association pointers 
   OptionPull(): Observable<FrontRepo> {
     return new Observable<FrontRepo>(
@@ -2868,12 +2972,15 @@ export function getFormFieldTimeUniqueID(id: number): number {
 export function getFormGroupUniqueID(id: number): number {
   return 109 * id
 }
-export function getOptionUniqueID(id: number): number {
+export function getFormSortAssocButtonUniqueID(id: number): number {
   return 113 * id
 }
-export function getRowUniqueID(id: number): number {
+export function getOptionUniqueID(id: number): number {
   return 127 * id
 }
-export function getTableUniqueID(id: number): number {
+export function getRowUniqueID(id: number): number {
   return 131 * id
+}
+export function getTableUniqueID(id: number): number {
+  return 137 * id
 }

@@ -174,6 +174,13 @@ func registerControllers(r *gin.Engine) {
 		v1.PUT("/v1/formgroups/:id", GetController().UpdateFormGroup)
 		v1.DELETE("/v1/formgroups/:id", GetController().DeleteFormGroup)
 
+		v1.GET("/v1/formsortassocbuttons", GetController().GetFormSortAssocButtons)
+		v1.GET("/v1/formsortassocbuttons/:id", GetController().GetFormSortAssocButton)
+		v1.POST("/v1/formsortassocbuttons", GetController().PostFormSortAssocButton)
+		v1.PATCH("/v1/formsortassocbuttons/:id", GetController().UpdateFormSortAssocButton)
+		v1.PUT("/v1/formsortassocbuttons/:id", GetController().UpdateFormSortAssocButton)
+		v1.DELETE("/v1/formsortassocbuttons/:id", GetController().DeleteFormSortAssocButton)
+
 		v1.GET("/v1/options", GetController().GetOptions)
 		v1.GET("/v1/options/:id", GetController().GetOption)
 		v1.POST("/v1/options", GetController().PostOption)
