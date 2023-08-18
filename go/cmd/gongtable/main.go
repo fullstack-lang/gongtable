@@ -172,7 +172,6 @@ func (onAssocEditon *OnAssocEditon) OnButtonPressed() {
 			string(gongtable_models.TableSelectExtra))
 
 	fillUpSelectTableDummyStuff(newStage, string(gongtable_models.TableSelectExtraName))
-	du
 	newStage.Commit()
 }
 
