@@ -170,4 +170,100 @@ func (inputtypeenum *InputTypeEnum) ToCodeString() (res string) {
 	return
 }
 
+// Utility function for TableExtraNameEnum
+// if enum values are string, it is stored with the value
+// if enum values are int, they are stored with the code of the value
+func (tableextranameenum TableExtraNameEnum) ToString() (res string) {
+
+	// migration of former implementation of enum
+	switch tableextranameenum {
+	// insertion code per enum code
+	case TableSelectExtraName:
+		res = "tmp"
+	}
+	return
+}
+
+func (tableextranameenum *TableExtraNameEnum) FromString(input string) (err error) {
+
+	switch input {
+	// insertion code per enum code
+	case "tmp":
+		*tableextranameenum = TableSelectExtraName
+	default:
+		return errUnkownEnum
+	}
+	return
+}
+
+func (tableextranameenum *TableExtraNameEnum) FromCodeString(input string) (err error) {
+
+	switch input {
+	// insertion code per enum code
+	case "TableSelectExtraName":
+		*tableextranameenum = TableSelectExtraName
+	default:
+		return errUnkownEnum
+	}
+	return
+}
+
+func (tableextranameenum *TableExtraNameEnum) ToCodeString() (res string) {
+
+	switch *tableextranameenum {
+	// insertion code per enum code
+	case TableSelectExtraName:
+		res = "TableSelectExtraName"
+	}
+	return
+}
+
+// Utility function for TableExtraPathEnum
+// if enum values are string, it is stored with the value
+// if enum values are int, they are stored with the code of the value
+func (tableextrapathenum TableExtraPathEnum) ToString() (res string) {
+
+	// migration of former implementation of enum
+	switch tableextrapathenum {
+	// insertion code per enum code
+	case TableSelectExtra:
+		res = "-table"
+	}
+	return
+}
+
+func (tableextrapathenum *TableExtraPathEnum) FromString(input string) (err error) {
+
+	switch input {
+	// insertion code per enum code
+	case "-table":
+		*tableextrapathenum = TableSelectExtra
+	default:
+		return errUnkownEnum
+	}
+	return
+}
+
+func (tableextrapathenum *TableExtraPathEnum) FromCodeString(input string) (err error) {
+
+	switch input {
+	// insertion code per enum code
+	case "TableSelectExtra":
+		*tableextrapathenum = TableSelectExtra
+	default:
+		return errUnkownEnum
+	}
+	return
+}
+
+func (tableextrapathenum *TableExtraPathEnum) ToCodeString() (res string) {
+
+	switch *tableextrapathenum {
+	// insertion code per enum code
+	case TableSelectExtra:
+		res = "TableSelectExtra"
+	}
+	return
+}
+
 // Last line of the template

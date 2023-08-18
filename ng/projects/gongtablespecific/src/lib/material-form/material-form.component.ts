@@ -9,6 +9,8 @@ import * as moment from 'moment';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NgIf } from '@angular/common';
+import { TableDialogData } from '../table-dialog-data';
+import { MaterialTableComponent } from '../material-table/material-table.component';
 
 @Component({
   selector: 'lib-material-form',
@@ -354,6 +356,7 @@ export class MaterialFormComponent implements OnInit {
       return
     }
 
+
     let formEditAssocButton: gongtable.FormEditAssocButtonDB | undefined
     for (let formDiv of this.selectedFormGroup.FormDivs) {
       if (formDiv.FormEditAssocButton) {
@@ -363,9 +366,12 @@ export class MaterialFormComponent implements OnInit {
           this.formEditAssocButtonService.updateFormEditAssocButton(formDiv.FormEditAssocButton, this.DataStack).subscribe(
             () => {
               console.log("assoc button updated")
-              this.dialog.open(DialogDataExampleDialog, {
+
+              // when the association button is pressed
+              this.dialog.open(MaterialTableComponent, {
                 data: {
-                  animal: 'panda',
+                  DataStack: this.DataStack + gongtable.TableExtraPathEnum.TableSelectExtra,
+                  TableName: gongtable.TableExtraNameEnum.TableSelectExtraName
                 },
               });
             }
@@ -376,16 +382,3 @@ export class MaterialFormComponent implements OnInit {
   }
 }
 
-export interface DialogData {
-  animal: 'panda' | 'unicorn' | 'lion';
-}
-
-@Component({
-  selector: 'dialog-data-example-dialog',
-  templateUrl: './dialog-data-example-dialog.html',
-  standalone: true,
-  imports: [MatDialogModule, NgIf],
-})
-export class DialogDataExampleDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) { }
-}

@@ -10,8 +10,8 @@ import (
 
 // generated in order to avoid error in the package import
 // if there are no elements in the stage to marshall
-var ___dummy__Stage_stage models.StageStruct
-var ___dummy__Time_stage time.Time
+var ___dummy__Stage_table_stage models.StageStruct
+var ___dummy__Time_table_stage time.Time
 
 // Injection point for meta package dummy declaration{{ImportPackageDummyDeclaration}}
 
@@ -22,7 +22,7 @@ var ___dummy__Time_stage time.Time
 // [Corresponding Issue](https://github.com/golang/go/issues/57559)
 //
 // When parsed, those maps will help with the renaming process
-var map_DocLink_Identifier_stage map[string]any = map[string]any{
+var map_DocLink_Identifier_table_stage map[string]any = map[string]any{
 	// injection point for docLink to identifiers{{EntriesDocLinkStringDocLinkIdentifier}}
 }
 
@@ -30,11 +30,11 @@ var map_DocLink_Identifier_stage map[string]any = map[string]any{
 // but it has to properly reference the Injection gateway in the main package
 // func init() {
 // 	_ = __Dummy_time_variable
-// 	InjectionGateway["stage"] = stageInjection
+// 	InjectionGateway["table_stage"] = table_stageInjection
 // }
 
-// stageInjection will stage objects of database "stage"
-func stageInjection(stage *models.StageStruct) {
+// table_stageInjection will stage objects of database "table_stage"
+func table_stageInjection(stage *models.StageStruct) {
 
 	// Declaration of instances to stage
 
@@ -82,6 +82,8 @@ func stageInjection(stage *models.StageStruct) {
 	__CellString__000006_T2_R3_A := (&models.CellString{Name: `T2 - R3 - A`}).Stage(stage)
 	__CellString__000007_T2_R3_B := (&models.CellString{Name: `T2 - R3 - B`}).Stage(stage)
 
+	// Declarations of staged instances of CheckBox
+
 	// Declarations of staged instances of DisplayedColumn
 	__DisplayedColumn__000000_A := (&models.DisplayedColumn{Name: `A`}).Stage(stage)
 	__DisplayedColumn__000001_B := (&models.DisplayedColumn{Name: `B`}).Stage(stage)
@@ -90,6 +92,30 @@ func stageInjection(stage *models.StageStruct) {
 	__DisplayedColumn__000004_Column_3_Icon := (&models.DisplayedColumn{Name: `Column 3 - Icon`}).Stage(stage)
 	__DisplayedColumn__000005_Column_4_Int := (&models.DisplayedColumn{Name: `Column 4 - Int`}).Stage(stage)
 	__DisplayedColumn__000006_Column_5_String := (&models.DisplayedColumn{Name: `Column 5 - String`}).Stage(stage)
+
+	// Declarations of staged instances of FormDiv
+
+	// Declarations of staged instances of FormEditAssocButton
+
+	// Declarations of staged instances of FormField
+
+	// Declarations of staged instances of FormFieldDate
+
+	// Declarations of staged instances of FormFieldDateTime
+
+	// Declarations of staged instances of FormFieldFloat64
+
+	// Declarations of staged instances of FormFieldInt
+
+	// Declarations of staged instances of FormFieldSelect
+
+	// Declarations of staged instances of FormFieldString
+
+	// Declarations of staged instances of FormFieldTime
+
+	// Declarations of staged instances of FormGroup
+
+	// Declarations of staged instances of Option
 
 	// Declarations of staged instances of Row
 	__Row__000000_Row_1 := (&models.Row{Name: `Row 1`}).Stage(stage)

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, Optional, ViewChild } from '@angular/core';
 import { Subscription, debounceTime, distinctUntilChanged, forkJoin } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -10,6 +10,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { RowDB } from 'projects/gongtable/src/lib/row-db';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TableDialogData } from '../table-dialog-data';
 
 const allowMultiSelect = true
 
@@ -63,11 +65,23 @@ export class MaterialTableComponent implements OnInit {
     private gongtableFrontRepoService: gongtable.FrontRepoService,
     private gongtableCommitNbFromBackService: gongtable.CommitNbFromBackService,
     private rowService: gongtable.RowService,
+
+    // not null if the component is called as a selection component of cellboolean instances
+    public dialogRef: MatDialogRef<MaterialTableComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public tableDialogData: TableDialogData,
   ) {
 
   }
 
   ngOnInit(): void {
+
+    // if the component is started via component, one needs to fetch DataStack and TableName from
+    // the dialog data
+    if (this.tableDialogData) {
+      this.DataStack = this.tableDialogData.DataStack
+      this.TableName = this.tableDialogData.TableName
+    }
+
     this.startAutoRefresh(500); // Refresh every 500 ms (half second)
 
     this.filterControl.valueChanges
@@ -283,6 +297,7 @@ export class MaterialTableComponent implements OnInit {
 
   save() {
 
+    // store 
     this.selectedTable?.Rows?.forEach(row => row.IsChecked = false)
 
     for (let row of this.selection.selected) {
@@ -297,6 +312,11 @@ export class MaterialTableComponent implements OnInit {
     forkJoin(promises).subscribe(
       () => this.refresh()
     )
+
+    // in case this component is called as a modal window (MatDialog)
+    // exits,
+    this.dialogRef?.close('Closing the application');
+
   }
 
   drop(event: CdkDragDrop<string[]>) {

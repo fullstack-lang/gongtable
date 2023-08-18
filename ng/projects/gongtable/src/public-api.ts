@@ -150,3 +150,5 @@ export * from './lib/table.service'
 
 
 export * from './lib/InputTypeEnum'
+export * from './lib/TableExtraNameEnum'
+export * from './lib/TableExtraPathEnum'
