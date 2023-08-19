@@ -20,8 +20,6 @@ func (formEditAssocButton *FormEditAssocButton) OnAfterUpdate(
 
 	log.Println("OnAfterUpdate")
 
-	stagedInstance.Commit(stage)
-
 	if stagedInstance.OnAssocEditon != nil {
 		stagedInstance.OnAssocEditon.OnButtonPressed()
 	}

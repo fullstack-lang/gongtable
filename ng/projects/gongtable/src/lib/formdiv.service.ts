@@ -15,6 +15,7 @@ import { FormDivDB } from './formdiv-db';
 
 // insertion point for imports
 import { FormEditAssocButtonDB } from './formeditassocbutton-db'
+import { FormSortAssocButtonDB } from './formsortassocbutton-db'
 import { FormGroupDB } from './formgroup-db'
 
 @Injectable({
@@ -75,6 +76,7 @@ export class FormDivService {
     formdivdb.FormFields = []
     formdivdb.CheckBoxs = []
     formdivdb.FormEditAssocButton = new FormEditAssocButtonDB
+    formdivdb.FormSortAssocButton = new FormSortAssocButtonDB
     let _FormGroup_FormDivs_reverse = formdivdb.FormGroup_FormDivs_reverse
     formdivdb.FormGroup_FormDivs_reverse = new FormGroupDB
 
@@ -120,6 +122,7 @@ export class FormDivService {
     formdivdb.FormFields = []
     formdivdb.CheckBoxs = []
     formdivdb.FormEditAssocButton = new FormEditAssocButtonDB
+    formdivdb.FormSortAssocButton = new FormSortAssocButtonDB
     let _FormGroup_FormDivs_reverse = formdivdb.FormGroup_FormDivs_reverse
     formdivdb.FormGroup_FormDivs_reverse = new FormGroupDB
 

@@ -1330,6 +1330,13 @@ export class FrontRepoService {
                     formdiv.FormEditAssocButton = _formeditassocbutton
                   }
                 }
+                // insertion point for pointer field FormSortAssocButton redeeming
+                {
+                  let _formsortassocbutton = this.frontRepo.FormSortAssocButtons.get(formdiv.FormSortAssocButtonID.Int64)
+                  if (_formsortassocbutton) {
+                    formdiv.FormSortAssocButton = _formsortassocbutton
+                  }
+                }
 
                 // insertion point for redeeming ONE-MANY associations
                 // insertion point for slice of pointer field FormGroup.FormDivs redeeming
@@ -2063,6 +2070,13 @@ export class FrontRepoService {
                   let _formeditassocbutton = this.frontRepo.FormEditAssocButtons.get(formdiv.FormEditAssocButtonID.Int64)
                   if (_formeditassocbutton) {
                     formdiv.FormEditAssocButton = _formeditassocbutton
+                  }
+                }
+                // insertion point for pointer field FormSortAssocButton redeeming
+                {
+                  let _formsortassocbutton = this.frontRepo.FormSortAssocButtons.get(formdiv.FormSortAssocButtonID.Int64)
+                  if (_formsortassocbutton) {
+                    formdiv.FormSortAssocButton = _formsortassocbutton
                   }
                 }
 

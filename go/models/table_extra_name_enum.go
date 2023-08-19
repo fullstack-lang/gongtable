@@ -6,5 +6,6 @@ type TableExtraNameEnum string
 
 // values for TableExtraNameEnum
 const (
-	TableSelectExtraName TableExtraNameEnum = "tmp"
+	TableSelectExtraName TableExtraNameEnum = "tmp-picker"
+	TableSortExtraName   TableExtraNameEnum = "tmp-sort"
 )

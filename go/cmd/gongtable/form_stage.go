@@ -49,6 +49,7 @@ func form_stageInjection(stage *models.StageStruct) {
 	// Declarations of staged instances of CellInt
 
 	// Declarations of staged instances of CellString
+	__CellString__000000_A := (&models.CellString{Name: `A`}).Stage(stage)
 
 	// Declarations of staged instances of CheckBox
 	__CheckBox__000000_Boolean := (&models.CheckBox{Name: `Boolean`}).Stage(stage)
@@ -101,6 +102,7 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormGroup__000000_Form_1 := (&models.FormGroup{Name: `Form 1`}).Stage(stage)
 
 	// Declarations of staged instances of FormSortAssocButton
+	__FormSortAssocButton__000000_Sort_Button := (&models.FormSortAssocButton{Name: `Sort Button`}).Stage(stage)
 
 	// Declarations of staged instances of Option
 	__Option__000000_Option_1 := (&models.Option{Name: `Option 1`}).Stage(stage)
@@ -113,6 +115,10 @@ func form_stageInjection(stage *models.StageStruct) {
 	// Declarations of staged instances of Table
 
 	// Setup of values
+
+	// CellString values setup
+	__CellString__000000_A.Name = `A`
+	__CellString__000000_A.Value = `A`
 
 	// CheckBox values setup
 	__CheckBox__000000_Boolean.Name = `Boolean`
@@ -141,7 +147,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormEditAssocButton values setup
 	__FormEditAssocButton__000000_Edit_Assoc.Name = `Edit Assoc`
-	__FormEditAssocButton__000000_Edit_Assoc.Label = ``
+	__FormEditAssocButton__000000_Edit_Assoc.Label = `A`
 
 	// FormField values setup
 	__FormField__000000_Age.Name = `Age`
@@ -214,6 +220,10 @@ func form_stageInjection(stage *models.StageStruct) {
 	// FormGroup values setup
 	__FormGroup__000000_Form_1.Name = `Form 1`
 
+	// FormSortAssocButton values setup
+	__FormSortAssocButton__000000_Sort_Button.Name = `Sort Button`
+	__FormSortAssocButton__000000_Sort_Button.Label = `Sort Button`
+
 	// Option values setup
 	__Option__000000_Option_1.Name = `Option 1`
 
@@ -233,6 +243,7 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormDiv__000002_Date_Time.FormFields = append(__FormDiv__000002_Date_Time.FormFields, __FormField__000006_Time)
 	__FormDiv__000003_DateTime.FormFields = append(__FormDiv__000003_DateTime.FormFields, __FormField__000002_DateTime)
 	__FormDiv__000004_Edit_Assoc.FormEditAssocButton = __FormEditAssocButton__000000_Edit_Assoc
+	__FormDiv__000004_Edit_Assoc.FormSortAssocButton = __FormSortAssocButton__000000_Sort_Button
 	__FormDiv__000005_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000005_Form_Div_First_Name_Name.FormFields, __FormField__000003_FirstName)
 	__FormDiv__000005_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000005_Form_Div_First_Name_Name.FormFields, __FormField__000004_LastName)
 	__FormDiv__000006_Select.FormFields = append(__FormDiv__000006_Select.FormFields, __FormField__000005_Select)

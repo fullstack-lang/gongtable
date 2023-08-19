@@ -14,3 +14,16 @@
     margin-bottom: 32px;
     /* Adjust this value to get the desired spacing */
 }
+
+.flex-align-items-center {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /* This is to provide a little spacing between the elements. Adjust as needed */
+}
+
+.custom-h2 {
+    margin-bottom: 50px;
+    margin-left: 16px;
+    gap: 20px;
+}

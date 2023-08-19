@@ -1135,6 +1135,41 @@ export class SidebarComponent implements OnInit {
             FormEditAssocButtonGongNodeAssociation.children.push(formdivGongNodeInstance_FormEditAssocButton)
           }
 
+          /**
+          * let append a node for the association FormSortAssocButton
+          */
+          let FormSortAssocButtonGongNodeAssociation: GongNode = {
+            name: "(FormSortAssocButton) FormSortAssocButton",
+            type: GongNodeType.ONE__ZERO_ONE_ASSOCIATION,
+            id: formdivDB.ID,
+            uniqueIdPerStack: 17 * nonInstanceNodeId,
+            structName: "FormDiv",
+            associationField: "FormSortAssocButton",
+            associatedStructName: "FormSortAssocButton",
+            children: new Array<GongNode>()
+          }
+          nonInstanceNodeId = nonInstanceNodeId + 1
+          formdivGongNodeInstance.children!.push(FormSortAssocButtonGongNodeAssociation)
+
+          /**
+            * let append a node for the instance behind the asssociation FormSortAssocButton
+            */
+          if (formdivDB.FormSortAssocButton != undefined) {
+            let formdivGongNodeInstance_FormSortAssocButton: GongNode = {
+              name: formdivDB.FormSortAssocButton.Name,
+              type: GongNodeType.INSTANCE,
+              id: formdivDB.FormSortAssocButton.ID,
+              uniqueIdPerStack: // godel numbering (thank you kurt)
+                3 * getFormDivUniqueID(formdivDB.ID)
+                + 5 * getFormSortAssocButtonUniqueID(formdivDB.FormSortAssocButton.ID),
+              structName: "FormSortAssocButton",
+              associationField: "",
+              associatedStructName: "",
+              children: new Array<GongNode>()
+            }
+            FormSortAssocButtonGongNodeAssociation.children.push(formdivGongNodeInstance_FormSortAssocButton)
+          }
+
         }
       )
 

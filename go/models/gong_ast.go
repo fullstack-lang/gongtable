@@ -1266,6 +1266,9 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				case "FormEditAssocButton":
 					targetIdentifier := ident.Name
 					__gong__map_FormDiv[identifier].FormEditAssocButton = __gong__map_FormEditAssocButton[targetIdentifier]
+				case "FormSortAssocButton":
+					targetIdentifier := ident.Name
+					__gong__map_FormDiv[identifier].FormSortAssocButton = __gong__map_FormSortAssocButton[targetIdentifier]
 				}
 			case "FormEditAssocButton":
 				switch fieldName {

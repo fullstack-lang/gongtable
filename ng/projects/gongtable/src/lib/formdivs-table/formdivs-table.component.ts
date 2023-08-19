@@ -78,6 +78,9 @@ export class FormDivsTableComponent implements OnInit {
         case 'FormEditAssocButton':
           return (formdivDB.FormEditAssocButton ? formdivDB.FormEditAssocButton.Name : '');
 
+        case 'FormSortAssocButton':
+          return (formdivDB.FormSortAssocButton ? formdivDB.FormSortAssocButton.Name : '');
+
         case 'FormGroup_FormDivs':
           if (this.frontRepo.FormGroups.get(formdivDB.FormGroup_FormDivsDBID.Int64) != undefined) {
             return this.frontRepo.FormGroups.get(formdivDB.FormGroup_FormDivsDBID.Int64)!.Name
@@ -102,6 +105,9 @@ export class FormDivsTableComponent implements OnInit {
       mergedContent += formdivDB.Name.toLowerCase()
       if (formdivDB.FormEditAssocButton) {
         mergedContent += formdivDB.FormEditAssocButton.Name.toLowerCase()
+      }
+      if (formdivDB.FormSortAssocButton) {
+        mergedContent += formdivDB.FormSortAssocButton.Name.toLowerCase()
       }
       if (formdivDB.FormGroup_FormDivsDBID.Int64 != 0) {
         mergedContent += this.frontRepo.FormGroups.get(formdivDB.FormGroup_FormDivsDBID.Int64)!.Name.toLowerCase()
@@ -163,12 +169,14 @@ export class FormDivsTableComponent implements OnInit {
       this.displayedColumns = ['ID', 'Delete', // insertion point for columns to display
         "Name",
         "FormEditAssocButton",
+        "FormSortAssocButton",
         "FormGroup_FormDivs",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
         "FormEditAssocButton",
+        "FormSortAssocButton",
         "FormGroup_FormDivs",
       ]
       this.selection = new SelectionModel<FormDivDB>(allowMultiSelect, this.initialSelection);

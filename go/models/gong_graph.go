@@ -474,6 +474,9 @@ func (stage *StageStruct) StageBranchFormDiv(formdiv *FormDiv) {
 	if formdiv.FormEditAssocButton != nil {
 		StageBranch(stage, formdiv.FormEditAssocButton)
 	}
+	if formdiv.FormSortAssocButton != nil {
+		StageBranch(stage, formdiv.FormSortAssocButton)
+	}
 
 	//insertion point for the staging of instances referenced by slice of pointers
 	for _, _formfield := range formdiv.FormFields {
@@ -965,6 +968,9 @@ func (stage *StageStruct) UnstageBranchFormDiv(formdiv *FormDiv) {
 	//insertion point for the staging of instances referenced by pointers
 	if formdiv.FormEditAssocButton != nil {
 		UnstageBranch(stage, formdiv.FormEditAssocButton)
+	}
+	if formdiv.FormSortAssocButton != nil {
+		UnstageBranch(stage, formdiv.FormSortAssocButton)
 	}
 
 	//insertion point for the staging of instances referenced by slice of pointers

@@ -2,6 +2,7 @@
 export enum TableExtraPathEnum {
 	// insertion point	
 	TableSelectExtra = "-table",
+	TableSortExtra = "-table-sort",
 }
 
 export interface TableExtraPathEnumSelect {
@@ -11,4 +12,5 @@ export interface TableExtraPathEnumSelect {
 
 export const TableExtraPathEnumList: TableExtraPathEnumSelect[] = [ // insertion point	
 	{ value: TableExtraPathEnum.TableSelectExtra, viewValue: "-table" },
+	{ value: TableExtraPathEnum.TableSortExtra, viewValue: "-table-sort" },
 ];

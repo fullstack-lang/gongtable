@@ -277,6 +277,17 @@ func (controller *Controller) UpdateFormEditAssocButton(c *gin.Context) {
 		return
 	}
 
+	formeditassocbuttonDBArray := make([]orm.FormEditAssocButtonDB, 0)
+	query = db.Find(&formeditassocbuttonDBArray)
+	if query.Error != nil {
+		var returnError GenericError
+		returnError.Body.Code = http.StatusBadRequest
+		returnError.Body.Message = query.Error.Error()
+		log.Println(query.Error.Error())
+		c.JSON(http.StatusBadRequest, returnError.Body)
+		return
+	}
+
 	// get an instance (not staged) from DB instance, and call callback function
 	formeditassocbuttonNew := new(models.FormEditAssocButton)
 	formeditassocbuttonDB.CopyBasicFieldsToFormEditAssocButton(formeditassocbuttonNew)
@@ -291,12 +302,53 @@ func (controller *Controller) UpdateFormEditAssocButton(c *gin.Context) {
 	// (this will be improved with implementation of unit of work design pattern)
 	// in some cases, with the marshalling of the stage, this operation might
 	// generates a checkout
+
+	query = db.Find(&formeditassocbuttonDBArray)
+	if query.Error != nil {
+		var returnError GenericError
+		returnError.Body.Code = http.StatusBadRequest
+		returnError.Body.Message = query.Error.Error()
+		log.Println(query.Error.Error())
+		c.JSON(http.StatusBadRequest, returnError.Body)
+		return
+	}
+
 	backRepo.IncrementPushFromFrontNb()
+
+	query = db.Find(&formeditassocbuttonDBArray)
+	if query.Error != nil {
+		var returnError GenericError
+		returnError.Body.Code = http.StatusBadRequest
+		returnError.Body.Message = query.Error.Error()
+		log.Println(query.Error.Error())
+		c.JSON(http.StatusBadRequest, returnError.Body)
+		return
+	}
 
 	// return status OK with the marshalling of the the formeditassocbuttonDB
 	c.JSON(http.StatusOK, formeditassocbuttonDB)
 
+	query = db.Find(&formeditassocbuttonDBArray)
+	if query.Error != nil {
+		var returnError GenericError
+		returnError.Body.Code = http.StatusBadRequest
+		returnError.Body.Message = query.Error.Error()
+		log.Println(query.Error.Error())
+		c.JSON(http.StatusBadRequest, returnError.Body)
+		return
+	}
+
 	mutexFormEditAssocButton.Unlock()
+
+	query = db.Find(&formeditassocbuttonDBArray)
+	if query.Error != nil {
+		var returnError GenericError
+		returnError.Body.Code = http.StatusBadRequest
+		returnError.Body.Message = query.Error.Error()
+		log.Println(query.Error.Error())
+		c.JSON(http.StatusBadRequest, returnError.Body)
+		return
+	}
 }
 
 // DeleteFormEditAssocButton

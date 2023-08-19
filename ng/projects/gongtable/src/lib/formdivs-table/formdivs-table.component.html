@@ -33,6 +33,13 @@
             </td>
         </ng-container>
         <!-- -->
+        <ng-container matColumnDef="FormSortAssocButton">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> FormSortAssocButton </th>
+            <td mat-cell *matCellDef="let FormDiv">
+                {{ FormDiv.FormSortAssocButton ? FormDiv.FormSortAssocButton.Name : ''}}
+            </td>
+        </ng-container>
+        <!-- -->
         <ng-container matColumnDef="FormGroup_FormDivs">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> <-- (FormGroup) FormDivs </th>
             <td mat-cell *matCellDef="let formdiv">

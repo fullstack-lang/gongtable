@@ -1157,6 +1157,14 @@ func (stage *StageStruct) Marshall(file *os.File, modelsPackageName, packageName
 			pointersInitializesStatements += setPointerField
 		}
 
+		if formdiv.FormSortAssocButton != nil {
+			setPointerField = PointerFieldInitStatement
+			setPointerField = strings.ReplaceAll(setPointerField, "{{Identifier}}", id)
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldName}}", "FormSortAssocButton")
+			setPointerField = strings.ReplaceAll(setPointerField, "{{GeneratedFieldNameValue}}", map_FormSortAssocButton_Identifiers[formdiv.FormSortAssocButton])
+			pointersInitializesStatements += setPointerField
+		}
+
 	}
 
 	for idx, formeditassocbutton := range formeditassocbuttonOrdered {

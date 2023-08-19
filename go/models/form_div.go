@@ -5,4 +5,5 @@ type FormDiv struct {
 	FormFields          []*FormField
 	CheckBoxs           []*CheckBox
 	FormEditAssocButton *FormEditAssocButton
+	FormSortAssocButton *FormSortAssocButton
 }
