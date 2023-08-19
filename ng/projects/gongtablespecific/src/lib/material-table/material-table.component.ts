@@ -371,4 +371,10 @@ export class MaterialTableComponent implements OnInit {
   }
 
   isDraggableRow = (index: number, item: gongtable.RowDB) => this.selectedTable?.CanDragDropRows
+
+  close() {
+    if (this.tableDialogData) {
+      this.dialogRef?.close('Closing the application')
+    }
+  }
 }

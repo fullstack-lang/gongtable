@@ -165,6 +165,16 @@ export class FormDivDetailComponent implements OnInit {
 			this.formdiv.FormEditAssocButtonID.Int64 = 0
 			this.formdiv.FormEditAssocButtonID.Valid = true
 		}
+		if (this.formdiv.FormSortAssocButtonID == undefined) {
+			this.formdiv.FormSortAssocButtonID = new NullInt64
+		}
+		if (this.formdiv.FormSortAssocButton != undefined) {
+			this.formdiv.FormSortAssocButtonID.Int64 = this.formdiv.FormSortAssocButton.ID
+			this.formdiv.FormSortAssocButtonID.Valid = true
+		} else {
+			this.formdiv.FormSortAssocButtonID.Int64 = 0
+			this.formdiv.FormSortAssocButtonID.Valid = true
+		}
 
 		// save from the front pointer space to the non pointer space for serialization
 

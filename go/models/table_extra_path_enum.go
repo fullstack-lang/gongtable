@@ -7,4 +7,5 @@ type TableExtraPathEnum string
 // values for TableExtraPathEnum
 const (
 	TableSelectExtra TableExtraPathEnum = "-table"
+	TableSortExtra   TableExtraPathEnum = "-table-sort"
 )

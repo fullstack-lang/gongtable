@@ -179,7 +179,9 @@ func (tableextranameenum TableExtraNameEnum) ToString() (res string) {
 	switch tableextranameenum {
 	// insertion code per enum code
 	case TableSelectExtraName:
-		res = "tmp"
+		res = "tmp-picker"
+	case TableSortExtraName:
+		res = "tmp-sort"
 	}
 	return
 }
@@ -188,8 +190,10 @@ func (tableextranameenum *TableExtraNameEnum) FromString(input string) (err erro
 
 	switch input {
 	// insertion code per enum code
-	case "tmp":
+	case "tmp-picker":
 		*tableextranameenum = TableSelectExtraName
+	case "tmp-sort":
+		*tableextranameenum = TableSortExtraName
 	default:
 		return errUnkownEnum
 	}
@@ -202,6 +206,8 @@ func (tableextranameenum *TableExtraNameEnum) FromCodeString(input string) (err 
 	// insertion code per enum code
 	case "TableSelectExtraName":
 		*tableextranameenum = TableSelectExtraName
+	case "TableSortExtraName":
+		*tableextranameenum = TableSortExtraName
 	default:
 		return errUnkownEnum
 	}
@@ -214,6 +220,8 @@ func (tableextranameenum *TableExtraNameEnum) ToCodeString() (res string) {
 	// insertion code per enum code
 	case TableSelectExtraName:
 		res = "TableSelectExtraName"
+	case TableSortExtraName:
+		res = "TableSortExtraName"
 	}
 	return
 }
@@ -228,6 +236,8 @@ func (tableextrapathenum TableExtraPathEnum) ToString() (res string) {
 	// insertion code per enum code
 	case TableSelectExtra:
 		res = "-table"
+	case TableSortExtra:
+		res = "-table-sort"
 	}
 	return
 }
@@ -238,6 +248,8 @@ func (tableextrapathenum *TableExtraPathEnum) FromString(input string) (err erro
 	// insertion code per enum code
 	case "-table":
 		*tableextrapathenum = TableSelectExtra
+	case "-table-sort":
+		*tableextrapathenum = TableSortExtra
 	default:
 		return errUnkownEnum
 	}
@@ -250,6 +262,8 @@ func (tableextrapathenum *TableExtraPathEnum) FromCodeString(input string) (err 
 	// insertion code per enum code
 	case "TableSelectExtra":
 		*tableextrapathenum = TableSelectExtra
+	case "TableSortExtra":
+		*tableextrapathenum = TableSortExtra
 	default:
 		return errUnkownEnum
 	}
@@ -262,6 +276,8 @@ func (tableextrapathenum *TableExtraPathEnum) ToCodeString() (res string) {
 	// insertion code per enum code
 	case TableSelectExtra:
 		res = "TableSelectExtra"
+	case TableSortExtra:
+		res = "TableSortExtra"
 	}
 	return
 }

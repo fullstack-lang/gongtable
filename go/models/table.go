@@ -14,6 +14,7 @@ type Table struct {
 	HasSaveButton bool
 
 	CanDragDropRows bool
+	HasCloseButton  bool // Is used in case of drag drop since drag drop operation save the result
 
 	// SavingInProgress is true when rows are being saved
 	// it is set to true by the front at the begining and set back

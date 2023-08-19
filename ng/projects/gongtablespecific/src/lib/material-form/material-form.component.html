@@ -14,7 +14,22 @@
             </mat-select>
         </mat-form-field>
         <mat-checkbox class="custom-checkbox" *ngFor="let checkBox of div.CheckBoxs" [formControlName]="checkBox.Name">{{checkBox.Name}}</mat-checkbox>
-        <button *ngIf="div.FormEditAssocButton" (click)="openTableAssociation(div.FormEditAssocButton.Name)" mat-raised-button class="custom-button">{{div.FormEditAssocButton.Name}} {{div.FormEditAssocButton.Label}}</button>
+
+        <!-- Flexbox container starts here -->
+        <div *ngIf="div.FormEditAssocButton || div.FormSortAssocButton" class="flex-align-items-center">
+            <p class="custom-text" *ngIf="div.FormEditAssocButton">{{div.FormEditAssocButton.Label}}</p>
+            <button *ngIf="div.FormEditAssocButton" (click)="openTableAssociation(div.FormEditAssocButton.Name)" mat-raised-button class="custom-button">
+                <mat-icon>
+                    list
+                </mat-icon>
+            </button>
+            <button *ngIf="div.FormSortAssocButton" (click)="openTableSort(div.FormSortAssocButton.Name)" mat-raised-button class="custom-button">
+                <mat-icon>
+                    shuffle
+                </mat-icon>
+            </button>
+        </div>
+        <!-- Flexbox container ends here -->
     </div>
     <button mat-raised-button color="primary" type="submit">Submit</button>
 </form>

@@ -2113,6 +2113,8 @@ func GetAssociationName[Type Gongstruct]() *Type {
 			CheckBoxs: []*CheckBox{{Name: "CheckBoxs"}},
 			// field is initialized with an instance of FormEditAssocButton with the name of the field
 			FormEditAssocButton: &FormEditAssocButton{Name: "FormEditAssocButton"},
+			// field is initialized with an instance of FormSortAssocButton with the name of the field
+			FormSortAssocButton: &FormSortAssocButton{Name: "FormSortAssocButton"},
 		}).(*Type)
 	case FormEditAssocButton:
 		return any(&FormEditAssocButton{
@@ -2357,6 +2359,23 @@ func GetPointerReverseMap[Start, End Gongstruct](fieldname string, stage *StageS
 					}
 					formdivs = append(formdivs, formdiv)
 					res[formeditassocbutton_] = formdivs
+				}
+			}
+			return any(res).(map[*End][]*Start)
+		case "FormSortAssocButton":
+			res := make(map[*FormSortAssocButton][]*FormDiv)
+			for formdiv := range stage.FormDivs {
+				if formdiv.FormSortAssocButton != nil {
+					formsortassocbutton_ := formdiv.FormSortAssocButton
+					var formdivs []*FormDiv
+					_, ok := res[formsortassocbutton_]
+					if ok {
+						formdivs = res[formsortassocbutton_]
+					} else {
+						formdivs = make([]*FormDiv, 0)
+					}
+					formdivs = append(formdivs, formdiv)
+					res[formsortassocbutton_] = formdivs
 				}
 			}
 			return any(res).(map[*End][]*Start)
@@ -2840,7 +2859,7 @@ func GetFields[Type Gongstruct]() (res []string) {
 	case DisplayedColumn:
 		res = []string{"Name"}
 	case FormDiv:
-		res = []string{"Name", "FormFields", "CheckBoxs", "FormEditAssocButton"}
+		res = []string{"Name", "FormFields", "CheckBoxs", "FormEditAssocButton", "FormSortAssocButton"}
 	case FormEditAssocButton:
 		res = []string{"Name", "Label"}
 	case FormField:
@@ -2868,7 +2887,7 @@ func GetFields[Type Gongstruct]() (res []string) {
 	case Row:
 		res = []string{"Name", "Cells", "IsChecked"}
 	case Table:
-		res = []string{"Name", "DisplayedColumns", "Rows", "HasFiltering", "HasColumnSorting", "HasPaginator", "HasCheckableRows", "HasSaveButton", "CanDragDropRows", "SavingInProgress"}
+		res = []string{"Name", "DisplayedColumns", "Rows", "HasFiltering", "HasColumnSorting", "HasPaginator", "HasCheckableRows", "HasSaveButton", "CanDragDropRows", "HasCloseButton", "SavingInProgress"}
 	}
 	return
 }
@@ -2980,6 +2999,10 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 		case "FormEditAssocButton":
 			if any(instance).(FormDiv).FormEditAssocButton != nil {
 				res = any(instance).(FormDiv).FormEditAssocButton.Name
+			}
+		case "FormSortAssocButton":
+			if any(instance).(FormDiv).FormSortAssocButton != nil {
+				res = any(instance).(FormDiv).FormSortAssocButton.Name
 			}
 		}
 	case FormEditAssocButton:
@@ -3171,6 +3194,8 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 			res = fmt.Sprintf("%t", any(instance).(Table).HasSaveButton)
 		case "CanDragDropRows":
 			res = fmt.Sprintf("%t", any(instance).(Table).CanDragDropRows)
+		case "HasCloseButton":
+			res = fmt.Sprintf("%t", any(instance).(Table).HasCloseButton)
 		case "SavingInProgress":
 			res = fmt.Sprintf("%t", any(instance).(Table).SavingInProgress)
 		}

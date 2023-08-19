@@ -58,6 +58,7 @@ export class MaterialFormComponent implements OnInit {
     private checkBoxService: gongtable.CheckBoxService,
     private formFieldSelectService: gongtable.FormFieldSelectService,
     private formEditAssocButtonService: gongtable.FormEditAssocButtonService,
+    private formSortAssocButtonService: gongtable.FormSortAssocButtonService,
 
   ) {
 
@@ -369,6 +370,44 @@ export class MaterialFormComponent implements OnInit {
                 data: {
                   DataStack: this.DataStack + gongtable.TableExtraPathEnum.TableSelectExtra,
                   TableName: gongtable.TableExtraNameEnum.TableSelectExtraName
+                },
+              });
+            }
+          )
+        }
+      }
+    }
+  }
+
+  openTableSort(fieldName: string) {
+
+    console.log("openTableSort: ", fieldName)
+
+    if (this.generatedForm == undefined) {
+      return
+    }
+
+    if (this.selectedFormGroup == undefined) {
+      return
+    }
+
+    if (this.selectedFormGroup.FormDivs == undefined) {
+      return
+    }
+
+    for (let formDiv of this.selectedFormGroup.FormDivs) {
+      if (formDiv.FormSortAssocButton) {
+        if (formDiv.FormSortAssocButton.Name == fieldName) {
+
+          this.formSortAssocButtonService.updateFormSortAssocButton(formDiv.FormSortAssocButton, this.DataStack).subscribe(
+            () => {
+              console.log("sort button updated")
+
+              // when the association button is pressed
+              this.dialog.open(MaterialTableComponent, {
+                data: {
+                  DataStack: this.DataStack + gongtable.TableExtraPathEnum.TableSortExtra,
+                  TableName: gongtable.TableExtraNameEnum.TableSortExtraName
                 },
               });
             }

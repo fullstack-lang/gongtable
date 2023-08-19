@@ -293,6 +293,7 @@ func table_stageInjection(stage *models.StageStruct) {
 	__Table__000000_Table.HasCheckableRows = true
 	__Table__000000_Table.HasSaveButton = true
 	__Table__000000_Table.CanDragDropRows = false
+	__Table__000000_Table.HasCloseButton = false
 	__Table__000000_Table.SavingInProgress = false
 
 	// Table values setup
@@ -303,6 +304,7 @@ func table_stageInjection(stage *models.StageStruct) {
 	__Table__000001_Table_2.HasCheckableRows = false
 	__Table__000001_Table_2.HasSaveButton = true
 	__Table__000001_Table_2.CanDragDropRows = true
+	__Table__000001_Table_2.HasCloseButton = true
 	__Table__000001_Table_2.SavingInProgress = false
 
 	// Setup of pointers

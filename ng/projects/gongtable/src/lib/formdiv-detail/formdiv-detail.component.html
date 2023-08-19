@@ -58,6 +58,16 @@
     </mat-form-field>
 
     <mat-form-field class="detail-full-width">
+        <mat-label>FormSortAssocButton</mat-label>
+        <mat-select [compareWith]="compareObjects" [(value)]="formdiv.FormSortAssocButton" (selectionChange)="fillUpNameIfEmpty($event)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let formsortassocbutton of frontRepo.FormSortAssocButtons_array" [value]="formsortassocbutton">
+                {{formsortassocbutton.Name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="detail-full-width">
         <mat-label>(FormGroup) FormDivs</mat-label>
         <mat-select [compareWith]="compareObjects" [(ngModel)]="formdiv.FormGroup_FormDivs_reverse" [ngModelOptions]="{standalone: true}">
             <mat-option>None</mat-option>

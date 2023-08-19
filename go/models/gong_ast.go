@@ -1266,6 +1266,9 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				case "FormEditAssocButton":
 					targetIdentifier := ident.Name
 					__gong__map_FormDiv[identifier].FormEditAssocButton = __gong__map_FormEditAssocButton[targetIdentifier]
+				case "FormSortAssocButton":
+					targetIdentifier := ident.Name
+					__gong__map_FormDiv[identifier].FormSortAssocButton = __gong__map_FormSortAssocButton[targetIdentifier]
 				}
 			case "FormEditAssocButton":
 				switch fieldName {
@@ -1395,6 +1398,13 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 						log.Fatalln(err)
 					}
 					__gong__map_Table[identifier].CanDragDropRows = fielValue
+				case "HasCloseButton":
+					// convert string to boolean
+					fielValue, err := strconv.ParseBool(ident.Name)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_Table[identifier].HasCloseButton = fielValue
 				case "SavingInProgress":
 					// convert string to boolean
 					fielValue, err := strconv.ParseBool(ident.Name)
