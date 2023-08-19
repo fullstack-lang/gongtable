@@ -147,7 +147,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormEditAssocButton values setup
 	__FormEditAssocButton__000000_Edit_Assoc.Name = `Edit Assoc`
-	__FormEditAssocButton__000000_Edit_Assoc.Label = `A`
+	__FormEditAssocButton__000000_Edit_Assoc.Label = `Association to B`
 
 	// FormField values setup
 	__FormField__000000_Age.Name = `Age`

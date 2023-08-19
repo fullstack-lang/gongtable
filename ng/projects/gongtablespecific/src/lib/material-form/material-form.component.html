@@ -17,7 +17,7 @@
 
         <!-- Flexbox container starts here -->
         <div *ngIf="div.FormEditAssocButton || div.FormSortAssocButton" class="flex-align-items-center">
-            <h2 class="custom-h2" *ngIf="div.FormEditAssocButton">{{div.FormEditAssocButton.Label}}</h2>
+            <p class="custom-text" *ngIf="div.FormEditAssocButton">{{div.FormEditAssocButton.Label}}</p>
             <button *ngIf="div.FormEditAssocButton" (click)="openTableAssociation(div.FormEditAssocButton.Name)" mat-raised-button class="custom-button">
                 <mat-icon>
                     list
