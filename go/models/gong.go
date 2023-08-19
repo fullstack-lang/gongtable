@@ -2887,7 +2887,7 @@ func GetFields[Type Gongstruct]() (res []string) {
 	case Row:
 		res = []string{"Name", "Cells", "IsChecked"}
 	case Table:
-		res = []string{"Name", "DisplayedColumns", "Rows", "HasFiltering", "HasColumnSorting", "HasPaginator", "HasCheckableRows", "HasSaveButton", "CanDragDropRows", "SavingInProgress"}
+		res = []string{"Name", "DisplayedColumns", "Rows", "HasFiltering", "HasColumnSorting", "HasPaginator", "HasCheckableRows", "HasSaveButton", "CanDragDropRows", "HasCloseButton", "SavingInProgress"}
 	}
 	return
 }
@@ -3194,6 +3194,8 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 			res = fmt.Sprintf("%t", any(instance).(Table).HasSaveButton)
 		case "CanDragDropRows":
 			res = fmt.Sprintf("%t", any(instance).(Table).CanDragDropRows)
+		case "HasCloseButton":
+			res = fmt.Sprintf("%t", any(instance).(Table).HasCloseButton)
 		case "SavingInProgress":
 			res = fmt.Sprintf("%t", any(instance).(Table).SavingInProgress)
 		}

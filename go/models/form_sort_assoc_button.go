@@ -10,7 +10,7 @@ type FormSortAssocButton struct {
 
 	Label string
 
-	OnAssocEditon FormSortAssocButtonInterface
+	OnSortEdition FormSortAssocButtonInterface
 }
 
 // OnAfterUpdate is called when the button is pressed
@@ -20,8 +20,8 @@ func (formSortAssocButton *FormSortAssocButton) OnAfterUpdate(
 
 	log.Println("OnAfterUpdate")
 
-	if stagedInstance.OnAssocEditon != nil {
-		stagedInstance.OnAssocEditon.OnButtonPressed()
+	if stagedInstance.OnSortEdition != nil {
+		stagedInstance.OnSortEdition.OnButtonPressed()
 	}
 
 }

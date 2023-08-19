@@ -68,6 +68,13 @@
             </td>
         </ng-container>
         <!-- -->
+        <ng-container matColumnDef="HasCloseButton">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> HasCloseButton </th>
+            <td mat-cell *matCellDef="let Table">
+                <mat-checkbox [checked]="Table.HasCloseButton" disabled=true></mat-checkbox>
+            </td>
+        </ng-container>
+        <!-- -->
         <ng-container matColumnDef="SavingInProgress">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> SavingInProgress </th>
             <td mat-cell *matCellDef="let Table">

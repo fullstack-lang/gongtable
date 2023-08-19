@@ -129,8 +129,18 @@ func main() {
 			onAssocEditon.r = r
 			onAssocEditon.sourceStack = stageForManualyEditedForm
 			formEditAssocButton.OnAssocEditon = onAssocEditon
-
 		}
+		for formSortAssocButton := range *gongtable_models.GetGongstructInstancesSet[gongtable_models.FormSortAssocButton](
+			stageForManualyEditedForm) {
+			_ = formSortAssocButton
+
+			// create the struct for callabck
+			onSortEdition := new(OnSortEditon)
+			onSortEdition.r = r
+			onSortEdition.sourceStack = stageForManualyEditedForm
+			formSortAssocButton.OnSortEdition = onSortEdition
+		}
+
 	}
 
 	// hook automatic marshall to go code at every commit
@@ -173,6 +183,54 @@ func (onAssocEditon *OnAssocEditon) OnButtonPressed() {
 
 	fillUpSelectTableDummyStuff(newStage, string(gongtable_models.TableSelectExtraName))
 	newStage.Commit()
+}
+
+type OnSortEditon struct {
+	r           *gin.Engine
+	sourceStack *gongtable_models.StageStruct
+}
+
+func (onSortEditon *OnSortEditon) OnButtonPressed() {
+
+	newStage := gongtable_fullstack.NewStackInstance(
+		onSortEditon.r,
+		onSortEditon.sourceStack.GetPath()+
+			string(gongtable_models.TableSortExtra))
+
+	fillUpSortTableDummyStuff(newStage, string(gongtable_models.TableSortExtraName))
+	newStage.Commit()
+}
+func fillUpSortTableDummyStuff(stage *gongtable_models.StageStruct, tableName string) {
+	nbRows := 10
+	nbColumns := 1
+	table := new(gongtable_models.Table).Stage(stage)
+	table.Name = tableName
+	table.CanDragDropRows = true
+	table.HasCloseButton = true
+
+	for j := 0; j < nbColumns; j++ {
+		column := new(gongtable_models.DisplayedColumn).Stage(stage)
+		column.Name = fmt.Sprintf("Column %d", j)
+		table.DisplayedColumns = append(table.DisplayedColumns, column)
+	}
+
+	for i := 0; i < nbRows; i++ {
+		row := new(gongtable_models.Row).Stage(stage)
+		row.Name = fmt.Sprintf("Row %d", i)
+		table.Rows = append(table.Rows, row)
+
+		for j := 0; j < nbColumns; j++ {
+			cell := new(gongtable_models.Cell).Stage(stage)
+			cell.Name = fmt.Sprintf("Row %d - Column %d", i, j)
+
+			cellString := new(gongtable_models.CellString).Stage(stage)
+			cellString.Name = cell.Name
+			cellString.Value = cell.Name
+			cell.CellString = cellString
+
+			row.Cells = append(row.Cells, cell)
+		}
+	}
 }
 
 func fillUpSelectTableDummyStuff(stage *gongtable_models.StageStruct, tableName string) {

@@ -21,6 +21,7 @@ export class TableDB {
 	HasCheckableRows: boolean = false
 	HasSaveButton: boolean = false
 	CanDragDropRows: boolean = false
+	HasCloseButton: boolean = false
 	SavingInProgress: boolean = false
 
 	// insertion point for other declarations

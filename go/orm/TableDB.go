@@ -85,6 +85,10 @@ type TableDB struct {
 	// provide the sql storage for the boolan
 	CanDragDropRows_Data sql.NullBool
 
+	// Declation for basic field tableDB.HasCloseButton
+	// provide the sql storage for the boolan
+	HasCloseButton_Data sql.NullBool
+
 	// Declation for basic field tableDB.SavingInProgress
 	// provide the sql storage for the boolan
 	SavingInProgress_Data sql.NullBool
@@ -123,7 +127,9 @@ type TableWOP struct {
 
 	CanDragDropRows bool `xlsx:"7"`
 
-	SavingInProgress bool `xlsx:"8"`
+	HasCloseButton bool `xlsx:"8"`
+
+	SavingInProgress bool `xlsx:"9"`
 	// insertion for WOP pointer fields
 }
 
@@ -137,6 +143,7 @@ var Table_Fields = []string{
 	"HasCheckableRows",
 	"HasSaveButton",
 	"CanDragDropRows",
+	"HasCloseButton",
 	"SavingInProgress",
 }
 
@@ -511,6 +518,9 @@ func (tableDB *TableDB) CopyBasicFieldsFromTable(table *models.Table) {
 	tableDB.CanDragDropRows_Data.Bool = table.CanDragDropRows
 	tableDB.CanDragDropRows_Data.Valid = true
 
+	tableDB.HasCloseButton_Data.Bool = table.HasCloseButton
+	tableDB.HasCloseButton_Data.Valid = true
+
 	tableDB.SavingInProgress_Data.Bool = table.SavingInProgress
 	tableDB.SavingInProgress_Data.Valid = true
 }
@@ -540,6 +550,9 @@ func (tableDB *TableDB) CopyBasicFieldsFromTableWOP(table *TableWOP) {
 	tableDB.CanDragDropRows_Data.Bool = table.CanDragDropRows
 	tableDB.CanDragDropRows_Data.Valid = true
 
+	tableDB.HasCloseButton_Data.Bool = table.HasCloseButton
+	tableDB.HasCloseButton_Data.Valid = true
+
 	tableDB.SavingInProgress_Data.Bool = table.SavingInProgress
 	tableDB.SavingInProgress_Data.Valid = true
 }
@@ -554,6 +567,7 @@ func (tableDB *TableDB) CopyBasicFieldsToTable(table *models.Table) {
 	table.HasCheckableRows = tableDB.HasCheckableRows_Data.Bool
 	table.HasSaveButton = tableDB.HasSaveButton_Data.Bool
 	table.CanDragDropRows = tableDB.CanDragDropRows_Data.Bool
+	table.HasCloseButton = tableDB.HasCloseButton_Data.Bool
 	table.SavingInProgress = tableDB.SavingInProgress_Data.Bool
 }
 
@@ -568,6 +582,7 @@ func (tableDB *TableDB) CopyBasicFieldsToTableWOP(table *TableWOP) {
 	table.HasCheckableRows = tableDB.HasCheckableRows_Data.Bool
 	table.HasSaveButton = tableDB.HasSaveButton_Data.Bool
 	table.CanDragDropRows = tableDB.CanDragDropRows_Data.Bool
+	table.HasCloseButton = tableDB.HasCloseButton_Data.Bool
 	table.SavingInProgress = tableDB.SavingInProgress_Data.Bool
 }
 
