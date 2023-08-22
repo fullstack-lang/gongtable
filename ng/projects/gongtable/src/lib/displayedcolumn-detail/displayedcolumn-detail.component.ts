@@ -35,6 +35,7 @@ enum DisplayedColumnDetailComponentState {
 export class DisplayedColumnDetailComponent implements OnInit {
 
 	// insertion point for declarations
+	IsStickyFormControl: UntypedFormControl = new UntypedFormControl(false);
 
 	// the DisplayedColumnDB of interest
 	displayedcolumn: DisplayedColumnDB = new DisplayedColumnDB
@@ -143,6 +144,7 @@ export class DisplayedColumnDetailComponent implements OnInit {
 				}
 
 				// insertion point for recovery of form controls value for bool fields
+				this.IsStickyFormControl.setValue(this.displayedcolumn.IsSticky)
 			}
 		)
 
@@ -155,6 +157,7 @@ export class DisplayedColumnDetailComponent implements OnInit {
 		// pointers fields, after the translation, are nulled in order to perform serialization
 
 		// insertion point for translation/nullation of each field
+		this.displayedcolumn.IsSticky = this.IsStickyFormControl.value
 
 		// save from the front pointer space to the non pointer space for serialization
 

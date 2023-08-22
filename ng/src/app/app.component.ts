@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   form_view = "Form"
   form_data_model = 'Form Data/Model'
 
-  view = this.form_view
+  view = this.table_view
 
   views: string[] = [this.table_view, this.form_view, this.table_data_model, this.form_data_model];
 

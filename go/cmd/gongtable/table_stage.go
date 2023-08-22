@@ -127,8 +127,9 @@ func table_stageInjection(stage *models.StageStruct) {
 	__Row__000004_Table_2_Row_3 := (&models.Row{Name: `Table 2 - Row 3`}).Stage(stage)
 
 	// Declarations of staged instances of Table
-	__Table__000000_Table := (&models.Table{Name: `Table`}).Stage(stage)
-	__Table__000001_Table_2 := (&models.Table{Name: `Table 2`}).Stage(stage)
+	__Table__000000_EmptyTable := (&models.Table{Name: `EmptyTable`}).Stage(stage)
+	__Table__000001_Table := (&models.Table{Name: `Table`}).Stage(stage)
+	__Table__000002_Table_2 := (&models.Table{Name: `Table 2`}).Stage(stage)
 
 	// Setup of values
 
@@ -246,24 +247,31 @@ func table_stageInjection(stage *models.StageStruct) {
 
 	// DisplayedColumn values setup
 	__DisplayedColumn__000000_A.Name = `A`
+	__DisplayedColumn__000000_A.IsSticky = false
 
 	// DisplayedColumn values setup
 	__DisplayedColumn__000001_B.Name = `B`
+	__DisplayedColumn__000001_B.IsSticky = false
 
 	// DisplayedColumn values setup
 	__DisplayedColumn__000002_Column_1_Boolean.Name = `Column 1 - Boolean`
+	__DisplayedColumn__000002_Column_1_Boolean.IsSticky = true
 
 	// DisplayedColumn values setup
 	__DisplayedColumn__000003_Column_2_Float64.Name = `Column 2 - Float64`
+	__DisplayedColumn__000003_Column_2_Float64.IsSticky = true
 
 	// DisplayedColumn values setup
 	__DisplayedColumn__000004_Column_3_Icon.Name = `Column 3 - Icon`
+	__DisplayedColumn__000004_Column_3_Icon.IsSticky = false
 
 	// DisplayedColumn values setup
 	__DisplayedColumn__000005_Column_4_Int.Name = `Column 4 - Int`
+	__DisplayedColumn__000005_Column_4_Int.IsSticky = false
 
 	// DisplayedColumn values setup
 	__DisplayedColumn__000006_Column_5_String.Name = `Column 5 - String`
+	__DisplayedColumn__000006_Column_5_String.IsSticky = false
 
 	// Row values setup
 	__Row__000000_Row_1.Name = `Row 1`
@@ -286,26 +294,37 @@ func table_stageInjection(stage *models.StageStruct) {
 	__Row__000004_Table_2_Row_3.IsChecked = false
 
 	// Table values setup
-	__Table__000000_Table.Name = `Table`
-	__Table__000000_Table.HasFiltering = true
-	__Table__000000_Table.HasColumnSorting = true
-	__Table__000000_Table.HasPaginator = true
-	__Table__000000_Table.HasCheckableRows = true
-	__Table__000000_Table.HasSaveButton = true
-	__Table__000000_Table.CanDragDropRows = false
-	__Table__000000_Table.HasCloseButton = false
-	__Table__000000_Table.SavingInProgress = false
+	__Table__000000_EmptyTable.Name = `EmptyTable`
+	__Table__000000_EmptyTable.HasFiltering = false
+	__Table__000000_EmptyTable.HasColumnSorting = false
+	__Table__000000_EmptyTable.HasPaginator = false
+	__Table__000000_EmptyTable.HasCheckableRows = false
+	__Table__000000_EmptyTable.HasSaveButton = false
+	__Table__000000_EmptyTable.CanDragDropRows = false
+	__Table__000000_EmptyTable.HasCloseButton = false
+	__Table__000000_EmptyTable.SavingInProgress = false
 
 	// Table values setup
-	__Table__000001_Table_2.Name = `Table 2`
-	__Table__000001_Table_2.HasFiltering = false
-	__Table__000001_Table_2.HasColumnSorting = false
-	__Table__000001_Table_2.HasPaginator = false
-	__Table__000001_Table_2.HasCheckableRows = false
-	__Table__000001_Table_2.HasSaveButton = true
-	__Table__000001_Table_2.CanDragDropRows = true
-	__Table__000001_Table_2.HasCloseButton = true
-	__Table__000001_Table_2.SavingInProgress = false
+	__Table__000001_Table.Name = `Table`
+	__Table__000001_Table.HasFiltering = true
+	__Table__000001_Table.HasColumnSorting = true
+	__Table__000001_Table.HasPaginator = true
+	__Table__000001_Table.HasCheckableRows = true
+	__Table__000001_Table.HasSaveButton = true
+	__Table__000001_Table.CanDragDropRows = false
+	__Table__000001_Table.HasCloseButton = false
+	__Table__000001_Table.SavingInProgress = false
+
+	// Table values setup
+	__Table__000002_Table_2.Name = `Table 2`
+	__Table__000002_Table_2.HasFiltering = false
+	__Table__000002_Table_2.HasColumnSorting = false
+	__Table__000002_Table_2.HasPaginator = false
+	__Table__000002_Table_2.HasCheckableRows = false
+	__Table__000002_Table_2.HasSaveButton = true
+	__Table__000002_Table_2.CanDragDropRows = true
+	__Table__000002_Table_2.HasCloseButton = true
+	__Table__000002_Table_2.SavingInProgress = false
 
 	// Setup of pointers
 	__Cell__000000_Row_1_Cell_1.CellBool = __CellBoolean__000000_Row_1_Cell_1_Cell_False
@@ -340,17 +359,17 @@ func table_stageInjection(stage *models.StageStruct) {
 	__Row__000003_Table_2_Row_2.Cells = append(__Row__000003_Table_2_Row_2.Cells, __Cell__000012_T2_R2_A)
 	__Row__000004_Table_2_Row_3.Cells = append(__Row__000004_Table_2_Row_3.Cells, __Cell__000014_T2_R3_A)
 	__Row__000004_Table_2_Row_3.Cells = append(__Row__000004_Table_2_Row_3.Cells, __Cell__000015_T2_R3_B)
-	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000002_Column_1_Boolean)
-	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000003_Column_2_Float64)
-	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000004_Column_3_Icon)
-	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000005_Column_4_Int)
-	__Table__000000_Table.DisplayedColumns = append(__Table__000000_Table.DisplayedColumns, __DisplayedColumn__000006_Column_5_String)
-	__Table__000000_Table.Rows = append(__Table__000000_Table.Rows, __Row__000000_Row_1)
-	__Table__000000_Table.Rows = append(__Table__000000_Table.Rows, __Row__000001_Row_2)
-	__Table__000001_Table_2.DisplayedColumns = append(__Table__000001_Table_2.DisplayedColumns, __DisplayedColumn__000000_A)
-	__Table__000001_Table_2.Rows = append(__Table__000001_Table_2.Rows, __Row__000002_Table_2_Row_1)
-	__Table__000001_Table_2.Rows = append(__Table__000001_Table_2.Rows, __Row__000003_Table_2_Row_2)
-	__Table__000001_Table_2.Rows = append(__Table__000001_Table_2.Rows, __Row__000004_Table_2_Row_3)
+	__Table__000001_Table.DisplayedColumns = append(__Table__000001_Table.DisplayedColumns, __DisplayedColumn__000002_Column_1_Boolean)
+	__Table__000001_Table.DisplayedColumns = append(__Table__000001_Table.DisplayedColumns, __DisplayedColumn__000003_Column_2_Float64)
+	__Table__000001_Table.DisplayedColumns = append(__Table__000001_Table.DisplayedColumns, __DisplayedColumn__000004_Column_3_Icon)
+	__Table__000001_Table.DisplayedColumns = append(__Table__000001_Table.DisplayedColumns, __DisplayedColumn__000005_Column_4_Int)
+	__Table__000001_Table.DisplayedColumns = append(__Table__000001_Table.DisplayedColumns, __DisplayedColumn__000006_Column_5_String)
+	__Table__000001_Table.Rows = append(__Table__000001_Table.Rows, __Row__000000_Row_1)
+	__Table__000001_Table.Rows = append(__Table__000001_Table.Rows, __Row__000001_Row_2)
+	__Table__000002_Table_2.DisplayedColumns = append(__Table__000002_Table_2.DisplayedColumns, __DisplayedColumn__000000_A)
+	__Table__000002_Table_2.Rows = append(__Table__000002_Table_2.Rows, __Row__000002_Table_2_Row_1)
+	__Table__000002_Table_2.Rows = append(__Table__000002_Table_2.Rows, __Row__000003_Table_2_Row_2)
+	__Table__000002_Table_2.Rows = append(__Table__000002_Table_2.Rows, __Row__000004_Table_2_Row_3)
 }
 
 

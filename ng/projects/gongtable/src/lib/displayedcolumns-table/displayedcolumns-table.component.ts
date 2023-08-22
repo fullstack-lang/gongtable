@@ -75,6 +75,9 @@ export class DisplayedColumnsTableComponent implements OnInit {
         case 'Name':
           return displayedcolumnDB.Name;
 
+        case 'IsSticky':
+          return displayedcolumnDB.IsSticky ? "true" : "false";
+
         case 'Table_DisplayedColumns':
           if (this.frontRepo.Tables.get(displayedcolumnDB.Table_DisplayedColumnsDBID.Int64) != undefined) {
             return this.frontRepo.Tables.get(displayedcolumnDB.Table_DisplayedColumnsDBID.Int64)!.Name
@@ -156,11 +159,13 @@ export class DisplayedColumnsTableComponent implements OnInit {
     if (this.mode == TableComponentMode.DISPLAY_MODE) {
       this.displayedColumns = ['ID', 'Delete', // insertion point for columns to display
         "Name",
+        "IsSticky",
         "Table_DisplayedColumns",
       ]
     } else {
       this.displayedColumns = ['select', 'ID', // insertion point for columns to display
         "Name",
+        "IsSticky",
         "Table_DisplayedColumns",
       ]
       this.selection = new SelectionModel<DisplayedColumnDB>(allowMultiSelect, this.initialSelection);

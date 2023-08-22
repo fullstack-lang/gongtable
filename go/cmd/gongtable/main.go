@@ -211,6 +211,11 @@ func fillUpSortTableDummyStuff(stage *gongtable_models.StageStruct, tableName st
 	for j := 0; j < nbColumns; j++ {
 		column := new(gongtable_models.DisplayedColumn).Stage(stage)
 		column.Name = fmt.Sprintf("Column %d", j)
+
+		if j < 2 {
+			column.IsSticky = true
+		}
+
 		table.DisplayedColumns = append(table.DisplayedColumns, column)
 	}
 

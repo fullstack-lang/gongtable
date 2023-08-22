@@ -26,6 +26,13 @@
             </td>
         </ng-container>
         <!-- -->
+        <ng-container matColumnDef="IsSticky">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> IsSticky </th>
+            <td mat-cell *matCellDef="let DisplayedColumn">
+                <mat-checkbox [checked]="DisplayedColumn.IsSticky" disabled=true></mat-checkbox>
+            </td>
+        </ng-container>
+        <!-- -->
         <ng-container matColumnDef="Table_DisplayedColumns">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> <-- (Table) DisplayedColumns </th>
             <td mat-cell *matCellDef="let displayedcolumn">
