@@ -21,9 +21,6 @@
         <textarea name="" [ngModelOptions]="{standalone: true}" matInput [(ngModel)]="displayedcolumn.Name"></textarea>
     </mat-form-field>
 
-    <!-- -->
-    <mat-checkbox [formControl]="IsStickyFormControl">IsSticky</mat-checkbox>
-
     <mat-form-field class="detail-full-width">
         <mat-label>(Table) DisplayedColumns</mat-label>
         <mat-select [compareWith]="compareObjects" [(ngModel)]="displayedcolumn.Table_DisplayedColumns_reverse" [ngModelOptions]="{standalone: true}">

@@ -2857,7 +2857,7 @@ func GetFields[Type Gongstruct]() (res []string) {
 	case CheckBox:
 		res = []string{"Name", "Value"}
 	case DisplayedColumn:
-		res = []string{"Name", "IsSticky"}
+		res = []string{"Name"}
 	case FormDiv:
 		res = []string{"Name", "FormFields", "CheckBoxs", "FormEditAssocButton", "FormSortAssocButton"}
 	case FormEditAssocButton:
@@ -2887,7 +2887,7 @@ func GetFields[Type Gongstruct]() (res []string) {
 	case Row:
 		res = []string{"Name", "Cells", "IsChecked"}
 	case Table:
-		res = []string{"Name", "DisplayedColumns", "Rows", "HasFiltering", "HasColumnSorting", "HasPaginator", "HasCheckableRows", "HasSaveButton", "CanDragDropRows", "HasCloseButton", "SavingInProgress"}
+		res = []string{"Name", "DisplayedColumns", "Rows", "HasFiltering", "HasColumnSorting", "HasPaginator", "HasCheckableRows", "HasSaveButton", "CanDragDropRows", "HasCloseButton", "SavingInProgress", "NbOfStickyColumns"}
 	}
 	return
 }
@@ -2976,8 +2976,6 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 		// string value of fields
 		case "Name":
 			res = any(instance).(DisplayedColumn).Name
-		case "IsSticky":
-			res = fmt.Sprintf("%t", any(instance).(DisplayedColumn).IsSticky)
 		}
 	case FormDiv:
 		switch fieldName {
@@ -3200,6 +3198,8 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 			res = fmt.Sprintf("%t", any(instance).(Table).HasCloseButton)
 		case "SavingInProgress":
 			res = fmt.Sprintf("%t", any(instance).(Table).SavingInProgress)
+		case "NbOfStickyColumns":
+			res = fmt.Sprintf("%d", any(instance).(Table).NbOfStickyColumns)
 		}
 	}
 	return

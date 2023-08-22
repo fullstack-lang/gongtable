@@ -14,7 +14,6 @@ export class DisplayedColumnDB {
 
 	// insertion point for basic fields declarations
 	Name: string = ""
-	IsSticky: boolean = false
 
 	// insertion point for other declarations
 	Table_DisplayedColumnsDBID: NullInt64 = new NullInt64

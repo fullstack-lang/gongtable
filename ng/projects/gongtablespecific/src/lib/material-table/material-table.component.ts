@@ -28,7 +28,11 @@ export class MaterialTableComponent implements OnInit {
 
   dataSource = new MatTableDataSource<gongtable.RowDB>()
 
-
+  stickyStyle = {
+    position: 'sticky',
+    left: '0',
+    zIndex: '1'
+  }
   // for selection
   selectedTable: gongtable.TableDB | undefined = undefined;
 

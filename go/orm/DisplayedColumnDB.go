@@ -66,10 +66,6 @@ type DisplayedColumnDB struct {
 
 	// Declation for basic field displayedcolumnDB.Name
 	Name_Data sql.NullString
-
-	// Declation for basic field displayedcolumnDB.IsSticky
-	// provide the sql storage for the boolan
-	IsSticky_Data sql.NullBool
 	// encoding of pointers
 	DisplayedColumnPointersEnconding
 }
@@ -92,8 +88,6 @@ type DisplayedColumnWOP struct {
 	// insertion for WOP basic fields
 
 	Name string `xlsx:"1"`
-
-	IsSticky bool `xlsx:"2"`
 	// insertion for WOP pointer fields
 }
 
@@ -101,7 +95,6 @@ var DisplayedColumn_Fields = []string{
 	// insertion for WOP basic fields
 	"ID",
 	"Name",
-	"IsSticky",
 }
 
 type BackRepoDisplayedColumnStruct struct {
@@ -364,9 +357,6 @@ func (displayedcolumnDB *DisplayedColumnDB) CopyBasicFieldsFromDisplayedColumn(d
 
 	displayedcolumnDB.Name_Data.String = displayedcolumn.Name
 	displayedcolumnDB.Name_Data.Valid = true
-
-	displayedcolumnDB.IsSticky_Data.Bool = displayedcolumn.IsSticky
-	displayedcolumnDB.IsSticky_Data.Valid = true
 }
 
 // CopyBasicFieldsFromDisplayedColumnWOP
@@ -375,16 +365,12 @@ func (displayedcolumnDB *DisplayedColumnDB) CopyBasicFieldsFromDisplayedColumnWO
 
 	displayedcolumnDB.Name_Data.String = displayedcolumn.Name
 	displayedcolumnDB.Name_Data.Valid = true
-
-	displayedcolumnDB.IsSticky_Data.Bool = displayedcolumn.IsSticky
-	displayedcolumnDB.IsSticky_Data.Valid = true
 }
 
 // CopyBasicFieldsToDisplayedColumn
 func (displayedcolumnDB *DisplayedColumnDB) CopyBasicFieldsToDisplayedColumn(displayedcolumn *models.DisplayedColumn) {
 	// insertion point for checkout of basic fields (back repo to stage)
 	displayedcolumn.Name = displayedcolumnDB.Name_Data.String
-	displayedcolumn.IsSticky = displayedcolumnDB.IsSticky_Data.Bool
 }
 
 // CopyBasicFieldsToDisplayedColumnWOP
@@ -392,7 +378,6 @@ func (displayedcolumnDB *DisplayedColumnDB) CopyBasicFieldsToDisplayedColumnWOP(
 	displayedcolumn.ID = int(displayedcolumnDB.ID)
 	// insertion point for checkout of basic fields (back repo to stage)
 	displayedcolumn.Name = displayedcolumnDB.Name_Data.String
-	displayedcolumn.IsSticky = displayedcolumnDB.IsSticky_Data.Bool
 }
 
 // Backup generates a json file from a slice of all DisplayedColumnDB instances in the backrepo

@@ -24,7 +24,7 @@
 			"command": "go",
 			"args": [
 				"run",
-				".",
+				"main.go",
 				"-diagrams=false",
 				"--unmarshall=stage",
 				"-marshallOnCommit=stage"

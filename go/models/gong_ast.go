@@ -1184,6 +1184,13 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// remove first and last char
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_Table[identifier].Name = fielValue
+				case "NbOfStickyColumns":
+					// convert string to int
+					fielValue, err := strconv.ParseInt(basicLit.Value, 10, 64)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_Table[identifier].NbOfStickyColumns = int(exprSign) * int(fielValue)
 				}
 			}
 		case *ast.Ident:
@@ -1259,13 +1266,6 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 			case "DisplayedColumn":
 				switch fieldName {
 				// insertion point for field dependant code
-				case "IsSticky":
-					// convert string to boolean
-					fielValue, err := strconv.ParseBool(ident.Name)
-					if err != nil {
-						log.Fatalln(err)
-					}
-					__gong__map_DisplayedColumn[identifier].IsSticky = fielValue
 				}
 			case "FormDiv":
 				switch fieldName {

@@ -247,31 +247,24 @@ func table_stageInjection(stage *models.StageStruct) {
 
 	// DisplayedColumn values setup
 	__DisplayedColumn__000000_A.Name = `A`
-	__DisplayedColumn__000000_A.IsSticky = false
 
 	// DisplayedColumn values setup
 	__DisplayedColumn__000001_B.Name = `B`
-	__DisplayedColumn__000001_B.IsSticky = false
 
 	// DisplayedColumn values setup
 	__DisplayedColumn__000002_Column_1_Boolean.Name = `Column 1 - Boolean`
-	__DisplayedColumn__000002_Column_1_Boolean.IsSticky = true
 
 	// DisplayedColumn values setup
 	__DisplayedColumn__000003_Column_2_Float64.Name = `Column 2 - Float64`
-	__DisplayedColumn__000003_Column_2_Float64.IsSticky = true
 
 	// DisplayedColumn values setup
 	__DisplayedColumn__000004_Column_3_Icon.Name = `Column 3 - Icon`
-	__DisplayedColumn__000004_Column_3_Icon.IsSticky = false
 
 	// DisplayedColumn values setup
 	__DisplayedColumn__000005_Column_4_Int.Name = `Column 4 - Int`
-	__DisplayedColumn__000005_Column_4_Int.IsSticky = false
 
 	// DisplayedColumn values setup
 	__DisplayedColumn__000006_Column_5_String.Name = `Column 5 - String`
-	__DisplayedColumn__000006_Column_5_String.IsSticky = false
 
 	// Row values setup
 	__Row__000000_Row_1.Name = `Row 1`
@@ -303,6 +296,7 @@ func table_stageInjection(stage *models.StageStruct) {
 	__Table__000000_EmptyTable.CanDragDropRows = false
 	__Table__000000_EmptyTable.HasCloseButton = false
 	__Table__000000_EmptyTable.SavingInProgress = false
+	__Table__000000_EmptyTable.NbOfStickyColumns = 0
 
 	// Table values setup
 	__Table__000001_Table.Name = `Table`
@@ -314,6 +308,7 @@ func table_stageInjection(stage *models.StageStruct) {
 	__Table__000001_Table.CanDragDropRows = false
 	__Table__000001_Table.HasCloseButton = false
 	__Table__000001_Table.SavingInProgress = false
+	__Table__000001_Table.NbOfStickyColumns = 3
 
 	// Table values setup
 	__Table__000002_Table_2.Name = `Table 2`
@@ -325,6 +320,7 @@ func table_stageInjection(stage *models.StageStruct) {
 	__Table__000002_Table_2.CanDragDropRows = true
 	__Table__000002_Table_2.HasCloseButton = true
 	__Table__000002_Table_2.SavingInProgress = false
+	__Table__000002_Table_2.NbOfStickyColumns = 0
 
 	// Setup of pointers
 	__Cell__000000_Row_1_Cell_1.CellBool = __CellBoolean__000000_Row_1_Cell_1_Cell_False
