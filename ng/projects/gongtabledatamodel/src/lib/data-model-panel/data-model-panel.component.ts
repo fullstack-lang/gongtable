@@ -8,10 +8,11 @@ import * as gongtable from 'gongtable';
 export class DataModelPanelComponent implements OnInit {
 
   data = 'Data'
+  dataNew = 'DataNew'
   view = this.data
   model = 'Model'
 
-  views: string[] = [this.data, this.model]
+  views: string[] = [this.data, this.dataNew, this.model]
 
   textStyle = {
     'color': 'rgba(0, 0, 0, 0.87)', // These are just examples.

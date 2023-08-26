@@ -11,10 +11,10 @@ import * as gongtable from 'gongtable'
 })
 export class AppComponent implements OnInit {
 
-  table_view = 'Table'
+  table_view = gongtable.TableName.TableDefaultName
   table_data_model = 'Table Data/Model'
 
-  form_view = "Form"
+  form_view = gongtable.FormGroupName.FormGroupDefaultName
   form_data_model = 'Form Data/Model'
 
   view = this.table_view
