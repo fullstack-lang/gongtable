@@ -1,12 +1,12 @@
 module github.com/fullstack-lang/gongtable
 
-go 1.21
+go 1.21.0
 
 require (
 	github.com/fullstack-lang/gong v0.0.0-20230801151815-d83eab185c86
 	github.com/fullstack-lang/gongdoc v0.0.0-20230802134450-befcd248c3a1
-	github.com/fullstack-lang/gongrouter v0.0.0-20230721203848-64c395251bdc
 	github.com/fullstack-lang/gongtree v0.0.0-20230801154057-79c7faf82605
+	github.com/fullstack-lang/maticons v0.0.0-20230823061653-70c364fbdd00
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-contrib/static v0.0.1
 	github.com/gin-gonic/gin v1.9.1

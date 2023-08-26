@@ -16,12 +16,12 @@ github.com/fullstack-lang/gong v0.0.0-20230801151815-d83eab185c86 h1:vpsMZTRU7da
 github.com/fullstack-lang/gong v0.0.0-20230801151815-d83eab185c86/go.mod h1:M7s5or+wvpsQsuenQx957/v6FEoxf2f+c2aP4kXcU+g=
 github.com/fullstack-lang/gongdoc v0.0.0-20230802134450-befcd248c3a1 h1:1MH2drCtvb3nfT/FCkg0ibenwq/8jOWB+1x/5vWxUmY=
 github.com/fullstack-lang/gongdoc v0.0.0-20230802134450-befcd248c3a1/go.mod h1:gtBuptkGVPTjfc/LLZBfAyLpbrZouCbpzO9K7DTlpyA=
-github.com/fullstack-lang/gongrouter v0.0.0-20230721203848-64c395251bdc h1:5SQGuO1kKcUJ5VkeI+mokbPSSidT0A2vO5LywJvTALU=
-github.com/fullstack-lang/gongrouter v0.0.0-20230721203848-64c395251bdc/go.mod h1:PmkbLMv6oQDbx3u/WRNgA/j13SGuGp1bdwJQk8YWEK4=
 github.com/fullstack-lang/gongsvg v0.0.0-20230801152816-1fe19f3afd9c h1:FrSZTTL3UL2R70F2paBHXHTe+xAAiwUEb94r+DvEww8=
 github.com/fullstack-lang/gongsvg v0.0.0-20230801152816-1fe19f3afd9c/go.mod h1:kK87KPgp+5MSPtmpTD+U/01F/zvDL82TZmuZfvz82Xg=
 github.com/fullstack-lang/gongtree v0.0.0-20230801154057-79c7faf82605 h1:xBVzabhAKbG9F3Ja3ycU0S3agrUZMgVaYCdPTRVEVRY=
 github.com/fullstack-lang/gongtree v0.0.0-20230801154057-79c7faf82605/go.mod h1:Uyv4Z+XDbR++WjootZi0zzKiCkG0IHlPNPRWY7TjRGU=
+github.com/fullstack-lang/maticons v0.0.0-20230823061653-70c364fbdd00 h1:F693/CX+8lG6/JswPfx812Gc4PMSqczsIG2wRQN+sPw=
+github.com/fullstack-lang/maticons v0.0.0-20230823061653-70c364fbdd00/go.mod h1:zjUpGcg6CWgd9nU4VUEQEPtHdyZ4+bCb7hwrvyscpis=
 github.com/gabriel-vasile/mimetype v1.4.2 h1:w5qFW6JKBz9Y393Y4q372O9A7cUSequkh1Q7OhCmWKU=
 github.com/gabriel-vasile/mimetype v1.4.2/go.mod h1:zApsH/mKG4w07erKIaJPFiX0Tsq9BFQgN3qGY5GnNgA=
 github.com/gin-contrib/cors v1.4.0 h1:oJ6gwtUl3lqV0WEIwM/LxPF1QZ5qe2lGWdY2+bz7y0g=
