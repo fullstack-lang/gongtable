@@ -154,7 +154,7 @@ func main() {
 		hook := new(BeforeCommitImplForManualyEditedTableStage)
 		stageForManualyEditedTable.OnInitCommitFromFrontCallback = hook
 	}
-	if false {
+	{
 		hook := new(BeforeCommitImplForManualyEditedFormStage)
 		stageForManualyEditedForm.OnInitCommitFromFrontCallback = hook
 	}

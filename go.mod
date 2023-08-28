@@ -1,6 +1,6 @@
 module github.com/fullstack-lang/gongtable
 
-go 1.21.0
+go 1.21
 
 require (
 	github.com/fullstack-lang/gong v0.0.0-20230801151815-d83eab185c86

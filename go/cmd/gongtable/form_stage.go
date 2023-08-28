@@ -199,7 +199,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormFieldInt values setup
 	__FormFieldInt__000000_Age.Name = `Age`
-	__FormFieldInt__000000_Age.Value = 12
+	__FormFieldInt__000000_Age.Value = 11
 
 	// FormFieldSelect values setup
 	__FormFieldSelect__000000_Select.Name = `Select`
