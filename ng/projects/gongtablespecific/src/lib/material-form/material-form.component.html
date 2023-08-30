@@ -5,10 +5,19 @@
                 <mat-label>{{formField.Label}}</mat-label>
                 <ng-container *ngIf="formField.FormFieldInt">
                     <mat-error *ngIf="generatedForm.controls[formField.Name].hasError('min')">
-                        The number must be at least 0
+                        The number must be at least {{formField.FormFieldInt.MinValue}}
                     </mat-error>
                     <mat-error *ngIf="generatedForm.controls[formField.Name].hasError('max')">
-                        The number must be at most 59
+                        The number must be at most {{formField.FormFieldInt.MaxValue}}
+                    </mat-error>
+                    <input matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
+                </ng-container>
+                <ng-container *ngIf="formField.FormFieldFloat64">
+                    <mat-error *ngIf="generatedForm.controls[formField.Name].hasError('min')">
+                        The number must be at least {{formField.FormFieldFloat64.MinValue}}
+                    </mat-error>
+                    <mat-error *ngIf="generatedForm.controls[formField.Name].hasError('max')">
+                        The number must be at most {{formField.FormFieldFloat64.MaxValue}}
                     </mat-error>
                     <input matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
                 </ng-container>

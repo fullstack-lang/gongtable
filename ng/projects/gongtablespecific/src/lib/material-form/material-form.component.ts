@@ -52,6 +52,7 @@ export class MaterialFormComponent implements OnInit {
 
     private formFieldStringService: gongtable.FormFieldStringService,
     private formFieldIntService: gongtable.FormFieldIntService,
+    private formFieldFloat64Service: gongtable.FormFieldFloat64Service,
     private formFieldDateService: gongtable.FormFieldDateService,
     private formFieldTimeService: gongtable.FormFieldTimeService,
     private formFieldDateTimeService: gongtable.FormFieldDateTimeService,
@@ -164,6 +165,18 @@ export class MaterialFormComponent implements OnInit {
                 }
                 generatedFormGroupConfig[formField.Name] = [formField.FormFieldInt.Value.toString(), validators]
               }
+              if (formField.FormFieldFloat64) {
+                let validators = [Validators.required]
+
+                if (formField.FormFieldFloat64.HasMinValidator) {
+                  validators.push(Validators.min(formField.FormFieldFloat64.MinValue))
+                }
+                if (formField.FormFieldFloat64.HasMaxValidator) {
+                  validators.push(Validators.max(formField.FormFieldFloat64.MaxValue))
+                }
+                generatedFormGroupConfig[formField.Name] = [formField.FormFieldFloat64.Value.toString(), validators]
+              }
+
               if (formField.FormFieldDate) {
                 let displayedString = formField.FormFieldDate.Value.toString().substring(0, 10)
                 generatedFormGroupConfig[formField.Name] = [displayedString, Validators.required]
@@ -244,6 +257,16 @@ export class MaterialFormComponent implements OnInit {
 
               formFieldInt.Value = newValue
               promises.push(this.formFieldIntService.updateFormFieldInt(formFieldInt, this.DataStack))
+            }
+          }
+          if (formField.FormFieldFloat64) {
+            let formFieldFlFormFieldFloat64 = formField.FormFieldFloat64
+            let newValue: number = +this.generatedForm.value[formField.Name]
+
+            if (newValue != formFieldFlFormFieldFloat64.Value) {
+
+              formFieldFlFormFieldFloat64.Value = newValue
+              promises.push(this.formFieldFloat64Service.updateFormFieldFloat64(formFieldFlFormFieldFloat64, this.DataStack))
             }
           }
           if (formField.FormFieldDate) {

@@ -57,13 +57,14 @@ func form_stageInjection(stage *models.StageStruct) {
 	// Declarations of staged instances of DisplayedColumn
 
 	// Declarations of staged instances of FormDiv
-	__FormDiv__000000_Age := (&models.FormDiv{Name: `Age`}).Stage(stage)
-	__FormDiv__000001_CheckBoxs := (&models.FormDiv{Name: `CheckBoxs`}).Stage(stage)
-	__FormDiv__000002_Date_Time := (&models.FormDiv{Name: `Date - Time`}).Stage(stage)
-	__FormDiv__000003_DateTime := (&models.FormDiv{Name: `DateTime`}).Stage(stage)
-	__FormDiv__000004_Edit_Assoc := (&models.FormDiv{Name: `Edit Assoc`}).Stage(stage)
+	__FormDiv__000000_CheckBoxs := (&models.FormDiv{Name: `CheckBoxs`}).Stage(stage)
+	__FormDiv__000001_Date_Time := (&models.FormDiv{Name: `Date - Time`}).Stage(stage)
+	__FormDiv__000002_DateTime := (&models.FormDiv{Name: `DateTime`}).Stage(stage)
+	__FormDiv__000003_Edit_Assoc := (&models.FormDiv{Name: `Edit Assoc`}).Stage(stage)
+	__FormDiv__000004_Float64_level_of_x := (&models.FormDiv{Name: `Float64 - level of x`}).Stage(stage)
 	__FormDiv__000005_Form_Div_First_Name_Name := (&models.FormDiv{Name: `Form Div First Name  - Name`}).Stage(stage)
-	__FormDiv__000006_Select := (&models.FormDiv{Name: `Select`}).Stage(stage)
+	__FormDiv__000006_Int_Age := (&models.FormDiv{Name: `Int - Age`}).Stage(stage)
+	__FormDiv__000007_Select := (&models.FormDiv{Name: `Select`}).Stage(stage)
 
 	// Declarations of staged instances of FormEditAssocButton
 	__FormEditAssocButton__000000_Edit_Assoc := (&models.FormEditAssocButton{Name: `Edit Assoc`}).Stage(stage)
@@ -73,9 +74,10 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000001_Date := (&models.FormField{Name: `Date`}).Stage(stage)
 	__FormField__000002_DateTime := (&models.FormField{Name: `DateTime`}).Stage(stage)
 	__FormField__000003_FirstName := (&models.FormField{Name: `FirstName`}).Stage(stage)
-	__FormField__000004_LastName := (&models.FormField{Name: `LastName`}).Stage(stage)
-	__FormField__000005_Select := (&models.FormField{Name: `Select`}).Stage(stage)
-	__FormField__000006_Time := (&models.FormField{Name: `Time`}).Stage(stage)
+	__FormField__000004_Float64_level_of_x := (&models.FormField{Name: `Float64 - level of x`}).Stage(stage)
+	__FormField__000005_LastName := (&models.FormField{Name: `LastName`}).Stage(stage)
+	__FormField__000006_Select := (&models.FormField{Name: `Select`}).Stage(stage)
+	__FormField__000007_Time := (&models.FormField{Name: `Time`}).Stage(stage)
 
 	// Declarations of staged instances of FormFieldDate
 	__FormFieldDate__000000_Time := (&models.FormFieldDate{Name: `Time`}).Stage(stage)
@@ -84,6 +86,7 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormFieldDateTime__000000_DateTime := (&models.FormFieldDateTime{Name: `DateTime`}).Stage(stage)
 
 	// Declarations of staged instances of FormFieldFloat64
+	__FormFieldFloat64__000000_Float64_level_of_x := (&models.FormFieldFloat64{Name: `Float64 - level of x`}).Stage(stage)
 
 	// Declarations of staged instances of FormFieldInt
 	__FormFieldInt__000000_Age := (&models.FormFieldInt{Name: `Age`}).Stage(stage)
@@ -125,25 +128,28 @@ func form_stageInjection(stage *models.StageStruct) {
 	__CheckBox__000000_Boolean.Value = true
 
 	// FormDiv values setup
-	__FormDiv__000000_Age.Name = `Age`
+	__FormDiv__000000_CheckBoxs.Name = `CheckBoxs`
 
 	// FormDiv values setup
-	__FormDiv__000001_CheckBoxs.Name = `CheckBoxs`
+	__FormDiv__000001_Date_Time.Name = `Date - Time`
 
 	// FormDiv values setup
-	__FormDiv__000002_Date_Time.Name = `Date - Time`
+	__FormDiv__000002_DateTime.Name = `DateTime`
 
 	// FormDiv values setup
-	__FormDiv__000003_DateTime.Name = `DateTime`
+	__FormDiv__000003_Edit_Assoc.Name = `Edit Assoc`
 
 	// FormDiv values setup
-	__FormDiv__000004_Edit_Assoc.Name = `Edit Assoc`
+	__FormDiv__000004_Float64_level_of_x.Name = `Float64 - level of x`
 
 	// FormDiv values setup
 	__FormDiv__000005_Form_Div_First_Name_Name.Name = `Form Div First Name  - Name`
 
 	// FormDiv values setup
-	__FormDiv__000006_Select.Name = `Select`
+	__FormDiv__000006_Int_Age.Name = `Int - Age`
+
+	// FormDiv values setup
+	__FormDiv__000007_Select.Name = `Select`
 
 	// FormEditAssocButton values setup
 	__FormEditAssocButton__000000_Edit_Assoc.Name = `Edit Assoc`
@@ -181,27 +187,34 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000003_FirstName.BespokeWidthPx = 0
 
 	// FormField values setup
-	__FormField__000004_LastName.Name = `LastName`
-	__FormField__000004_LastName.InputTypeEnum = models.Text
-	__FormField__000004_LastName.Label = `Last Name (label)`
-	__FormField__000004_LastName.Placeholder = ``
-	__FormField__000004_LastName.HasBespokeWidth = false
-	__FormField__000004_LastName.BespokeWidthPx = 0
+	__FormField__000004_Float64_level_of_x.Name = `Float64 - level of x`
+	__FormField__000004_Float64_level_of_x.Label = `Float`
+	__FormField__000004_Float64_level_of_x.Placeholder = ``
+	__FormField__000004_Float64_level_of_x.HasBespokeWidth = false
+	__FormField__000004_Float64_level_of_x.BespokeWidthPx = 0
 
 	// FormField values setup
-	__FormField__000005_Select.Name = `Select`
-	__FormField__000005_Select.Label = ``
-	__FormField__000005_Select.Placeholder = ``
-	__FormField__000005_Select.HasBespokeWidth = false
-	__FormField__000005_Select.BespokeWidthPx = 0
+	__FormField__000005_LastName.Name = `LastName`
+	__FormField__000005_LastName.InputTypeEnum = models.Text
+	__FormField__000005_LastName.Label = `Last Name (label)`
+	__FormField__000005_LastName.Placeholder = ``
+	__FormField__000005_LastName.HasBespokeWidth = false
+	__FormField__000005_LastName.BespokeWidthPx = 0
 
 	// FormField values setup
-	__FormField__000006_Time.Name = `Time`
-	__FormField__000006_Time.InputTypeEnum = models.Time
-	__FormField__000006_Time.Label = `Time`
-	__FormField__000006_Time.Placeholder = ``
-	__FormField__000006_Time.HasBespokeWidth = false
-	__FormField__000006_Time.BespokeWidthPx = 0
+	__FormField__000006_Select.Name = `Select`
+	__FormField__000006_Select.Label = ``
+	__FormField__000006_Select.Placeholder = ``
+	__FormField__000006_Select.HasBespokeWidth = false
+	__FormField__000006_Select.BespokeWidthPx = 0
+
+	// FormField values setup
+	__FormField__000007_Time.Name = `Time`
+	__FormField__000007_Time.InputTypeEnum = models.Time
+	__FormField__000007_Time.Label = `Time`
+	__FormField__000007_Time.Placeholder = ``
+	__FormField__000007_Time.HasBespokeWidth = false
+	__FormField__000007_Time.BespokeWidthPx = 0
 
 	// FormFieldDate values setup
 	__FormFieldDate__000000_Time.Name = `Time`
@@ -210,6 +223,14 @@ func form_stageInjection(stage *models.StageStruct) {
 	// FormFieldDateTime values setup
 	__FormFieldDateTime__000000_DateTime.Name = `DateTime`
 	__FormFieldDateTime__000000_DateTime.Value, _ = time.Parse("2006-01-02 15:04:05.999999999 -0700 MST", "2001-01-01 01:02:03 +0000 UTC")
+
+	// FormFieldFloat64 values setup
+	__FormFieldFloat64__000000_Float64_level_of_x.Name = `Float64 - level of x`
+	__FormFieldFloat64__000000_Float64_level_of_x.Value = 64.200000
+	__FormFieldFloat64__000000_Float64_level_of_x.HasMinValidator = false
+	__FormFieldFloat64__000000_Float64_level_of_x.MinValue = 0.000000
+	__FormFieldFloat64__000000_Float64_level_of_x.HasMaxValidator = false
+	__FormFieldFloat64__000000_Float64_level_of_x.MaxValue = 0.000000
 
 	// FormFieldInt values setup
 	__FormFieldInt__000000_Age.Name = `Age`
@@ -255,35 +276,38 @@ func form_stageInjection(stage *models.StageStruct) {
 	__Option__000003_Option_4.Name = `Option 4`
 
 	// Setup of pointers
-	__FormDiv__000000_Age.FormFields = append(__FormDiv__000000_Age.FormFields, __FormField__000000_Age)
-	__FormDiv__000001_CheckBoxs.CheckBoxs = append(__FormDiv__000001_CheckBoxs.CheckBoxs, __CheckBox__000000_Boolean)
-	__FormDiv__000002_Date_Time.FormFields = append(__FormDiv__000002_Date_Time.FormFields, __FormField__000001_Date)
-	__FormDiv__000002_Date_Time.FormFields = append(__FormDiv__000002_Date_Time.FormFields, __FormField__000006_Time)
-	__FormDiv__000003_DateTime.FormFields = append(__FormDiv__000003_DateTime.FormFields, __FormField__000002_DateTime)
-	__FormDiv__000004_Edit_Assoc.FormEditAssocButton = __FormEditAssocButton__000000_Edit_Assoc
-	__FormDiv__000004_Edit_Assoc.FormSortAssocButton = __FormSortAssocButton__000000_Sort_Button
+	__FormDiv__000000_CheckBoxs.CheckBoxs = append(__FormDiv__000000_CheckBoxs.CheckBoxs, __CheckBox__000000_Boolean)
+	__FormDiv__000001_Date_Time.FormFields = append(__FormDiv__000001_Date_Time.FormFields, __FormField__000001_Date)
+	__FormDiv__000001_Date_Time.FormFields = append(__FormDiv__000001_Date_Time.FormFields, __FormField__000007_Time)
+	__FormDiv__000002_DateTime.FormFields = append(__FormDiv__000002_DateTime.FormFields, __FormField__000002_DateTime)
+	__FormDiv__000003_Edit_Assoc.FormEditAssocButton = __FormEditAssocButton__000000_Edit_Assoc
+	__FormDiv__000003_Edit_Assoc.FormSortAssocButton = __FormSortAssocButton__000000_Sort_Button
+	__FormDiv__000004_Float64_level_of_x.FormFields = append(__FormDiv__000004_Float64_level_of_x.FormFields, __FormField__000004_Float64_level_of_x)
 	__FormDiv__000005_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000005_Form_Div_First_Name_Name.FormFields, __FormField__000003_FirstName)
-	__FormDiv__000005_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000005_Form_Div_First_Name_Name.FormFields, __FormField__000004_LastName)
-	__FormDiv__000006_Select.FormFields = append(__FormDiv__000006_Select.FormFields, __FormField__000005_Select)
+	__FormDiv__000005_Form_Div_First_Name_Name.FormFields = append(__FormDiv__000005_Form_Div_First_Name_Name.FormFields, __FormField__000005_LastName)
+	__FormDiv__000006_Int_Age.FormFields = append(__FormDiv__000006_Int_Age.FormFields, __FormField__000000_Age)
+	__FormDiv__000007_Select.FormFields = append(__FormDiv__000007_Select.FormFields, __FormField__000006_Select)
 	__FormField__000000_Age.FormFieldInt = __FormFieldInt__000000_Age
 	__FormField__000001_Date.FormFieldDate = __FormFieldDate__000000_Time
 	__FormField__000002_DateTime.FormFieldDateTime = __FormFieldDateTime__000000_DateTime
 	__FormField__000003_FirstName.FormFieldString = __FormFieldString__000000_FirstName
-	__FormField__000004_LastName.FormFieldString = __FormFieldString__000001_LastName
-	__FormField__000005_Select.FormFieldSelect = __FormFieldSelect__000000_Select
-	__FormField__000006_Time.FormFieldTime = __FormFieldTime__000000_Time
+	__FormField__000004_Float64_level_of_x.FormFieldFloat64 = __FormFieldFloat64__000000_Float64_level_of_x
+	__FormField__000005_LastName.FormFieldString = __FormFieldString__000001_LastName
+	__FormField__000006_Select.FormFieldSelect = __FormFieldSelect__000000_Select
+	__FormField__000007_Time.FormFieldTime = __FormFieldTime__000000_Time
 	__FormFieldSelect__000000_Select.Value = __Option__000000_Option_1
 	__FormFieldSelect__000000_Select.Options = append(__FormFieldSelect__000000_Select.Options, __Option__000002_Option_3)
 	__FormFieldSelect__000000_Select.Options = append(__FormFieldSelect__000000_Select.Options, __Option__000003_Option_4)
 	__FormFieldSelect__000000_Select.Options = append(__FormFieldSelect__000000_Select.Options, __Option__000000_Option_1)
 	__FormFieldSelect__000000_Select.Options = append(__FormFieldSelect__000000_Select.Options, __Option__000001_Option_2)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000001_CheckBoxs)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000004_Edit_Assoc)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000000_Age)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000006_Select)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000000_CheckBoxs)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000003_Edit_Assoc)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000006_Int_Age)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000004_Float64_level_of_x)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000007_Select)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000005_Form_Div_First_Name_Name)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000002_Date_Time)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000003_DateTime)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000001_Date_Time)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000002_DateTime)
 }
 
 
