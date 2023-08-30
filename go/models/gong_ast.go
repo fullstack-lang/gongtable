@@ -1106,6 +1106,20 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 						log.Fatalln(err)
 					}
 					__gong__map_FormFieldInt[identifier].Value = int(exprSign) * int(fielValue)
+				case "MinValue":
+					// convert string to int
+					fielValue, err := strconv.ParseInt(basicLit.Value, 10, 64)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_FormFieldInt[identifier].MinValue = int(exprSign) * int(fielValue)
+				case "MaxValue":
+					// convert string to int
+					fielValue, err := strconv.ParseInt(basicLit.Value, 10, 64)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_FormFieldInt[identifier].MaxValue = int(exprSign) * int(fielValue)
 				}
 			case "FormFieldSelect":
 				switch fieldName {
@@ -1322,6 +1336,20 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 			case "FormFieldInt":
 				switch fieldName {
 				// insertion point for field dependant code
+				case "HasMinValidator":
+					// convert string to boolean
+					fielValue, err := strconv.ParseBool(ident.Name)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_FormFieldInt[identifier].HasMinValidator = fielValue
+				case "HasMaxValidator":
+					// convert string to boolean
+					fielValue, err := strconv.ParseBool(ident.Name)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_FormFieldInt[identifier].HasMaxValidator = fielValue
 				}
 			case "FormFieldSelect":
 				switch fieldName {

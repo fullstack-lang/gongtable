@@ -2872,7 +2872,7 @@ func GetFields[Type Gongstruct]() (res []string) {
 	case FormFieldFloat64:
 		res = []string{"Name", "Value"}
 	case FormFieldInt:
-		res = []string{"Name", "Value"}
+		res = []string{"Name", "Value", "HasMinValidator", "MinValue", "HasMaxValidator", "MaxValue"}
 	case FormFieldSelect:
 		res = []string{"Name", "Value", "Options"}
 	case FormFieldString:
@@ -3086,6 +3086,14 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 			res = any(instance).(FormFieldInt).Name
 		case "Value":
 			res = fmt.Sprintf("%d", any(instance).(FormFieldInt).Value)
+		case "HasMinValidator":
+			res = fmt.Sprintf("%t", any(instance).(FormFieldInt).HasMinValidator)
+		case "MinValue":
+			res = fmt.Sprintf("%d", any(instance).(FormFieldInt).MinValue)
+		case "HasMaxValidator":
+			res = fmt.Sprintf("%t", any(instance).(FormFieldInt).HasMaxValidator)
+		case "MaxValue":
+			res = fmt.Sprintf("%d", any(instance).(FormFieldInt).MaxValue)
 		}
 	case FormFieldSelect:
 		switch fieldName {

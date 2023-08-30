@@ -200,6 +200,10 @@ func form_stageInjection(stage *models.StageStruct) {
 	// FormFieldInt values setup
 	__FormFieldInt__000000_Age.Name = `Age`
 	__FormFieldInt__000000_Age.Value = -10
+	__FormFieldInt__000000_Age.HasMinValidator = true
+	__FormFieldInt__000000_Age.MinValue = 0
+	__FormFieldInt__000000_Age.HasMaxValidator = true
+	__FormFieldInt__000000_Age.MaxValue = 59
 
 	// FormFieldSelect values setup
 	__FormFieldSelect__000000_Select.Name = `Select`

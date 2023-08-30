@@ -154,7 +154,15 @@ export class MaterialFormComponent implements OnInit {
                 generatedFormGroupConfig[formField.Name] = [formField.FormFieldString.Value, Validators.required]
               }
               if (formField.FormFieldInt) {
-                generatedFormGroupConfig[formField.Name] = [formField.FormFieldInt.Value.toString(), [Validators.required, Validators.min(0), Validators.max(59)]]
+                let validators = [Validators.required]
+
+                if (formField.FormFieldInt.HasMinValidator) {
+                  validators.push(Validators.min(formField.FormFieldInt.MinValue))
+                }
+                if (formField.FormFieldInt.HasMaxValidator) {
+                  validators.push(Validators.max(formField.FormFieldInt.MaxValue))
+                }
+                generatedFormGroupConfig[formField.Name] = [formField.FormFieldInt.Value.toString(), validators]
               }
               if (formField.FormFieldDate) {
                 let displayedString = formField.FormFieldDate.Value.toString().substring(0, 10)
