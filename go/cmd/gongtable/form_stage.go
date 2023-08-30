@@ -152,7 +152,7 @@ func form_stageInjection(stage *models.StageStruct) {
 	// FormField values setup
 	__FormField__000000_Age.Name = `Age`
 	__FormField__000000_Age.InputTypeEnum = models.Number
-	__FormField__000000_Age.Label = `Age`
+	__FormField__000000_Age.Label = `Age (above 0 & < 100)`
 	__FormField__000000_Age.Placeholder = `18`
 
 	// FormField values setup
@@ -199,7 +199,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormFieldInt values setup
 	__FormFieldInt__000000_Age.Name = `Age`
-	__FormFieldInt__000000_Age.Value = 11
+	__FormFieldInt__000000_Age.Value = -10
 
 	// FormFieldSelect values setup
 	__FormFieldSelect__000000_Select.Name = `Select`

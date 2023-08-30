@@ -2,8 +2,16 @@
     <div *ngFor="let div of this.selectedFormGroup?.FormDivs">
         <mat-form-field class="custom-form-field" *ngFor="let formField of div.FormFields">
             <mat-label>{{formField.Label}}</mat-label>
+            <ng-container *ngIf="formField.FormFieldInt">
+                <mat-error *ngIf="generatedForm.controls[formField.Name].hasError('min')">
+                    The number must be at least 0
+                </mat-error>
+                <mat-error *ngIf="generatedForm.controls[formField.Name].hasError('max')">
+                    The number must be at most 59
+                </mat-error>
+                <input matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
+            </ng-container>
             <input *ngIf="formField.FormFieldString" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
-            <input *ngIf="formField.FormFieldInt" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
             <input *ngIf="formField.FormFieldDate" type="date" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
             <input *ngIf="formField.FormFieldTime" type="time" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder" [step]="formField.FormFieldTime.Step">
             <input *ngIf="formField.FormFieldDateTime" matInput [formControlName]="formField.Name" [placeholder]="formField.Placeholder">
