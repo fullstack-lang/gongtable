@@ -226,7 +226,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormFieldFloat64 values setup
 	__FormFieldFloat64__000000_Float64_level_of_x.Name = `Float64 - level of x`
-	__FormFieldFloat64__000000_Float64_level_of_x.Value = 64.200000
+	__FormFieldFloat64__000000_Float64_level_of_x.Value = 64.255500
 	__FormFieldFloat64__000000_Float64_level_of_x.HasMinValidator = false
 	__FormFieldFloat64__000000_Float64_level_of_x.MinValue = 0.000000
 	__FormFieldFloat64__000000_Float64_level_of_x.HasMaxValidator = false
@@ -234,7 +234,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormFieldInt values setup
 	__FormFieldInt__000000_Age.Name = `Age`
-	__FormFieldInt__000000_Age.Value = 10
+	__FormFieldInt__000000_Age.Value = 0
 	__FormFieldInt__000000_Age.HasMinValidator = true
 	__FormFieldInt__000000_Age.MinValue = 0
 	__FormFieldInt__000000_Age.HasMaxValidator = true
