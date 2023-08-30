@@ -2864,7 +2864,7 @@ func GetFields[Type Gongstruct]() (res []string) {
 	case FormEditAssocButton:
 		res = []string{"Name", "Label"}
 	case FormField:
-		res = []string{"Name", "InputTypeEnum", "Label", "Placeholder", "FormFieldString", "FormFieldFloat64", "FormFieldInt", "FormFieldDate", "FormFieldTime", "FormFieldDateTime", "FormFieldSelect"}
+		res = []string{"Name", "InputTypeEnum", "Label", "Placeholder", "FormFieldString", "FormFieldFloat64", "FormFieldInt", "FormFieldDate", "FormFieldTime", "FormFieldDateTime", "FormFieldSelect", "HasBespokeWidth", "BespokeWidthPx"}
 	case FormFieldDate:
 		res = []string{"Name", "Value"}
 	case FormFieldDateTime:
@@ -3054,6 +3054,10 @@ func GetFieldStringValue[Type Gongstruct](instance Type, fieldName string) (res 
 			if any(instance).(FormField).FormFieldSelect != nil {
 				res = any(instance).(FormField).FormFieldSelect.Name
 			}
+		case "HasBespokeWidth":
+			res = fmt.Sprintf("%t", any(instance).(FormField).HasBespokeWidth)
+		case "BespokeWidthPx":
+			res = fmt.Sprintf("%d", any(instance).(FormField).BespokeWidthPx)
 		}
 	case FormFieldDate:
 		switch fieldName {

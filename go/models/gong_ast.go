@@ -1060,6 +1060,13 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 					// remove first and last char
 					fielValue := basicLit.Value[1 : len(basicLit.Value)-1]
 					__gong__map_FormField[identifier].Placeholder = fielValue
+				case "BespokeWidthPx":
+					// convert string to int
+					fielValue, err := strconv.ParseInt(basicLit.Value, 10, 64)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_FormField[identifier].BespokeWidthPx = int(exprSign) * int(fielValue)
 				}
 			case "FormFieldDate":
 				switch fieldName {
@@ -1320,6 +1327,13 @@ func UnmarshallGongstructStaging(stage *StageStruct, cmap *ast.CommentMap, assig
 				case "FormFieldSelect":
 					targetIdentifier := ident.Name
 					__gong__map_FormField[identifier].FormFieldSelect = __gong__map_FormFieldSelect[targetIdentifier]
+				case "HasBespokeWidth":
+					// convert string to boolean
+					fielValue, err := strconv.ParseBool(ident.Name)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					__gong__map_FormField[identifier].HasBespokeWidth = fielValue
 				}
 			case "FormFieldDate":
 				switch fieldName {

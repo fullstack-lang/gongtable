@@ -435,5 +435,15 @@ export class MaterialFormComponent implements OnInit {
       }
     }
   }
+
+  getDynamicStyles(formField: gongtable.FormFieldDB): { [key: string]: any } {
+    const styles: { [key: string]: any } = {} // Explicitly define the type here   
+    if (formField) {
+      if (formField.HasBespokeWidth) {
+        styles['width.px'] = formField.BespokeWidthPx
+      }
+    }
+    return styles
+  }
 }
 

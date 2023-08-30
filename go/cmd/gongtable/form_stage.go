@@ -152,42 +152,56 @@ func form_stageInjection(stage *models.StageStruct) {
 	// FormField values setup
 	__FormField__000000_Age.Name = `Age`
 	__FormField__000000_Age.InputTypeEnum = models.Number
-	__FormField__000000_Age.Label = `Age (above 0 & < 100)`
+	__FormField__000000_Age.Label = `Age`
 	__FormField__000000_Age.Placeholder = `18`
+	__FormField__000000_Age.HasBespokeWidth = true
+	__FormField__000000_Age.BespokeWidthPx = 90
 
 	// FormField values setup
 	__FormField__000001_Date.Name = `Date`
 	__FormField__000001_Date.InputTypeEnum = models.Date
 	__FormField__000001_Date.Label = `Date`
 	__FormField__000001_Date.Placeholder = ``
+	__FormField__000001_Date.HasBespokeWidth = false
+	__FormField__000001_Date.BespokeWidthPx = 0
 
 	// FormField values setup
 	__FormField__000002_DateTime.Name = `DateTime`
 	__FormField__000002_DateTime.Label = ``
 	__FormField__000002_DateTime.Placeholder = ``
+	__FormField__000002_DateTime.HasBespokeWidth = false
+	__FormField__000002_DateTime.BespokeWidthPx = 0
 
 	// FormField values setup
 	__FormField__000003_FirstName.Name = `FirstName`
 	__FormField__000003_FirstName.InputTypeEnum = models.Text
 	__FormField__000003_FirstName.Label = `First Name (label)`
 	__FormField__000003_FirstName.Placeholder = ``
+	__FormField__000003_FirstName.HasBespokeWidth = false
+	__FormField__000003_FirstName.BespokeWidthPx = 0
 
 	// FormField values setup
 	__FormField__000004_LastName.Name = `LastName`
 	__FormField__000004_LastName.InputTypeEnum = models.Text
 	__FormField__000004_LastName.Label = `Last Name (label)`
 	__FormField__000004_LastName.Placeholder = ``
+	__FormField__000004_LastName.HasBespokeWidth = false
+	__FormField__000004_LastName.BespokeWidthPx = 0
 
 	// FormField values setup
 	__FormField__000005_Select.Name = `Select`
 	__FormField__000005_Select.Label = ``
 	__FormField__000005_Select.Placeholder = ``
+	__FormField__000005_Select.HasBespokeWidth = false
+	__FormField__000005_Select.BespokeWidthPx = 0
 
 	// FormField values setup
 	__FormField__000006_Time.Name = `Time`
 	__FormField__000006_Time.InputTypeEnum = models.Time
 	__FormField__000006_Time.Label = `Time`
 	__FormField__000006_Time.Placeholder = ``
+	__FormField__000006_Time.HasBespokeWidth = false
+	__FormField__000006_Time.BespokeWidthPx = 0
 
 	// FormFieldDate values setup
 	__FormFieldDate__000000_Time.Name = `Time`
@@ -199,7 +213,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormFieldInt values setup
 	__FormFieldInt__000000_Age.Name = `Age`
-	__FormFieldInt__000000_Age.Value = -10
+	__FormFieldInt__000000_Age.Value = 10
 	__FormFieldInt__000000_Age.HasMinValidator = true
 	__FormFieldInt__000000_Age.MinValue = 0
 	__FormFieldInt__000000_Age.HasMaxValidator = true
