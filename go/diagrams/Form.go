@@ -235,7 +235,7 @@ var map_DocLink_Identifier_Form map[string]any = map[string]any{
 
 	"ref_models.TableExtraPathEnum": ref_models.TableExtraPathEnum(""),
 
-	"ref_models.TableSelectExtra": ref_models.TableSelectExtra,
+	"ref_models.TableSelectExtra": ref_models.StackNamePostFixForTableForAssociation,
 
 	"ref_models.TableSelectExtraName": ref_models.TableSelectExtraName,
 

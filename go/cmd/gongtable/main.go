@@ -9,10 +9,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	gongtable_go "github.com/fullstack-lang/gongtable/go"
+
 	gongtable_fullstack "github.com/fullstack-lang/gongtable/go/fullstack"
 	gongtable_models "github.com/fullstack-lang/gongtable/go/models"
 	gongtable_orm "github.com/fullstack-lang/gongtable/go/orm"
 	gongtable_static "github.com/fullstack-lang/gongtable/go/static"
+
+	gongdoc_load "github.com/fullstack-lang/gongdoc/go/load"
 )
 
 var (
@@ -159,6 +163,15 @@ func main() {
 		stageForManualyEditedForm.OnInitCommitFromFrontCallback = hook
 	}
 
+	gongdoc_load.Load(
+		"gongtable",
+		"github.com/fullstack-lang/gongtable/go/models",
+		gongtable_go.GoModelsDir,
+		gongtable_go.GoDiagramsDir,
+		r,
+		*embeddedDiagrams,
+		&stageForManualyEditedTable.Map_GongStructName_InstancesNb)
+
 	log.Printf("Server ready serve on localhost:" + strconv.Itoa(*port))
 	err := r.Run(":" + strconv.Itoa(*port))
 	if err != nil {
@@ -176,7 +189,7 @@ func (onAssocEditon *OnAssocEditon) OnButtonPressed() {
 	newStage, _ := gongtable_fullstack.NewStackInstance(
 		onAssocEditon.r,
 		onAssocEditon.sourceStack.GetPath()+
-			string(gongtable_models.TableSelectExtra))
+			string(gongtable_models.StackNamePostFixForTableForAssociation))
 
 	fillUpSelectTableDummyStuff(newStage, string(gongtable_models.TableSelectExtraName))
 	newStage.Commit()
@@ -192,7 +205,7 @@ func (onSortEditon *OnSortEditon) OnButtonPressed() {
 	newStage, _ := gongtable_fullstack.NewStackInstance(
 		onSortEditon.r,
 		onSortEditon.sourceStack.GetPath()+
-			string(gongtable_models.TableSortExtra))
+			string(gongtable_models.StackNamePostFixForTableForAssociationSorting))
 
 	fillUpSortTableDummyStuff(newStage, string(gongtable_models.TableSortExtraName))
 	newStage.Commit()
