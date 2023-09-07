@@ -50,6 +50,27 @@ func (formgroupname *FormGroupName) ToCodeString() (res string) {
 	return
 }
 
+
+func (formgroupname FormGroupName) Codes() (res []string) {
+
+	res = make([]string, 0)
+
+	// insertion code per enum code
+	res = append(res, "FormGroupDefaultName")
+
+	return
+}
+
+func (formgroupname FormGroupName) CodeValues() (res []string) {
+
+	res = make([]string, 0)
+
+	// insertion code per enum code
+	res = append(res, "Form")
+
+	return
+}
+
 // Utility function for InputTypeEnum
 // if enum values are string, it is stored with the value
 // if enum values are int, they are stored with the code of the value
@@ -218,6 +239,57 @@ func (inputtypeenum *InputTypeEnum) ToCodeString() (res string) {
 	return
 }
 
+
+func (inputtypeenum InputTypeEnum) Codes() (res []string) {
+
+	res = make([]string, 0)
+
+	// insertion code per enum code
+	res = append(res, "Text")
+	res = append(res, "Password")
+	res = append(res, "Number")
+	res = append(res, "Email")
+	res = append(res, "Tel")
+	res = append(res, "Date")
+	res = append(res, "Datetime")
+	res = append(res, "Time")
+	res = append(res, "URL")
+	res = append(res, "Search")
+	res = append(res, "Range")
+	res = append(res, "Color")
+	res = append(res, "File")
+	res = append(res, "Hidden")
+	res = append(res, "Month")
+	res = append(res, "Week")
+
+	return
+}
+
+func (inputtypeenum InputTypeEnum) CodeValues() (res []string) {
+
+	res = make([]string, 0)
+
+	// insertion code per enum code
+	res = append(res, "text")
+	res = append(res, "password")
+	res = append(res, "number")
+	res = append(res, "email")
+	res = append(res, "tel")
+	res = append(res, "date")
+	res = append(res, "datetime-local")
+	res = append(res, "time")
+	res = append(res, "url")
+	res = append(res, "search")
+	res = append(res, "range")
+	res = append(res, "color")
+	res = append(res, "file")
+	res = append(res, "hidden")
+	res = append(res, "month")
+	res = append(res, "week")
+
+	return
+}
+
 // Utility function for TableExtraNameEnum
 // if enum values are string, it is stored with the value
 // if enum values are int, they are stored with the code of the value
@@ -271,6 +343,29 @@ func (tableextranameenum *TableExtraNameEnum) ToCodeString() (res string) {
 	case TableSortExtraName:
 		res = "TableSortExtraName"
 	}
+	return
+}
+
+
+func (tableextranameenum TableExtraNameEnum) Codes() (res []string) {
+
+	res = make([]string, 0)
+
+	// insertion code per enum code
+	res = append(res, "TableSelectExtraName")
+	res = append(res, "TableSortExtraName")
+
+	return
+}
+
+func (tableextranameenum TableExtraNameEnum) CodeValues() (res []string) {
+
+	res = make([]string, 0)
+
+	// insertion code per enum code
+	res = append(res, "tmp-picker")
+	res = append(res, "tmp-sort")
+
 	return
 }
 
@@ -330,6 +425,29 @@ func (tableextrapathenum *TableExtraPathEnum) ToCodeString() (res string) {
 	return
 }
 
+
+func (tableextrapathenum TableExtraPathEnum) Codes() (res []string) {
+
+	res = make([]string, 0)
+
+	// insertion code per enum code
+	res = append(res, "StackNamePostFixForTableForAssociation")
+	res = append(res, "StackNamePostFixForTableForAssociationSorting")
+
+	return
+}
+
+func (tableextrapathenum TableExtraPathEnum) CodeValues() (res []string) {
+
+	res = make([]string, 0)
+
+	// insertion code per enum code
+	res = append(res, "-table")
+	res = append(res, "-table-sort")
+
+	return
+}
+
 // Utility function for TableName
 // if enum values are string, it is stored with the value
 // if enum values are int, they are stored with the code of the value
@@ -376,6 +494,50 @@ func (tablename *TableName) ToCodeString() (res string) {
 		res = "TableDefaultName"
 	}
 	return
+}
+
+
+func (tablename TableName) Codes() (res []string) {
+
+	res = make([]string, 0)
+
+	// insertion code per enum code
+	res = append(res, "TableDefaultName")
+
+	return
+}
+
+func (tablename TableName) CodeValues() (res []string) {
+
+	res = make([]string, 0)
+
+	// insertion code per enum code
+	res = append(res, "Table")
+
+	return
+}
+
+
+type GongstructEnumStringField interface {
+	string  | FormGroupName | InputTypeEnum | TableExtraNameEnum | TableExtraPathEnum | TableName
+	Codes() []string
+	CodeValues() []string
+}
+
+type PointerToGongstructEnumStringField interface {
+	*FormGroupName | *InputTypeEnum | *TableExtraNameEnum | *TableExtraPathEnum | *TableName
+	FromCodeString(input string) (err error)
+}
+
+type GongstructEnumIntField interface {
+	int  | FormGroupName | InputTypeEnum | TableExtraNameEnum | TableExtraPathEnum | TableName
+	Codes() []string
+	CodeValues() []int
+}
+
+type PointerToGongstructEnumIntField interface {
+	*FormGroupName | *InputTypeEnum | *TableExtraNameEnum | *TableExtraPathEnum | *TableName
+	FromCodeString(input string) (err error)
 }
 
 // Last line of the template

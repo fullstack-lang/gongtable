@@ -7,7 +7,7 @@ import (
 
 type GongstructDB interface {
 	// insertion point for generic types
-	CellDB | CellBooleanDB | CellFloat64DB | CellIconDB | CellIntDB | CellStringDB | CheckBoxDB | DisplayedColumnDB | FormDivDB | FormEditAssocButtonDB | FormFieldDB | FormFieldDateDB | FormFieldDateTimeDB | FormFieldFloat64DB | FormFieldIntDB | FormFieldSelectDB | FormFieldStringDB | FormFieldTimeDB | FormGroupDB | FormSortAssocButtonDB | OptionDB | RowDB | TableDB
+	 | CellDB | CellBooleanDB | CellFloat64DB | CellIconDB | CellIntDB | CellStringDB | CheckBoxDB | DisplayedColumnDB | FormDivDB | FormEditAssocButtonDB | FormFieldDB | FormFieldDateDB | FormFieldDateTimeDB | FormFieldFloat64DB | FormFieldIntDB | FormFieldSelectDB | FormFieldStringDB | FormFieldTimeDB | FormGroupDB | FormSortAssocButtonDB | OptionDB | RowDB | TableDB
 }
 
 func GetInstanceDBFromInstance[T models.Gongstruct, T2 GongstructDB](
@@ -109,6 +109,8 @@ func GetInstanceDBFromInstance[T models.Gongstruct, T2 GongstructDB](
 		tableInstance := any(concreteInstance).(*models.Table)
 		ret2 := backRepo.BackRepoTable.GetTableDBFromTablePtr(tableInstance)
 		ret = any(ret2).(*T2)
+	default:
+		_ = concreteInstance
 	}
 	return
 }
@@ -235,6 +237,8 @@ func GetID[T models.Gongstruct](
 			stage, backRepo, inst,
 		)
 		id = int(tmp.ID)
+	default:
+		_ = inst
 	}
 	return
 }
