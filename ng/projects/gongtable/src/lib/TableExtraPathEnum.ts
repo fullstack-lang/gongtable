@@ -3,7 +3,7 @@ export enum TableExtraPathEnum {
 	// insertion point	
 	StackNamePostFixForTableForMainTable = "-table",
 	StackNamePostFixForTableForMainForm = "-form",
-	StackNamePostFixForTableForMainTree = "-tree",
+	StackNamePostFixForTableForMainTree = "-sidebar",
 	StackNamePostFixForTableForAssociation = "-table-pick",
 	StackNamePostFixForTableForAssociationSorting = "-table-sort",
 }
@@ -16,7 +16,7 @@ export interface TableExtraPathEnumSelect {
 export const TableExtraPathEnumList: TableExtraPathEnumSelect[] = [ // insertion point	
 	{ value: TableExtraPathEnum.StackNamePostFixForTableForMainTable, viewValue: "-table" },
 	{ value: TableExtraPathEnum.StackNamePostFixForTableForMainForm, viewValue: "-form" },
-	{ value: TableExtraPathEnum.StackNamePostFixForTableForMainTree, viewValue: "-tree" },
+	{ value: TableExtraPathEnum.StackNamePostFixForTableForMainTree, viewValue: "-sidebar" },
 	{ value: TableExtraPathEnum.StackNamePostFixForTableForAssociation, viewValue: "-table-pick" },
 	{ value: TableExtraPathEnum.StackNamePostFixForTableForAssociationSorting, viewValue: "-table-sort" },
 ];

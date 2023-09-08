@@ -382,7 +382,7 @@ func (tableextrapathenum TableExtraPathEnum) ToString() (res string) {
 	case StackNamePostFixForTableForMainForm:
 		res = "-form"
 	case StackNamePostFixForTableForMainTree:
-		res = "-tree"
+		res = "-sidebar"
 	case StackNamePostFixForTableForAssociation:
 		res = "-table-pick"
 	case StackNamePostFixForTableForAssociationSorting:
@@ -399,7 +399,7 @@ func (tableextrapathenum *TableExtraPathEnum) FromString(input string) (err erro
 		*tableextrapathenum = StackNamePostFixForTableForMainTable
 	case "-form":
 		*tableextrapathenum = StackNamePostFixForTableForMainForm
-	case "-tree":
+	case "-sidebar":
 		*tableextrapathenum = StackNamePostFixForTableForMainTree
 	case "-table-pick":
 		*tableextrapathenum = StackNamePostFixForTableForAssociation
@@ -471,7 +471,7 @@ func (tableextrapathenum TableExtraPathEnum) CodeValues() (res []string) {
 	// insertion code per enum code
 	res = append(res, "-table")
 	res = append(res, "-form")
-	res = append(res, "-tree")
+	res = append(res, "-sidebar")
 	res = append(res, "-table-pick")
 	res = append(res, "-table-sort")
 
