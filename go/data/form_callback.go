@@ -53,8 +53,8 @@ func (cellFormCallback *CellFormCallback) OnSave() {
 	if cellFormCallback.cell == nil {
 		cellFormCallback.cell = new(models.Cell).Stage(cellFormCallback.stageOfInterest)
 	}
-	cell := cellFormCallback.cell
-	_ = cell
+	cell_ := cellFormCallback.cell
+	_ = cell_
 
 	// get the formGroup
 	formGroup := cellFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -63,17 +63,17 @@ func (cellFormCallback *CellFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(cell.Name), formDiv)
+			FormDivBasicFieldToField(&(cell_.Name), formDiv)
 		case "CellString":
-			FormDivSelectFieldToField(&(cell.CellString), cellFormCallback.stageOfInterest, formDiv)
+			FormDivSelectFieldToField(&(cell_.CellString), cellFormCallback.stageOfInterest, formDiv)
 		case "CellFloat64":
-			FormDivSelectFieldToField(&(cell.CellFloat64), cellFormCallback.stageOfInterest, formDiv)
+			FormDivSelectFieldToField(&(cell_.CellFloat64), cellFormCallback.stageOfInterest, formDiv)
 		case "CellInt":
-			FormDivSelectFieldToField(&(cell.CellInt), cellFormCallback.stageOfInterest, formDiv)
+			FormDivSelectFieldToField(&(cell_.CellInt), cellFormCallback.stageOfInterest, formDiv)
 		case "CellBool":
-			FormDivSelectFieldToField(&(cell.CellBool), cellFormCallback.stageOfInterest, formDiv)
+			FormDivSelectFieldToField(&(cell_.CellBool), cellFormCallback.stageOfInterest, formDiv)
 		case "CellIcon":
-			FormDivSelectFieldToField(&(cell.CellIcon), cellFormCallback.stageOfInterest, formDiv)
+			FormDivSelectFieldToField(&(cell_.CellIcon), cellFormCallback.stageOfInterest, formDiv)
 		}
 	}
 
@@ -125,8 +125,8 @@ func (cellbooleanFormCallback *CellBooleanFormCallback) OnSave() {
 	if cellbooleanFormCallback.cellboolean == nil {
 		cellbooleanFormCallback.cellboolean = new(models.CellBoolean).Stage(cellbooleanFormCallback.stageOfInterest)
 	}
-	cellboolean := cellbooleanFormCallback.cellboolean
-	_ = cellboolean
+	cellboolean_ := cellbooleanFormCallback.cellboolean
+	_ = cellboolean_
 
 	// get the formGroup
 	formGroup := cellbooleanFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -135,9 +135,9 @@ func (cellbooleanFormCallback *CellBooleanFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(cellboolean.Name), formDiv)
+			FormDivBasicFieldToField(&(cellboolean_.Name), formDiv)
 		case "Value":
-			FormDivBasicFieldToField(&(cellboolean.Value), formDiv)
+			FormDivBasicFieldToField(&(cellboolean_.Value), formDiv)
 		}
 	}
 
@@ -189,8 +189,8 @@ func (cellfloat64FormCallback *CellFloat64FormCallback) OnSave() {
 	if cellfloat64FormCallback.cellfloat64 == nil {
 		cellfloat64FormCallback.cellfloat64 = new(models.CellFloat64).Stage(cellfloat64FormCallback.stageOfInterest)
 	}
-	cellfloat64 := cellfloat64FormCallback.cellfloat64
-	_ = cellfloat64
+	cellfloat64_ := cellfloat64FormCallback.cellfloat64
+	_ = cellfloat64_
 
 	// get the formGroup
 	formGroup := cellfloat64FormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -199,9 +199,9 @@ func (cellfloat64FormCallback *CellFloat64FormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(cellfloat64.Name), formDiv)
+			FormDivBasicFieldToField(&(cellfloat64_.Name), formDiv)
 		case "Value":
-			FormDivBasicFieldToField(&(cellfloat64.Value), formDiv)
+			FormDivBasicFieldToField(&(cellfloat64_.Value), formDiv)
 		}
 	}
 
@@ -253,8 +253,8 @@ func (celliconFormCallback *CellIconFormCallback) OnSave() {
 	if celliconFormCallback.cellicon == nil {
 		celliconFormCallback.cellicon = new(models.CellIcon).Stage(celliconFormCallback.stageOfInterest)
 	}
-	cellicon := celliconFormCallback.cellicon
-	_ = cellicon
+	cellicon_ := celliconFormCallback.cellicon
+	_ = cellicon_
 
 	// get the formGroup
 	formGroup := celliconFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -263,9 +263,9 @@ func (celliconFormCallback *CellIconFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(cellicon.Name), formDiv)
+			FormDivBasicFieldToField(&(cellicon_.Name), formDiv)
 		case "Icon":
-			FormDivBasicFieldToField(&(cellicon.Icon), formDiv)
+			FormDivBasicFieldToField(&(cellicon_.Icon), formDiv)
 		}
 	}
 
@@ -317,8 +317,8 @@ func (cellintFormCallback *CellIntFormCallback) OnSave() {
 	if cellintFormCallback.cellint == nil {
 		cellintFormCallback.cellint = new(models.CellInt).Stage(cellintFormCallback.stageOfInterest)
 	}
-	cellint := cellintFormCallback.cellint
-	_ = cellint
+	cellint_ := cellintFormCallback.cellint
+	_ = cellint_
 
 	// get the formGroup
 	formGroup := cellintFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -327,9 +327,9 @@ func (cellintFormCallback *CellIntFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(cellint.Name), formDiv)
+			FormDivBasicFieldToField(&(cellint_.Name), formDiv)
 		case "Value":
-			FormDivBasicFieldToField(&(cellint.Value), formDiv)
+			FormDivBasicFieldToField(&(cellint_.Value), formDiv)
 		}
 	}
 
@@ -381,8 +381,8 @@ func (cellstringFormCallback *CellStringFormCallback) OnSave() {
 	if cellstringFormCallback.cellstring == nil {
 		cellstringFormCallback.cellstring = new(models.CellString).Stage(cellstringFormCallback.stageOfInterest)
 	}
-	cellstring := cellstringFormCallback.cellstring
-	_ = cellstring
+	cellstring_ := cellstringFormCallback.cellstring
+	_ = cellstring_
 
 	// get the formGroup
 	formGroup := cellstringFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -391,9 +391,9 @@ func (cellstringFormCallback *CellStringFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(cellstring.Name), formDiv)
+			FormDivBasicFieldToField(&(cellstring_.Name), formDiv)
 		case "Value":
-			FormDivBasicFieldToField(&(cellstring.Value), formDiv)
+			FormDivBasicFieldToField(&(cellstring_.Value), formDiv)
 		}
 	}
 
@@ -445,8 +445,8 @@ func (checkboxFormCallback *CheckBoxFormCallback) OnSave() {
 	if checkboxFormCallback.checkbox == nil {
 		checkboxFormCallback.checkbox = new(models.CheckBox).Stage(checkboxFormCallback.stageOfInterest)
 	}
-	checkbox := checkboxFormCallback.checkbox
-	_ = checkbox
+	checkbox_ := checkboxFormCallback.checkbox
+	_ = checkbox_
 
 	// get the formGroup
 	formGroup := checkboxFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -455,9 +455,9 @@ func (checkboxFormCallback *CheckBoxFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(checkbox.Name), formDiv)
+			FormDivBasicFieldToField(&(checkbox_.Name), formDiv)
 		case "Value":
-			FormDivBasicFieldToField(&(checkbox.Value), formDiv)
+			FormDivBasicFieldToField(&(checkbox_.Value), formDiv)
 		}
 	}
 
@@ -509,8 +509,8 @@ func (displayedcolumnFormCallback *DisplayedColumnFormCallback) OnSave() {
 	if displayedcolumnFormCallback.displayedcolumn == nil {
 		displayedcolumnFormCallback.displayedcolumn = new(models.DisplayedColumn).Stage(displayedcolumnFormCallback.stageOfInterest)
 	}
-	displayedcolumn := displayedcolumnFormCallback.displayedcolumn
-	_ = displayedcolumn
+	displayedcolumn_ := displayedcolumnFormCallback.displayedcolumn
+	_ = displayedcolumn_
 
 	// get the formGroup
 	formGroup := displayedcolumnFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -519,7 +519,7 @@ func (displayedcolumnFormCallback *DisplayedColumnFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(displayedcolumn.Name), formDiv)
+			FormDivBasicFieldToField(&(displayedcolumn_.Name), formDiv)
 		}
 	}
 
@@ -571,8 +571,8 @@ func (formdivFormCallback *FormDivFormCallback) OnSave() {
 	if formdivFormCallback.formdiv == nil {
 		formdivFormCallback.formdiv = new(models.FormDiv).Stage(formdivFormCallback.stageOfInterest)
 	}
-	formdiv := formdivFormCallback.formdiv
-	_ = formdiv
+	formdiv_ := formdivFormCallback.formdiv
+	_ = formdiv_
 
 	// get the formGroup
 	formGroup := formdivFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -581,11 +581,11 @@ func (formdivFormCallback *FormDivFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(formdiv.Name), formDiv)
+			FormDivBasicFieldToField(&(formdiv_.Name), formDiv)
 		case "FormEditAssocButton":
-			FormDivSelectFieldToField(&(formdiv.FormEditAssocButton), formdivFormCallback.stageOfInterest, formDiv)
+			FormDivSelectFieldToField(&(formdiv_.FormEditAssocButton), formdivFormCallback.stageOfInterest, formDiv)
 		case "FormSortAssocButton":
-			FormDivSelectFieldToField(&(formdiv.FormSortAssocButton), formdivFormCallback.stageOfInterest, formDiv)
+			FormDivSelectFieldToField(&(formdiv_.FormSortAssocButton), formdivFormCallback.stageOfInterest, formDiv)
 		}
 	}
 
@@ -637,8 +637,8 @@ func (formeditassocbuttonFormCallback *FormEditAssocButtonFormCallback) OnSave()
 	if formeditassocbuttonFormCallback.formeditassocbutton == nil {
 		formeditassocbuttonFormCallback.formeditassocbutton = new(models.FormEditAssocButton).Stage(formeditassocbuttonFormCallback.stageOfInterest)
 	}
-	formeditassocbutton := formeditassocbuttonFormCallback.formeditassocbutton
-	_ = formeditassocbutton
+	formeditassocbutton_ := formeditassocbuttonFormCallback.formeditassocbutton
+	_ = formeditassocbutton_
 
 	// get the formGroup
 	formGroup := formeditassocbuttonFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -647,9 +647,9 @@ func (formeditassocbuttonFormCallback *FormEditAssocButtonFormCallback) OnSave()
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(formeditassocbutton.Name), formDiv)
+			FormDivBasicFieldToField(&(formeditassocbutton_.Name), formDiv)
 		case "Label":
-			FormDivBasicFieldToField(&(formeditassocbutton.Label), formDiv)
+			FormDivBasicFieldToField(&(formeditassocbutton_.Label), formDiv)
 		}
 	}
 
@@ -701,8 +701,8 @@ func (formfieldFormCallback *FormFieldFormCallback) OnSave() {
 	if formfieldFormCallback.formfield == nil {
 		formfieldFormCallback.formfield = new(models.FormField).Stage(formfieldFormCallback.stageOfInterest)
 	}
-	formfield := formfieldFormCallback.formfield
-	_ = formfield
+	formfield_ := formfieldFormCallback.formfield
+	_ = formfield_
 
 	// get the formGroup
 	formGroup := formfieldFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -711,31 +711,31 @@ func (formfieldFormCallback *FormFieldFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(formfield.Name), formDiv)
+			FormDivBasicFieldToField(&(formfield_.Name), formDiv)
 		case "InputTypeEnum":
-			FormDivEnumStringFieldToField(&(formfield.InputTypeEnum), formDiv)
+			FormDivEnumStringFieldToField(&(formfield_.InputTypeEnum), formDiv)
 		case "Label":
-			FormDivBasicFieldToField(&(formfield.Label), formDiv)
+			FormDivBasicFieldToField(&(formfield_.Label), formDiv)
 		case "Placeholder":
-			FormDivBasicFieldToField(&(formfield.Placeholder), formDiv)
+			FormDivBasicFieldToField(&(formfield_.Placeholder), formDiv)
 		case "FormFieldString":
-			FormDivSelectFieldToField(&(formfield.FormFieldString), formfieldFormCallback.stageOfInterest, formDiv)
+			FormDivSelectFieldToField(&(formfield_.FormFieldString), formfieldFormCallback.stageOfInterest, formDiv)
 		case "FormFieldFloat64":
-			FormDivSelectFieldToField(&(formfield.FormFieldFloat64), formfieldFormCallback.stageOfInterest, formDiv)
+			FormDivSelectFieldToField(&(formfield_.FormFieldFloat64), formfieldFormCallback.stageOfInterest, formDiv)
 		case "FormFieldInt":
-			FormDivSelectFieldToField(&(formfield.FormFieldInt), formfieldFormCallback.stageOfInterest, formDiv)
+			FormDivSelectFieldToField(&(formfield_.FormFieldInt), formfieldFormCallback.stageOfInterest, formDiv)
 		case "FormFieldDate":
-			FormDivSelectFieldToField(&(formfield.FormFieldDate), formfieldFormCallback.stageOfInterest, formDiv)
+			FormDivSelectFieldToField(&(formfield_.FormFieldDate), formfieldFormCallback.stageOfInterest, formDiv)
 		case "FormFieldTime":
-			FormDivSelectFieldToField(&(formfield.FormFieldTime), formfieldFormCallback.stageOfInterest, formDiv)
+			FormDivSelectFieldToField(&(formfield_.FormFieldTime), formfieldFormCallback.stageOfInterest, formDiv)
 		case "FormFieldDateTime":
-			FormDivSelectFieldToField(&(formfield.FormFieldDateTime), formfieldFormCallback.stageOfInterest, formDiv)
+			FormDivSelectFieldToField(&(formfield_.FormFieldDateTime), formfieldFormCallback.stageOfInterest, formDiv)
 		case "FormFieldSelect":
-			FormDivSelectFieldToField(&(formfield.FormFieldSelect), formfieldFormCallback.stageOfInterest, formDiv)
+			FormDivSelectFieldToField(&(formfield_.FormFieldSelect), formfieldFormCallback.stageOfInterest, formDiv)
 		case "HasBespokeWidth":
-			FormDivBasicFieldToField(&(formfield.HasBespokeWidth), formDiv)
+			FormDivBasicFieldToField(&(formfield_.HasBespokeWidth), formDiv)
 		case "BespokeWidthPx":
-			FormDivBasicFieldToField(&(formfield.BespokeWidthPx), formDiv)
+			FormDivBasicFieldToField(&(formfield_.BespokeWidthPx), formDiv)
 		}
 	}
 
@@ -787,8 +787,8 @@ func (formfielddateFormCallback *FormFieldDateFormCallback) OnSave() {
 	if formfielddateFormCallback.formfielddate == nil {
 		formfielddateFormCallback.formfielddate = new(models.FormFieldDate).Stage(formfielddateFormCallback.stageOfInterest)
 	}
-	formfielddate := formfielddateFormCallback.formfielddate
-	_ = formfielddate
+	formfielddate_ := formfielddateFormCallback.formfielddate
+	_ = formfielddate_
 
 	// get the formGroup
 	formGroup := formfielddateFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -797,7 +797,7 @@ func (formfielddateFormCallback *FormFieldDateFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(formfielddate.Name), formDiv)
+			FormDivBasicFieldToField(&(formfielddate_.Name), formDiv)
 		}
 	}
 
@@ -849,8 +849,8 @@ func (formfielddatetimeFormCallback *FormFieldDateTimeFormCallback) OnSave() {
 	if formfielddatetimeFormCallback.formfielddatetime == nil {
 		formfielddatetimeFormCallback.formfielddatetime = new(models.FormFieldDateTime).Stage(formfielddatetimeFormCallback.stageOfInterest)
 	}
-	formfielddatetime := formfielddatetimeFormCallback.formfielddatetime
-	_ = formfielddatetime
+	formfielddatetime_ := formfielddatetimeFormCallback.formfielddatetime
+	_ = formfielddatetime_
 
 	// get the formGroup
 	formGroup := formfielddatetimeFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -859,7 +859,7 @@ func (formfielddatetimeFormCallback *FormFieldDateTimeFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(formfielddatetime.Name), formDiv)
+			FormDivBasicFieldToField(&(formfielddatetime_.Name), formDiv)
 		}
 	}
 
@@ -911,8 +911,8 @@ func (formfieldfloat64FormCallback *FormFieldFloat64FormCallback) OnSave() {
 	if formfieldfloat64FormCallback.formfieldfloat64 == nil {
 		formfieldfloat64FormCallback.formfieldfloat64 = new(models.FormFieldFloat64).Stage(formfieldfloat64FormCallback.stageOfInterest)
 	}
-	formfieldfloat64 := formfieldfloat64FormCallback.formfieldfloat64
-	_ = formfieldfloat64
+	formfieldfloat64_ := formfieldfloat64FormCallback.formfieldfloat64
+	_ = formfieldfloat64_
 
 	// get the formGroup
 	formGroup := formfieldfloat64FormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -921,17 +921,17 @@ func (formfieldfloat64FormCallback *FormFieldFloat64FormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(formfieldfloat64.Name), formDiv)
+			FormDivBasicFieldToField(&(formfieldfloat64_.Name), formDiv)
 		case "Value":
-			FormDivBasicFieldToField(&(formfieldfloat64.Value), formDiv)
+			FormDivBasicFieldToField(&(formfieldfloat64_.Value), formDiv)
 		case "HasMinValidator":
-			FormDivBasicFieldToField(&(formfieldfloat64.HasMinValidator), formDiv)
+			FormDivBasicFieldToField(&(formfieldfloat64_.HasMinValidator), formDiv)
 		case "MinValue":
-			FormDivBasicFieldToField(&(formfieldfloat64.MinValue), formDiv)
+			FormDivBasicFieldToField(&(formfieldfloat64_.MinValue), formDiv)
 		case "HasMaxValidator":
-			FormDivBasicFieldToField(&(formfieldfloat64.HasMaxValidator), formDiv)
+			FormDivBasicFieldToField(&(formfieldfloat64_.HasMaxValidator), formDiv)
 		case "MaxValue":
-			FormDivBasicFieldToField(&(formfieldfloat64.MaxValue), formDiv)
+			FormDivBasicFieldToField(&(formfieldfloat64_.MaxValue), formDiv)
 		}
 	}
 
@@ -983,8 +983,8 @@ func (formfieldintFormCallback *FormFieldIntFormCallback) OnSave() {
 	if formfieldintFormCallback.formfieldint == nil {
 		formfieldintFormCallback.formfieldint = new(models.FormFieldInt).Stage(formfieldintFormCallback.stageOfInterest)
 	}
-	formfieldint := formfieldintFormCallback.formfieldint
-	_ = formfieldint
+	formfieldint_ := formfieldintFormCallback.formfieldint
+	_ = formfieldint_
 
 	// get the formGroup
 	formGroup := formfieldintFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -993,17 +993,17 @@ func (formfieldintFormCallback *FormFieldIntFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(formfieldint.Name), formDiv)
+			FormDivBasicFieldToField(&(formfieldint_.Name), formDiv)
 		case "Value":
-			FormDivBasicFieldToField(&(formfieldint.Value), formDiv)
+			FormDivBasicFieldToField(&(formfieldint_.Value), formDiv)
 		case "HasMinValidator":
-			FormDivBasicFieldToField(&(formfieldint.HasMinValidator), formDiv)
+			FormDivBasicFieldToField(&(formfieldint_.HasMinValidator), formDiv)
 		case "MinValue":
-			FormDivBasicFieldToField(&(formfieldint.MinValue), formDiv)
+			FormDivBasicFieldToField(&(formfieldint_.MinValue), formDiv)
 		case "HasMaxValidator":
-			FormDivBasicFieldToField(&(formfieldint.HasMaxValidator), formDiv)
+			FormDivBasicFieldToField(&(formfieldint_.HasMaxValidator), formDiv)
 		case "MaxValue":
-			FormDivBasicFieldToField(&(formfieldint.MaxValue), formDiv)
+			FormDivBasicFieldToField(&(formfieldint_.MaxValue), formDiv)
 		}
 	}
 
@@ -1055,8 +1055,8 @@ func (formfieldselectFormCallback *FormFieldSelectFormCallback) OnSave() {
 	if formfieldselectFormCallback.formfieldselect == nil {
 		formfieldselectFormCallback.formfieldselect = new(models.FormFieldSelect).Stage(formfieldselectFormCallback.stageOfInterest)
 	}
-	formfieldselect := formfieldselectFormCallback.formfieldselect
-	_ = formfieldselect
+	formfieldselect_ := formfieldselectFormCallback.formfieldselect
+	_ = formfieldselect_
 
 	// get the formGroup
 	formGroup := formfieldselectFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -1065,11 +1065,11 @@ func (formfieldselectFormCallback *FormFieldSelectFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(formfieldselect.Name), formDiv)
+			FormDivBasicFieldToField(&(formfieldselect_.Name), formDiv)
 		case "Value":
-			FormDivSelectFieldToField(&(formfieldselect.Value), formfieldselectFormCallback.stageOfInterest, formDiv)
+			FormDivSelectFieldToField(&(formfieldselect_.Value), formfieldselectFormCallback.stageOfInterest, formDiv)
 		case "CanBeEmpty":
-			FormDivBasicFieldToField(&(formfieldselect.CanBeEmpty), formDiv)
+			FormDivBasicFieldToField(&(formfieldselect_.CanBeEmpty), formDiv)
 		}
 	}
 
@@ -1121,8 +1121,8 @@ func (formfieldstringFormCallback *FormFieldStringFormCallback) OnSave() {
 	if formfieldstringFormCallback.formfieldstring == nil {
 		formfieldstringFormCallback.formfieldstring = new(models.FormFieldString).Stage(formfieldstringFormCallback.stageOfInterest)
 	}
-	formfieldstring := formfieldstringFormCallback.formfieldstring
-	_ = formfieldstring
+	formfieldstring_ := formfieldstringFormCallback.formfieldstring
+	_ = formfieldstring_
 
 	// get the formGroup
 	formGroup := formfieldstringFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -1131,9 +1131,9 @@ func (formfieldstringFormCallback *FormFieldStringFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(formfieldstring.Name), formDiv)
+			FormDivBasicFieldToField(&(formfieldstring_.Name), formDiv)
 		case "Value":
-			FormDivBasicFieldToField(&(formfieldstring.Value), formDiv)
+			FormDivBasicFieldToField(&(formfieldstring_.Value), formDiv)
 		}
 	}
 
@@ -1185,8 +1185,8 @@ func (formfieldtimeFormCallback *FormFieldTimeFormCallback) OnSave() {
 	if formfieldtimeFormCallback.formfieldtime == nil {
 		formfieldtimeFormCallback.formfieldtime = new(models.FormFieldTime).Stage(formfieldtimeFormCallback.stageOfInterest)
 	}
-	formfieldtime := formfieldtimeFormCallback.formfieldtime
-	_ = formfieldtime
+	formfieldtime_ := formfieldtimeFormCallback.formfieldtime
+	_ = formfieldtime_
 
 	// get the formGroup
 	formGroup := formfieldtimeFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -1195,9 +1195,9 @@ func (formfieldtimeFormCallback *FormFieldTimeFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(formfieldtime.Name), formDiv)
+			FormDivBasicFieldToField(&(formfieldtime_.Name), formDiv)
 		case "Step":
-			FormDivBasicFieldToField(&(formfieldtime.Step), formDiv)
+			FormDivBasicFieldToField(&(formfieldtime_.Step), formDiv)
 		}
 	}
 
@@ -1249,8 +1249,8 @@ func (formgroupFormCallback *FormGroupFormCallback) OnSave() {
 	if formgroupFormCallback.formgroup == nil {
 		formgroupFormCallback.formgroup = new(models.FormGroup).Stage(formgroupFormCallback.stageOfInterest)
 	}
-	formgroup := formgroupFormCallback.formgroup
-	_ = formgroup
+	formgroup_ := formgroupFormCallback.formgroup
+	_ = formgroup_
 
 	// get the formGroup
 	formGroup := formgroupFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -1259,7 +1259,7 @@ func (formgroupFormCallback *FormGroupFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(formgroup.Name), formDiv)
+			FormDivBasicFieldToField(&(formgroup_.Name), formDiv)
 		}
 	}
 
@@ -1311,8 +1311,8 @@ func (formsortassocbuttonFormCallback *FormSortAssocButtonFormCallback) OnSave()
 	if formsortassocbuttonFormCallback.formsortassocbutton == nil {
 		formsortassocbuttonFormCallback.formsortassocbutton = new(models.FormSortAssocButton).Stage(formsortassocbuttonFormCallback.stageOfInterest)
 	}
-	formsortassocbutton := formsortassocbuttonFormCallback.formsortassocbutton
-	_ = formsortassocbutton
+	formsortassocbutton_ := formsortassocbuttonFormCallback.formsortassocbutton
+	_ = formsortassocbutton_
 
 	// get the formGroup
 	formGroup := formsortassocbuttonFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -1321,9 +1321,9 @@ func (formsortassocbuttonFormCallback *FormSortAssocButtonFormCallback) OnSave()
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(formsortassocbutton.Name), formDiv)
+			FormDivBasicFieldToField(&(formsortassocbutton_.Name), formDiv)
 		case "Label":
-			FormDivBasicFieldToField(&(formsortassocbutton.Label), formDiv)
+			FormDivBasicFieldToField(&(formsortassocbutton_.Label), formDiv)
 		}
 	}
 
@@ -1375,8 +1375,8 @@ func (optionFormCallback *OptionFormCallback) OnSave() {
 	if optionFormCallback.option == nil {
 		optionFormCallback.option = new(models.Option).Stage(optionFormCallback.stageOfInterest)
 	}
-	option := optionFormCallback.option
-	_ = option
+	option_ := optionFormCallback.option
+	_ = option_
 
 	// get the formGroup
 	formGroup := optionFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -1385,7 +1385,7 @@ func (optionFormCallback *OptionFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(option.Name), formDiv)
+			FormDivBasicFieldToField(&(option_.Name), formDiv)
 		}
 	}
 
@@ -1437,8 +1437,8 @@ func (rowFormCallback *RowFormCallback) OnSave() {
 	if rowFormCallback.row == nil {
 		rowFormCallback.row = new(models.Row).Stage(rowFormCallback.stageOfInterest)
 	}
-	row := rowFormCallback.row
-	_ = row
+	row_ := rowFormCallback.row
+	_ = row_
 
 	// get the formGroup
 	formGroup := rowFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -1447,9 +1447,9 @@ func (rowFormCallback *RowFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(row.Name), formDiv)
+			FormDivBasicFieldToField(&(row_.Name), formDiv)
 		case "IsChecked":
-			FormDivBasicFieldToField(&(row.IsChecked), formDiv)
+			FormDivBasicFieldToField(&(row_.IsChecked), formDiv)
 		}
 	}
 
@@ -1501,8 +1501,8 @@ func (tableFormCallback *TableFormCallback) OnSave() {
 	if tableFormCallback.table == nil {
 		tableFormCallback.table = new(models.Table).Stage(tableFormCallback.stageOfInterest)
 	}
-	table := tableFormCallback.table
-	_ = table
+	table_ := tableFormCallback.table
+	_ = table_
 
 	// get the formGroup
 	formGroup := tableFormCallback.formStage.FormGroups_mapString[table.FormGroupDefaultName.ToString()]
@@ -1511,25 +1511,25 @@ func (tableFormCallback *TableFormCallback) OnSave() {
 		switch formDiv.Name {
 		// insertion point per field
 		case "Name":
-			FormDivBasicFieldToField(&(table.Name), formDiv)
+			FormDivBasicFieldToField(&(table_.Name), formDiv)
 		case "HasFiltering":
-			FormDivBasicFieldToField(&(table.HasFiltering), formDiv)
+			FormDivBasicFieldToField(&(table_.HasFiltering), formDiv)
 		case "HasColumnSorting":
-			FormDivBasicFieldToField(&(table.HasColumnSorting), formDiv)
+			FormDivBasicFieldToField(&(table_.HasColumnSorting), formDiv)
 		case "HasPaginator":
-			FormDivBasicFieldToField(&(table.HasPaginator), formDiv)
+			FormDivBasicFieldToField(&(table_.HasPaginator), formDiv)
 		case "HasCheckableRows":
-			FormDivBasicFieldToField(&(table.HasCheckableRows), formDiv)
+			FormDivBasicFieldToField(&(table_.HasCheckableRows), formDiv)
 		case "HasSaveButton":
-			FormDivBasicFieldToField(&(table.HasSaveButton), formDiv)
+			FormDivBasicFieldToField(&(table_.HasSaveButton), formDiv)
 		case "CanDragDropRows":
-			FormDivBasicFieldToField(&(table.CanDragDropRows), formDiv)
+			FormDivBasicFieldToField(&(table_.CanDragDropRows), formDiv)
 		case "HasCloseButton":
-			FormDivBasicFieldToField(&(table.HasCloseButton), formDiv)
+			FormDivBasicFieldToField(&(table_.HasCloseButton), formDiv)
 		case "SavingInProgress":
-			FormDivBasicFieldToField(&(table.SavingInProgress), formDiv)
+			FormDivBasicFieldToField(&(table_.SavingInProgress), formDiv)
 		case "NbOfStickyColumns":
-			FormDivBasicFieldToField(&(table.NbOfStickyColumns), formDiv)
+			FormDivBasicFieldToField(&(table_.NbOfStickyColumns), formDiv)
 		}
 	}
 
