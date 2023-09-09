@@ -3,7 +3,7 @@ module github.com/fullstack-lang/gongtable
 go 1.21.0
 
 require (
-	github.com/fullstack-lang/gong v0.0.0-20230909003756-455ab367969c
+	github.com/fullstack-lang/gong v0.0.0-20230909005852-e131c1d69ad4
 	github.com/fullstack-lang/gongdoc v0.0.0-20230909002503-0def08f186db
 	github.com/fullstack-lang/gongtree v0.0.0-20230909005446-5cdc73aa254a
 	github.com/fullstack-lang/maticons v0.0.0-20230823061653-70c364fbdd00
