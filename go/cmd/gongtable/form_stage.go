@@ -241,7 +241,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormFieldFloat64 values setup
 	__FormFieldFloat64__000000_Float64_level_of_x.Name = `Float64 - level of x`
-	__FormFieldFloat64__000000_Float64_level_of_x.Value = 64.255500
+	__FormFieldFloat64__000000_Float64_level_of_x.Value = 74.000000
 	__FormFieldFloat64__000000_Float64_level_of_x.HasMinValidator = false
 	__FormFieldFloat64__000000_Float64_level_of_x.MinValue = 0.000000
 	__FormFieldFloat64__000000_Float64_level_of_x.HasMaxValidator = false
@@ -269,7 +269,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormFieldString values setup
 	__FormFieldString__000001_LastName.Name = `LastName`
-	__FormFieldString__000001_LastName.Value = `Bau`
+	__FormFieldString__000001_LastName.Value = `Baudelaire`
 
 	// FormFieldTime values setup
 	__FormFieldTime__000000_Time.Name = `Time`
@@ -323,6 +323,7 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000006_Select_can_be_set_empty_.FormFieldSelect = __FormFieldSelect__000000_Select_can_be_set_empty_
 	__FormField__000007_Select_cannot_be_set_empty_.FormFieldSelect = __FormFieldSelect__000001_Select_cannot_be_set_empty_
 	__FormField__000008_Time.FormFieldTime = __FormFieldTime__000000_Time
+	__FormFieldSelect__000000_Select_can_be_set_empty_.Value = __Option__000002_Option_1_Select_can_be_set_empty_
 	__FormFieldSelect__000000_Select_can_be_set_empty_.Options = append(__FormFieldSelect__000000_Select_can_be_set_empty_.Options, __Option__000004_Option_3_Select_can_be_set_empty_)
 	__FormFieldSelect__000000_Select_can_be_set_empty_.Options = append(__FormFieldSelect__000000_Select_can_be_set_empty_.Options, __Option__000005_Option_4_Select_can_be_set_empty_)
 	__FormFieldSelect__000000_Select_can_be_set_empty_.Options = append(__FormFieldSelect__000000_Select_can_be_set_empty_.Options, __Option__000002_Option_1_Select_can_be_set_empty_)
