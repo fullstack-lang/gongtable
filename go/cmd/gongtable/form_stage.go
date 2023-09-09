@@ -249,7 +249,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormFieldInt values setup
 	__FormFieldInt__000000_Age.Name = `Age`
-	__FormFieldInt__000000_Age.Value = 0
+	__FormFieldInt__000000_Age.Value = 3
 	__FormFieldInt__000000_Age.HasMinValidator = true
 	__FormFieldInt__000000_Age.MinValue = 0
 	__FormFieldInt__000000_Age.HasMaxValidator = true
@@ -323,7 +323,7 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000006_Select_can_be_set_empty_.FormFieldSelect = __FormFieldSelect__000000_Select_can_be_set_empty_
 	__FormField__000007_Select_cannot_be_set_empty_.FormFieldSelect = __FormFieldSelect__000001_Select_cannot_be_set_empty_
 	__FormField__000008_Time.FormFieldTime = __FormFieldTime__000000_Time
-	__FormFieldSelect__000000_Select_can_be_set_empty_.Value = __Option__000002_Option_1_Select_can_be_set_empty_
+	__FormFieldSelect__000000_Select_can_be_set_empty_.Value = __Option__000005_Option_4_Select_can_be_set_empty_
 	__FormFieldSelect__000000_Select_can_be_set_empty_.Options = append(__FormFieldSelect__000000_Select_can_be_set_empty_.Options, __Option__000004_Option_3_Select_can_be_set_empty_)
 	__FormFieldSelect__000000_Select_can_be_set_empty_.Options = append(__FormFieldSelect__000000_Select_can_be_set_empty_.Options, __Option__000005_Option_4_Select_can_be_set_empty_)
 	__FormFieldSelect__000000_Select_can_be_set_empty_.Options = append(__FormFieldSelect__000000_Select_can_be_set_empty_.Options, __Option__000002_Option_1_Select_can_be_set_empty_)
