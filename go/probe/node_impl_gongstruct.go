@@ -131,6 +131,63 @@ func (nodeImplGongstruct *NodeImplGongstruct) OnAfterUpdate(
 	nodeImplGongstruct.playground.tableStage.Commit()
 }
 
+func fillUpTablePointerToGongstruct[T models.PointerToGongstruct](
+	playground *Playground,
+) {
+	var typedInstance T
+	switch any(typedInstance).(type) {
+	// insertion point
+	case *models.Cell:
+		fillUpTable[models.Cell](playground)
+	case *models.CellBoolean:
+		fillUpTable[models.CellBoolean](playground)
+	case *models.CellFloat64:
+		fillUpTable[models.CellFloat64](playground)
+	case *models.CellIcon:
+		fillUpTable[models.CellIcon](playground)
+	case *models.CellInt:
+		fillUpTable[models.CellInt](playground)
+	case *models.CellString:
+		fillUpTable[models.CellString](playground)
+	case *models.CheckBox:
+		fillUpTable[models.CheckBox](playground)
+	case *models.DisplayedColumn:
+		fillUpTable[models.DisplayedColumn](playground)
+	case *models.FormDiv:
+		fillUpTable[models.FormDiv](playground)
+	case *models.FormEditAssocButton:
+		fillUpTable[models.FormEditAssocButton](playground)
+	case *models.FormField:
+		fillUpTable[models.FormField](playground)
+	case *models.FormFieldDate:
+		fillUpTable[models.FormFieldDate](playground)
+	case *models.FormFieldDateTime:
+		fillUpTable[models.FormFieldDateTime](playground)
+	case *models.FormFieldFloat64:
+		fillUpTable[models.FormFieldFloat64](playground)
+	case *models.FormFieldInt:
+		fillUpTable[models.FormFieldInt](playground)
+	case *models.FormFieldSelect:
+		fillUpTable[models.FormFieldSelect](playground)
+	case *models.FormFieldString:
+		fillUpTable[models.FormFieldString](playground)
+	case *models.FormFieldTime:
+		fillUpTable[models.FormFieldTime](playground)
+	case *models.FormGroup:
+		fillUpTable[models.FormGroup](playground)
+	case *models.FormSortAssocButton:
+		fillUpTable[models.FormSortAssocButton](playground)
+	case *models.Option:
+		fillUpTable[models.Option](playground)
+	case *models.Row:
+		fillUpTable[models.Row](playground)
+	case *models.Table:
+		fillUpTable[models.Table](playground)
+	default:
+		log.Println("unknow type")
+	}
+}
+
 func fillUpTable[T models.Gongstruct](
 	playground *Playground,
 ) {
