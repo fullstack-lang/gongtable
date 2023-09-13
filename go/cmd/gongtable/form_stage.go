@@ -278,6 +278,7 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormGroup values setup
 	__FormGroup__000000_Form_1.Name = `Form 1`
+	__FormGroup__000000_Form_1.Label = `New instance`
 
 	// FormSortAssocButton values setup
 	__FormSortAssocButton__000000_Sort_Button.Name = `Sort Button`

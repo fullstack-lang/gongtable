@@ -361,10 +361,12 @@ func FillUpForm[T models.Gongstruct](
 	case *models.FormFieldDate:
 		// insertion point
 		BasicFieldtoForm("Name", instanceWithInferedType.Name, instanceWithInferedType, playground.formStage, formGroup)
+		BasicFieldtoForm("Value", instanceWithInferedType.Value, instanceWithInferedType, playground.formStage, formGroup)
 
 	case *models.FormFieldDateTime:
 		// insertion point
 		BasicFieldtoForm("Name", instanceWithInferedType.Name, instanceWithInferedType, playground.formStage, formGroup)
+		BasicFieldtoForm("Value", instanceWithInferedType.Value, instanceWithInferedType, playground.formStage, formGroup)
 
 	case *models.FormFieldFloat64:
 		// insertion point
@@ -399,11 +401,13 @@ func FillUpForm[T models.Gongstruct](
 	case *models.FormFieldTime:
 		// insertion point
 		BasicFieldtoForm("Name", instanceWithInferedType.Name, instanceWithInferedType, playground.formStage, formGroup)
+		BasicFieldtoForm("Value", instanceWithInferedType.Value, instanceWithInferedType, playground.formStage, formGroup)
 		BasicFieldtoForm("Step", instanceWithInferedType.Step, instanceWithInferedType, playground.formStage, formGroup)
 
 	case *models.FormGroup:
 		// insertion point
 		BasicFieldtoForm("Name", instanceWithInferedType.Name, instanceWithInferedType, playground.formStage, formGroup)
+		BasicFieldtoForm("Label", instanceWithInferedType.Label, instanceWithInferedType, playground.formStage, formGroup)
 		AssociationSliceToForm("FormDivs", instanceWithInferedType, &instanceWithInferedType.FormDivs, formGroup, playground)
 
 	case *models.FormSortAssocButton:
