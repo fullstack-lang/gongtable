@@ -46,7 +46,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 	// insertion point
 	case "Cell":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New Cell Form",
 			OnSave: NewCellFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -56,7 +57,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(cell, formGroup, buttonImpl.playground)
 	case "CellBoolean":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New CellBoolean Form",
 			OnSave: NewCellBooleanFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -66,7 +68,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(cellboolean, formGroup, buttonImpl.playground)
 	case "CellFloat64":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New CellFloat64 Form",
 			OnSave: NewCellFloat64FormCallback(
 				nil,
 				buttonImpl.playground,
@@ -76,7 +79,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(cellfloat64, formGroup, buttonImpl.playground)
 	case "CellIcon":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New CellIcon Form",
 			OnSave: NewCellIconFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -86,7 +90,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(cellicon, formGroup, buttonImpl.playground)
 	case "CellInt":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New CellInt Form",
 			OnSave: NewCellIntFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -96,7 +101,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(cellint, formGroup, buttonImpl.playground)
 	case "CellString":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New CellString Form",
 			OnSave: NewCellStringFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -106,7 +112,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(cellstring, formGroup, buttonImpl.playground)
 	case "CheckBox":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New CheckBox Form",
 			OnSave: NewCheckBoxFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -116,7 +123,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(checkbox, formGroup, buttonImpl.playground)
 	case "DisplayedColumn":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New DisplayedColumn Form",
 			OnSave: NewDisplayedColumnFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -126,7 +134,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(displayedcolumn, formGroup, buttonImpl.playground)
 	case "FormDiv":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New FormDiv Form",
 			OnSave: NewFormDivFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -136,7 +145,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(formdiv, formGroup, buttonImpl.playground)
 	case "FormEditAssocButton":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New FormEditAssocButton Form",
 			OnSave: NewFormEditAssocButtonFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -146,7 +156,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(formeditassocbutton, formGroup, buttonImpl.playground)
 	case "FormField":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New FormField Form",
 			OnSave: NewFormFieldFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -156,7 +167,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(formfield, formGroup, buttonImpl.playground)
 	case "FormFieldDate":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New FormFieldDate Form",
 			OnSave: NewFormFieldDateFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -166,7 +178,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(formfielddate, formGroup, buttonImpl.playground)
 	case "FormFieldDateTime":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New FormFieldDateTime Form",
 			OnSave: NewFormFieldDateTimeFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -176,7 +189,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(formfielddatetime, formGroup, buttonImpl.playground)
 	case "FormFieldFloat64":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New FormFieldFloat64 Form",
 			OnSave: NewFormFieldFloat64FormCallback(
 				nil,
 				buttonImpl.playground,
@@ -186,7 +200,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(formfieldfloat64, formGroup, buttonImpl.playground)
 	case "FormFieldInt":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New FormFieldInt Form",
 			OnSave: NewFormFieldIntFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -196,7 +211,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(formfieldint, formGroup, buttonImpl.playground)
 	case "FormFieldSelect":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New FormFieldSelect Form",
 			OnSave: NewFormFieldSelectFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -206,7 +222,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(formfieldselect, formGroup, buttonImpl.playground)
 	case "FormFieldString":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New FormFieldString Form",
 			OnSave: NewFormFieldStringFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -216,7 +233,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(formfieldstring, formGroup, buttonImpl.playground)
 	case "FormFieldTime":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New FormFieldTime Form",
 			OnSave: NewFormFieldTimeFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -226,7 +244,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(formfieldtime, formGroup, buttonImpl.playground)
 	case "FormGroup":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New FormGroup Form",
 			OnSave: NewFormGroupFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -236,7 +255,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(formgroup, formGroup, buttonImpl.playground)
 	case "FormSortAssocButton":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New FormSortAssocButton Form",
 			OnSave: NewFormSortAssocButtonFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -246,7 +266,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(formsortassocbutton, formGroup, buttonImpl.playground)
 	case "Option":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New Option Form",
 			OnSave: NewOptionFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -256,7 +277,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(option, formGroup, buttonImpl.playground)
 	case "Row":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New Row Form",
 			OnSave: NewRowFormCallback(
 				nil,
 				buttonImpl.playground,
@@ -266,7 +288,8 @@ func (buttonImpl *ButtonImplGongstruct) ButtonUpdated(
 		FillUpForm(row, formGroup, buttonImpl.playground)
 	case "Table":
 		formGroup := (&form.FormGroup{
-			Name: form.FormGroupDefaultName.ToString(),
+			Name:  form.FormGroupDefaultName.ToString(),
+			Label: "New Table Form",
 			OnSave: NewTableFormCallback(
 				nil,
 				buttonImpl.playground,

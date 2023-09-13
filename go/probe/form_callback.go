@@ -81,12 +81,12 @@ func (cellFormCallback *CellFormCallback) OnSave() {
 		cellFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewCellFormCallback(
 				nil,
 				cellFormCallback.playground,
 			),
 		}).Stage(cellFormCallback.playground.formStage)
-		cell := new(models.Astruct)
+		cell := new(models.Cell)
 		FillUpForm(cell, newFormGroup, cellFormCallback.playground)
 		cellFormCallback.playground.formStage.Commit()
 	}
@@ -152,12 +152,12 @@ func (cellbooleanFormCallback *CellBooleanFormCallback) OnSave() {
 		cellbooleanFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewCellBooleanFormCallback(
 				nil,
 				cellbooleanFormCallback.playground,
 			),
 		}).Stage(cellbooleanFormCallback.playground.formStage)
-		cellboolean := new(models.Astruct)
+		cellboolean := new(models.CellBoolean)
 		FillUpForm(cellboolean, newFormGroup, cellbooleanFormCallback.playground)
 		cellbooleanFormCallback.playground.formStage.Commit()
 	}
@@ -223,12 +223,12 @@ func (cellfloat64FormCallback *CellFloat64FormCallback) OnSave() {
 		cellfloat64FormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewCellFloat64FormCallback(
 				nil,
 				cellfloat64FormCallback.playground,
 			),
 		}).Stage(cellfloat64FormCallback.playground.formStage)
-		cellfloat64 := new(models.Astruct)
+		cellfloat64 := new(models.CellFloat64)
 		FillUpForm(cellfloat64, newFormGroup, cellfloat64FormCallback.playground)
 		cellfloat64FormCallback.playground.formStage.Commit()
 	}
@@ -294,12 +294,12 @@ func (celliconFormCallback *CellIconFormCallback) OnSave() {
 		celliconFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewCellIconFormCallback(
 				nil,
 				celliconFormCallback.playground,
 			),
 		}).Stage(celliconFormCallback.playground.formStage)
-		cellicon := new(models.Astruct)
+		cellicon := new(models.CellIcon)
 		FillUpForm(cellicon, newFormGroup, celliconFormCallback.playground)
 		celliconFormCallback.playground.formStage.Commit()
 	}
@@ -365,12 +365,12 @@ func (cellintFormCallback *CellIntFormCallback) OnSave() {
 		cellintFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewCellIntFormCallback(
 				nil,
 				cellintFormCallback.playground,
 			),
 		}).Stage(cellintFormCallback.playground.formStage)
-		cellint := new(models.Astruct)
+		cellint := new(models.CellInt)
 		FillUpForm(cellint, newFormGroup, cellintFormCallback.playground)
 		cellintFormCallback.playground.formStage.Commit()
 	}
@@ -436,12 +436,12 @@ func (cellstringFormCallback *CellStringFormCallback) OnSave() {
 		cellstringFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewCellStringFormCallback(
 				nil,
 				cellstringFormCallback.playground,
 			),
 		}).Stage(cellstringFormCallback.playground.formStage)
-		cellstring := new(models.Astruct)
+		cellstring := new(models.CellString)
 		FillUpForm(cellstring, newFormGroup, cellstringFormCallback.playground)
 		cellstringFormCallback.playground.formStage.Commit()
 	}
@@ -507,12 +507,12 @@ func (checkboxFormCallback *CheckBoxFormCallback) OnSave() {
 		checkboxFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewCheckBoxFormCallback(
 				nil,
 				checkboxFormCallback.playground,
 			),
 		}).Stage(checkboxFormCallback.playground.formStage)
-		checkbox := new(models.Astruct)
+		checkbox := new(models.CheckBox)
 		FillUpForm(checkbox, newFormGroup, checkboxFormCallback.playground)
 		checkboxFormCallback.playground.formStage.Commit()
 	}
@@ -576,12 +576,12 @@ func (displayedcolumnFormCallback *DisplayedColumnFormCallback) OnSave() {
 		displayedcolumnFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewDisplayedColumnFormCallback(
 				nil,
 				displayedcolumnFormCallback.playground,
 			),
 		}).Stage(displayedcolumnFormCallback.playground.formStage)
-		displayedcolumn := new(models.Astruct)
+		displayedcolumn := new(models.DisplayedColumn)
 		FillUpForm(displayedcolumn, newFormGroup, displayedcolumnFormCallback.playground)
 		displayedcolumnFormCallback.playground.formStage.Commit()
 	}
@@ -649,12 +649,12 @@ func (formdivFormCallback *FormDivFormCallback) OnSave() {
 		formdivFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewFormDivFormCallback(
 				nil,
 				formdivFormCallback.playground,
 			),
 		}).Stage(formdivFormCallback.playground.formStage)
-		formdiv := new(models.Astruct)
+		formdiv := new(models.FormDiv)
 		FillUpForm(formdiv, newFormGroup, formdivFormCallback.playground)
 		formdivFormCallback.playground.formStage.Commit()
 	}
@@ -720,12 +720,12 @@ func (formeditassocbuttonFormCallback *FormEditAssocButtonFormCallback) OnSave()
 		formeditassocbuttonFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewFormEditAssocButtonFormCallback(
 				nil,
 				formeditassocbuttonFormCallback.playground,
 			),
 		}).Stage(formeditassocbuttonFormCallback.playground.formStage)
-		formeditassocbutton := new(models.Astruct)
+		formeditassocbutton := new(models.FormEditAssocButton)
 		FillUpForm(formeditassocbutton, newFormGroup, formeditassocbuttonFormCallback.playground)
 		formeditassocbuttonFormCallback.playground.formStage.Commit()
 	}
@@ -813,12 +813,12 @@ func (formfieldFormCallback *FormFieldFormCallback) OnSave() {
 		formfieldFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewFormFieldFormCallback(
 				nil,
 				formfieldFormCallback.playground,
 			),
 		}).Stage(formfieldFormCallback.playground.formStage)
-		formfield := new(models.Astruct)
+		formfield := new(models.FormField)
 		FillUpForm(formfield, newFormGroup, formfieldFormCallback.playground)
 		formfieldFormCallback.playground.formStage.Commit()
 	}
@@ -882,12 +882,12 @@ func (formfielddateFormCallback *FormFieldDateFormCallback) OnSave() {
 		formfielddateFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewFormFieldDateFormCallback(
 				nil,
 				formfielddateFormCallback.playground,
 			),
 		}).Stage(formfielddateFormCallback.playground.formStage)
-		formfielddate := new(models.Astruct)
+		formfielddate := new(models.FormFieldDate)
 		FillUpForm(formfielddate, newFormGroup, formfielddateFormCallback.playground)
 		formfielddateFormCallback.playground.formStage.Commit()
 	}
@@ -951,12 +951,12 @@ func (formfielddatetimeFormCallback *FormFieldDateTimeFormCallback) OnSave() {
 		formfielddatetimeFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewFormFieldDateTimeFormCallback(
 				nil,
 				formfielddatetimeFormCallback.playground,
 			),
 		}).Stage(formfielddatetimeFormCallback.playground.formStage)
-		formfielddatetime := new(models.Astruct)
+		formfielddatetime := new(models.FormFieldDateTime)
 		FillUpForm(formfielddatetime, newFormGroup, formfielddatetimeFormCallback.playground)
 		formfielddatetimeFormCallback.playground.formStage.Commit()
 	}
@@ -1030,12 +1030,12 @@ func (formfieldfloat64FormCallback *FormFieldFloat64FormCallback) OnSave() {
 		formfieldfloat64FormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewFormFieldFloat64FormCallback(
 				nil,
 				formfieldfloat64FormCallback.playground,
 			),
 		}).Stage(formfieldfloat64FormCallback.playground.formStage)
-		formfieldfloat64 := new(models.Astruct)
+		formfieldfloat64 := new(models.FormFieldFloat64)
 		FillUpForm(formfieldfloat64, newFormGroup, formfieldfloat64FormCallback.playground)
 		formfieldfloat64FormCallback.playground.formStage.Commit()
 	}
@@ -1109,12 +1109,12 @@ func (formfieldintFormCallback *FormFieldIntFormCallback) OnSave() {
 		formfieldintFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewFormFieldIntFormCallback(
 				nil,
 				formfieldintFormCallback.playground,
 			),
 		}).Stage(formfieldintFormCallback.playground.formStage)
-		formfieldint := new(models.Astruct)
+		formfieldint := new(models.FormFieldInt)
 		FillUpForm(formfieldint, newFormGroup, formfieldintFormCallback.playground)
 		formfieldintFormCallback.playground.formStage.Commit()
 	}
@@ -1182,12 +1182,12 @@ func (formfieldselectFormCallback *FormFieldSelectFormCallback) OnSave() {
 		formfieldselectFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewFormFieldSelectFormCallback(
 				nil,
 				formfieldselectFormCallback.playground,
 			),
 		}).Stage(formfieldselectFormCallback.playground.formStage)
-		formfieldselect := new(models.Astruct)
+		formfieldselect := new(models.FormFieldSelect)
 		FillUpForm(formfieldselect, newFormGroup, formfieldselectFormCallback.playground)
 		formfieldselectFormCallback.playground.formStage.Commit()
 	}
@@ -1253,12 +1253,12 @@ func (formfieldstringFormCallback *FormFieldStringFormCallback) OnSave() {
 		formfieldstringFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewFormFieldStringFormCallback(
 				nil,
 				formfieldstringFormCallback.playground,
 			),
 		}).Stage(formfieldstringFormCallback.playground.formStage)
-		formfieldstring := new(models.Astruct)
+		formfieldstring := new(models.FormFieldString)
 		FillUpForm(formfieldstring, newFormGroup, formfieldstringFormCallback.playground)
 		formfieldstringFormCallback.playground.formStage.Commit()
 	}
@@ -1324,12 +1324,12 @@ func (formfieldtimeFormCallback *FormFieldTimeFormCallback) OnSave() {
 		formfieldtimeFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewFormFieldTimeFormCallback(
 				nil,
 				formfieldtimeFormCallback.playground,
 			),
 		}).Stage(formfieldtimeFormCallback.playground.formStage)
-		formfieldtime := new(models.Astruct)
+		formfieldtime := new(models.FormFieldTime)
 		FillUpForm(formfieldtime, newFormGroup, formfieldtimeFormCallback.playground)
 		formfieldtimeFormCallback.playground.formStage.Commit()
 	}
@@ -1395,12 +1395,12 @@ func (formgroupFormCallback *FormGroupFormCallback) OnSave() {
 		formgroupFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewFormGroupFormCallback(
 				nil,
 				formgroupFormCallback.playground,
 			),
 		}).Stage(formgroupFormCallback.playground.formStage)
-		formgroup := new(models.Astruct)
+		formgroup := new(models.FormGroup)
 		FillUpForm(formgroup, newFormGroup, formgroupFormCallback.playground)
 		formgroupFormCallback.playground.formStage.Commit()
 	}
@@ -1466,12 +1466,12 @@ func (formsortassocbuttonFormCallback *FormSortAssocButtonFormCallback) OnSave()
 		formsortassocbuttonFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewFormSortAssocButtonFormCallback(
 				nil,
 				formsortassocbuttonFormCallback.playground,
 			),
 		}).Stage(formsortassocbuttonFormCallback.playground.formStage)
-		formsortassocbutton := new(models.Astruct)
+		formsortassocbutton := new(models.FormSortAssocButton)
 		FillUpForm(formsortassocbutton, newFormGroup, formsortassocbuttonFormCallback.playground)
 		formsortassocbuttonFormCallback.playground.formStage.Commit()
 	}
@@ -1535,12 +1535,12 @@ func (optionFormCallback *OptionFormCallback) OnSave() {
 		optionFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewOptionFormCallback(
 				nil,
 				optionFormCallback.playground,
 			),
 		}).Stage(optionFormCallback.playground.formStage)
-		option := new(models.Astruct)
+		option := new(models.Option)
 		FillUpForm(option, newFormGroup, optionFormCallback.playground)
 		optionFormCallback.playground.formStage.Commit()
 	}
@@ -1606,12 +1606,12 @@ func (rowFormCallback *RowFormCallback) OnSave() {
 		rowFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewRowFormCallback(
 				nil,
 				rowFormCallback.playground,
 			),
 		}).Stage(rowFormCallback.playground.formStage)
-		row := new(models.Astruct)
+		row := new(models.Row)
 		FillUpForm(row, newFormGroup, rowFormCallback.playground)
 		rowFormCallback.playground.formStage.Commit()
 	}
@@ -1693,12 +1693,12 @@ func (tableFormCallback *TableFormCallback) OnSave() {
 		tableFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewAstructFormCallback(
+			OnSave: NewTableFormCallback(
 				nil,
 				tableFormCallback.playground,
 			),
 		}).Stage(tableFormCallback.playground.formStage)
-		table := new(models.Astruct)
+		table := new(models.Table)
 		FillUpForm(table, newFormGroup, tableFormCallback.playground)
 		tableFormCallback.playground.formStage.Commit()
 	}
