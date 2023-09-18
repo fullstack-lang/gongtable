@@ -1,4 +1,4 @@
-# github.com/bytedance/sonic v1.10.0
+# github.com/bytedance/sonic v1.10.1
 ## explicit; go 1.16
 github.com/bytedance/sonic
 github.com/bytedance/sonic/ast
@@ -34,14 +34,14 @@ github.com/dustin/go-humanize
 # github.com/frankban/quicktest v1.14.6
 ## explicit; go 1.13
 github.com/frankban/quicktest
-# github.com/fullstack-lang/gong v0.0.0-20230909011346-a70edca74461
+# github.com/fullstack-lang/gong v0.0.0-20230918061833-518c4a0bdaca
 ## explicit; go 1.21.0
 github.com/fullstack-lang/gong/go/controllers
 github.com/fullstack-lang/gong/go/fullstack
 github.com/fullstack-lang/gong/go/models
 github.com/fullstack-lang/gong/go/orm
 github.com/fullstack-lang/gong/ng/projects
-# github.com/fullstack-lang/gongdoc v0.0.0-20230909011055-ede73c039617
+# github.com/fullstack-lang/gongdoc v0.0.0-20230910200256-43715514dfd6
 ## explicit; go 1.21.0
 github.com/fullstack-lang/gongdoc/go/controllers
 github.com/fullstack-lang/gongdoc/go/doc2svg
@@ -51,14 +51,14 @@ github.com/fullstack-lang/gongdoc/go/models
 github.com/fullstack-lang/gongdoc/go/node2gongdoc
 github.com/fullstack-lang/gongdoc/go/orm
 github.com/fullstack-lang/gongdoc/ng/projects
-# github.com/fullstack-lang/gongsvg v0.0.0-20230909011613-328ad9054f53
+# github.com/fullstack-lang/gongsvg v0.0.0-20230915030942-f6ec4de43135
 ## explicit; go 1.21.0
 github.com/fullstack-lang/gongsvg/go/controllers
 github.com/fullstack-lang/gongsvg/go/fullstack
 github.com/fullstack-lang/gongsvg/go/models
 github.com/fullstack-lang/gongsvg/go/orm
 github.com/fullstack-lang/gongsvg/ng/projects
-# github.com/fullstack-lang/gongtree v0.0.0-20230909010144-da3583949c10
+# github.com/fullstack-lang/gongtree v0.0.0-20230916070508-9efc202e28d4
 ## explicit; go 1.21.0
 github.com/fullstack-lang/gongtree/go/buttons
 github.com/fullstack-lang/gongtree/go/controllers
@@ -104,7 +104,7 @@ github.com/go-playground/locales/currency
 # github.com/go-playground/universal-translator v0.18.1
 ## explicit; go 1.18
 github.com/go-playground/universal-translator
-# github.com/go-playground/validator/v10 v10.15.3
+# github.com/go-playground/validator/v10 v10.15.4
 ## explicit; go 1.18
 github.com/go-playground/validator/v10
 # github.com/goccy/go-json v0.10.2
@@ -193,7 +193,7 @@ github.com/rogpeppe/go-internal/fmtsort
 # github.com/shabbyrobe/xmlwriter v0.0.0-20230525083848-85336ec334fa
 ## explicit; go 1.13
 github.com/shabbyrobe/xmlwriter
-# github.com/tealeg/xlsx/v3 v3.3.0
+# github.com/tealeg/xlsx/v3 v3.3.1
 ## explicit; go 1.18
 github.com/tealeg/xlsx/v3
 # github.com/twitchyliquid64/golang-asm v0.15.1
