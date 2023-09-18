@@ -16,6 +16,7 @@ import (
 	gongtable_fullstack "github.com/fullstack-lang/gongtable/go/fullstack"
 	gongtable_models "github.com/fullstack-lang/gongtable/go/models"
 	gongtable_orm "github.com/fullstack-lang/gongtable/go/orm"
+	gongtable_probe "github.com/fullstack-lang/gongtable/go/probe"
 	gongtable_static "github.com/fullstack-lang/gongtable/go/static"
 
 	gongdoc_load "github.com/fullstack-lang/gongdoc/go/load"
@@ -160,6 +161,18 @@ func main() {
 		hook := new(BeforeCommitImplForManualyEditedFormStage)
 		stageForManualyEditedForm.OnInitCommitFromFrontCallback = hook
 	}
+
+	gongtable_probe.NewProbe(r,
+		gongtable_go.GoModelsDir,
+		nameOfManualyEditedTableStack,
+		stageForManualyEditedTable,
+		backRepoForManualyEditedTable)
+
+	gongtable_probe.NewProbe(r,
+		gongtable_go.GoModelsDir,
+		nameOfManualyEditedFormStack,
+		stageForManualyEditedForm,
+		backRepoForManualyEditedForm)
 
 	// to edit the data of the stack
 	// gongtable_data.Load(r, gongtable_go.GoModelsDir, nameOfManualyEditedTableStack, stageForManualyEditedTable, backRepoForManualyEditedTable)
