@@ -13,7 +13,7 @@ import (
 const __dummmy__time = time.Nanosecond
 
 // insertion point
-func NewCellFormCallback(
+func __gong__New__CellFormCallback(
 	cell *models.Cell,
 	playground *Playground,
 ) (cellFormCallback *CellFormCallback) {
@@ -81,7 +81,7 @@ func (cellFormCallback *CellFormCallback) OnSave() {
 		cellFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewCellFormCallback(
+			OnSave: __gong__New__CellFormCallback(
 				nil,
 				cellFormCallback.playground,
 			),
@@ -92,7 +92,7 @@ func (cellFormCallback *CellFormCallback) OnSave() {
 	}
 
 }
-func NewCellBooleanFormCallback(
+func __gong__New__CellBooleanFormCallback(
 	cellboolean *models.CellBoolean,
 	playground *Playground,
 ) (cellbooleanFormCallback *CellBooleanFormCallback) {
@@ -152,7 +152,7 @@ func (cellbooleanFormCallback *CellBooleanFormCallback) OnSave() {
 		cellbooleanFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewCellBooleanFormCallback(
+			OnSave: __gong__New__CellBooleanFormCallback(
 				nil,
 				cellbooleanFormCallback.playground,
 			),
@@ -163,7 +163,7 @@ func (cellbooleanFormCallback *CellBooleanFormCallback) OnSave() {
 	}
 
 }
-func NewCellFloat64FormCallback(
+func __gong__New__CellFloat64FormCallback(
 	cellfloat64 *models.CellFloat64,
 	playground *Playground,
 ) (cellfloat64FormCallback *CellFloat64FormCallback) {
@@ -223,7 +223,7 @@ func (cellfloat64FormCallback *CellFloat64FormCallback) OnSave() {
 		cellfloat64FormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewCellFloat64FormCallback(
+			OnSave: __gong__New__CellFloat64FormCallback(
 				nil,
 				cellfloat64FormCallback.playground,
 			),
@@ -234,7 +234,7 @@ func (cellfloat64FormCallback *CellFloat64FormCallback) OnSave() {
 	}
 
 }
-func NewCellIconFormCallback(
+func __gong__New__CellIconFormCallback(
 	cellicon *models.CellIcon,
 	playground *Playground,
 ) (celliconFormCallback *CellIconFormCallback) {
@@ -294,7 +294,7 @@ func (celliconFormCallback *CellIconFormCallback) OnSave() {
 		celliconFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewCellIconFormCallback(
+			OnSave: __gong__New__CellIconFormCallback(
 				nil,
 				celliconFormCallback.playground,
 			),
@@ -305,7 +305,7 @@ func (celliconFormCallback *CellIconFormCallback) OnSave() {
 	}
 
 }
-func NewCellIntFormCallback(
+func __gong__New__CellIntFormCallback(
 	cellint *models.CellInt,
 	playground *Playground,
 ) (cellintFormCallback *CellIntFormCallback) {
@@ -365,7 +365,7 @@ func (cellintFormCallback *CellIntFormCallback) OnSave() {
 		cellintFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewCellIntFormCallback(
+			OnSave: __gong__New__CellIntFormCallback(
 				nil,
 				cellintFormCallback.playground,
 			),
@@ -376,7 +376,7 @@ func (cellintFormCallback *CellIntFormCallback) OnSave() {
 	}
 
 }
-func NewCellStringFormCallback(
+func __gong__New__CellStringFormCallback(
 	cellstring *models.CellString,
 	playground *Playground,
 ) (cellstringFormCallback *CellStringFormCallback) {
@@ -436,7 +436,7 @@ func (cellstringFormCallback *CellStringFormCallback) OnSave() {
 		cellstringFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewCellStringFormCallback(
+			OnSave: __gong__New__CellStringFormCallback(
 				nil,
 				cellstringFormCallback.playground,
 			),
@@ -447,7 +447,7 @@ func (cellstringFormCallback *CellStringFormCallback) OnSave() {
 	}
 
 }
-func NewCheckBoxFormCallback(
+func __gong__New__CheckBoxFormCallback(
 	checkbox *models.CheckBox,
 	playground *Playground,
 ) (checkboxFormCallback *CheckBoxFormCallback) {
@@ -507,7 +507,7 @@ func (checkboxFormCallback *CheckBoxFormCallback) OnSave() {
 		checkboxFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewCheckBoxFormCallback(
+			OnSave: __gong__New__CheckBoxFormCallback(
 				nil,
 				checkboxFormCallback.playground,
 			),
@@ -518,7 +518,7 @@ func (checkboxFormCallback *CheckBoxFormCallback) OnSave() {
 	}
 
 }
-func NewDisplayedColumnFormCallback(
+func __gong__New__DisplayedColumnFormCallback(
 	displayedcolumn *models.DisplayedColumn,
 	playground *Playground,
 ) (displayedcolumnFormCallback *DisplayedColumnFormCallback) {
@@ -576,7 +576,7 @@ func (displayedcolumnFormCallback *DisplayedColumnFormCallback) OnSave() {
 		displayedcolumnFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewDisplayedColumnFormCallback(
+			OnSave: __gong__New__DisplayedColumnFormCallback(
 				nil,
 				displayedcolumnFormCallback.playground,
 			),
@@ -587,7 +587,7 @@ func (displayedcolumnFormCallback *DisplayedColumnFormCallback) OnSave() {
 	}
 
 }
-func NewFormDivFormCallback(
+func __gong__New__FormDivFormCallback(
 	formdiv *models.FormDiv,
 	playground *Playground,
 ) (formdivFormCallback *FormDivFormCallback) {
@@ -649,7 +649,7 @@ func (formdivFormCallback *FormDivFormCallback) OnSave() {
 		formdivFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewFormDivFormCallback(
+			OnSave: __gong__New__FormDivFormCallback(
 				nil,
 				formdivFormCallback.playground,
 			),
@@ -660,7 +660,7 @@ func (formdivFormCallback *FormDivFormCallback) OnSave() {
 	}
 
 }
-func NewFormEditAssocButtonFormCallback(
+func __gong__New__FormEditAssocButtonFormCallback(
 	formeditassocbutton *models.FormEditAssocButton,
 	playground *Playground,
 ) (formeditassocbuttonFormCallback *FormEditAssocButtonFormCallback) {
@@ -720,7 +720,7 @@ func (formeditassocbuttonFormCallback *FormEditAssocButtonFormCallback) OnSave()
 		formeditassocbuttonFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewFormEditAssocButtonFormCallback(
+			OnSave: __gong__New__FormEditAssocButtonFormCallback(
 				nil,
 				formeditassocbuttonFormCallback.playground,
 			),
@@ -731,7 +731,7 @@ func (formeditassocbuttonFormCallback *FormEditAssocButtonFormCallback) OnSave()
 	}
 
 }
-func NewFormFieldFormCallback(
+func __gong__New__FormFieldFormCallback(
 	formfield *models.FormField,
 	playground *Playground,
 ) (formfieldFormCallback *FormFieldFormCallback) {
@@ -813,7 +813,7 @@ func (formfieldFormCallback *FormFieldFormCallback) OnSave() {
 		formfieldFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewFormFieldFormCallback(
+			OnSave: __gong__New__FormFieldFormCallback(
 				nil,
 				formfieldFormCallback.playground,
 			),
@@ -824,7 +824,7 @@ func (formfieldFormCallback *FormFieldFormCallback) OnSave() {
 	}
 
 }
-func NewFormFieldDateFormCallback(
+func __gong__New__FormFieldDateFormCallback(
 	formfielddate *models.FormFieldDate,
 	playground *Playground,
 ) (formfielddateFormCallback *FormFieldDateFormCallback) {
@@ -882,7 +882,7 @@ func (formfielddateFormCallback *FormFieldDateFormCallback) OnSave() {
 		formfielddateFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewFormFieldDateFormCallback(
+			OnSave: __gong__New__FormFieldDateFormCallback(
 				nil,
 				formfielddateFormCallback.playground,
 			),
@@ -893,7 +893,7 @@ func (formfielddateFormCallback *FormFieldDateFormCallback) OnSave() {
 	}
 
 }
-func NewFormFieldDateTimeFormCallback(
+func __gong__New__FormFieldDateTimeFormCallback(
 	formfielddatetime *models.FormFieldDateTime,
 	playground *Playground,
 ) (formfielddatetimeFormCallback *FormFieldDateTimeFormCallback) {
@@ -951,7 +951,7 @@ func (formfielddatetimeFormCallback *FormFieldDateTimeFormCallback) OnSave() {
 		formfielddatetimeFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewFormFieldDateTimeFormCallback(
+			OnSave: __gong__New__FormFieldDateTimeFormCallback(
 				nil,
 				formfielddatetimeFormCallback.playground,
 			),
@@ -962,7 +962,7 @@ func (formfielddatetimeFormCallback *FormFieldDateTimeFormCallback) OnSave() {
 	}
 
 }
-func NewFormFieldFloat64FormCallback(
+func __gong__New__FormFieldFloat64FormCallback(
 	formfieldfloat64 *models.FormFieldFloat64,
 	playground *Playground,
 ) (formfieldfloat64FormCallback *FormFieldFloat64FormCallback) {
@@ -1030,7 +1030,7 @@ func (formfieldfloat64FormCallback *FormFieldFloat64FormCallback) OnSave() {
 		formfieldfloat64FormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewFormFieldFloat64FormCallback(
+			OnSave: __gong__New__FormFieldFloat64FormCallback(
 				nil,
 				formfieldfloat64FormCallback.playground,
 			),
@@ -1041,7 +1041,7 @@ func (formfieldfloat64FormCallback *FormFieldFloat64FormCallback) OnSave() {
 	}
 
 }
-func NewFormFieldIntFormCallback(
+func __gong__New__FormFieldIntFormCallback(
 	formfieldint *models.FormFieldInt,
 	playground *Playground,
 ) (formfieldintFormCallback *FormFieldIntFormCallback) {
@@ -1109,7 +1109,7 @@ func (formfieldintFormCallback *FormFieldIntFormCallback) OnSave() {
 		formfieldintFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewFormFieldIntFormCallback(
+			OnSave: __gong__New__FormFieldIntFormCallback(
 				nil,
 				formfieldintFormCallback.playground,
 			),
@@ -1120,7 +1120,7 @@ func (formfieldintFormCallback *FormFieldIntFormCallback) OnSave() {
 	}
 
 }
-func NewFormFieldSelectFormCallback(
+func __gong__New__FormFieldSelectFormCallback(
 	formfieldselect *models.FormFieldSelect,
 	playground *Playground,
 ) (formfieldselectFormCallback *FormFieldSelectFormCallback) {
@@ -1182,7 +1182,7 @@ func (formfieldselectFormCallback *FormFieldSelectFormCallback) OnSave() {
 		formfieldselectFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewFormFieldSelectFormCallback(
+			OnSave: __gong__New__FormFieldSelectFormCallback(
 				nil,
 				formfieldselectFormCallback.playground,
 			),
@@ -1193,7 +1193,7 @@ func (formfieldselectFormCallback *FormFieldSelectFormCallback) OnSave() {
 	}
 
 }
-func NewFormFieldStringFormCallback(
+func __gong__New__FormFieldStringFormCallback(
 	formfieldstring *models.FormFieldString,
 	playground *Playground,
 ) (formfieldstringFormCallback *FormFieldStringFormCallback) {
@@ -1253,7 +1253,7 @@ func (formfieldstringFormCallback *FormFieldStringFormCallback) OnSave() {
 		formfieldstringFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewFormFieldStringFormCallback(
+			OnSave: __gong__New__FormFieldStringFormCallback(
 				nil,
 				formfieldstringFormCallback.playground,
 			),
@@ -1264,7 +1264,7 @@ func (formfieldstringFormCallback *FormFieldStringFormCallback) OnSave() {
 	}
 
 }
-func NewFormFieldTimeFormCallback(
+func __gong__New__FormFieldTimeFormCallback(
 	formfieldtime *models.FormFieldTime,
 	playground *Playground,
 ) (formfieldtimeFormCallback *FormFieldTimeFormCallback) {
@@ -1324,7 +1324,7 @@ func (formfieldtimeFormCallback *FormFieldTimeFormCallback) OnSave() {
 		formfieldtimeFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewFormFieldTimeFormCallback(
+			OnSave: __gong__New__FormFieldTimeFormCallback(
 				nil,
 				formfieldtimeFormCallback.playground,
 			),
@@ -1335,7 +1335,7 @@ func (formfieldtimeFormCallback *FormFieldTimeFormCallback) OnSave() {
 	}
 
 }
-func NewFormGroupFormCallback(
+func __gong__New__FormGroupFormCallback(
 	formgroup *models.FormGroup,
 	playground *Playground,
 ) (formgroupFormCallback *FormGroupFormCallback) {
@@ -1395,7 +1395,7 @@ func (formgroupFormCallback *FormGroupFormCallback) OnSave() {
 		formgroupFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewFormGroupFormCallback(
+			OnSave: __gong__New__FormGroupFormCallback(
 				nil,
 				formgroupFormCallback.playground,
 			),
@@ -1406,7 +1406,7 @@ func (formgroupFormCallback *FormGroupFormCallback) OnSave() {
 	}
 
 }
-func NewFormSortAssocButtonFormCallback(
+func __gong__New__FormSortAssocButtonFormCallback(
 	formsortassocbutton *models.FormSortAssocButton,
 	playground *Playground,
 ) (formsortassocbuttonFormCallback *FormSortAssocButtonFormCallback) {
@@ -1466,7 +1466,7 @@ func (formsortassocbuttonFormCallback *FormSortAssocButtonFormCallback) OnSave()
 		formsortassocbuttonFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewFormSortAssocButtonFormCallback(
+			OnSave: __gong__New__FormSortAssocButtonFormCallback(
 				nil,
 				formsortassocbuttonFormCallback.playground,
 			),
@@ -1477,7 +1477,7 @@ func (formsortassocbuttonFormCallback *FormSortAssocButtonFormCallback) OnSave()
 	}
 
 }
-func NewOptionFormCallback(
+func __gong__New__OptionFormCallback(
 	option *models.Option,
 	playground *Playground,
 ) (optionFormCallback *OptionFormCallback) {
@@ -1535,7 +1535,7 @@ func (optionFormCallback *OptionFormCallback) OnSave() {
 		optionFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewOptionFormCallback(
+			OnSave: __gong__New__OptionFormCallback(
 				nil,
 				optionFormCallback.playground,
 			),
@@ -1546,7 +1546,7 @@ func (optionFormCallback *OptionFormCallback) OnSave() {
 	}
 
 }
-func NewRowFormCallback(
+func __gong__New__RowFormCallback(
 	row *models.Row,
 	playground *Playground,
 ) (rowFormCallback *RowFormCallback) {
@@ -1606,7 +1606,7 @@ func (rowFormCallback *RowFormCallback) OnSave() {
 		rowFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewRowFormCallback(
+			OnSave: __gong__New__RowFormCallback(
 				nil,
 				rowFormCallback.playground,
 			),
@@ -1617,7 +1617,7 @@ func (rowFormCallback *RowFormCallback) OnSave() {
 	}
 
 }
-func NewTableFormCallback(
+func __gong__New__TableFormCallback(
 	table *models.Table,
 	playground *Playground,
 ) (tableFormCallback *TableFormCallback) {
@@ -1693,7 +1693,7 @@ func (tableFormCallback *TableFormCallback) OnSave() {
 		tableFormCallback.playground.formStage.Reset()
 		newFormGroup := (&table.FormGroup{
 			Name: table.FormGroupDefaultName.ToString(),
-			OnSave: NewTableFormCallback(
+			OnSave: __gong__New__TableFormCallback(
 				nil,
 				tableFormCallback.playground,
 			),

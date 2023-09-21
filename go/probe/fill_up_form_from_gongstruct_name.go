@@ -30,7 +30,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " Cell Form",
-			OnSave: NewCellFormCallback(
+			OnSave: __gong__New__CellFormCallback(
 				nil,
 				playground,
 			),
@@ -41,7 +41,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " CellBoolean Form",
-			OnSave: NewCellBooleanFormCallback(
+			OnSave: __gong__New__CellBooleanFormCallback(
 				nil,
 				playground,
 			),
@@ -52,7 +52,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " CellFloat64 Form",
-			OnSave: NewCellFloat64FormCallback(
+			OnSave: __gong__New__CellFloat64FormCallback(
 				nil,
 				playground,
 			),
@@ -63,7 +63,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " CellIcon Form",
-			OnSave: NewCellIconFormCallback(
+			OnSave: __gong__New__CellIconFormCallback(
 				nil,
 				playground,
 			),
@@ -74,7 +74,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " CellInt Form",
-			OnSave: NewCellIntFormCallback(
+			OnSave: __gong__New__CellIntFormCallback(
 				nil,
 				playground,
 			),
@@ -85,7 +85,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " CellString Form",
-			OnSave: NewCellStringFormCallback(
+			OnSave: __gong__New__CellStringFormCallback(
 				nil,
 				playground,
 			),
@@ -96,7 +96,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " CheckBox Form",
-			OnSave: NewCheckBoxFormCallback(
+			OnSave: __gong__New__CheckBoxFormCallback(
 				nil,
 				playground,
 			),
@@ -107,7 +107,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " DisplayedColumn Form",
-			OnSave: NewDisplayedColumnFormCallback(
+			OnSave: __gong__New__DisplayedColumnFormCallback(
 				nil,
 				playground,
 			),
@@ -118,7 +118,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " FormDiv Form",
-			OnSave: NewFormDivFormCallback(
+			OnSave: __gong__New__FormDivFormCallback(
 				nil,
 				playground,
 			),
@@ -129,7 +129,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " FormEditAssocButton Form",
-			OnSave: NewFormEditAssocButtonFormCallback(
+			OnSave: __gong__New__FormEditAssocButtonFormCallback(
 				nil,
 				playground,
 			),
@@ -140,7 +140,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " FormField Form",
-			OnSave: NewFormFieldFormCallback(
+			OnSave: __gong__New__FormFieldFormCallback(
 				nil,
 				playground,
 			),
@@ -151,7 +151,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " FormFieldDate Form",
-			OnSave: NewFormFieldDateFormCallback(
+			OnSave: __gong__New__FormFieldDateFormCallback(
 				nil,
 				playground,
 			),
@@ -162,7 +162,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " FormFieldDateTime Form",
-			OnSave: NewFormFieldDateTimeFormCallback(
+			OnSave: __gong__New__FormFieldDateTimeFormCallback(
 				nil,
 				playground,
 			),
@@ -173,7 +173,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " FormFieldFloat64 Form",
-			OnSave: NewFormFieldFloat64FormCallback(
+			OnSave: __gong__New__FormFieldFloat64FormCallback(
 				nil,
 				playground,
 			),
@@ -184,7 +184,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " FormFieldInt Form",
-			OnSave: NewFormFieldIntFormCallback(
+			OnSave: __gong__New__FormFieldIntFormCallback(
 				nil,
 				playground,
 			),
@@ -195,7 +195,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " FormFieldSelect Form",
-			OnSave: NewFormFieldSelectFormCallback(
+			OnSave: __gong__New__FormFieldSelectFormCallback(
 				nil,
 				playground,
 			),
@@ -206,7 +206,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " FormFieldString Form",
-			OnSave: NewFormFieldStringFormCallback(
+			OnSave: __gong__New__FormFieldStringFormCallback(
 				nil,
 				playground,
 			),
@@ -217,7 +217,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " FormFieldTime Form",
-			OnSave: NewFormFieldTimeFormCallback(
+			OnSave: __gong__New__FormFieldTimeFormCallback(
 				nil,
 				playground,
 			),
@@ -228,7 +228,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " FormGroup Form",
-			OnSave: NewFormGroupFormCallback(
+			OnSave: __gong__New__FormGroupFormCallback(
 				nil,
 				playground,
 			),
@@ -239,7 +239,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " FormSortAssocButton Form",
-			OnSave: NewFormSortAssocButtonFormCallback(
+			OnSave: __gong__New__FormSortAssocButtonFormCallback(
 				nil,
 				playground,
 			),
@@ -250,7 +250,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " Option Form",
-			OnSave: NewOptionFormCallback(
+			OnSave: __gong__New__OptionFormCallback(
 				nil,
 				playground,
 			),
@@ -261,7 +261,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " Row Form",
-			OnSave: NewRowFormCallback(
+			OnSave: __gong__New__RowFormCallback(
 				nil,
 				playground,
 			),
@@ -272,7 +272,7 @@ func FillUpFormFromGongstructName(
 		formGroup := (&form.FormGroup{
 			Name:  form.FormGroupDefaultName.ToString(),
 			Label: prefix + " Table Form",
-			OnSave: NewTableFormCallback(
+			OnSave: __gong__New__TableFormCallback(
 				nil,
 				playground,
 			),

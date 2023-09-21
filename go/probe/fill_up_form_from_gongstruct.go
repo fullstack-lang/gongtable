@@ -18,7 +18,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update Cell Form",
-			OnSave: NewCellFormCallback(
+			OnSave: __gong__New__CellFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -28,7 +28,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update CellBoolean Form",
-			OnSave: NewCellBooleanFormCallback(
+			OnSave: __gong__New__CellBooleanFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -38,7 +38,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update CellFloat64 Form",
-			OnSave: NewCellFloat64FormCallback(
+			OnSave: __gong__New__CellFloat64FormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -48,7 +48,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update CellIcon Form",
-			OnSave: NewCellIconFormCallback(
+			OnSave: __gong__New__CellIconFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -58,7 +58,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update CellInt Form",
-			OnSave: NewCellIntFormCallback(
+			OnSave: __gong__New__CellIntFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -68,7 +68,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update CellString Form",
-			OnSave: NewCellStringFormCallback(
+			OnSave: __gong__New__CellStringFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -78,7 +78,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update CheckBox Form",
-			OnSave: NewCheckBoxFormCallback(
+			OnSave: __gong__New__CheckBoxFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -88,7 +88,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update DisplayedColumn Form",
-			OnSave: NewDisplayedColumnFormCallback(
+			OnSave: __gong__New__DisplayedColumnFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -98,7 +98,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update FormDiv Form",
-			OnSave: NewFormDivFormCallback(
+			OnSave: __gong__New__FormDivFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -108,7 +108,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update FormEditAssocButton Form",
-			OnSave: NewFormEditAssocButtonFormCallback(
+			OnSave: __gong__New__FormEditAssocButtonFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -118,7 +118,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update FormField Form",
-			OnSave: NewFormFieldFormCallback(
+			OnSave: __gong__New__FormFieldFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -128,7 +128,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update FormFieldDate Form",
-			OnSave: NewFormFieldDateFormCallback(
+			OnSave: __gong__New__FormFieldDateFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -138,7 +138,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update FormFieldDateTime Form",
-			OnSave: NewFormFieldDateTimeFormCallback(
+			OnSave: __gong__New__FormFieldDateTimeFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -148,7 +148,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update FormFieldFloat64 Form",
-			OnSave: NewFormFieldFloat64FormCallback(
+			OnSave: __gong__New__FormFieldFloat64FormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -158,7 +158,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update FormFieldInt Form",
-			OnSave: NewFormFieldIntFormCallback(
+			OnSave: __gong__New__FormFieldIntFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -168,7 +168,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update FormFieldSelect Form",
-			OnSave: NewFormFieldSelectFormCallback(
+			OnSave: __gong__New__FormFieldSelectFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -178,7 +178,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update FormFieldString Form",
-			OnSave: NewFormFieldStringFormCallback(
+			OnSave: __gong__New__FormFieldStringFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -188,7 +188,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update FormFieldTime Form",
-			OnSave: NewFormFieldTimeFormCallback(
+			OnSave: __gong__New__FormFieldTimeFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -198,7 +198,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update FormGroup Form",
-			OnSave: NewFormGroupFormCallback(
+			OnSave: __gong__New__FormGroupFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -208,7 +208,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update FormSortAssocButton Form",
-			OnSave: NewFormSortAssocButtonFormCallback(
+			OnSave: __gong__New__FormSortAssocButtonFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -218,7 +218,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update Option Form",
-			OnSave: NewOptionFormCallback(
+			OnSave: __gong__New__OptionFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -228,7 +228,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update Row Form",
-			OnSave: NewRowFormCallback(
+			OnSave: __gong__New__RowFormCallback(
 				instancesTyped,
 				playground,
 			),
@@ -238,7 +238,7 @@ func FillUpFormFromGongstruct[T models.Gongstruct](instance *T, playground *Play
 		formGroup := (&gongtable.FormGroup{
 			Name:  gongtable.FormGroupDefaultName.ToString(),
 			Label: "Update Table Form",
-			OnSave: NewTableFormCallback(
+			OnSave: __gong__New__TableFormCallback(
 				instancesTyped,
 				playground,
 			),
