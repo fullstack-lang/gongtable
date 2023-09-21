@@ -66,6 +66,7 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormDiv__000006_Int_Age := (&models.FormDiv{Name: `Int - Age`}).Stage(stage)
 	__FormDiv__000007_Select_can_be_set_empty_ := (&models.FormDiv{Name: `Select (can be set empty)`}).Stage(stage)
 	__FormDiv__000008_Select_cannot_be_set_empty_ := (&models.FormDiv{Name: `Select (cannot be set empty)`}).Stage(stage)
+	__FormDiv__000009_Text_Area := (&models.FormDiv{Name: `Text Area`}).Stage(stage)
 
 	// Declarations of staged instances of FormEditAssocButton
 	__FormEditAssocButton__000000_Edit_Assoc := (&models.FormEditAssocButton{Name: `Edit Assoc`}).Stage(stage)
@@ -79,7 +80,8 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000005_LastName := (&models.FormField{Name: `LastName`}).Stage(stage)
 	__FormField__000006_Select_can_be_set_empty_ := (&models.FormField{Name: `Select (can be set empty)`}).Stage(stage)
 	__FormField__000007_Select_cannot_be_set_empty_ := (&models.FormField{Name: `Select (cannot be set empty)`}).Stage(stage)
-	__FormField__000008_Time := (&models.FormField{Name: `Time`}).Stage(stage)
+	__FormField__000008_Text_Area := (&models.FormField{Name: `Text Area`}).Stage(stage)
+	__FormField__000009_Time := (&models.FormField{Name: `Time`}).Stage(stage)
 
 	// Declarations of staged instances of FormFieldDate
 	__FormFieldDate__000000_Time := (&models.FormFieldDate{Name: `Time`}).Stage(stage)
@@ -100,6 +102,7 @@ func form_stageInjection(stage *models.StageStruct) {
 	// Declarations of staged instances of FormFieldString
 	__FormFieldString__000000_FirstName := (&models.FormFieldString{Name: `FirstName`}).Stage(stage)
 	__FormFieldString__000001_LastName := (&models.FormFieldString{Name: `LastName`}).Stage(stage)
+	__FormFieldString__000002_Text_Area := (&models.FormFieldString{Name: `Text Area`}).Stage(stage)
 
 	// Declarations of staged instances of FormFieldTime
 	__FormFieldTime__000000_Time := (&models.FormFieldTime{Name: `Time`}).Stage(stage)
@@ -158,6 +161,9 @@ func form_stageInjection(stage *models.StageStruct) {
 
 	// FormDiv values setup
 	__FormDiv__000008_Select_cannot_be_set_empty_.Name = `Select (cannot be set empty)`
+
+	// FormDiv values setup
+	__FormDiv__000009_Text_Area.Name = `Text Area`
 
 	// FormEditAssocButton values setup
 	__FormEditAssocButton__000000_Edit_Assoc.Name = `Edit Assoc`
@@ -224,12 +230,19 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000007_Select_cannot_be_set_empty_.BespokeWidthPx = 0
 
 	// FormField values setup
-	__FormField__000008_Time.Name = `Time`
-	__FormField__000008_Time.InputTypeEnum = models.Time
-	__FormField__000008_Time.Label = `Time`
-	__FormField__000008_Time.Placeholder = ``
-	__FormField__000008_Time.HasBespokeWidth = false
-	__FormField__000008_Time.BespokeWidthPx = 0
+	__FormField__000008_Text_Area.Name = `Text Area`
+	__FormField__000008_Text_Area.Label = `Text Area (long multi line text)`
+	__FormField__000008_Text_Area.Placeholder = ``
+	__FormField__000008_Text_Area.HasBespokeWidth = false
+	__FormField__000008_Text_Area.BespokeWidthPx = 0
+
+	// FormField values setup
+	__FormField__000009_Time.Name = `Time`
+	__FormField__000009_Time.InputTypeEnum = models.Time
+	__FormField__000009_Time.Label = `Time`
+	__FormField__000009_Time.Placeholder = ``
+	__FormField__000009_Time.HasBespokeWidth = false
+	__FormField__000009_Time.BespokeWidthPx = 0
 
 	// FormFieldDate values setup
 	__FormFieldDate__000000_Time.Name = `Time`
@@ -266,10 +279,18 @@ func form_stageInjection(stage *models.StageStruct) {
 	// FormFieldString values setup
 	__FormFieldString__000000_FirstName.Name = `FirstName`
 	__FormFieldString__000000_FirstName.Value = `charles`
+	__FormFieldString__000000_FirstName.IsTextArea = false
 
 	// FormFieldString values setup
 	__FormFieldString__000001_LastName.Name = `LastName`
 	__FormFieldString__000001_LastName.Value = `Baudelaire`
+	__FormFieldString__000001_LastName.IsTextArea = false
+
+	// FormFieldString values setup
+	__FormFieldString__000002_Text_Area.Name = `Text Area`
+	__FormFieldString__000002_Text_Area.Value = `This is a long text
+second line`
+	__FormFieldString__000002_Text_Area.IsTextArea = true
 
 	// FormFieldTime values setup
 	__FormFieldTime__000000_Time.Name = `Time`
@@ -305,7 +326,7 @@ func form_stageInjection(stage *models.StageStruct) {
 	// Setup of pointers
 	__FormDiv__000000_CheckBoxs.CheckBoxs = append(__FormDiv__000000_CheckBoxs.CheckBoxs, __CheckBox__000000_Boolean)
 	__FormDiv__000001_Date_Time.FormFields = append(__FormDiv__000001_Date_Time.FormFields, __FormField__000001_Date)
-	__FormDiv__000001_Date_Time.FormFields = append(__FormDiv__000001_Date_Time.FormFields, __FormField__000008_Time)
+	__FormDiv__000001_Date_Time.FormFields = append(__FormDiv__000001_Date_Time.FormFields, __FormField__000009_Time)
 	__FormDiv__000002_DateTime.FormFields = append(__FormDiv__000002_DateTime.FormFields, __FormField__000002_DateTime)
 	__FormDiv__000003_Edit_Assoc.FormEditAssocButton = __FormEditAssocButton__000000_Edit_Assoc
 	__FormDiv__000003_Edit_Assoc.FormSortAssocButton = __FormSortAssocButton__000000_Sort_Button
@@ -315,6 +336,7 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormDiv__000006_Int_Age.FormFields = append(__FormDiv__000006_Int_Age.FormFields, __FormField__000000_Age)
 	__FormDiv__000007_Select_can_be_set_empty_.FormFields = append(__FormDiv__000007_Select_can_be_set_empty_.FormFields, __FormField__000006_Select_can_be_set_empty_)
 	__FormDiv__000008_Select_cannot_be_set_empty_.FormFields = append(__FormDiv__000008_Select_cannot_be_set_empty_.FormFields, __FormField__000007_Select_cannot_be_set_empty_)
+	__FormDiv__000009_Text_Area.FormFields = append(__FormDiv__000009_Text_Area.FormFields, __FormField__000008_Text_Area)
 	__FormField__000000_Age.FormFieldInt = __FormFieldInt__000000_Age
 	__FormField__000001_Date.FormFieldDate = __FormFieldDate__000000_Time
 	__FormField__000002_DateTime.FormFieldDateTime = __FormFieldDateTime__000000_DateTime
@@ -323,7 +345,8 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000005_LastName.FormFieldString = __FormFieldString__000001_LastName
 	__FormField__000006_Select_can_be_set_empty_.FormFieldSelect = __FormFieldSelect__000000_Select_can_be_set_empty_
 	__FormField__000007_Select_cannot_be_set_empty_.FormFieldSelect = __FormFieldSelect__000001_Select_cannot_be_set_empty_
-	__FormField__000008_Time.FormFieldTime = __FormFieldTime__000000_Time
+	__FormField__000008_Text_Area.FormFieldString = __FormFieldString__000002_Text_Area
+	__FormField__000009_Time.FormFieldTime = __FormFieldTime__000000_Time
 	__FormFieldSelect__000000_Select_can_be_set_empty_.Value = __Option__000005_Option_4_Select_can_be_set_empty_
 	__FormFieldSelect__000000_Select_can_be_set_empty_.Options = append(__FormFieldSelect__000000_Select_can_be_set_empty_.Options, __Option__000004_Option_3_Select_can_be_set_empty_)
 	__FormFieldSelect__000000_Select_can_be_set_empty_.Options = append(__FormFieldSelect__000000_Select_can_be_set_empty_.Options, __Option__000005_Option_4_Select_can_be_set_empty_)
@@ -333,14 +356,15 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormFieldSelect__000001_Select_cannot_be_set_empty_.Options = append(__FormFieldSelect__000001_Select_cannot_be_set_empty_.Options, __Option__000000_A_Select_cannot_be_set_empty_)
 	__FormFieldSelect__000001_Select_cannot_be_set_empty_.Options = append(__FormFieldSelect__000001_Select_cannot_be_set_empty_.Options, __Option__000001_B_Select_cannot_be_set_empty_)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000000_CheckBoxs)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000003_Edit_Assoc)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000006_Int_Age)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000004_Float64_level_of_x)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000008_Select_cannot_be_set_empty_)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000007_Select_can_be_set_empty_)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000005_Form_Div_First_Name_Name)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000001_Date_Time)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000002_DateTime)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000003_Edit_Assoc)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000004_Float64_level_of_x)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000005_Form_Div_First_Name_Name)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000006_Int_Age)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000007_Select_can_be_set_empty_)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000008_Select_cannot_be_set_empty_)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000009_Text_Area)
 }
 
 

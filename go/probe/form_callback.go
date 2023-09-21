@@ -1239,6 +1239,8 @@ func (formfieldstringFormCallback *FormFieldStringFormCallback) OnSave() {
 			FormDivBasicFieldToField(&(formfieldstring_.Name), formDiv)
 		case "Value":
 			FormDivBasicFieldToField(&(formfieldstring_.Value), formDiv)
+		case "IsTextArea":
+			FormDivBasicFieldToField(&(formfieldstring_.IsTextArea), formDiv)
 		}
 	}
 
