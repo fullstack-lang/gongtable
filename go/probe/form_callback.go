@@ -138,6 +138,7 @@ func (cellFormCallback *CellFormCallback) OnSave() {
 		cellFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(cellFormCallback.playground)
 }
 func __gong__New__CellBooleanFormCallback(
 	cellboolean *models.CellBoolean,
@@ -209,6 +210,7 @@ func (cellbooleanFormCallback *CellBooleanFormCallback) OnSave() {
 		cellbooleanFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(cellbooleanFormCallback.playground)
 }
 func __gong__New__CellFloat64FormCallback(
 	cellfloat64 *models.CellFloat64,
@@ -280,6 +282,7 @@ func (cellfloat64FormCallback *CellFloat64FormCallback) OnSave() {
 		cellfloat64FormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(cellfloat64FormCallback.playground)
 }
 func __gong__New__CellIconFormCallback(
 	cellicon *models.CellIcon,
@@ -351,6 +354,7 @@ func (celliconFormCallback *CellIconFormCallback) OnSave() {
 		celliconFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(celliconFormCallback.playground)
 }
 func __gong__New__CellIntFormCallback(
 	cellint *models.CellInt,
@@ -422,6 +426,7 @@ func (cellintFormCallback *CellIntFormCallback) OnSave() {
 		cellintFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(cellintFormCallback.playground)
 }
 func __gong__New__CellStringFormCallback(
 	cellstring *models.CellString,
@@ -493,6 +498,7 @@ func (cellstringFormCallback *CellStringFormCallback) OnSave() {
 		cellstringFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(cellstringFormCallback.playground)
 }
 func __gong__New__CheckBoxFormCallback(
 	checkbox *models.CheckBox,
@@ -606,6 +612,7 @@ func (checkboxFormCallback *CheckBoxFormCallback) OnSave() {
 		checkboxFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(checkboxFormCallback.playground)
 }
 func __gong__New__DisplayedColumnFormCallback(
 	displayedcolumn *models.DisplayedColumn,
@@ -717,6 +724,7 @@ func (displayedcolumnFormCallback *DisplayedColumnFormCallback) OnSave() {
 		displayedcolumnFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(displayedcolumnFormCallback.playground)
 }
 func __gong__New__FormDivFormCallback(
 	formdiv *models.FormDiv,
@@ -832,6 +840,7 @@ func (formdivFormCallback *FormDivFormCallback) OnSave() {
 		formdivFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(formdivFormCallback.playground)
 }
 func __gong__New__FormEditAssocButtonFormCallback(
 	formeditassocbutton *models.FormEditAssocButton,
@@ -903,6 +912,7 @@ func (formeditassocbuttonFormCallback *FormEditAssocButtonFormCallback) OnSave()
 		formeditassocbuttonFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(formeditassocbuttonFormCallback.playground)
 }
 func __gong__New__FormFieldFormCallback(
 	formfield *models.FormField,
@@ -1038,6 +1048,7 @@ func (formfieldFormCallback *FormFieldFormCallback) OnSave() {
 		formfieldFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(formfieldFormCallback.playground)
 }
 func __gong__New__FormFieldDateFormCallback(
 	formfielddate *models.FormFieldDate,
@@ -1107,6 +1118,7 @@ func (formfielddateFormCallback *FormFieldDateFormCallback) OnSave() {
 		formfielddateFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(formfielddateFormCallback.playground)
 }
 func __gong__New__FormFieldDateTimeFormCallback(
 	formfielddatetime *models.FormFieldDateTime,
@@ -1176,6 +1188,7 @@ func (formfielddatetimeFormCallback *FormFieldDateTimeFormCallback) OnSave() {
 		formfielddatetimeFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(formfielddatetimeFormCallback.playground)
 }
 func __gong__New__FormFieldFloat64FormCallback(
 	formfieldfloat64 *models.FormFieldFloat64,
@@ -1255,6 +1268,7 @@ func (formfieldfloat64FormCallback *FormFieldFloat64FormCallback) OnSave() {
 		formfieldfloat64FormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(formfieldfloat64FormCallback.playground)
 }
 func __gong__New__FormFieldIntFormCallback(
 	formfieldint *models.FormFieldInt,
@@ -1334,6 +1348,7 @@ func (formfieldintFormCallback *FormFieldIntFormCallback) OnSave() {
 		formfieldintFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(formfieldintFormCallback.playground)
 }
 func __gong__New__FormFieldSelectFormCallback(
 	formfieldselect *models.FormFieldSelect,
@@ -1407,6 +1422,7 @@ func (formfieldselectFormCallback *FormFieldSelectFormCallback) OnSave() {
 		formfieldselectFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(formfieldselectFormCallback.playground)
 }
 func __gong__New__FormFieldStringFormCallback(
 	formfieldstring *models.FormFieldString,
@@ -1480,6 +1496,7 @@ func (formfieldstringFormCallback *FormFieldStringFormCallback) OnSave() {
 		formfieldstringFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(formfieldstringFormCallback.playground)
 }
 func __gong__New__FormFieldTimeFormCallback(
 	formfieldtime *models.FormFieldTime,
@@ -1551,6 +1568,7 @@ func (formfieldtimeFormCallback *FormFieldTimeFormCallback) OnSave() {
 		formfieldtimeFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(formfieldtimeFormCallback.playground)
 }
 func __gong__New__FormGroupFormCallback(
 	formgroup *models.FormGroup,
@@ -1622,6 +1640,7 @@ func (formgroupFormCallback *FormGroupFormCallback) OnSave() {
 		formgroupFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(formgroupFormCallback.playground)
 }
 func __gong__New__FormSortAssocButtonFormCallback(
 	formsortassocbutton *models.FormSortAssocButton,
@@ -1693,6 +1712,7 @@ func (formsortassocbuttonFormCallback *FormSortAssocButtonFormCallback) OnSave()
 		formsortassocbuttonFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(formsortassocbuttonFormCallback.playground)
 }
 func __gong__New__OptionFormCallback(
 	option *models.Option,
@@ -1804,6 +1824,7 @@ func (optionFormCallback *OptionFormCallback) OnSave() {
 		optionFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(optionFormCallback.playground)
 }
 func __gong__New__RowFormCallback(
 	row *models.Row,
@@ -1917,6 +1938,7 @@ func (rowFormCallback *RowFormCallback) OnSave() {
 		rowFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(rowFormCallback.playground)
 }
 func __gong__New__TableFormCallback(
 	table *models.Table,
@@ -2004,4 +2026,5 @@ func (tableFormCallback *TableFormCallback) OnSave() {
 		tableFormCallback.playground.formStage.Commit()
 	}
 
+	fillUpTree(tableFormCallback.playground)
 }
