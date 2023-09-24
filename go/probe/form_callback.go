@@ -3,14 +3,19 @@ package probe
 
 import (
 	"log"
+	"slices"
 	"time"
 
 	table "github.com/fullstack-lang/gongtable/go/models"
 
 	"github.com/fullstack-lang/gongtable/go/models"
+	"github.com/fullstack-lang/gongtable/go/orm"
 )
 
 const __dummmy__time = time.Nanosecond
+
+var __dummmy__letters = slices.Delete([]string{"a"}, 0, 1)
+var __dummy_orm = orm.BackRepoStruct{}
 
 // insertion point
 func __gong__New__CellFormCallback(
@@ -67,6 +72,48 @@ func (cellFormCallback *CellFormCallback) OnSave() {
 			FormDivSelectFieldToField(&(cell_.CellBool), cellFormCallback.playground.stageOfInterest, formDiv)
 		case "CellIcon":
 			FormDivSelectFieldToField(&(cell_.CellIcon), cellFormCallback.playground.stageOfInterest, formDiv)
+		case "Row:Cells":
+			// we need to retrieve the field owner before the change
+			var pastRowOwner *models.Row
+			var rf models.ReverseField
+			_ = rf
+			rf.GongstructName = "Row"
+			rf.Fieldname = "Cells"
+			reverseFieldOwner := orm.GetReverseFieldOwner(
+				cellFormCallback.playground.stageOfInterest,
+				cellFormCallback.playground.backRepoOfInterest,
+				cell_,
+				&rf)
+
+			if reverseFieldOwner != nil {
+				pastRowOwner = reverseFieldOwner.(*models.Row)
+			}
+			if formDiv.FormFields[0].FormFieldSelect.Value == nil {
+				if pastRowOwner != nil {
+					idx := slices.Index(pastRowOwner.Cells, cell_)
+					pastRowOwner.Cells = slices.Delete(pastRowOwner.Cells, idx, idx+1)
+				}
+			} else {
+				// we need to retrieve the field owner after the change
+				// parse all astrcut and get the one with the name in the
+				// div
+				for _row := range *models.GetGongstructInstancesSet[models.Row](cellFormCallback.playground.stageOfInterest) {
+
+					// the match is base on the name
+					if _row.GetName() == formDiv.FormFields[0].FormFieldSelect.Value.GetName() {
+						newRowOwner := _row // we have a match
+						if pastRowOwner != nil {
+							if newRowOwner != pastRowOwner {
+								idx := slices.Index(pastRowOwner.Cells, cell_)
+								pastRowOwner.Cells = slices.Delete(pastRowOwner.Cells, idx, idx+1)
+								newRowOwner.Cells = append(newRowOwner.Cells, cell_)
+							}
+						} else {
+							newRowOwner.Cells = append(newRowOwner.Cells, cell_)
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -493,6 +540,48 @@ func (checkboxFormCallback *CheckBoxFormCallback) OnSave() {
 			FormDivBasicFieldToField(&(checkbox_.Name), formDiv)
 		case "Value":
 			FormDivBasicFieldToField(&(checkbox_.Value), formDiv)
+		case "FormDiv:CheckBoxs":
+			// we need to retrieve the field owner before the change
+			var pastFormDivOwner *models.FormDiv
+			var rf models.ReverseField
+			_ = rf
+			rf.GongstructName = "FormDiv"
+			rf.Fieldname = "CheckBoxs"
+			reverseFieldOwner := orm.GetReverseFieldOwner(
+				checkboxFormCallback.playground.stageOfInterest,
+				checkboxFormCallback.playground.backRepoOfInterest,
+				checkbox_,
+				&rf)
+
+			if reverseFieldOwner != nil {
+				pastFormDivOwner = reverseFieldOwner.(*models.FormDiv)
+			}
+			if formDiv.FormFields[0].FormFieldSelect.Value == nil {
+				if pastFormDivOwner != nil {
+					idx := slices.Index(pastFormDivOwner.CheckBoxs, checkbox_)
+					pastFormDivOwner.CheckBoxs = slices.Delete(pastFormDivOwner.CheckBoxs, idx, idx+1)
+				}
+			} else {
+				// we need to retrieve the field owner after the change
+				// parse all astrcut and get the one with the name in the
+				// div
+				for _formdiv := range *models.GetGongstructInstancesSet[models.FormDiv](checkboxFormCallback.playground.stageOfInterest) {
+
+					// the match is base on the name
+					if _formdiv.GetName() == formDiv.FormFields[0].FormFieldSelect.Value.GetName() {
+						newFormDivOwner := _formdiv // we have a match
+						if pastFormDivOwner != nil {
+							if newFormDivOwner != pastFormDivOwner {
+								idx := slices.Index(pastFormDivOwner.CheckBoxs, checkbox_)
+								pastFormDivOwner.CheckBoxs = slices.Delete(pastFormDivOwner.CheckBoxs, idx, idx+1)
+								newFormDivOwner.CheckBoxs = append(newFormDivOwner.CheckBoxs, checkbox_)
+							}
+						} else {
+							newFormDivOwner.CheckBoxs = append(newFormDivOwner.CheckBoxs, checkbox_)
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -562,6 +651,48 @@ func (displayedcolumnFormCallback *DisplayedColumnFormCallback) OnSave() {
 		// insertion point per field
 		case "Name":
 			FormDivBasicFieldToField(&(displayedcolumn_.Name), formDiv)
+		case "Table:DisplayedColumns":
+			// we need to retrieve the field owner before the change
+			var pastTableOwner *models.Table
+			var rf models.ReverseField
+			_ = rf
+			rf.GongstructName = "Table"
+			rf.Fieldname = "DisplayedColumns"
+			reverseFieldOwner := orm.GetReverseFieldOwner(
+				displayedcolumnFormCallback.playground.stageOfInterest,
+				displayedcolumnFormCallback.playground.backRepoOfInterest,
+				displayedcolumn_,
+				&rf)
+
+			if reverseFieldOwner != nil {
+				pastTableOwner = reverseFieldOwner.(*models.Table)
+			}
+			if formDiv.FormFields[0].FormFieldSelect.Value == nil {
+				if pastTableOwner != nil {
+					idx := slices.Index(pastTableOwner.DisplayedColumns, displayedcolumn_)
+					pastTableOwner.DisplayedColumns = slices.Delete(pastTableOwner.DisplayedColumns, idx, idx+1)
+				}
+			} else {
+				// we need to retrieve the field owner after the change
+				// parse all astrcut and get the one with the name in the
+				// div
+				for _table := range *models.GetGongstructInstancesSet[models.Table](displayedcolumnFormCallback.playground.stageOfInterest) {
+
+					// the match is base on the name
+					if _table.GetName() == formDiv.FormFields[0].FormFieldSelect.Value.GetName() {
+						newTableOwner := _table // we have a match
+						if pastTableOwner != nil {
+							if newTableOwner != pastTableOwner {
+								idx := slices.Index(pastTableOwner.DisplayedColumns, displayedcolumn_)
+								pastTableOwner.DisplayedColumns = slices.Delete(pastTableOwner.DisplayedColumns, idx, idx+1)
+								newTableOwner.DisplayedColumns = append(newTableOwner.DisplayedColumns, displayedcolumn_)
+							}
+						} else {
+							newTableOwner.DisplayedColumns = append(newTableOwner.DisplayedColumns, displayedcolumn_)
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -635,6 +766,48 @@ func (formdivFormCallback *FormDivFormCallback) OnSave() {
 			FormDivSelectFieldToField(&(formdiv_.FormEditAssocButton), formdivFormCallback.playground.stageOfInterest, formDiv)
 		case "FormSortAssocButton":
 			FormDivSelectFieldToField(&(formdiv_.FormSortAssocButton), formdivFormCallback.playground.stageOfInterest, formDiv)
+		case "FormGroup:FormDivs":
+			// we need to retrieve the field owner before the change
+			var pastFormGroupOwner *models.FormGroup
+			var rf models.ReverseField
+			_ = rf
+			rf.GongstructName = "FormGroup"
+			rf.Fieldname = "FormDivs"
+			reverseFieldOwner := orm.GetReverseFieldOwner(
+				formdivFormCallback.playground.stageOfInterest,
+				formdivFormCallback.playground.backRepoOfInterest,
+				formdiv_,
+				&rf)
+
+			if reverseFieldOwner != nil {
+				pastFormGroupOwner = reverseFieldOwner.(*models.FormGroup)
+			}
+			if formDiv.FormFields[0].FormFieldSelect.Value == nil {
+				if pastFormGroupOwner != nil {
+					idx := slices.Index(pastFormGroupOwner.FormDivs, formdiv_)
+					pastFormGroupOwner.FormDivs = slices.Delete(pastFormGroupOwner.FormDivs, idx, idx+1)
+				}
+			} else {
+				// we need to retrieve the field owner after the change
+				// parse all astrcut and get the one with the name in the
+				// div
+				for _formgroup := range *models.GetGongstructInstancesSet[models.FormGroup](formdivFormCallback.playground.stageOfInterest) {
+
+					// the match is base on the name
+					if _formgroup.GetName() == formDiv.FormFields[0].FormFieldSelect.Value.GetName() {
+						newFormGroupOwner := _formgroup // we have a match
+						if pastFormGroupOwner != nil {
+							if newFormGroupOwner != pastFormGroupOwner {
+								idx := slices.Index(pastFormGroupOwner.FormDivs, formdiv_)
+								pastFormGroupOwner.FormDivs = slices.Delete(pastFormGroupOwner.FormDivs, idx, idx+1)
+								newFormGroupOwner.FormDivs = append(newFormGroupOwner.FormDivs, formdiv_)
+							}
+						} else {
+							newFormGroupOwner.FormDivs = append(newFormGroupOwner.FormDivs, formdiv_)
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -799,6 +972,48 @@ func (formfieldFormCallback *FormFieldFormCallback) OnSave() {
 			FormDivBasicFieldToField(&(formfield_.HasBespokeWidth), formDiv)
 		case "BespokeWidthPx":
 			FormDivBasicFieldToField(&(formfield_.BespokeWidthPx), formDiv)
+		case "FormDiv:FormFields":
+			// we need to retrieve the field owner before the change
+			var pastFormDivOwner *models.FormDiv
+			var rf models.ReverseField
+			_ = rf
+			rf.GongstructName = "FormDiv"
+			rf.Fieldname = "FormFields"
+			reverseFieldOwner := orm.GetReverseFieldOwner(
+				formfieldFormCallback.playground.stageOfInterest,
+				formfieldFormCallback.playground.backRepoOfInterest,
+				formfield_,
+				&rf)
+
+			if reverseFieldOwner != nil {
+				pastFormDivOwner = reverseFieldOwner.(*models.FormDiv)
+			}
+			if formDiv.FormFields[0].FormFieldSelect.Value == nil {
+				if pastFormDivOwner != nil {
+					idx := slices.Index(pastFormDivOwner.FormFields, formfield_)
+					pastFormDivOwner.FormFields = slices.Delete(pastFormDivOwner.FormFields, idx, idx+1)
+				}
+			} else {
+				// we need to retrieve the field owner after the change
+				// parse all astrcut and get the one with the name in the
+				// div
+				for _formdiv := range *models.GetGongstructInstancesSet[models.FormDiv](formfieldFormCallback.playground.stageOfInterest) {
+
+					// the match is base on the name
+					if _formdiv.GetName() == formDiv.FormFields[0].FormFieldSelect.Value.GetName() {
+						newFormDivOwner := _formdiv // we have a match
+						if pastFormDivOwner != nil {
+							if newFormDivOwner != pastFormDivOwner {
+								idx := slices.Index(pastFormDivOwner.FormFields, formfield_)
+								pastFormDivOwner.FormFields = slices.Delete(pastFormDivOwner.FormFields, idx, idx+1)
+								newFormDivOwner.FormFields = append(newFormDivOwner.FormFields, formfield_)
+							}
+						} else {
+							newFormDivOwner.FormFields = append(newFormDivOwner.FormFields, formfield_)
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -1523,6 +1738,48 @@ func (optionFormCallback *OptionFormCallback) OnSave() {
 		// insertion point per field
 		case "Name":
 			FormDivBasicFieldToField(&(option_.Name), formDiv)
+		case "FormFieldSelect:Options":
+			// we need to retrieve the field owner before the change
+			var pastFormFieldSelectOwner *models.FormFieldSelect
+			var rf models.ReverseField
+			_ = rf
+			rf.GongstructName = "FormFieldSelect"
+			rf.Fieldname = "Options"
+			reverseFieldOwner := orm.GetReverseFieldOwner(
+				optionFormCallback.playground.stageOfInterest,
+				optionFormCallback.playground.backRepoOfInterest,
+				option_,
+				&rf)
+
+			if reverseFieldOwner != nil {
+				pastFormFieldSelectOwner = reverseFieldOwner.(*models.FormFieldSelect)
+			}
+			if formDiv.FormFields[0].FormFieldSelect.Value == nil {
+				if pastFormFieldSelectOwner != nil {
+					idx := slices.Index(pastFormFieldSelectOwner.Options, option_)
+					pastFormFieldSelectOwner.Options = slices.Delete(pastFormFieldSelectOwner.Options, idx, idx+1)
+				}
+			} else {
+				// we need to retrieve the field owner after the change
+				// parse all astrcut and get the one with the name in the
+				// div
+				for _formfieldselect := range *models.GetGongstructInstancesSet[models.FormFieldSelect](optionFormCallback.playground.stageOfInterest) {
+
+					// the match is base on the name
+					if _formfieldselect.GetName() == formDiv.FormFields[0].FormFieldSelect.Value.GetName() {
+						newFormFieldSelectOwner := _formfieldselect // we have a match
+						if pastFormFieldSelectOwner != nil {
+							if newFormFieldSelectOwner != pastFormFieldSelectOwner {
+								idx := slices.Index(pastFormFieldSelectOwner.Options, option_)
+								pastFormFieldSelectOwner.Options = slices.Delete(pastFormFieldSelectOwner.Options, idx, idx+1)
+								newFormFieldSelectOwner.Options = append(newFormFieldSelectOwner.Options, option_)
+							}
+						} else {
+							newFormFieldSelectOwner.Options = append(newFormFieldSelectOwner.Options, option_)
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -1594,6 +1851,48 @@ func (rowFormCallback *RowFormCallback) OnSave() {
 			FormDivBasicFieldToField(&(row_.Name), formDiv)
 		case "IsChecked":
 			FormDivBasicFieldToField(&(row_.IsChecked), formDiv)
+		case "Table:Rows":
+			// we need to retrieve the field owner before the change
+			var pastTableOwner *models.Table
+			var rf models.ReverseField
+			_ = rf
+			rf.GongstructName = "Table"
+			rf.Fieldname = "Rows"
+			reverseFieldOwner := orm.GetReverseFieldOwner(
+				rowFormCallback.playground.stageOfInterest,
+				rowFormCallback.playground.backRepoOfInterest,
+				row_,
+				&rf)
+
+			if reverseFieldOwner != nil {
+				pastTableOwner = reverseFieldOwner.(*models.Table)
+			}
+			if formDiv.FormFields[0].FormFieldSelect.Value == nil {
+				if pastTableOwner != nil {
+					idx := slices.Index(pastTableOwner.Rows, row_)
+					pastTableOwner.Rows = slices.Delete(pastTableOwner.Rows, idx, idx+1)
+				}
+			} else {
+				// we need to retrieve the field owner after the change
+				// parse all astrcut and get the one with the name in the
+				// div
+				for _table := range *models.GetGongstructInstancesSet[models.Table](rowFormCallback.playground.stageOfInterest) {
+
+					// the match is base on the name
+					if _table.GetName() == formDiv.FormFields[0].FormFieldSelect.Value.GetName() {
+						newTableOwner := _table // we have a match
+						if pastTableOwner != nil {
+							if newTableOwner != pastTableOwner {
+								idx := slices.Index(pastTableOwner.Rows, row_)
+								pastTableOwner.Rows = slices.Delete(pastTableOwner.Rows, idx, idx+1)
+								newTableOwner.Rows = append(newTableOwner.Rows, row_)
+							}
+						} else {
+							newTableOwner.Rows = append(newTableOwner.Rows, row_)
+						}
+					}
+				}
+			}
 		}
 	}
 

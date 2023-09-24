@@ -5,6 +5,15 @@ import { Observable, combineLatest, timer } from 'rxjs'
 import * as gongdoc from 'gongdoc'
 import * as gongtable from 'gongtable'
 
+import { GongdocModule } from 'gongdoc'
+import { GongdocspecificModule } from 'gongdocspecific'
+
+import { GongtreeModule } from 'gongtree'
+import { GongtreespecificModule } from 'gongtreespecific'
+
+import { GongtableModule } from 'gongtable'
+import { GongtablespecificModule } from 'gongtablespecific'
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,22 +21,28 @@ import * as gongtable from 'gongtable'
 export class AppComponent implements OnInit {
 
   table_view = gongtable.TableName.TableDefaultName.toString()
-  table_data_model = 'Table Data/Model'
+  manualy_edited_table_probe = 'Manual Edited Table Stack Probe'
 
   form_view = gongtable.FormGroupName.FormGroupDefaultName.toString()
-  form_data_model = 'Form Data/Model'
+  manualy_edited_form_probe = 'Manual Edited Form Probe'
+
+  generated_table_probe_stack = 'Generated Table Stack Probe'
 
   view = this.table_view
 
-  views: string[] = [this.table_view, this.form_view, this.table_data_model, this.form_data_model];
+  TableTestNameEnum = gongtable.TableTestNameEnum
 
-  TableStack = "manualy filled table"
+  views: string[] = [this.table_view, this.form_view,
+  this.manualy_edited_table_probe, this.manualy_edited_form_probe, this.generated_table_probe_stack];
 
-  FormStack = "manualy filled form"
   FormName = "Form 1"
 
-  TableGeneratedStack = "generated table"
-  ModelStacks = "github.com/fullstack-lang/gongtable/go/models"
+  scrollStyle = {
+    'overflow- x': 'auto',
+    'width': '100%',  // Ensure the div takes the full width of its parent container
+  }
+
+  StackType = "github.com/fullstack-lang/gongtable/go/models"
 
   constructor(
   ) {
