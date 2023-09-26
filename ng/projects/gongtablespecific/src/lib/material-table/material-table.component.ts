@@ -34,7 +34,7 @@ export class MaterialTableComponent implements OnInit {
     zIndex: '1'
   }
   // for selection
-  selectedTable: gongtable.TableDB | undefined = undefined;
+  selectedTable: gongtable.TableauDB | undefined = undefined;
 
   @Input() DataStack: string = ""
   @Input() TableName: string = ""
@@ -68,7 +68,7 @@ export class MaterialTableComponent implements OnInit {
     private gongtableFrontRepoService: gongtable.FrontRepoService,
     private gongtableCommitNbFromBackService: gongtable.CommitNbFromBackService,
     private rowService: gongtable.RowService,
-    private tableService: gongtable.TableService,
+    private tableService: gongtable.TableauService,
     private celliconService: gongtable.CellIconService,
 
 
@@ -306,7 +306,7 @@ export class MaterialTableComponent implements OnInit {
       // in case this component is called as a modal window (MatDialog)
       // exits,
       this.selectedTable.SavingInProgress = true
-      this.tableService.updateTable(this.selectedTable!, this.DataStack).subscribe(
+      this.tableService.update(this.selectedTable!, this.DataStack).subscribe(
         () => {
           // in case this component is called as a modal window (MatDialog)
           // exits,
@@ -331,7 +331,7 @@ export class MaterialTableComponent implements OnInit {
       () => {
 
         this.selectedTable!.SavingInProgress = false
-        this.tableService.updateTable(this.selectedTable!, this.DataStack).subscribe(
+        this.tableService.update(this.selectedTable!, this.DataStack).subscribe(
           () => {
             // in case this component is called as a modal window (MatDialog)
             // exits,
