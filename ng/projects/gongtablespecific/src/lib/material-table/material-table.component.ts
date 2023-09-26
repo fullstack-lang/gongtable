@@ -34,7 +34,7 @@ export class MaterialTableComponent implements OnInit {
     zIndex: '1'
   }
   // for selection
-  selectedTable: gongtable.TableauDB | undefined = undefined;
+  selectedTable: gongtable.TableDB | undefined = undefined;
 
   @Input() DataStack: string = ""
   @Input() TableName: string = ""
@@ -68,7 +68,7 @@ export class MaterialTableComponent implements OnInit {
     private gongtableFrontRepoService: gongtable.FrontRepoService,
     private gongtableCommitNbFromBackService: gongtable.CommitNbFromBackService,
     private rowService: gongtable.RowService,
-    private tableService: gongtable.TableauService,
+    private tableService: gongtable.TableService,
     private celliconService: gongtable.CellIconService,
 
 
