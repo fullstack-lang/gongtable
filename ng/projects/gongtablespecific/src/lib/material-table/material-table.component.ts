@@ -141,7 +141,8 @@ export class MaterialTableComponent implements OnInit {
 
         this.selectedTable = undefined
 
-        for (let table of this.gongtableFrontRepo.Tables_array) {
+        // use of the refactorable version
+        for (let table of this.gongtableFrontRepo.getArray<gongtable.TableDB>(gongtable.TableDB.GONGSTRUCT_NAME)) {
           if (table.Name == this.TableName) {
             this.selectedTable = table
           }

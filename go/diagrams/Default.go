@@ -255,8 +255,6 @@ var map_DocLink_Identifier_Default map[string]any = map[string]any{
 
 	"ref_models.StackNamePostFixForTableForAssociation": ref_models.StackNamePostFixForTableForAssociation,
 
-	"ref_models.StackNamePostFixForTableForAssociation": ref_models.StackNamePostFixForTableForAssociation,
-
 	"ref_models.StackNamePostFixForTableForAssociationSorting": ref_models.StackNamePostFixForTableForAssociationSorting,
 
 	"ref_models.StackNamePostFixForTableForMainForm": ref_models.StackNamePostFixForTableForMainForm,
@@ -363,5 +361,3 @@ func DefaultInjection(stage *models.StageStruct) {
 
 	// Setup of pointers
 }
-
-

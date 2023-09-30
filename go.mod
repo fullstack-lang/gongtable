@@ -3,9 +3,9 @@ module github.com/fullstack-lang/gongtable
 go 1.21.0
 
 require (
-	github.com/fullstack-lang/gong v0.0.0-20230926205311-d5aa917a5ff0
+	github.com/fullstack-lang/gong v0.0.0-20230930092028-1adf78ba3564
 	github.com/fullstack-lang/gongdoc v0.0.0-20230926210904-476b4c5dbaa6
-	github.com/fullstack-lang/gongtree v0.0.0-20230924202511-bfe7f3abf1aa
+	github.com/fullstack-lang/gongtree v0.0.0-20230926211214-e3497f326b68
 	github.com/fullstack-lang/maticons v0.0.0-20230823061653-70c364fbdd00
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-contrib/static v0.0.1
@@ -22,7 +22,7 @@ require (
 	github.com/chenzhuoyu/iasm v0.9.0 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/frankban/quicktest v1.14.6 // indirect
-	github.com/fullstack-lang/gongsvg v0.0.0-20230926210616-2f9e5108c76d // indirect
+	github.com/fullstack-lang/gongsvg v0.0.0-20230930092307-4825873d3ca9 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/glebarez/go-sqlite v1.21.2 // indirect
