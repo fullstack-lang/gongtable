@@ -38,7 +38,7 @@ type FormFieldDateAPI struct {
 	models.FormFieldDate_WOP
 
 	// encoding of pointers
-	FormFieldDatePointersEncoding
+	FormFieldDatePointersEncoding FormFieldDatePointersEncoding
 }
 
 // FormFieldDatePointersEncoding encodes pointers to Struct and

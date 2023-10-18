@@ -38,7 +38,7 @@ type FormFieldSelectAPI struct {
 	models.FormFieldSelect_WOP
 
 	// encoding of pointers
-	FormFieldSelectPointersEncoding
+	FormFieldSelectPointersEncoding FormFieldSelectPointersEncoding
 }
 
 // FormFieldSelectPointersEncoding encodes pointers to Struct and
@@ -51,7 +51,7 @@ type FormFieldSelectPointersEncoding struct {
 	ValueID sql.NullInt64
 
 	// field Options is a slice of pointers to another Struct (optional or 0..1)
-	Options IntSlice`gorm:"type:TEXT"`
+	Options IntSlice `gorm:"type:TEXT"`
 }
 
 // FormFieldSelectDB describes a formfieldselect in the database
@@ -244,6 +244,7 @@ func (backRepoFormFieldSelect *BackRepoFormFieldSelectStruct) CommitPhaseTwoInst
 				backRepo.BackRepoOption.GetOptionDBFromOptionPtr(optionAssocEnd)
 
 			// encode reverse pointer in the association end back repo instance
+			// (to be removed)
 			optionAssocEnd_DB.FormFieldSelect_OptionsDBID.Int64 = int64(formfieldselectDB.ID)
 			optionAssocEnd_DB.FormFieldSelect_OptionsDBID.Valid = true
 			optionAssocEnd_DB.FormFieldSelect_OptionsDBID_Index.Int64 = int64(idx)

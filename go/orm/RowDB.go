@@ -38,7 +38,7 @@ type RowAPI struct {
 	models.Row_WOP
 
 	// encoding of pointers
-	RowPointersEncoding
+	RowPointersEncoding RowPointersEncoding
 }
 
 // RowPointersEncoding encodes pointers to Struct and
@@ -47,12 +47,14 @@ type RowPointersEncoding struct {
 	// insertion for pointer fields encoding declaration
 
 	// field Cells is a slice of pointers to another Struct (optional or 0..1)
-	Cells IntSlice`gorm:"type:TEXT"`
+	Cells IntSlice `gorm:"type:TEXT"`
 
 	// Implementation of a reverse ID for field Table{}.Rows []*Row
+	// (to be removed)
 	Table_RowsDBID sql.NullInt64
 
 	// implementation of the index of the withing the slice
+	// (to be removed)
 	Table_RowsDBID_Index sql.NullInt64
 }
 
@@ -234,6 +236,7 @@ func (backRepoRow *BackRepoRowStruct) CommitPhaseTwoInstance(backRepo *BackRepoS
 				backRepo.BackRepoCell.GetCellDBFromCellPtr(cellAssocEnd)
 
 			// encode reverse pointer in the association end back repo instance
+			// (to be removed)
 			cellAssocEnd_DB.Row_CellsDBID.Int64 = int64(rowDB.ID)
 			cellAssocEnd_DB.Row_CellsDBID.Valid = true
 			cellAssocEnd_DB.Row_CellsDBID_Index.Int64 = int64(idx)

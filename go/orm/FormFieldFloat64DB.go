@@ -38,7 +38,7 @@ type FormFieldFloat64API struct {
 	models.FormFieldFloat64_WOP
 
 	// encoding of pointers
-	FormFieldFloat64PointersEncoding
+	FormFieldFloat64PointersEncoding FormFieldFloat64PointersEncoding
 }
 
 // FormFieldFloat64PointersEncoding encodes pointers to Struct and

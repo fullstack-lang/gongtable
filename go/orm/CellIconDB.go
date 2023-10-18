@@ -38,7 +38,7 @@ type CellIconAPI struct {
 	models.CellIcon_WOP
 
 	// encoding of pointers
-	CellIconPointersEncoding
+	CellIconPointersEncoding CellIconPointersEncoding
 }
 
 // CellIconPointersEncoding encodes pointers to Struct and

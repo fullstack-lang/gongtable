@@ -38,7 +38,7 @@ type FormDivAPI struct {
 	models.FormDiv_WOP
 
 	// encoding of pointers
-	FormDivPointersEncoding
+	FormDivPointersEncoding FormDivPointersEncoding
 }
 
 // FormDivPointersEncoding encodes pointers to Struct and
@@ -47,10 +47,10 @@ type FormDivPointersEncoding struct {
 	// insertion for pointer fields encoding declaration
 
 	// field FormFields is a slice of pointers to another Struct (optional or 0..1)
-	FormFields IntSlice`gorm:"type:TEXT"`
+	FormFields IntSlice `gorm:"type:TEXT"`
 
 	// field CheckBoxs is a slice of pointers to another Struct (optional or 0..1)
-	CheckBoxs IntSlice`gorm:"type:TEXT"`
+	CheckBoxs IntSlice `gorm:"type:TEXT"`
 
 	// field FormEditAssocButton is a pointer to another Struct (optional or 0..1)
 	// This field is generated into another field to enable AS ONE association
@@ -61,9 +61,11 @@ type FormDivPointersEncoding struct {
 	FormSortAssocButtonID sql.NullInt64
 
 	// Implementation of a reverse ID for field FormGroup{}.FormDivs []*FormDiv
+	// (to be removed)
 	FormGroup_FormDivsDBID sql.NullInt64
 
 	// implementation of the index of the withing the slice
+	// (to be removed)
 	FormGroup_FormDivsDBID_Index sql.NullInt64
 }
 
@@ -238,6 +240,7 @@ func (backRepoFormDiv *BackRepoFormDivStruct) CommitPhaseTwoInstance(backRepo *B
 				backRepo.BackRepoFormField.GetFormFieldDBFromFormFieldPtr(formfieldAssocEnd)
 
 			// encode reverse pointer in the association end back repo instance
+			// (to be removed)
 			formfieldAssocEnd_DB.FormDiv_FormFieldsDBID.Int64 = int64(formdivDB.ID)
 			formfieldAssocEnd_DB.FormDiv_FormFieldsDBID.Valid = true
 			formfieldAssocEnd_DB.FormDiv_FormFieldsDBID_Index.Int64 = int64(idx)
@@ -267,6 +270,7 @@ func (backRepoFormDiv *BackRepoFormDivStruct) CommitPhaseTwoInstance(backRepo *B
 				backRepo.BackRepoCheckBox.GetCheckBoxDBFromCheckBoxPtr(checkboxAssocEnd)
 
 			// encode reverse pointer in the association end back repo instance
+			// (to be removed)
 			checkboxAssocEnd_DB.FormDiv_CheckBoxsDBID.Int64 = int64(formdivDB.ID)
 			checkboxAssocEnd_DB.FormDiv_CheckBoxsDBID.Valid = true
 			checkboxAssocEnd_DB.FormDiv_CheckBoxsDBID_Index.Int64 = int64(idx)

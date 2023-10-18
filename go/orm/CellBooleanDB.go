@@ -38,7 +38,7 @@ type CellBooleanAPI struct {
 	models.CellBoolean_WOP
 
 	// encoding of pointers
-	CellBooleanPointersEncoding
+	CellBooleanPointersEncoding CellBooleanPointersEncoding
 }
 
 // CellBooleanPointersEncoding encodes pointers to Struct and

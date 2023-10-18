@@ -38,7 +38,7 @@ type OptionAPI struct {
 	models.Option_WOP
 
 	// encoding of pointers
-	OptionPointersEncoding
+	OptionPointersEncoding OptionPointersEncoding
 }
 
 // OptionPointersEncoding encodes pointers to Struct and
@@ -47,9 +47,11 @@ type OptionPointersEncoding struct {
 	// insertion for pointer fields encoding declaration
 
 	// Implementation of a reverse ID for field FormFieldSelect{}.Options []*Option
+	// (to be removed)
 	FormFieldSelect_OptionsDBID sql.NullInt64
 
 	// implementation of the index of the withing the slice
+	// (to be removed)
 	FormFieldSelect_OptionsDBID_Index sql.NullInt64
 }
 

@@ -38,7 +38,7 @@ type FormSortAssocButtonAPI struct {
 	models.FormSortAssocButton_WOP
 
 	// encoding of pointers
-	FormSortAssocButtonPointersEncoding
+	FormSortAssocButtonPointersEncoding FormSortAssocButtonPointersEncoding
 }
 
 // FormSortAssocButtonPointersEncoding encodes pointers to Struct and

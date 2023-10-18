@@ -38,7 +38,7 @@ type DisplayedColumnAPI struct {
 	models.DisplayedColumn_WOP
 
 	// encoding of pointers
-	DisplayedColumnPointersEncoding
+	DisplayedColumnPointersEncoding DisplayedColumnPointersEncoding
 }
 
 // DisplayedColumnPointersEncoding encodes pointers to Struct and
@@ -47,9 +47,11 @@ type DisplayedColumnPointersEncoding struct {
 	// insertion for pointer fields encoding declaration
 
 	// Implementation of a reverse ID for field Table{}.DisplayedColumns []*DisplayedColumn
+	// (to be removed)
 	Table_DisplayedColumnsDBID sql.NullInt64
 
 	// implementation of the index of the withing the slice
+	// (to be removed)
 	Table_DisplayedColumnsDBID_Index sql.NullInt64
 }
 

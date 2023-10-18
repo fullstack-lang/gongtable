@@ -38,7 +38,7 @@ type FormGroupAPI struct {
 	models.FormGroup_WOP
 
 	// encoding of pointers
-	FormGroupPointersEncoding
+	FormGroupPointersEncoding FormGroupPointersEncoding
 }
 
 // FormGroupPointersEncoding encodes pointers to Struct and
@@ -47,7 +47,7 @@ type FormGroupPointersEncoding struct {
 	// insertion for pointer fields encoding declaration
 
 	// field FormDivs is a slice of pointers to another Struct (optional or 0..1)
-	FormDivs IntSlice`gorm:"type:TEXT"`
+	FormDivs IntSlice `gorm:"type:TEXT"`
 }
 
 // FormGroupDB describes a formgroup in the database
@@ -227,6 +227,7 @@ func (backRepoFormGroup *BackRepoFormGroupStruct) CommitPhaseTwoInstance(backRep
 				backRepo.BackRepoFormDiv.GetFormDivDBFromFormDivPtr(formdivAssocEnd)
 
 			// encode reverse pointer in the association end back repo instance
+			// (to be removed)
 			formdivAssocEnd_DB.FormGroup_FormDivsDBID.Int64 = int64(formgroupDB.ID)
 			formdivAssocEnd_DB.FormGroup_FormDivsDBID.Valid = true
 			formdivAssocEnd_DB.FormGroup_FormDivsDBID_Index.Int64 = int64(idx)

@@ -38,7 +38,7 @@ type FormEditAssocButtonAPI struct {
 	models.FormEditAssocButton_WOP
 
 	// encoding of pointers
-	FormEditAssocButtonPointersEncoding
+	FormEditAssocButtonPointersEncoding FormEditAssocButtonPointersEncoding
 }
 
 // FormEditAssocButtonPointersEncoding encodes pointers to Struct and
