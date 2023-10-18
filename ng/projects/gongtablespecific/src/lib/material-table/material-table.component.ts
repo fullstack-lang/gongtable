@@ -376,10 +376,9 @@ export class MaterialTableComponent implements OnInit {
   // onClick performs an update of the clicked row (without any property change)
   // this minimalist design will hopefully be sufficient for the backend to interpret
   // that the row has been clicked
-  onClick(rowID: number) {
-    console.log("Material Table: onClick: Stack: `" + this.DataStack + "`table:`" + this.TableName + "`row:" + rowID)
+  onClick(row: gongtable.RowDB) {
+    console.log("Material Table: onClick: Stack: `" + this.DataStack + "`table:`" + this.TableName + "`row:" + row.Name)
 
-    let row: gongtable.RowDB = this.selectedTable?.Rows![rowID]!
     let cells = row.Cells
 
     this.rowService.updateRow(row, this.DataStack).subscribe(
