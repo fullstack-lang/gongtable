@@ -38,7 +38,7 @@ type FormFieldIntAPI struct {
 	models.FormFieldInt_WOP
 
 	// encoding of pointers
-	FormFieldIntPointersEncoding
+	FormFieldIntPointersEncoding FormFieldIntPointersEncoding
 }
 
 // FormFieldIntPointersEncoding encodes pointers to Struct and

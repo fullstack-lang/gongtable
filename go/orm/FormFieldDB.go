@@ -38,7 +38,7 @@ type FormFieldAPI struct {
 	models.FormField_WOP
 
 	// encoding of pointers
-	FormFieldPointersEncoding
+	FormFieldPointersEncoding FormFieldPointersEncoding
 }
 
 // FormFieldPointersEncoding encodes pointers to Struct and
@@ -75,9 +75,11 @@ type FormFieldPointersEncoding struct {
 	FormFieldSelectID sql.NullInt64
 
 	// Implementation of a reverse ID for field FormDiv{}.FormFields []*FormField
+	// (to be removed)
 	FormDiv_FormFieldsDBID sql.NullInt64
 
 	// implementation of the index of the withing the slice
+	// (to be removed)
 	FormDiv_FormFieldsDBID_Index sql.NullInt64
 }
 

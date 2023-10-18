@@ -38,7 +38,7 @@ type CellAPI struct {
 	models.Cell_WOP
 
 	// encoding of pointers
-	CellPointersEncoding
+	CellPointersEncoding CellPointersEncoding
 }
 
 // CellPointersEncoding encodes pointers to Struct and
@@ -67,9 +67,11 @@ type CellPointersEncoding struct {
 	CellIconID sql.NullInt64
 
 	// Implementation of a reverse ID for field Row{}.Cells []*Cell
+	// (to be removed)
 	Row_CellsDBID sql.NullInt64
 
 	// implementation of the index of the withing the slice
+	// (to be removed)
 	Row_CellsDBID_Index sql.NullInt64
 }
 

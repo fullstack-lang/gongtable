@@ -38,7 +38,7 @@ type TableAPI struct {
 	models.Table_WOP
 
 	// encoding of pointers
-	TablePointersEncoding
+	TablePointersEncoding TablePointersEncoding
 }
 
 // TablePointersEncoding encodes pointers to Struct and
@@ -47,10 +47,10 @@ type TablePointersEncoding struct {
 	// insertion for pointer fields encoding declaration
 
 	// field DisplayedColumns is a slice of pointers to another Struct (optional or 0..1)
-	DisplayedColumns IntSlice`gorm:"type:TEXT"`
+	DisplayedColumns IntSlice `gorm:"type:TEXT"`
 
 	// field Rows is a slice of pointers to another Struct (optional or 0..1)
-	Rows IntSlice`gorm:"type:TEXT"`
+	Rows IntSlice `gorm:"type:TEXT"`
 }
 
 // TableDB describes a table in the database
@@ -286,6 +286,7 @@ func (backRepoTable *BackRepoTableStruct) CommitPhaseTwoInstance(backRepo *BackR
 				backRepo.BackRepoDisplayedColumn.GetDisplayedColumnDBFromDisplayedColumnPtr(displayedcolumnAssocEnd)
 
 			// encode reverse pointer in the association end back repo instance
+			// (to be removed)
 			displayedcolumnAssocEnd_DB.Table_DisplayedColumnsDBID.Int64 = int64(tableDB.ID)
 			displayedcolumnAssocEnd_DB.Table_DisplayedColumnsDBID.Valid = true
 			displayedcolumnAssocEnd_DB.Table_DisplayedColumnsDBID_Index.Int64 = int64(idx)
@@ -315,6 +316,7 @@ func (backRepoTable *BackRepoTableStruct) CommitPhaseTwoInstance(backRepo *BackR
 				backRepo.BackRepoRow.GetRowDBFromRowPtr(rowAssocEnd)
 
 			// encode reverse pointer in the association end back repo instance
+			// (to be removed)
 			rowAssocEnd_DB.Table_RowsDBID.Int64 = int64(tableDB.ID)
 			rowAssocEnd_DB.Table_RowsDBID.Valid = true
 			rowAssocEnd_DB.Table_RowsDBID_Index.Int64 = int64(idx)

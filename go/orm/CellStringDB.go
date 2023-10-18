@@ -38,7 +38,7 @@ type CellStringAPI struct {
 	models.CellString_WOP
 
 	// encoding of pointers
-	CellStringPointersEncoding
+	CellStringPointersEncoding CellStringPointersEncoding
 }
 
 // CellStringPointersEncoding encodes pointers to Struct and

@@ -38,7 +38,7 @@ type FormFieldTimeAPI struct {
 	models.FormFieldTime_WOP
 
 	// encoding of pointers
-	FormFieldTimePointersEncoding
+	FormFieldTimePointersEncoding FormFieldTimePointersEncoding
 }
 
 // FormFieldTimePointersEncoding encodes pointers to Struct and

@@ -38,7 +38,7 @@ type CheckBoxAPI struct {
 	models.CheckBox_WOP
 
 	// encoding of pointers
-	CheckBoxPointersEncoding
+	CheckBoxPointersEncoding CheckBoxPointersEncoding
 }
 
 // CheckBoxPointersEncoding encodes pointers to Struct and
@@ -47,9 +47,11 @@ type CheckBoxPointersEncoding struct {
 	// insertion for pointer fields encoding declaration
 
 	// Implementation of a reverse ID for field FormDiv{}.CheckBoxs []*CheckBox
+	// (to be removed)
 	FormDiv_CheckBoxsDBID sql.NullInt64
 
 	// implementation of the index of the withing the slice
+	// (to be removed)
 	FormDiv_CheckBoxsDBID_Index sql.NullInt64
 }
 

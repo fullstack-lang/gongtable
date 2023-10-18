@@ -38,7 +38,7 @@ type CellFloat64API struct {
 	models.CellFloat64_WOP
 
 	// encoding of pointers
-	CellFloat64PointersEncoding
+	CellFloat64PointersEncoding CellFloat64PointersEncoding
 }
 
 // CellFloat64PointersEncoding encodes pointers to Struct and

@@ -38,7 +38,7 @@ type CellIntAPI struct {
 	models.CellInt_WOP
 
 	// encoding of pointers
-	CellIntPointersEncoding
+	CellIntPointersEncoding CellIntPointersEncoding
 }
 
 // CellIntPointersEncoding encodes pointers to Struct and
