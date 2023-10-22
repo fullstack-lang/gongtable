@@ -56,7 +56,7 @@ export class TableService {
     return this.http.get<TableDB[]>(this.tablesUrl, { params: params })
       .pipe(
         tap(),
-        // tap(_ => this.log('fetched tables')),
+		// tap(_ => this.log('fetched tables')),
         catchError(this.handleError<TableDB[]>('getTables', []))
       );
   }
@@ -151,7 +151,7 @@ export class TableService {
     const url = `${this.tablesUrl}/${id}`;
 
     // insertion point for reset of pointers (to avoid circular JSON)
-    // and encoding of pointers
+	// and encoding of pointers
     for (let _displayedcolumn of tabledb.DisplayedColumns) {
       tabledb.TablePointersEncoding.DisplayedColumns.push(_displayedcolumn.ID)
     }
