@@ -258,7 +258,7 @@ func TableInjection(stage *models.StageStruct) {
 	__GongStructShape__000000_Default_Cell.ShowNbInstances = true
 	__GongStructShape__000000_Default_Cell.NbInstances = 16
 	__GongStructShape__000000_Default_Cell.Width = 240.000000
-	__GongStructShape__000000_Default_Cell.Heigth = 63.000000
+	__GongStructShape__000000_Default_Cell.Height = 63.000000
 	__GongStructShape__000000_Default_Cell.IsSelected = false
 
 	// GongStructShape values setup
@@ -271,7 +271,7 @@ func TableInjection(stage *models.StageStruct) {
 	__GongStructShape__000001_Default_CellBoolean.ShowNbInstances = true
 	__GongStructShape__000001_Default_CellBoolean.NbInstances = 2
 	__GongStructShape__000001_Default_CellBoolean.Width = 240.000000
-	__GongStructShape__000001_Default_CellBoolean.Heigth = 78.000000
+	__GongStructShape__000001_Default_CellBoolean.Height = 78.000000
 	__GongStructShape__000001_Default_CellBoolean.IsSelected = false
 
 	// GongStructShape values setup
@@ -284,7 +284,7 @@ func TableInjection(stage *models.StageStruct) {
 	__GongStructShape__000002_Default_CellFloat64.ShowNbInstances = true
 	__GongStructShape__000002_Default_CellFloat64.NbInstances = 2
 	__GongStructShape__000002_Default_CellFloat64.Width = 240.000000
-	__GongStructShape__000002_Default_CellFloat64.Heigth = 78.000000
+	__GongStructShape__000002_Default_CellFloat64.Height = 78.000000
 	__GongStructShape__000002_Default_CellFloat64.IsSelected = false
 
 	// GongStructShape values setup
@@ -297,7 +297,7 @@ func TableInjection(stage *models.StageStruct) {
 	__GongStructShape__000003_Default_CellIcon.ShowNbInstances = true
 	__GongStructShape__000003_Default_CellIcon.NbInstances = 2
 	__GongStructShape__000003_Default_CellIcon.Width = 240.000000
-	__GongStructShape__000003_Default_CellIcon.Heigth = 78.000000
+	__GongStructShape__000003_Default_CellIcon.Height = 78.000000
 	__GongStructShape__000003_Default_CellIcon.IsSelected = false
 
 	// GongStructShape values setup
@@ -310,7 +310,7 @@ func TableInjection(stage *models.StageStruct) {
 	__GongStructShape__000004_Default_CellInt.ShowNbInstances = true
 	__GongStructShape__000004_Default_CellInt.NbInstances = 2
 	__GongStructShape__000004_Default_CellInt.Width = 240.000000
-	__GongStructShape__000004_Default_CellInt.Heigth = 78.000000
+	__GongStructShape__000004_Default_CellInt.Height = 78.000000
 	__GongStructShape__000004_Default_CellInt.IsSelected = false
 
 	// GongStructShape values setup
@@ -323,7 +323,7 @@ func TableInjection(stage *models.StageStruct) {
 	__GongStructShape__000005_Default_CellString.ShowNbInstances = true
 	__GongStructShape__000005_Default_CellString.NbInstances = 8
 	__GongStructShape__000005_Default_CellString.Width = 240.000000
-	__GongStructShape__000005_Default_CellString.Heigth = 78.000000
+	__GongStructShape__000005_Default_CellString.Height = 78.000000
 	__GongStructShape__000005_Default_CellString.IsSelected = false
 
 	// GongStructShape values setup
@@ -336,7 +336,7 @@ func TableInjection(stage *models.StageStruct) {
 	__GongStructShape__000006_Default_DisplayedColumn.ShowNbInstances = true
 	__GongStructShape__000006_Default_DisplayedColumn.NbInstances = 7
 	__GongStructShape__000006_Default_DisplayedColumn.Width = 240.000000
-	__GongStructShape__000006_Default_DisplayedColumn.Heigth = 63.000000
+	__GongStructShape__000006_Default_DisplayedColumn.Height = 63.000000
 	__GongStructShape__000006_Default_DisplayedColumn.IsSelected = false
 
 	// GongStructShape values setup
@@ -349,7 +349,7 @@ func TableInjection(stage *models.StageStruct) {
 	__GongStructShape__000007_Default_Row.ShowNbInstances = true
 	__GongStructShape__000007_Default_Row.NbInstances = 5
 	__GongStructShape__000007_Default_Row.Width = 240.000000
-	__GongStructShape__000007_Default_Row.Heigth = 63.000000
+	__GongStructShape__000007_Default_Row.Height = 63.000000
 	__GongStructShape__000007_Default_Row.IsSelected = false
 
 	// GongStructShape values setup
@@ -362,7 +362,7 @@ func TableInjection(stage *models.StageStruct) {
 	__GongStructShape__000008_Default_Table.ShowNbInstances = true
 	__GongStructShape__000008_Default_Table.NbInstances = 2
 	__GongStructShape__000008_Default_Table.Width = 240.000000
-	__GongStructShape__000008_Default_Table.Heigth = 168.000000
+	__GongStructShape__000008_Default_Table.Height = 168.000000
 	__GongStructShape__000008_Default_Table.IsSelected = false
 
 	// Link values setup
