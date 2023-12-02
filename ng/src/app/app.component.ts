@@ -28,12 +28,16 @@ export class AppComponent implements OnInit {
 
   generated_table_probe_stack = 'Generated Table Stack Probe'
 
-  view = this.table_view
+  view = this.form_view
 
   TableTestNameEnum = gongtable.TableTestNameEnum
 
-  views: string[] = [this.table_view, this.form_view,
-  this.manualy_edited_table_probe, this.manualy_edited_form_probe, this.generated_table_probe_stack];
+  views: string[] = [
+    this.table_view,
+    this.form_view,
+    this.manualy_edited_table_probe,
+    this.manualy_edited_form_probe,
+    this.generated_table_probe_stack];
 
   FormName = "Form 1"
 

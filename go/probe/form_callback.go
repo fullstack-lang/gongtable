@@ -982,6 +982,10 @@ func (formfieldFormCallback *FormFieldFormCallback) OnSave() {
 			FormDivBasicFieldToField(&(formfield_.HasBespokeWidth), formDiv)
 		case "BespokeWidthPx":
 			FormDivBasicFieldToField(&(formfield_.BespokeWidthPx), formDiv)
+		case "HasBespokeHeight":
+			FormDivBasicFieldToField(&(formfield_.HasBespokeHeight), formDiv)
+		case "BespokeHeightPx":
+			FormDivBasicFieldToField(&(formfield_.BespokeHeightPx), formDiv)
 		case "FormDiv:FormFields":
 			// we need to retrieve the field owner before the change
 			var pastFormDivOwner *models.FormDiv
