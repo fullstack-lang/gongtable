@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/fullstack-lang/gongtable/go/models"
-
 	// injection point for ident package import declaration{{ImportPackageDeclaration}}
 )
 
@@ -299,7 +298,7 @@ second line`
 
 	// FormGroup values setup
 	__FormGroup__000000_Form_1.Name = `Form 1`
-	__FormGroup__000000_Form_1.Label = `New instance`
+	__FormGroup__000000_Form_1.Label = `<FormGroup.Label>`
 
 	// FormSortAssocButton values setup
 	__FormSortAssocButton__000000_Sort_Button.Name = `Sort Button`
@@ -366,5 +365,3 @@ second line`
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000008_Select_cannot_be_set_empty_)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000009_Text_Area)
 }
-
-
