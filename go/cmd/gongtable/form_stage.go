@@ -320,6 +320,7 @@ second line`
 	// FormGroup values setup
 	__FormGroup__000000_Form_1.Name = `Form 1`
 	__FormGroup__000000_Form_1.Label = `<FormGroup.Label>`
+	__FormGroup__000000_Form_1.HasSuppressButton = false
 
 	// FormSortAssocButton values setup
 	__FormSortAssocButton__000000_Sort_Button.Name = `Sort Button`
@@ -375,16 +376,16 @@ second line`
 	__FormFieldSelect__000001_Select_cannot_be_set_empty_.Value = __Option__000000_A_Select_cannot_be_set_empty_
 	__FormFieldSelect__000001_Select_cannot_be_set_empty_.Options = append(__FormFieldSelect__000001_Select_cannot_be_set_empty_.Options, __Option__000000_A_Select_cannot_be_set_empty_)
 	__FormFieldSelect__000001_Select_cannot_be_set_empty_.Options = append(__FormFieldSelect__000001_Select_cannot_be_set_empty_.Options, __Option__000001_B_Select_cannot_be_set_empty_)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000009_Text_Area)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000000_CheckBoxs)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000001_Date_Time)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000002_DateTime)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000003_Edit_Assoc)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000002_DateTime)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000004_Float64_level_of_x)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000005_Form_Div_First_Name_Name)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000006_Int_Age)
+	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000005_Form_Div_First_Name_Name)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000007_Select_can_be_set_empty_)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000008_Select_cannot_be_set_empty_)
-	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000009_Text_Area)
 }
 
 

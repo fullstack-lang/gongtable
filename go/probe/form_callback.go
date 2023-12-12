@@ -1626,6 +1626,10 @@ func (formgroupFormCallback *FormGroupFormCallback) OnSave() {
 			FormDivBasicFieldToField(&(formgroup_.Name), formDiv)
 		case "Label":
 			FormDivBasicFieldToField(&(formgroup_.Label), formDiv)
+		case "HasSuppressButton":
+			FormDivBasicFieldToField(&(formgroup_.HasSuppressButton), formDiv)
+		case "HasSuppressButtonBeenPressed":
+			FormDivBasicFieldToField(&(formgroup_.HasSuppressButtonBeenPressed), formDiv)
 		}
 	}
 

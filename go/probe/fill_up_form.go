@@ -304,6 +304,10 @@ func FillUpForm[T models.Gongstruct](
 		BasicFieldtoForm("Label", instanceWithInferedType.Label, instanceWithInferedType, probe.formStage, formGroup, 
 			false, false, 0, false, 0)
 		AssociationSliceToForm("FormDivs", instanceWithInferedType, &instanceWithInferedType.FormDivs, formGroup, probe)
+		BasicFieldtoForm("HasSuppressButton", instanceWithInferedType.HasSuppressButton, instanceWithInferedType, probe.formStage, formGroup, 
+			false, false, 0, false, 0)
+		BasicFieldtoForm("HasSuppressButtonBeenPressed", instanceWithInferedType.HasSuppressButtonBeenPressed, instanceWithInferedType, probe.formStage, formGroup, 
+			false, false, 0, false, 0)
 
 	case *models.FormSortAssocButton:
 		// insertion point
