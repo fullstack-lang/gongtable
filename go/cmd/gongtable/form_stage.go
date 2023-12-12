@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/fullstack-lang/gongtable/go/models"
+
 	// injection point for ident package import declaration{{ImportPackageDeclaration}}
 )
 
@@ -175,6 +176,8 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000000_Age.Placeholder = `18`
 	__FormField__000000_Age.HasBespokeWidth = true
 	__FormField__000000_Age.BespokeWidthPx = 90
+	__FormField__000000_Age.HasBespokeHeight = false
+	__FormField__000000_Age.BespokeHeightPx = 0
 
 	// FormField values setup
 	__FormField__000001_Date.Name = `Date`
@@ -183,6 +186,8 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000001_Date.Placeholder = ``
 	__FormField__000001_Date.HasBespokeWidth = false
 	__FormField__000001_Date.BespokeWidthPx = 0
+	__FormField__000001_Date.HasBespokeHeight = false
+	__FormField__000001_Date.BespokeHeightPx = 0
 
 	// FormField values setup
 	__FormField__000002_DateTime.Name = `DateTime`
@@ -190,6 +195,8 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000002_DateTime.Placeholder = ``
 	__FormField__000002_DateTime.HasBespokeWidth = false
 	__FormField__000002_DateTime.BespokeWidthPx = 0
+	__FormField__000002_DateTime.HasBespokeHeight = false
+	__FormField__000002_DateTime.BespokeHeightPx = 0
 
 	// FormField values setup
 	__FormField__000003_FirstName.Name = `FirstName`
@@ -198,6 +205,8 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000003_FirstName.Placeholder = ``
 	__FormField__000003_FirstName.HasBespokeWidth = false
 	__FormField__000003_FirstName.BespokeWidthPx = 0
+	__FormField__000003_FirstName.HasBespokeHeight = false
+	__FormField__000003_FirstName.BespokeHeightPx = 0
 
 	// FormField values setup
 	__FormField__000004_Float64_level_of_x.Name = `Float64 - level of x`
@@ -205,6 +214,8 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000004_Float64_level_of_x.Placeholder = ``
 	__FormField__000004_Float64_level_of_x.HasBespokeWidth = false
 	__FormField__000004_Float64_level_of_x.BespokeWidthPx = 0
+	__FormField__000004_Float64_level_of_x.HasBespokeHeight = false
+	__FormField__000004_Float64_level_of_x.BespokeHeightPx = 0
 
 	// FormField values setup
 	__FormField__000005_LastName.Name = `LastName`
@@ -213,6 +224,8 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000005_LastName.Placeholder = ``
 	__FormField__000005_LastName.HasBespokeWidth = false
 	__FormField__000005_LastName.BespokeWidthPx = 0
+	__FormField__000005_LastName.HasBespokeHeight = false
+	__FormField__000005_LastName.BespokeHeightPx = 0
 
 	// FormField values setup
 	__FormField__000006_Select_can_be_set_empty_.Name = `Select (can be set empty)`
@@ -220,6 +233,8 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000006_Select_can_be_set_empty_.Placeholder = ``
 	__FormField__000006_Select_can_be_set_empty_.HasBespokeWidth = false
 	__FormField__000006_Select_can_be_set_empty_.BespokeWidthPx = 0
+	__FormField__000006_Select_can_be_set_empty_.HasBespokeHeight = false
+	__FormField__000006_Select_can_be_set_empty_.BespokeHeightPx = 0
 
 	// FormField values setup
 	__FormField__000007_Select_cannot_be_set_empty_.Name = `Select (cannot be set empty)`
@@ -227,6 +242,8 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000007_Select_cannot_be_set_empty_.Placeholder = ``
 	__FormField__000007_Select_cannot_be_set_empty_.HasBespokeWidth = false
 	__FormField__000007_Select_cannot_be_set_empty_.BespokeWidthPx = 0
+	__FormField__000007_Select_cannot_be_set_empty_.HasBespokeHeight = false
+	__FormField__000007_Select_cannot_be_set_empty_.BespokeHeightPx = 0
 
 	// FormField values setup
 	__FormField__000008_Text_Area.Name = `Text Area`
@@ -234,6 +251,8 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000008_Text_Area.Placeholder = ``
 	__FormField__000008_Text_Area.HasBespokeWidth = false
 	__FormField__000008_Text_Area.BespokeWidthPx = 0
+	__FormField__000008_Text_Area.HasBespokeHeight = false
+	__FormField__000008_Text_Area.BespokeHeightPx = 0
 
 	// FormField values setup
 	__FormField__000009_Time.Name = `Time`
@@ -242,6 +261,8 @@ func form_stageInjection(stage *models.StageStruct) {
 	__FormField__000009_Time.Placeholder = ``
 	__FormField__000009_Time.HasBespokeWidth = false
 	__FormField__000009_Time.BespokeWidthPx = 0
+	__FormField__000009_Time.HasBespokeHeight = false
+	__FormField__000009_Time.BespokeHeightPx = 0
 
 	// FormFieldDate values setup
 	__FormFieldDate__000000_Time.Name = `Time`
@@ -365,3 +386,5 @@ second line`
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000008_Select_cannot_be_set_empty_)
 	__FormGroup__000000_Form_1.FormDivs = append(__FormGroup__000000_Form_1.FormDivs, __FormDiv__000009_Text_Area)
 }
+
+
