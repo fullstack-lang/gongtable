@@ -320,7 +320,8 @@ second line`
 	// FormGroup values setup
 	__FormGroup__000000_Form_1.Name = `Form 1`
 	__FormGroup__000000_Form_1.Label = `<FormGroup.Label>`
-	__FormGroup__000000_Form_1.HasSuppressButton = false
+	__FormGroup__000000_Form_1.HasSuppressButton = true
+	__FormGroup__000000_Form_1.HasSuppressButtonBeenPressed = true
 
 	// FormSortAssocButton values setup
 	__FormSortAssocButton__000000_Sort_Button.Name = `Sort Button`
