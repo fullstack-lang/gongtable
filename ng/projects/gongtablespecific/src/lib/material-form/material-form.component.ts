@@ -247,7 +247,7 @@ export class MaterialFormComponent implements OnInit {
 
             if (!isSameDay(inputDate, comparisonDate)) {
               formFieldDate.Value = dateObject;
-              promises.push(this.formFieldDateService.updateFront, this.DataStack)
+              promises.push(this.formFieldDateService.updateFront(formFieldDate, this.DataStack))
             }
 
           }
