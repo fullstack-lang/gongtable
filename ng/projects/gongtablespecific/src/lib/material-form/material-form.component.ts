@@ -230,8 +230,8 @@ export class MaterialFormComponent implements OnInit {
             let formattedDate = dateObj.toISOString();
             let dateObject = new Date(formattedDate);
 
-            console.log(dateObject);
-            console.log(formFieldDate.Value);
+            console.log("input date", dateObject);
+            console.log("date before", formFieldDate.Value);
 
             // 2. Check if two dates are on the same day
             let inputDate = new Date(formFieldValue);
