@@ -158,7 +158,8 @@ func main() {
 	}
 	{
 		hook := new(BeforeCommitImplForManualyEditedFormStage)
-		stageForManualyEditedForm.OnInitCommitFromFrontCallback = hook
+		stageForManualyEditedForm.OnInitCommitFromFrontCallback = hook // callback when the front is used
+		stageForManualyEditedForm.OnInitCommitFromBackCallback = hook  // callback when the probe is used
 	}
 
 	gongtable_probe.NewProbe(r,
