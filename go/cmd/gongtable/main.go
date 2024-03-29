@@ -54,7 +54,7 @@ type BeforeCommitImplForManualyEditedFormStage struct {
 }
 
 func (impl *BeforeCommitImplForManualyEditedFormStage) BeforeCommit(stage *gongtable_models.StageStruct) {
-	file, err := os.Create("./form_stage.go")
+	file, err := os.Create("./form_stage_issue30.go")
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -117,7 +117,7 @@ func main() {
 		stageForManualyEditedForm.Checkout()
 		stageForManualyEditedForm.Reset()
 		stageForManualyEditedForm.Commit()
-		err := gongtable_models.ParseAstFile(stageForManualyEditedForm, "form_stage.go")
+		err := gongtable_models.ParseAstFile(stageForManualyEditedForm, "form_stage_issue30.go")
 
 		// if the application is run with -unmarshallFromCode=xxx.go -marshallOnCommit
 		// xxx.go might be absent the first time. However, this shall not be a show stopper.
@@ -158,7 +158,8 @@ func main() {
 	}
 	{
 		hook := new(BeforeCommitImplForManualyEditedFormStage)
-		stageForManualyEditedForm.OnInitCommitFromFrontCallback = hook
+		stageForManualyEditedForm.OnInitCommitFromFrontCallback = hook // callback when the front is used
+		stageForManualyEditedForm.OnInitCommitFromBackCallback = hook  // callback when the probe is used
 	}
 
 	gongtable_probe.NewProbe(r,
