@@ -1,9 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Observable, combineLatest, timer } from 'rxjs'
 
+import { CommonModule } from '@angular/common';
 
 // for angular material
 import { MatSliderModule } from '@angular/material/slider';
@@ -24,66 +23,71 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { FormsModule } from '@angular/forms';
 
-// to split the screen
 import { AngularSplitModule } from 'angular-split';
 
-import { GongModule } from 'gong'
+import * as gongtable from '../../projects/gongtable/src/public-api'
 
-import { GongdocModule } from 'gongdoc'
-import { GongdocspecificModule } from 'gongdocspecific'
+import { GongtablespecificComponent } from '../../projects/gongtablespecific/src/public-api'
 
-import { GongtreeModule } from 'gongtree'
-import { GongtreespecificModule } from 'gongtreespecific'
-
-import { GongtableModule } from 'gongtable'
-import { GongtablespecificModule } from 'gongtablespecific'
-
-// mandatory
-import { HttpClientModule } from '@angular/common/http';
-
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
+@Component({
+  selector: 'app-root',
+  standalone: true,
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
 
-    HttpClientModule,
+    CommonModule,
 
     MatSliderModule,
     MatSelectModule,
+    MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDatepickerModule,
     MatTableModule,
     MatCheckboxModule,
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
+    MatListModule,
     MatCardModule,
     MatTooltipModule,
     MatRadioModule,
     MatSlideToggleModule,
+
     FormsModule,
 
     AngularSplitModule,
 
-    // gong stack (for analysis of gong code in the current stack)
-    GongModule,
+    // gongtreespecific.GongtreespecificModule,
+    // gongtablespecific.GongtablespecificModule,
 
-    // gongdoc stack (for displaying UML diagrams of the gong code in the current stack)
-    GongdocModule,
-    GongdocspecificModule,
+    GongtablespecificComponent
 
-    GongtreeModule,
-    GongtreespecificModule,
-
-    GongtableModule,
-    GongtablespecificModule,
   ],
-  providers: [
-  ],
-  bootstrap: [AppComponent]
+
+  templateUrl: './app.component.html',
 })
-export class AppModule { }
+export class AppComponent implements OnInit {
+
+  gongtable = 'Gongtable'
+  probe = 'Gongtable Data/Model'
+  view = this.gongtable
+
+  views: string[] = [this.gongtable, this.probe];
+
+  scrollStyle = {
+    'overflow- x': 'auto',
+    'width': '100%',  // Ensure the div takes the full width of its parent container
+  }
+
+  StackName = "gongtable"
+  StackType = gongtable.StackType
+
+  // TableExtraPathEnum = gongtable.TableExtraPathEnum
+
+  constructor(
+  ) {
+
+  }
+
+  ngOnInit(): void {
+  }
+}

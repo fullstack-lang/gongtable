@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Subscription, forkJoin } from 'rxjs';
 
-import * as gongtable from 'gongtable'
+import * as gongtable from '../../../../gongtable/src/public-api'
 
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 
@@ -15,7 +15,11 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 @Component({
   selector: 'lib-material-form',
   templateUrl: './material-form.component.html',
-  styleUrls: ['./material-form.component.css']
+  styleUrls: ['./material-form.component.css'],
+  standalone: true,
+  imports: [
+
+  ],
 })
 export class MaterialFormComponent implements OnInit {
 
