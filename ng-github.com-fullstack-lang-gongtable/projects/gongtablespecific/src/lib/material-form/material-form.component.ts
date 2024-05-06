@@ -5,12 +5,23 @@ import * as gongtable from '../../../../gongtable/src/public-api'
 
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 
-import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { NgIf } from '@angular/common';
-import { TableDialogData } from '../table-dialog-data';
+import { MatOptionModule } from '@angular/material/core';
+
+
 import { MaterialTableComponent } from '../material-table/material-table.component';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+
+import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+import { TableDialogData } from '../table-dialog-data';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'lib-material-form',
@@ -18,6 +29,17 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
   styleUrls: ['./material-form.component.css'],
   standalone: true,
   imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+
+    MatFormFieldModule,
+    MatOptionModule,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+
+    MatPaginatorModule,
 
   ],
 })

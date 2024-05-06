@@ -2,86 +2,64 @@ import { Component, OnInit } from '@angular/core';
 
 import { Observable, combineLatest, timer } from 'rxjs'
 
+import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-// for angular material
-import { MatSliderModule } from '@angular/material/slider';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select'
-import { MatDatepickerModule } from '@angular/material/datepicker'
-import { MatTableModule } from '@angular/material/table'
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar'
-import { MatListModule } from '@angular/material/list'
-import { MatCardModule } from '@angular/material/card'
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
-import { FormsModule } from '@angular/forms';
 
 import { AngularSplitModule } from 'angular-split';
 
 import * as gongtable from '../../projects/gongtable/src/public-api'
 
-import { GongtablespecificComponent } from '../../projects/gongtablespecific/src/public-api'
+import { MaterialTableComponent } from '../../projects/gongtablespecific/src/lib/material-table/material-table.component';
+import { MaterialFormComponent } from '../../projects/gongtablespecific/src/lib/material-form/material-form.component';
 
 @Component({
   selector: 'app-root',
+  templateUrl: './app.component.html',
   standalone: true,
   imports: [
-
+    MatRadioModule,
+    FormsModule,
     CommonModule,
-
-    MatSliderModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatTableModule,
-    MatCheckboxModule,
     MatButtonModule,
     MatIconModule,
-    MatToolbarModule,
-    MatListModule,
-    MatCardModule,
-    MatTooltipModule,
-    MatRadioModule,
-    MatSlideToggleModule,
-
-    FormsModule,
 
     AngularSplitModule,
-
-    // gongtreespecific.GongtreespecificModule,
-    // gongtablespecific.GongtablespecificModule,
-
-    GongtablespecificComponent
-
+    MaterialTableComponent,
+    MaterialFormComponent,
   ],
-
-  templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
 
-  gongtable = 'Gongtable'
-  probe = 'Gongtable Data/Model'
-  view = this.gongtable
+  table_view = gongtable.TableName.TableDefaultName.toString()
+  manualy_edited_table_probe = 'Manual Edited Table Stack Probe'
 
-  views: string[] = [this.gongtable, this.probe];
+  form_view = gongtable.FormGroupName.FormGroupDefaultName.toString()
+  manualy_edited_form_probe = 'Manual Edited Form Probe'
+
+  generated_table_probe_stack = 'Generated Table Stack Probe'
+
+  view = this.form_view
+
+  TableTestNameEnum = gongtable.TableTestNameEnum
+
+  views: string[] = [
+    this.table_view,
+    this.form_view,
+    this.manualy_edited_table_probe,
+    this.manualy_edited_form_probe,
+    this.generated_table_probe_stack];
+
+  FormName = "Form 1"
 
   scrollStyle = {
     'overflow- x': 'auto',
     'width': '100%',  // Ensure the div takes the full width of its parent container
   }
 
-  StackName = "gongtable"
-  StackType = gongtable.StackType
-
-  // TableExtraPathEnum = gongtable.TableExtraPathEnum
+  StackType = "github.com/fullstack-lang/gongtable/go/models"
 
   constructor(
   ) {
