@@ -11,7 +11,10 @@
       ],
       "gongtablespecific": [
         "./dist/gongtablespecific"
-      ]
+      ],
+      "@vendored_components/*": [
+        "../vendor/*"
+      ],
     },
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,

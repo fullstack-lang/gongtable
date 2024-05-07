@@ -47,7 +47,14 @@
 		{
 			"label": "04 - ng serve --host=127.0.0.1",
 			"type": "shell",
-			"command": "cd ng; ng serve --host=127.0.0.1",
+			"command": "cd ng-github.com-fullstack-lang-gongtable; ng serve --host=127.0.0.1",
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "04 - ng serve --open",
+			"type": "shell",
+			"command": "cd ng-github.com-fullstack-lang-gongtable; ng serve --open",
 			"group": "build",
 			"problemMatcher": []
 		},
