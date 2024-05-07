@@ -3,3 +3,5 @@ go/cmd/gongtable/gongtable
 __debug_bin
 go/cmd/gongtable/test.db
 __debug_bin*
+
+node_modules

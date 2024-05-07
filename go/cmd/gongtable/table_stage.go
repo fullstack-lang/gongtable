@@ -363,8 +363,8 @@ func table_stageInjection(stage *models.StageStruct) {
 	__Table__000001_Table.Rows = append(__Table__000001_Table.Rows, __Row__000000_Row_1)
 	__Table__000001_Table.Rows = append(__Table__000001_Table.Rows, __Row__000001_Row_2)
 	__Table__000002_Table_2.DisplayedColumns = append(__Table__000002_Table_2.DisplayedColumns, __DisplayedColumn__000000_A)
-	__Table__000002_Table_2.Rows = append(__Table__000002_Table_2.Rows, __Row__000002_Table_2_Row_1)
 	__Table__000002_Table_2.Rows = append(__Table__000002_Table_2.Rows, __Row__000003_Table_2_Row_2)
+	__Table__000002_Table_2.Rows = append(__Table__000002_Table_2.Rows, __Row__000002_Table_2_Row_1)
 	__Table__000002_Table_2.Rows = append(__Table__000002_Table_2.Rows, __Row__000004_Table_2_Row_3)
 }
 

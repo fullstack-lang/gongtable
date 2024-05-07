@@ -117,7 +117,7 @@ func main() {
 		stageForManualyEditedForm.Checkout()
 		stageForManualyEditedForm.Reset()
 		stageForManualyEditedForm.Commit()
-		err := gongtable_models.ParseAstFile(stageForManualyEditedForm, "form_stage_issue30.go")
+		err := gongtable_models.ParseAstFile(stageForManualyEditedForm, "form_stage.go")
 
 		// if the application is run with -unmarshallFromCode=xxx.go -marshallOnCommit
 		// xxx.go might be absent the first time. However, this shall not be a show stopper.
