@@ -14,7 +14,7 @@ const allowMultiSelect = true
 
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 
@@ -24,6 +24,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+
 
 @Component({
   selector: 'lib-material-table',
@@ -41,6 +42,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatCheckboxModule,
     MatDialogModule,
     MatInputModule,
+    MatSortModule,
 
     CommonModule,
     DragDropModule,
@@ -72,7 +74,7 @@ export class MaterialTableComponent implements OnInit, AfterViewInit {
   filterControl = new FormControl()
 
   // for sorting
-  @ViewChild(MatSort) sort!: MatSort
+  @ViewChild(MatSort) sort: MatSort | undefined
   matSortDirective: string = ""
 
   // for pagination
@@ -264,7 +266,7 @@ export class MaterialTableComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort
+    this.dataSource.sort = this.sort!
   }
 
   applyFilter(event: Event) {
