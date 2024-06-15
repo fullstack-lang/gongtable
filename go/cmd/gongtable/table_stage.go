@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/fullstack-lang/gongtable/go/models"
-
 	// injection point for ident package import declaration{{ImportPackageDeclaration}}
 )
 
@@ -128,7 +127,7 @@ func table_stageInjection(stage *models.StageStruct) {
 
 	// Declarations of staged instances of Table
 	__Table__000000_EmptyTable := (&models.Table{Name: `EmptyTable`}).Stage(stage)
-	__Table__000001_Table := (&models.Table{Name: `Table`}).Stage(stage)
+	__Table__000001_Table_With_5_Types := (&models.Table{Name: `Table with 5 types`}).Stage(stage)
 	__Table__000002_Table_2 := (&models.Table{Name: `Table 2`}).Stage(stage)
 
 	// Setup of values
@@ -299,16 +298,16 @@ func table_stageInjection(stage *models.StageStruct) {
 	__Table__000000_EmptyTable.NbOfStickyColumns = 0
 
 	// Table values setup
-	__Table__000001_Table.Name = `Table`
-	__Table__000001_Table.HasFiltering = true
-	__Table__000001_Table.HasColumnSorting = true
-	__Table__000001_Table.HasPaginator = true
-	__Table__000001_Table.HasCheckableRows = true
-	__Table__000001_Table.HasSaveButton = true
-	__Table__000001_Table.CanDragDropRows = false
-	__Table__000001_Table.HasCloseButton = false
-	__Table__000001_Table.SavingInProgress = false
-	__Table__000001_Table.NbOfStickyColumns = 3
+	__Table__000001_Table_With_5_Types.Name = `Table with 5 types`
+	__Table__000001_Table_With_5_Types.HasFiltering = true
+	__Table__000001_Table_With_5_Types.HasColumnSorting = true
+	__Table__000001_Table_With_5_Types.HasPaginator = true
+	__Table__000001_Table_With_5_Types.HasCheckableRows = true
+	__Table__000001_Table_With_5_Types.HasSaveButton = true
+	__Table__000001_Table_With_5_Types.CanDragDropRows = false
+	__Table__000001_Table_With_5_Types.HasCloseButton = false
+	__Table__000001_Table_With_5_Types.SavingInProgress = false
+	__Table__000001_Table_With_5_Types.NbOfStickyColumns = 3
 
 	// Table values setup
 	__Table__000002_Table_2.Name = `Table 2`
@@ -355,17 +354,15 @@ func table_stageInjection(stage *models.StageStruct) {
 	__Row__000003_Table_2_Row_2.Cells = append(__Row__000003_Table_2_Row_2.Cells, __Cell__000012_T2_R2_A)
 	__Row__000004_Table_2_Row_3.Cells = append(__Row__000004_Table_2_Row_3.Cells, __Cell__000014_T2_R3_A)
 	__Row__000004_Table_2_Row_3.Cells = append(__Row__000004_Table_2_Row_3.Cells, __Cell__000015_T2_R3_B)
-	__Table__000001_Table.DisplayedColumns = append(__Table__000001_Table.DisplayedColumns, __DisplayedColumn__000002_Column_1_Boolean)
-	__Table__000001_Table.DisplayedColumns = append(__Table__000001_Table.DisplayedColumns, __DisplayedColumn__000003_Column_2_Float64)
-	__Table__000001_Table.DisplayedColumns = append(__Table__000001_Table.DisplayedColumns, __DisplayedColumn__000004_Column_3_Icon)
-	__Table__000001_Table.DisplayedColumns = append(__Table__000001_Table.DisplayedColumns, __DisplayedColumn__000005_Column_4_Int)
-	__Table__000001_Table.DisplayedColumns = append(__Table__000001_Table.DisplayedColumns, __DisplayedColumn__000006_Column_5_String)
-	__Table__000001_Table.Rows = append(__Table__000001_Table.Rows, __Row__000000_Row_1)
-	__Table__000001_Table.Rows = append(__Table__000001_Table.Rows, __Row__000001_Row_2)
+	__Table__000001_Table_With_5_Types.DisplayedColumns = append(__Table__000001_Table_With_5_Types.DisplayedColumns, __DisplayedColumn__000002_Column_1_Boolean)
+	__Table__000001_Table_With_5_Types.DisplayedColumns = append(__Table__000001_Table_With_5_Types.DisplayedColumns, __DisplayedColumn__000003_Column_2_Float64)
+	__Table__000001_Table_With_5_Types.DisplayedColumns = append(__Table__000001_Table_With_5_Types.DisplayedColumns, __DisplayedColumn__000004_Column_3_Icon)
+	__Table__000001_Table_With_5_Types.DisplayedColumns = append(__Table__000001_Table_With_5_Types.DisplayedColumns, __DisplayedColumn__000005_Column_4_Int)
+	__Table__000001_Table_With_5_Types.DisplayedColumns = append(__Table__000001_Table_With_5_Types.DisplayedColumns, __DisplayedColumn__000006_Column_5_String)
+	__Table__000001_Table_With_5_Types.Rows = append(__Table__000001_Table_With_5_Types.Rows, __Row__000000_Row_1)
+	__Table__000001_Table_With_5_Types.Rows = append(__Table__000001_Table_With_5_Types.Rows, __Row__000001_Row_2)
 	__Table__000002_Table_2.DisplayedColumns = append(__Table__000002_Table_2.DisplayedColumns, __DisplayedColumn__000000_A)
 	__Table__000002_Table_2.Rows = append(__Table__000002_Table_2.Rows, __Row__000003_Table_2_Row_2)
 	__Table__000002_Table_2.Rows = append(__Table__000002_Table_2.Rows, __Row__000002_Table_2_Row_1)
 	__Table__000002_Table_2.Rows = append(__Table__000002_Table_2.Rows, __Row__000004_Table_2_Row_3)
 }
-
-

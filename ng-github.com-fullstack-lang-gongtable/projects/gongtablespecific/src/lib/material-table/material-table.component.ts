@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit, Optional, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, Input, OnInit, Optional, ViewChild } from '@angular/core';
 import { Subscription, debounceTime, distinctUntilChanged, forkJoin } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -48,7 +48,7 @@ import { MatButtonModule } from '@angular/material/button';
 
   ],
 })
-export class MaterialTableComponent implements OnInit {
+export class MaterialTableComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = []
   allDisplayedColumns: string[] = [] // in case there is a checkbox
@@ -72,8 +72,7 @@ export class MaterialTableComponent implements OnInit {
   filterControl = new FormControl()
 
   // for sorting
-  @ViewChild(MatSort)
-  sort: MatSort | undefined
+  @ViewChild(MatSort) sort!: MatSort
   matSortDirective: string = ""
 
   // for pagination
@@ -265,6 +264,7 @@ export class MaterialTableComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    this.dataSource.sort = this.sort
   }
 
   applyFilter(event: Event) {
