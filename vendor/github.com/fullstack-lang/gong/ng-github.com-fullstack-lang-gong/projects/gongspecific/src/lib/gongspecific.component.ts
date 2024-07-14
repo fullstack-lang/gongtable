@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'lib-gongsvg',
+  selector: 'lib-gongspecific',
   standalone: true,
   imports: [],
   template: `
     <p>
-      gongsvg works!
+      gongspecific works!
     </p>
   `,
   styles: ``
 })
-export class GongsvgComponent {
+export class GongspecificComponent {
 
 }

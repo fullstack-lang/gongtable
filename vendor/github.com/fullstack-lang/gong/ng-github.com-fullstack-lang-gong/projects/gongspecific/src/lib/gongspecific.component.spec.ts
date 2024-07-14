@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GongsvgComponent } from './gongsvg.component';
+import { GongspecificComponent } from './gongspecific.component';
 
-describe('GongsvgComponent', () => {
-  let component: GongsvgComponent;
-  let fixture: ComponentFixture<GongsvgComponent>;
+describe('GongspecificComponent', () => {
+  let component: GongspecificComponent;
+  let fixture: ComponentFixture<GongspecificComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GongsvgComponent]
+      imports: [GongspecificComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(GongsvgComponent);
+    fixture = TestBed.createComponent(GongspecificComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

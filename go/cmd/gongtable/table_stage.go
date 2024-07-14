@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/fullstack-lang/gongtable/go/models"
+
 	// injection point for ident package import declaration{{ImportPackageDeclaration}}
 )
 
@@ -12,7 +13,7 @@ import (
 var ___dummy__Stage_table_stage models.StageStruct
 var ___dummy__Time_table_stage time.Time
 
-// Injection point for meta package dummy declaration{{ImportPackageDummyDeclaration}}
+// _ point for meta package dummy declaration{{ImportPackageDummyDeclaration}}
 
 // currently, DocLink renaming is not enabled in gopls
 // the following map are devised to overcome this limitation
@@ -21,19 +22,19 @@ var ___dummy__Time_table_stage time.Time
 // [Corresponding Issue](https://github.com/golang/go/issues/57559)
 //
 // When parsed, those maps will help with the renaming process
-var map_DocLink_Identifier_table_stage map[string]any = map[string]any{
+var _ map[string]any = map[string]any{
 	// injection point for docLink to identifiers{{EntriesDocLinkStringDocLinkIdentifier}}
 }
 
 // init might be handy if one want to have the data embedded in the binary
-// but it has to properly reference the Injection gateway in the main package
+// but it has to properly reference the _ gateway in the main package
 // func init() {
 // 	_ = __Dummy_time_variable
-// 	InjectionGateway["table_stage"] = table_stageInjection
+// 	InjectionGateway["table_stage"] = _
 // }
 
-// table_stageInjection will stage objects of database "table_stage"
-func table_stageInjection(stage *models.StageStruct) {
+// _ will stage objects of database "table_stage"
+func _(stage *models.StageStruct) {
 
 	// Declaration of instances to stage
 
@@ -127,8 +128,8 @@ func table_stageInjection(stage *models.StageStruct) {
 
 	// Declarations of staged instances of Table
 	__Table__000000_EmptyTable := (&models.Table{Name: `EmptyTable`}).Stage(stage)
-	__Table__000001_Table_With_5_Types := (&models.Table{Name: `Table with 5 types`}).Stage(stage)
-	__Table__000002_Table_2 := (&models.Table{Name: `Table 2`}).Stage(stage)
+	__Table__000001_Table_2 := (&models.Table{Name: `Table 2`}).Stage(stage)
+	__Table__000002_Table_with_5_types := (&models.Table{Name: `Table with 5 types`}).Stage(stage)
 
 	// Setup of values
 
@@ -298,28 +299,28 @@ func table_stageInjection(stage *models.StageStruct) {
 	__Table__000000_EmptyTable.NbOfStickyColumns = 0
 
 	// Table values setup
-	__Table__000001_Table_With_5_Types.Name = `Table with 5 types`
-	__Table__000001_Table_With_5_Types.HasFiltering = true
-	__Table__000001_Table_With_5_Types.HasColumnSorting = true
-	__Table__000001_Table_With_5_Types.HasPaginator = true
-	__Table__000001_Table_With_5_Types.HasCheckableRows = true
-	__Table__000001_Table_With_5_Types.HasSaveButton = true
-	__Table__000001_Table_With_5_Types.CanDragDropRows = false
-	__Table__000001_Table_With_5_Types.HasCloseButton = false
-	__Table__000001_Table_With_5_Types.SavingInProgress = false
-	__Table__000001_Table_With_5_Types.NbOfStickyColumns = 3
+	__Table__000001_Table_2.Name = `Table 2`
+	__Table__000001_Table_2.HasFiltering = false
+	__Table__000001_Table_2.HasColumnSorting = false
+	__Table__000001_Table_2.HasPaginator = false
+	__Table__000001_Table_2.HasCheckableRows = false
+	__Table__000001_Table_2.HasSaveButton = true
+	__Table__000001_Table_2.CanDragDropRows = true
+	__Table__000001_Table_2.HasCloseButton = true
+	__Table__000001_Table_2.SavingInProgress = false
+	__Table__000001_Table_2.NbOfStickyColumns = 0
 
 	// Table values setup
-	__Table__000002_Table_2.Name = `Table 2`
-	__Table__000002_Table_2.HasFiltering = false
-	__Table__000002_Table_2.HasColumnSorting = false
-	__Table__000002_Table_2.HasPaginator = false
-	__Table__000002_Table_2.HasCheckableRows = false
-	__Table__000002_Table_2.HasSaveButton = true
-	__Table__000002_Table_2.CanDragDropRows = true
-	__Table__000002_Table_2.HasCloseButton = true
-	__Table__000002_Table_2.SavingInProgress = false
-	__Table__000002_Table_2.NbOfStickyColumns = 0
+	__Table__000002_Table_with_5_types.Name = `Table with 5 types`
+	__Table__000002_Table_with_5_types.HasFiltering = true
+	__Table__000002_Table_with_5_types.HasColumnSorting = true
+	__Table__000002_Table_with_5_types.HasPaginator = true
+	__Table__000002_Table_with_5_types.HasCheckableRows = true
+	__Table__000002_Table_with_5_types.HasSaveButton = true
+	__Table__000002_Table_with_5_types.CanDragDropRows = false
+	__Table__000002_Table_with_5_types.HasCloseButton = false
+	__Table__000002_Table_with_5_types.SavingInProgress = false
+	__Table__000002_Table_with_5_types.NbOfStickyColumns = 3
 
 	// Setup of pointers
 	__Cell__000000_Row_1_Cell_1.CellBool = __CellBoolean__000000_Row_1_Cell_1_Cell_False
@@ -354,15 +355,17 @@ func table_stageInjection(stage *models.StageStruct) {
 	__Row__000003_Table_2_Row_2.Cells = append(__Row__000003_Table_2_Row_2.Cells, __Cell__000012_T2_R2_A)
 	__Row__000004_Table_2_Row_3.Cells = append(__Row__000004_Table_2_Row_3.Cells, __Cell__000014_T2_R3_A)
 	__Row__000004_Table_2_Row_3.Cells = append(__Row__000004_Table_2_Row_3.Cells, __Cell__000015_T2_R3_B)
-	__Table__000001_Table_With_5_Types.DisplayedColumns = append(__Table__000001_Table_With_5_Types.DisplayedColumns, __DisplayedColumn__000002_Column_1_Boolean)
-	__Table__000001_Table_With_5_Types.DisplayedColumns = append(__Table__000001_Table_With_5_Types.DisplayedColumns, __DisplayedColumn__000003_Column_2_Float64)
-	__Table__000001_Table_With_5_Types.DisplayedColumns = append(__Table__000001_Table_With_5_Types.DisplayedColumns, __DisplayedColumn__000004_Column_3_Icon)
-	__Table__000001_Table_With_5_Types.DisplayedColumns = append(__Table__000001_Table_With_5_Types.DisplayedColumns, __DisplayedColumn__000005_Column_4_Int)
-	__Table__000001_Table_With_5_Types.DisplayedColumns = append(__Table__000001_Table_With_5_Types.DisplayedColumns, __DisplayedColumn__000006_Column_5_String)
-	__Table__000001_Table_With_5_Types.Rows = append(__Table__000001_Table_With_5_Types.Rows, __Row__000000_Row_1)
-	__Table__000001_Table_With_5_Types.Rows = append(__Table__000001_Table_With_5_Types.Rows, __Row__000001_Row_2)
-	__Table__000002_Table_2.DisplayedColumns = append(__Table__000002_Table_2.DisplayedColumns, __DisplayedColumn__000000_A)
-	__Table__000002_Table_2.Rows = append(__Table__000002_Table_2.Rows, __Row__000003_Table_2_Row_2)
-	__Table__000002_Table_2.Rows = append(__Table__000002_Table_2.Rows, __Row__000002_Table_2_Row_1)
-	__Table__000002_Table_2.Rows = append(__Table__000002_Table_2.Rows, __Row__000004_Table_2_Row_3)
+	__Table__000001_Table_2.DisplayedColumns = append(__Table__000001_Table_2.DisplayedColumns, __DisplayedColumn__000000_A)
+	__Table__000001_Table_2.Rows = append(__Table__000001_Table_2.Rows, __Row__000002_Table_2_Row_1)
+	__Table__000001_Table_2.Rows = append(__Table__000001_Table_2.Rows, __Row__000003_Table_2_Row_2)
+	__Table__000001_Table_2.Rows = append(__Table__000001_Table_2.Rows, __Row__000004_Table_2_Row_3)
+	__Table__000002_Table_with_5_types.DisplayedColumns = append(__Table__000002_Table_with_5_types.DisplayedColumns, __DisplayedColumn__000002_Column_1_Boolean)
+	__Table__000002_Table_with_5_types.DisplayedColumns = append(__Table__000002_Table_with_5_types.DisplayedColumns, __DisplayedColumn__000003_Column_2_Float64)
+	__Table__000002_Table_with_5_types.DisplayedColumns = append(__Table__000002_Table_with_5_types.DisplayedColumns, __DisplayedColumn__000004_Column_3_Icon)
+	__Table__000002_Table_with_5_types.DisplayedColumns = append(__Table__000002_Table_with_5_types.DisplayedColumns, __DisplayedColumn__000005_Column_4_Int)
+	__Table__000002_Table_with_5_types.DisplayedColumns = append(__Table__000002_Table_with_5_types.DisplayedColumns, __DisplayedColumn__000006_Column_5_String)
+	__Table__000002_Table_with_5_types.Rows = append(__Table__000002_Table_with_5_types.Rows, __Row__000000_Row_1)
+	__Table__000002_Table_with_5_types.Rows = append(__Table__000002_Table_with_5_types.Rows, __Row__000001_Row_2)
 }
+
+
