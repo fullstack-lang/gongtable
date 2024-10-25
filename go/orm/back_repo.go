@@ -10,8 +10,12 @@ import (
 	"path/filepath"
 	"sync"
 
+	"github.com/fullstack-lang/gongtable/go/db"
 	"github.com/fullstack-lang/gongtable/go/models"
+
+	/* THIS IS REMOVED BY GONG COMPILER IF TARGET IS gorm
 	"github.com/fullstack-lang/gongtable/go/orm/dbgorm"
+	THIS IS REMOVED BY GONG COMPILER IF TARGET IS gorm */
 
 	"github.com/tealeg/xlsx/v3"
 )
@@ -78,7 +82,12 @@ type BackRepoStruct struct {
 
 func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepoStruct) {
 
-	dbWrapper := dbgorm.NewDBWrapper(filename, "github_com_fullstack_lang_gongtable_go",
+	var db db.DBInterface
+
+	db = NewDBLite()
+
+	/* THIS IS REMOVED BY GONG COMPILER IF TARGET IS gorm
+	db = dbgorm.NewDBWrapper(filename, "github_com_fullstack_lang_gongtable_go",
 		&CellDB{},
 		&CellBooleanDB{},
 		&CellFloat64DB{},
@@ -103,6 +112,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		&RowDB{},
 		&TableDB{},
 	)
+	THIS IS REMOVED BY GONG COMPILER IF TARGET IS gorm */
 
 	backRepo = new(BackRepoStruct)
 
@@ -112,7 +122,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_CellDBID_CellDB:  make(map[uint]*CellDB, 0),
 		Map_CellPtr_CellDBID: make(map[*models.Cell]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoCellBoolean = BackRepoCellBooleanStruct{
@@ -120,7 +130,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_CellBooleanDBID_CellBooleanDB:  make(map[uint]*CellBooleanDB, 0),
 		Map_CellBooleanPtr_CellBooleanDBID: make(map[*models.CellBoolean]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoCellFloat64 = BackRepoCellFloat64Struct{
@@ -128,7 +138,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_CellFloat64DBID_CellFloat64DB:  make(map[uint]*CellFloat64DB, 0),
 		Map_CellFloat64Ptr_CellFloat64DBID: make(map[*models.CellFloat64]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoCellIcon = BackRepoCellIconStruct{
@@ -136,7 +146,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_CellIconDBID_CellIconDB:  make(map[uint]*CellIconDB, 0),
 		Map_CellIconPtr_CellIconDBID: make(map[*models.CellIcon]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoCellInt = BackRepoCellIntStruct{
@@ -144,7 +154,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_CellIntDBID_CellIntDB:  make(map[uint]*CellIntDB, 0),
 		Map_CellIntPtr_CellIntDBID: make(map[*models.CellInt]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoCellString = BackRepoCellStringStruct{
@@ -152,7 +162,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_CellStringDBID_CellStringDB:  make(map[uint]*CellStringDB, 0),
 		Map_CellStringPtr_CellStringDBID: make(map[*models.CellString]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoCheckBox = BackRepoCheckBoxStruct{
@@ -160,7 +170,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_CheckBoxDBID_CheckBoxDB:  make(map[uint]*CheckBoxDB, 0),
 		Map_CheckBoxPtr_CheckBoxDBID: make(map[*models.CheckBox]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoDisplayedColumn = BackRepoDisplayedColumnStruct{
@@ -168,7 +178,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_DisplayedColumnDBID_DisplayedColumnDB:  make(map[uint]*DisplayedColumnDB, 0),
 		Map_DisplayedColumnPtr_DisplayedColumnDBID: make(map[*models.DisplayedColumn]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoFormDiv = BackRepoFormDivStruct{
@@ -176,7 +186,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_FormDivDBID_FormDivDB:  make(map[uint]*FormDivDB, 0),
 		Map_FormDivPtr_FormDivDBID: make(map[*models.FormDiv]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoFormEditAssocButton = BackRepoFormEditAssocButtonStruct{
@@ -184,7 +194,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_FormEditAssocButtonDBID_FormEditAssocButtonDB:  make(map[uint]*FormEditAssocButtonDB, 0),
 		Map_FormEditAssocButtonPtr_FormEditAssocButtonDBID: make(map[*models.FormEditAssocButton]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoFormField = BackRepoFormFieldStruct{
@@ -192,7 +202,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_FormFieldDBID_FormFieldDB:  make(map[uint]*FormFieldDB, 0),
 		Map_FormFieldPtr_FormFieldDBID: make(map[*models.FormField]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoFormFieldDate = BackRepoFormFieldDateStruct{
@@ -200,7 +210,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_FormFieldDateDBID_FormFieldDateDB:  make(map[uint]*FormFieldDateDB, 0),
 		Map_FormFieldDatePtr_FormFieldDateDBID: make(map[*models.FormFieldDate]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoFormFieldDateTime = BackRepoFormFieldDateTimeStruct{
@@ -208,7 +218,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_FormFieldDateTimeDBID_FormFieldDateTimeDB:  make(map[uint]*FormFieldDateTimeDB, 0),
 		Map_FormFieldDateTimePtr_FormFieldDateTimeDBID: make(map[*models.FormFieldDateTime]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoFormFieldFloat64 = BackRepoFormFieldFloat64Struct{
@@ -216,7 +226,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_FormFieldFloat64DBID_FormFieldFloat64DB:  make(map[uint]*FormFieldFloat64DB, 0),
 		Map_FormFieldFloat64Ptr_FormFieldFloat64DBID: make(map[*models.FormFieldFloat64]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoFormFieldInt = BackRepoFormFieldIntStruct{
@@ -224,7 +234,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_FormFieldIntDBID_FormFieldIntDB:  make(map[uint]*FormFieldIntDB, 0),
 		Map_FormFieldIntPtr_FormFieldIntDBID: make(map[*models.FormFieldInt]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoFormFieldSelect = BackRepoFormFieldSelectStruct{
@@ -232,7 +242,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_FormFieldSelectDBID_FormFieldSelectDB:  make(map[uint]*FormFieldSelectDB, 0),
 		Map_FormFieldSelectPtr_FormFieldSelectDBID: make(map[*models.FormFieldSelect]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoFormFieldString = BackRepoFormFieldStringStruct{
@@ -240,7 +250,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_FormFieldStringDBID_FormFieldStringDB:  make(map[uint]*FormFieldStringDB, 0),
 		Map_FormFieldStringPtr_FormFieldStringDBID: make(map[*models.FormFieldString]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoFormFieldTime = BackRepoFormFieldTimeStruct{
@@ -248,7 +258,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_FormFieldTimeDBID_FormFieldTimeDB:  make(map[uint]*FormFieldTimeDB, 0),
 		Map_FormFieldTimePtr_FormFieldTimeDBID: make(map[*models.FormFieldTime]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoFormGroup = BackRepoFormGroupStruct{
@@ -256,7 +266,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_FormGroupDBID_FormGroupDB:  make(map[uint]*FormGroupDB, 0),
 		Map_FormGroupPtr_FormGroupDBID: make(map[*models.FormGroup]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoFormSortAssocButton = BackRepoFormSortAssocButtonStruct{
@@ -264,7 +274,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_FormSortAssocButtonDBID_FormSortAssocButtonDB:  make(map[uint]*FormSortAssocButtonDB, 0),
 		Map_FormSortAssocButtonPtr_FormSortAssocButtonDBID: make(map[*models.FormSortAssocButton]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoOption = BackRepoOptionStruct{
@@ -272,7 +282,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_OptionDBID_OptionDB:  make(map[uint]*OptionDB, 0),
 		Map_OptionPtr_OptionDBID: make(map[*models.Option]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoRow = BackRepoRowStruct{
@@ -280,7 +290,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_RowDBID_RowDB:  make(map[uint]*RowDB, 0),
 		Map_RowPtr_RowDBID: make(map[*models.Row]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 	backRepo.BackRepoTable = BackRepoTableStruct{
@@ -288,7 +298,7 @@ func NewBackRepo(stage *models.StageStruct, filename string) (backRepo *BackRepo
 		Map_TableDBID_TableDB:  make(map[uint]*TableDB, 0),
 		Map_TablePtr_TableDBID: make(map[*models.Table]uint, 0),
 
-		db:    dbWrapper,
+		db:    db,
 		stage: stage,
 	}
 
