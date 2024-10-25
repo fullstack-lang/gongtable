@@ -169,7 +169,7 @@ func NewDBLite() *DBLite {
 // Create inserts a new record into the database
 func (db *DBLite) Create(instanceDB any) (db.DBInterface, error) {
 	if instanceDB == nil {
-		return nil, errors.New("instanceDB cannot be nil")
+		return nil, errors.New("github.com/fullstack-lang/gongtable/go, instanceDB cannot be nil")
 	}
 
 	db.mu.Lock()
@@ -270,7 +270,7 @@ func (db *DBLite) Create(instanceDB any) (db.DBInterface, error) {
 		v.ID = db.nextIDTableDB
 		db.tableDBs[v.ID] = v
 	default:
-		return nil, errors.New("unsupported type in Create")
+		return nil, errors.New("github.com/fullstack-lang/gongtable/go, unsupported type in Create")
 	}
 	return db, nil
 }
@@ -289,7 +289,7 @@ func (db *DBLite) Model(instanceDB any) (db.DBInterface, error) {
 // Delete removes a record from the database
 func (db *DBLite) Delete(instanceDB any) (db.DBInterface, error) {
 	if instanceDB == nil {
-		return nil, errors.New("instanceDB cannot be nil")
+		return nil, errors.New("github.com/fullstack-lang/gongtable/go, instanceDB cannot be nil")
 	}
 
 	db.mu.Lock()
@@ -344,7 +344,7 @@ func (db *DBLite) Delete(instanceDB any) (db.DBInterface, error) {
 	case *TableDB:
 		delete(db.tableDBs, v.ID)
 	default:
-		return nil, errors.New("unsupported type in Delete")
+		return nil, errors.New("github.com/fullstack-lang/gongtable/go, unsupported type in Delete")
 	}
 	return db, nil
 }
@@ -353,7 +353,7 @@ func (db *DBLite) Delete(instanceDB any) (db.DBInterface, error) {
 func (db *DBLite) Save(instanceDB any) (db.DBInterface, error) {
 
 	if instanceDB == nil {
-		return nil, errors.New("instanceDB cannot be nil")
+		return nil, errors.New("github.com/fullstack-lang/gongtable/go, instanceDB cannot be nil")
 	}
 
 	db.mu.Lock()
@@ -431,14 +431,14 @@ func (db *DBLite) Save(instanceDB any) (db.DBInterface, error) {
 		db.tableDBs[v.ID] = v
 		return db, nil
 	default:
-		return nil, errors.New("Save: unsupported type")
+		return nil, errors.New("github.com/fullstack-lang/gongtable/go, Save: unsupported type")
 	}
 }
 
 // Updates modifies an existing record in the database
 func (db *DBLite) Updates(instanceDB any) (db.DBInterface, error) {
 	if instanceDB == nil {
-		return nil, errors.New("instanceDB cannot be nil")
+		return nil, errors.New("github.com/fullstack-lang/gongtable/go, instanceDB cannot be nil")
 	}
 
 	db.mu.Lock()
@@ -450,142 +450,142 @@ func (db *DBLite) Updates(instanceDB any) (db.DBInterface, error) {
 		if existing, ok := db.cellDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *CellBooleanDB:
 		if existing, ok := db.cellbooleanDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *CellFloat64DB:
 		if existing, ok := db.cellfloat64DBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *CellIconDB:
 		if existing, ok := db.celliconDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *CellIntDB:
 		if existing, ok := db.cellintDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *CellStringDB:
 		if existing, ok := db.cellstringDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *CheckBoxDB:
 		if existing, ok := db.checkboxDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *DisplayedColumnDB:
 		if existing, ok := db.displayedcolumnDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *FormDivDB:
 		if existing, ok := db.formdivDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *FormEditAssocButtonDB:
 		if existing, ok := db.formeditassocbuttonDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *FormFieldDB:
 		if existing, ok := db.formfieldDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *FormFieldDateDB:
 		if existing, ok := db.formfielddateDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *FormFieldDateTimeDB:
 		if existing, ok := db.formfielddatetimeDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *FormFieldFloat64DB:
 		if existing, ok := db.formfieldfloat64DBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *FormFieldIntDB:
 		if existing, ok := db.formfieldintDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *FormFieldSelectDB:
 		if existing, ok := db.formfieldselectDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *FormFieldStringDB:
 		if existing, ok := db.formfieldstringDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *FormFieldTimeDB:
 		if existing, ok := db.formfieldtimeDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *FormGroupDB:
 		if existing, ok := db.formgroupDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *FormSortAssocButtonDB:
 		if existing, ok := db.formsortassocbuttonDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *OptionDB:
 		if existing, ok := db.optionDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *RowDB:
 		if existing, ok := db.rowDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	case *TableDB:
 		if existing, ok := db.tableDBs[v.ID]; ok {
 			*existing = *v
 		} else {
-			return nil, errors.New("record not found")
+			return nil, errors.New("github.com/fullstack-lang/gongtable/go, record not found")
 		}
 	default:
-		return nil, errors.New("unsupported type in Updates")
+		return nil, errors.New("github.com/fullstack-lang/gongtable/go, unsupported type in Updates")
 	}
 	return db, nil
 }
@@ -737,25 +737,25 @@ func (db *DBLite) Find(instanceDBs any) (db.DBInterface, error) {
         }
         return db, nil
     default:
-        return nil, errors.New("Find: unsupported type")
+        return nil, errors.New("github.com/fullstack-lang/gongtable/go, Find: unsupported type")
     }
 }
 
 // First retrieves the first record of a type from the database
 func (db *DBLite) First(instanceDB any, conds ...any) (db.DBInterface, error) {
 	if len(conds) != 1 {
-		return nil, errors.New("Do not process when conds is not a single parameter")
+		return nil, errors.New("github.com/fullstack-lang/gongtable/go, Do not process when conds is not a single parameter")
 	}
 
 	str, ok := conds[0].(string)
 
 	if !ok {
-		return nil, errors.New("conds[0] is not a string")
+		return nil, errors.New("github.com/fullstack-lang/gongtable/go, conds[0] is not a string")
 	}
 
 	i, err := strconv.ParseUint(str, 10, 32) // Base 10, 32-bit unsigned int
 	if err != nil {
-		return nil, errors.New("conds[0] is not a string number")
+		return nil, errors.New("github.com/fullstack-lang/gongtable/go, conds[0] is not a string number")
 	}
 
 	db.mu.RLock()
@@ -948,7 +948,7 @@ func (db *DBLite) First(instanceDB any, conds ...any) (db.DBInterface, error) {
 			return nil, errors.New(fmt.Sprintf("Unkown entry %d", i))
 		}
 	default:
-		return nil, errors.New("Unkown type")
+		return nil, errors.New("github.com/fullstack-lang/gongtable/go, Unkown type")
 	}
 	
 	return db, nil
