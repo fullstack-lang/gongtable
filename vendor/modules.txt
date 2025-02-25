@@ -81,7 +81,7 @@ github.com/fullstack-lang/gongsvg/go/fullstack
 github.com/fullstack-lang/gongsvg/go/models
 github.com/fullstack-lang/gongsvg/go/orm
 github.com/fullstack-lang/gongsvg/ng-github.com-fullstack-lang-gongsvg
-# github.com/fullstack-lang/gongtree v0.0.0-20250225044220-948606dcdae7
+# github.com/fullstack-lang/gongtree v0.0.0-20250225232047-6e68f3f06ba8
 ## explicit; go 1.23.1
 github.com/fullstack-lang/gongtree/go/buttons
 github.com/fullstack-lang/gongtree/go/controllers
